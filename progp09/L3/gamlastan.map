@@ -1,0 +1,149 @@
+Tunnelbanan	10	50	Munkbrogatan
+10	11	50	Munkbrogatan
+Tunnelbanan	12	50	Mälartorget
+12	13	20	Mälartorget
+13a	13b	40	Mälartorget
+13b	14	50	Kornhamstorg
+14	15	50	Lilla Nygatan
+15	16	20	Lilla Nygatan
+16	17	50	Lilla Nygatan
+17	18	50	Lilla Nygatan
+18	Postmuseum	20	Lilla Nygatan
+Postmuseum	19	20	Lilla Nygatan
+19	20	50	Lilla Nygatan
+13	15	30	Lejonstedts gränd
+15	34	40	Lejonstedts gränd
+12	16	30	Tyska brinken
+16	33	40	Tyska brinken
+Tunnelbanan	17	30	Schönfeldts gränd
+17	32	40	Schönfeldts gränd
+10	18	30	Kåkbrinken
+18	30	40	Kåkbrinken
+11	19	30	Yxsmedsgränd
+19	29	40	Yxsmedsgränd
+20	25	30	Gåsgränd
+21	22	70	Stora Nygatan
+22	23	20	Stora Nygatan
+23	24	10	Stora Nygatan
+24	25	5	Stora Nygatan
+25	26	10	Stora Nygatan
+26	27	5	Stora Nygatan
+27	28	5	Stora Nygatan
+28	29	10	Stora Nygatan
+29	30	25	Stora Nygatan
+30	31	5	Stora Nygatan
+31	31b	5	Stora Nygatan
+31b	32	20	Stora Nygatan
+32	33	50	Stora Nygatan
+33	34	20	Stora Nygatan
+34	35	50	Stora Nygatan
+35	36	50	Kornhamstorg
+36	37	50	Kornhamstorg
+53	54	10	Storkyrkobrinken
+54	69	20	Storkyrkobrinken
+69	70	10	Källargränd
+70	71	50	Källargränd
+71	72	50	Källargränd
+53	52	20	Västerlånggatan
+52	51	5	Västerlånggatan
+51	50	10	Västerlånggatan
+50	49	5	Västerlånggatan
+49	48	5	Västerlånggatan
+48	47	10	Västerlånggatan
+47	46	5	Västerlånggatan
+46	45	10	Västerlånggatan
+45	44	20	Västerlånggatan
+44	43	30	Västerlånggatan
+43	42	5	Västerlånggatan
+42	41	10	Västerlånggatan
+41	40	75	Västerlånggatan
+40	39	100	Västerlånggatan
+39	38	50	Västerlånggatan
+38	94	50	Järntorget
+21	52	70	Stora Gråmunkegränd
+22	51	65	Namnlös?
+23	50	65	Göran Hälsinges gränd
+24	49	60	Ignatiigränd
+25	48	60	Gåsgränd
+26	47	60	Namnlös
+27	46	60	Sven Vintappares gränd
+28	45	55	Didrik Ficks gränd
+29	44	55	Yxsmedsgränd
+30	43	50	Kåkbrinken
+31	42	50	Bedoirsgränd
+31b	41	50	Skräddargränd
+33	40	50	Tyska brinken
+36	39	50	Funckens gränd
+37	38	50	Triewalds gränd
+54	55	70	Prästgatan
+55	56	20	Prästgatan
+56	57	30	Prästgatan
+57	58	20	Prästgatan
+58	59	90	Prästgatan
+59	60	120	Prästgatan
+61	Gyldene Freden	50	Prästgatan
+69	68	50	Trångsund
+68	67	15	Trångsund
+67	66	15	Trångsund
+66	65	30	Trångsund
+65	64	50	Skomakargatan
+55	68	40	Ankargränd
+56	67	40	Namnlös
+57	66	40	Solgränd
+58	65	40	Kåkbrinken
+43	58	10	Kåkbrinken
+40	59	10	Tyska brinken
+59	64	20	Tyska brinken
+60	61	50	Tyska stallplan
+61	62	20	Svartmangatan
+62	62a	50	Svartmangatan
+62a	63	50	Svartmangatan
+63	Brända tomten	100	Kindstugatan
+63	73	70	Svartmangatan
+65	73	40	Stortorget
+66	Nobelmuseet	20	Stortorget
+Nobelmuseet	73	20	Stortorget
+72	73	40	Källargränd
+71	80	50	Slottsbacken
+72	74	50	Trädgårdsgatan
+74	75	30	Namnlös
+73	75	30	Köpmangatan
+74	76	30	Trädgårdsgatan
+76	77	40	Trädgårdsgatan
+75	77	50	Köpmangatan
+77	78	30	Köpmangatan
+78	79	20	Köpmangatan
+Brända tomten	78	10	Själagårdsgatan
+62	62b	30	Själagårdsgatan
+62b	Brända tomten	70	Själagårdsgatan
+62a	62b	30	Tyska Skolgränd
+62b	62c	30	Tyska Skolgränd
+80	79	100	Bollhusgränd
+79	62c	100	Baggensgatan
+62c	61	60	Baggensgatan
+80	81	30	Slottsbacken
+81	82	50	Österlånggatan
+82	83	10	Österlånggatan
+83	84	10	Österlånggatan
+84	85	20	Österlånggatan
+85	86	20	Österlånggatan
+86	87	20	Österlånggatan
+87	88	20	Österlånggatan
+88	89	20	Österlånggatan
+89	90	20	Österlånggatan
+90	91	20	Österlånggatan
+91	92	20	Österlånggatan
+92	93	20	Österlånggatan
+93	Gyldene Freden	20	Österlånggatan
+Gyldene Freden	94	20	Österlånggatan
+94	95	20	Österlånggatan
+95	96	20	Österlånggatan
+96	97	20	Österlånggatan
+97	98	20	Järntorgsgatan
+37	98	30	Slussplan
+61	93	20	Svartmangatan
+79	St Göran och draken	20	Köpmangatan
+St Göran och draken	83	20	Köpmanbrinken
+St Göran och draken	86	20	Köpmanbrinken
+Livrustkammaren	80	20	Slottsbacken
+Livrustkammaren	71	50	Slottsbacken

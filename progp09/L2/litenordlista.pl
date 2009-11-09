@@ -1,0 +1,18 @@
+words([
+       "DISTR",
+       "DITCH",
+       "DITTO",
+       "DITTY",
+       "DODGE",
+       "EARED",
+       "EARLY",
+       "EARTH",
+       "EASEL",
+       "HONOR",
+       "HOOEY",
+       "HORDE",
+       "TUQUE",
+       "TURPS",
+       "TUTOR",
+       "TWAIN"
+       ]).

@@ -1,0 +1,58 @@
+  A     B          Imm         Op
+00000 10000 0100011100010010 000100
+# r0   r16       0x4712       addi (0x04) | r0 är ALLTID 0, alltså lagra 0x4712
+00000 10001 0000000000000000 000100
+# r0   r17       0            addi (0x04) | nollställ r17
+10001 10001 0000000000000001 000100
+# r17  r17       1            addi (0x04) | lägg till 1 på r17
+10000 10000 1111111111111111 000100
+# r16  r16       -1           addi (0x04) | ta bort 1 från r16, (subi) two's complement för -1
+10000 00000 1111111111110100 011110
+# r16  r0     -(2*4)-4=-12    bne  (0x1E) | (så länge r16 != 0) gå tillbaka 2 steg tidigare, och ett extra för att programpekaren kommer att öka
+00000 00000 1111111111111100 000110
+#  0    0     stop: -4        br   (0x06) | goto: stop; (som en while(1);)
+
+Q 1.1: subi rA, rB, IMMED = addi rA, rB -IMMED
+Q 1.2: relative, only jumps have absolute addressing
+
+MSB   LSB
+0000 0000
+
+0000 0001 &
+0111 1111 ->
+0000 0001
+
+0000 0010 &
+0111 1111 ->
+0000 0010
+
+1111 1111 &
+0111 1111 ->
+0111 1111
+
+Q2.1 0x41 som läggs i r16 är 'A'
+
+0000 0010 &
+0111 1111 ->
+0000 0010 |
+0010 0000 ->
+001000010
+
+Q2.2 Alla tecken med 0x20 satta anses vara farliga tecken, inkl. 'A'->'Z',
+     OR 0x20 är en dålig metod eftersom den klipper bort viktiga tecken.
+
+     'A' syns dock, eftersom första gången (då r4 är 0x41) så körs inte
+     koden som klipper bort alla farliga tecken. Den klipper dock inte
+     bort DEL, som sedan syns som en □ istället. Sedan börjar sekvensen om
+     på SP (' ').
+
+Q2.3 Se till att r16, teckenräknaren, inte overflowar till negativa tal,
+     och så fort den gör det (r16 = 1000 0000) så blir r16 = 0000 0000,
+     dvs man klipper bort tecken-biten. USASCII använder endast 7 bitar.
+
+Q2.4 Så fort biten 0x20 saknas i teckensekvensen så riskerar man att
+     kontrolltecken skrivs ut, vilket inte är meningen. Därför OR:ar man
+     med den biten, så att så fort 0x20 saknas, så lägger man på det för
+     att skippa potentiellt farliga tecken. (...och versaler.)
+
+
