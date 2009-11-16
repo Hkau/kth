@@ -2,6 +2,18 @@
 \usepackage[english,swedish]{babel}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{plain}{
+	\fancyhead{}
+	\fancyhead[LO,LE]{DD1241 -- Pelaren --- Peter Boström, Samuel Wejéus}
+}
+\fancypagestyle{nofoot}{
+	\fancyfoot{}
+}
+\pagestyle{plain}
 
 \title{Pelaren}
 \author{Samuel Wejéus, Peter Boström}
@@ -12,8 +24,7 @@
 \setlength{\parskip}{3mm}
 
 \maketitle
-
-\thispagestyle{empty}
+\thispagestyle{nofoot}
 
 \vspace{2cm}
 
@@ -24,13 +35,13 @@
 
 \newpage
 
-\thispagestyle{empty}
+\thispagestyle{nofoot}
+
 \begin{abstract}
-	\noindent I ett försök att rädda liv har vi undersökt hur vi kan säkra japanska hus vid jordbävningar genom att låta varje hus vila på flertalet pelare av speciell karaktär. Vi ämnar att med denna rapport analysera en speciell typ av sådan pelare, Beziér-pelaren. Vi kommer undersöka en sådan pelares stötdämpande förmåga med stort fokus på hur den beter sig under tryck. Vidare har vi funnit ekvationer som väldigt enkelt beskriver hur en sådan pelare förändras.
+	\noindent I ett försök att rädda liv undersöker vi hur vi kan säkra japanska hus vid jordbävningar genom att låta varje hus vila på flertalet pelare av speciell karaktär. Vi ämnar att med denna rapport analysera en speciell typ av sådan pelare, den så kallade Beziér-pelaren. Vi kommer undersöka en sådan pelares stötdämpande förmåga med stort fokus på hur den beter sig under tryck. Vidare har vi funnit ekvationer som väldigt enkelt beskriver hur en sådan pelare förändras.
 \end{abstract}
 
 \newpage
-
 \setcounter{page}{1}
 
 \tableofcontents

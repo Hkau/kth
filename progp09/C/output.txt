@@ -1,0 +1,132 @@
+> utfil.exe
+Hej och välkommen till Viktmästarnas meny
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 1
+
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 5
+
+Namn: Tjatte
+bmi: 12.00
+Namn: Fnatte
+bmi: 12.00
+Namn: Knatte
+bmi: 12.00
+Namn: Olle
+bmi: 10.00
+Namn: Alexander
+bmi: 25.00
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 2
+
+Vad heter personen? Kalle
+Hur lång är personen (m)? 1
+Hur mycket väger personen avrundat till närmaste heltal (kg)? 16
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 5
+
+Namn: Kalle
+bmi: 16.00
+Namn: Tjatte
+bmi: 12.00
+Namn: Fnatte
+bmi: 12.00
+Namn: Knatte
+bmi: 12.00
+Namn: Olle
+bmi: 10.00
+Namn: Alexander
+bmi: 25.00
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 6
+
+Vem vill du ta bort? Kalle
+Kalle är borttagen
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 5
+
+Namn: Tjatte
+bmi: 12.00
+Namn: Fnatte
+bmi: 12.00
+Namn: Knatte
+bmi: 12.00
+Namn: Olle
+bmi: 10.00
+Namn: Alexander
+bmi: 25.00
+
+*******************  MENY *********************
+
+         1 Ladda namn från fil
+         2 Ny person
+         3 Sök namn
+         4 Sök personer med bmi
+         5 Skriv ut hela listan
+         6 Ta bort person
+         0 Avsluta
+
+         Vad vill du göra? 0
+
+
+Hej då!
