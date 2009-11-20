@@ -12,5 +12,5 @@ nod.o:	nod.c nod.h
 	gcc $(CFLAGS) -c nod.c
 
 clean:
-	rm -f *.o utfil.exe
+	rm -f *.o program
 
