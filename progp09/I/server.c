@@ -54,13 +54,17 @@ int main(int argc, char *argv[])
 
 	// close foo? :)
 
+	if(close(foo) == -1)
+	{
+		perror("close socket");
+		return -1;
+	}
+
 	if(close(s_socket) == -1)
 	{
 		perror("close");
 		return -1;
 	}
-
-	while(1);
 
 	return 0;
 }

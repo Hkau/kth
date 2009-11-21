@@ -1,0 +1,120 @@
+%%!TEX encoding = UTF-8 Unicode 
+% Att vi vill ha ett dokument som ser ut som en teknisk artikel, på a4-papper, tvåsidigt med 10 punkters font.
+\documentclass[a4paper,10pt,twoside]{article}
+% sidmarginaler
+\usepackage[inner=3cm,top=3cm,outer=2cm,bottom=3cm]{geometry}
+% svenska avstavningsregler
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+% teckenencoding
+\usepackage[utf8x]{inputenc}
+
+% mattesymboler
+\usepackage{amssymb}
+
+% fina kodlistings
+\usepackage{fancyvrb}
+\usepackage{listings}
+
+% lite inställningar till listings-paketet, bland annat så att den bryter för långa rader
+\lstset{
+	% vilket språk vi använder i våra kodlistings, så att listings-paketet vet hur den ska highligta saker
+	language=Java, 
+	% huruvida vi ska ha syntax highlighting
+	fancyvrb=true, 
+	% hur stora tabstopp vi ska ha
+	tabsize=4, 
+	% huruvida vi ska tillåta andra tecken än a-z
+	extendedchars=\true
+	% hur breda listings vi vill ha (skriv exempelvis linewidth=0.5\textwidth för att få listings som bara tar upp halva bredden av sidan)
+	linewidth=\textwidth, 
+	% huruvida vi ska visa mellanslag
+	showstringspaces=false, 
+	% huruvida vi ska bryta rader som är för långa
+	breaklines=true, 
+	% huruvida den ska få bryta rader mitt i ord eller inte (true här betyder att den bara bryter mellan ord)
+	breakatwhitespace=true, 
+	% indentera radbrytningar automatiskt
+	breakautoindent=true,
+	% lägg in radnummer på vänster sida
+	numbers=left, 
+	% hur stora radnumren ska vara
+	numberstyle=\tiny, 
+	% hur långt det ska vara mellan radnumren och koden
+	numbersep=8pt
+}
+% stoppa in fina hyperlänkar (som man kan klicka på) i tableofcontents
+\usepackage{hyperref}
+\hypersetup{pdfpagemode=FullScreen,  colorlinks=true, linkcolor=blue}
+
+% Ett litet paket för fin pseudokod
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+% stoppa in ditt namn här nedanför
+\def\myName{Peter Boström}
+
+% kurskod här (skriver in indans kod som default)
+\def\courseCode{DD1340}
+% kursnamn här (återigen inda som default)
+\def\courseName{Introduktion till Datalogi}
+
+% stoppa in numret på inlämningen här nedanför
+\def\assignmentNumber{5}
+
+% stoppa in datum för när du skriver den här inlämningen här
+\def\writtenDate{2009-02-16}
+
+\newcommand{\Ordo}[1]{$\mathcal{O}(#1)$}
+
+% fina sidheaders/footers
+\usepackage{fancyhdr}
+% inställningar till fancyhdr
+\pagestyle{fancy}\headheight 13pt
+\fancyfoot{}
+% sidhuvud, vänster sida, fyll i ditt namn här
+\lhead{\courseCode - \myName}
+% sidhuvud, höger sida, fyll i vilken uppgift detta gäller
+\rhead{Inlämningsuppgift \assignmentNumber}
+% sidnumrering på vänster sida för jämna sidnummer, höger sida för ojämna sidnummer
+\fancyfoot[LE,RO]{\thepage}
+
+
+\title{Hemuppgift \assignmentNumber -  \courseName}
+\date{\writtenDate}
+\author{\myName}
+\begin{document}
+\maketitle % skapa titelsida
+	\thispagestyle{empty}\cfoot{}
+\clearpage % ny sida
+\thispagestyle{empty}\cfoot{}
+\tableofcontents % innehållsförteckning
+\clearpage
+\setcounter{page}{1} % börja räkna från sidnummer ett på den här sidan.
+
+\section{Tidskomplexitet} % ny sektion
+\begin{tabular}{llll} % fyra stycken kolumner med vänsterjustering
+Operation 	&	worst-case BST (egen implementation) &	Average för Treap	\\
+\hline % horisontell linje
+add(o)	&	\Ordo{n}	&	\Ordo{log n}	\\
+contains(o)	&	\Ordo{n}	&	\Ordo{log n}	\\
+size()	&	\Ordo{n} sparas inte i add pga iterativ	&	\Ordo{n}	\\
+height()	&	\Ordo{n}	&	\Ordo{n}	\\
+leaves()	&	\Ordo{n}	&	\Ordo{n}	\\
+toString()	&	\Ordo{n}	&	\Ordo{n}	\\
+\end{tabular}
+
+\clearpage
+
+% i appendix infogar du alla eventuella .java-filer du ska skicka med, och lite annat.
+\appendix
+
+\section{Källkod}
+\subsection{BinarySearchTree.java}
+\lstinputlisting{src/BinarySearchTree.java}
+
+\subsection{BinarySearchTreeTest.java}
+\lstinputlisting{src/BinarySearchTreeTest.java}
+
+% slut på dokumentet
+\end{document}
