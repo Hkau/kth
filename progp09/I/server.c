@@ -11,6 +11,12 @@ int s_socket;
 int conn[conn_count];
 int next_conn = 0;
 
+typedef struct
+{
+	char welcome_msg[81];
+
+	
+} language;
 int main(int argc, char *argv[])
 {
 	struct sockaddr_in6 addr;
@@ -50,9 +56,9 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	printf("Someone connected!!! :D\n");
+	send(foo, "hello! :)", sizeof("hello! :)"), 0);
 
-	// close foo? :)
+	printf("someone connected, that's kickass!\n");
 
 	if(close(foo) == -1)
 	{

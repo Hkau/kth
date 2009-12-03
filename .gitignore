@@ -1,0 +1,7 @@
+*.aux
+*.log
+*.ods
+*.out
+*.toc
+*.pyc
+*.swp
