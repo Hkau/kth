@@ -6,9 +6,22 @@
 #include <netdb.h>
 #include <netinet/in.h>
 
+// fixed-size types
+#include <stdint.h>
+
+struct
+{
+	char welcome_msg[80+1]; // 80 + \0
+	char username_msg[16+1];
+	char pin_msg[16+1];
+	char shortcode_msg[16+1];
+} lang;
+
 int main(int argc, char *argv[])
 {
 	char *address, *port;
+
+	printf("BANKINATOR BOOTUP SEQUENCE!\n\n\n");
 
 	if(argc > 1)
 		address = argv[1];
@@ -49,7 +62,27 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	printf("finito\n");
+	// select language
+
+	strcpy(lang.welcome_msg, "wellcome yo");
+	strcpy(lang.username_msg, "username");
+	strcpy(lang.pin_msg, "pin code");
+	strcpy(lang.shortcode_msg, "single-use code");
+
+	while(1)
+	{
+		printf("%s\n", lang.welcome_msg);
+
+		printf("%s: ", lang.username_msg);
+		uint32_t username;
+		scanf("%u", &username);
+
+		uint16_t pin;
+		printf("%s: ", lang.pin_msg);
+		scanf("%hu", &pin);
+	}
+
+	freeaddrinfo(addr);
 
 	return 0;
 }

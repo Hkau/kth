@@ -24,10 +24,15 @@
 
 % TODO: stoppa in faktiskt innehåll här.
 
-\section{Kanalanpassning efter våglängd} % (fold)
+\section{Atomspektroskopi}
+
+\subsection{Kalibrering av mätinstrument}
+
+Först sorterades de filter vi hade efter färg på ljus som passerade genom dem från taklampan. Dessa placerades i motsvarande fack.
+
+För att kalibrera mätinstrumentet efter våglängd så behövde vi få ut 7 olika våglängder och vilka kanaler de svarade mot. De fyra filter vi hade svarade mot 4 av dessa kanalerna. Vi fick även spetsvärden som svarade till andra diffraktionsordningen för 3 av dessa. Dessa toppar används för att simulera värden för dubbla våglängderna av detta ljus, då apparaturen ändast känner av uppmätt densitet.
 
 \begin{center}
-
 \begin{tabular}[c]{|l|l|}
 	\hline
 	Våglängd & Kanal \\
@@ -37,24 +42,55 @@
 	546,1nm & 896 \\
 	578,0nm & 960 \\
 	\hline
-	Andra & diffraktionsordningen \\
+	$2\lambda$ & (2:a diffr.) \\
 	\hline
 	809,4nm & 1931 \\
 	871,6nm & 1515 \\
 	1092nm & 1931 \\
 	\hline
-
 \end {tabular}
-
 \end {center}
-
 \vspace{10pt}
 
-Vi fick två toppar för 578 nanometer som sammanföll till mindre toppar i kanal 975 och 960. Vi valde topp 960 efter rådfrågning då den gav mindre residual vid anpassning (mindre fel).
+Vi fick två toppar för 578 nanometer som sammanföll till mindre toppar i kanal 975 och 960. Vi valde topp 960 efter rådfrågning då den gav ett mindre fel vid anpassning (mindre fel). Det största felet gavs som 0.8 (nm).
 
-Det största felet vi fick var 0.8 (nm).
+\subsection{Okänd gas}
 
-\subsection
+KVICKSILVER LOL///////TODOFIX///////
+
+\subsection{Balmerlinjer för väte och svarande rydbergskonstanter}
+
+Vi mätte de våglängder som emitterades från en vätelampa. Detta gav oss fem olika våglängder som svarar mot linjer $H_\alpha$ till $H_\epsilon$.
+
+Rydbergs konstant mäts upp med ekvationen:
+
+\begin{eqnarray*}
+\frac{1}{\lambda} &=& R\left(\frac{1}{n^2_1} - \frac{1}{n^2_2}\right) \\
+R &=& \lambda^{-1}\left(\frac{1}{n_1^2} - \frac{1}{n_2^2} \right)^{-1}
+\end{eqnarray*}
+
+Där $n_1^2 = 2$ i Balmerserien. Vilket ger:
+
+$$ R = \lambda^{-1}\left(\frac{1}{4} - \frac{1}{n^2}\right)^{-1} $$
+
+Mätvärden och uträkningar ger oss följande:
+
+\begin{center}
+\begin{tabular}[c]{|r||r|r||r|r||r|}
+	\hline
+	Linje & Våglängd (nm) & Rydbergs konstant & Våglängd (tabell) & Rydbergs (tabell) & Avvikelse (andel) \\
+	\hline
+	\hline
+	$H_\alpha$ & 662.4 & $1.087*10^7$ & 656.3 & $1.097*10^7$ & $9.49*10^{-3}$ \\
+	$H_\beta$ & 486.4 & $1.096*10^7$ & 486.1 & $1.097*10^7$ & $8.04*10^{-4}$ \\
+	$H_\gamma$ & 436.4 & $1.091*10^7$ & 434.1 & $1.097*10^7$ & $5.64*10^{-3}$ \\
+	$H_\delta$ & 413.0 & $1.090*10^7$ & 410.2 & $1.097*10^7$ & $7.09*10^{-3}$\\
+	$H_\epsilon$ & 399.0 & $1.092*10^7$ & 397.0 & $1.097*10^7$ & $5.24*10^{-3}$ \\
+	\hline
+\end{tabular}
+\end{center}
+
+Våra experimentellt funna rydbergskonstanter skiljer sig inte mer än någon procent från tabellvärdet.
 
 \subsection{En godtycklig undersektion} % (fold)
 

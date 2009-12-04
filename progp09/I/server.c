@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <unistd.h>
 
 int s_socket;
 
@@ -11,12 +12,6 @@ int s_socket;
 int conn[conn_count];
 int next_conn = 0;
 
-typedef struct
-{
-	char welcome_msg[81];
-
-	
-} language;
 int main(int argc, char *argv[])
 {
 	struct sockaddr_in6 addr;
