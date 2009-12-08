@@ -5,3 +5,5 @@
 *.toc
 *.pyc
 *.swp
+*.o
+*.a
