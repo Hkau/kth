@@ -1,14 +1,15 @@
-\def\theauthor{Martin Frost} % TODO: stoppa in ditt namn här
-\def\homeworknumber{17} % TODO: stoppa in vilken hemläxa det är här
-\def\coursename{Godtycklighetslära} % TODO: stoppan in kursnamn här
-\def\course{DD4711} % TODO: stoppa in kurskod här
-\def\thedate{2009-11-06}
+\def\theauthor{Peter Boström, Andreas Tarandi} % TODO: stoppa in ditt namn här
+\def\homeworknumber{ALS} % TODO: stoppa in vilken hemläxa det är här
+\def\coursename{Fysik} % TODO: stoppan in kursnamn här
+\def\course{SK1131} % TODO: stoppa in kurskod här
+\def\thedate{2009-12-15}
 
 \documentclass[a4paper,10pt]{article}
 \usepackage[inner=3cm,top=3cm,outer=2cm,bottom=3cm]{geometry}
 \usepackage[swedish]{babel}
 %\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 
 \title{Hemläxa \homeworknumber\ - \course\ \coursename}
 \date{\thedate}
@@ -91,7 +92,7 @@ Rydbergs konstant mäts upp med ekvationen:
 R &=& \lambda^{-1}\left(\frac{1}{n_1^2} - \frac{1}{n_2^2} \right)^{-1}
 \end{eqnarray*}
 
-Där $n_1^2 = 2$ i Balmerserien. Vilket ger:
+Där $n_1 = 2$ i Balmerserien. Vilket ger:
 
 $$ R = \lambda^{-1}\left(\frac{1}{4} - \frac{1}{n^2}\right)^{-1} $$
 
@@ -112,45 +113,115 @@ Mätvärden och uträkningar ger oss följande:
 \end{tabular}
 \end{center}
 
-Våra experimentellt uppmätta rydbergskonstanter skiljer sig inte mer än någon procent från tabellvärdet. Standardavvikelsen ligger på $3.27*10^4$.
+Våra experimentellt uppmätta rydbergskonstanter skiljer sig inte mer än någon procent från tabellvärdet. Standardavvikelsen ligger på $328.9$. Detta är bra.
 
-/////////////////////// 3c) ELEKTRONVOLTSDIAGRAM ///////////////////
-$$ E\Delta = \frac{hc}{\lambda}$$
+\subsection{Elektronvoltsdiagrammet}
 
-\subsection{En godtycklig undersektion} % (fold)
+Våra övergångar svarar mot övergångar:
 
-544,2
-550,0
-556.5 *
-563,1
-569.9 *
-576,7
-583,5 *
-590,4
-597,7
-605.3 *
-612,9
-620.3 *
-627,7
-635.6 *
-643,4
-652,4
-661,3
-669,8
-678.0 *
-686,1
-695.6 *
-705,1
-714,6
-725,2
-733,6
-743,1
-753,1
-764,2
-773,2
-783,8
+\begin{center}
+\includegraphics[width=120mm]{als-elektron}
+\end{center}
 
+\newpage
 
-\subsection {ERROR ESTIMATE\texttrademark}
+\section{Laser} % (fold)
+
+\subsection{Mätningar av våglängder och deras vågtal}
+\begin {center}
+\begin {tabular}[c]{|r|r|}
+
+	\hline
+	Våglängd (topp) & Vågtal ($\sigma = cm^{-1}$)\\
+	\hline
+	544,2 & $ 1.84*10^4$ \\
+	550,0 & $ 1.82*10^4$ \\
+	556.5 * & $ 1.80*10^4$ \\
+	563,1 & $ 1.78*10^4$ \\
+	569.9 * & $ 1.75*10^4$ \\
+	576,7 & $ 1.73*10^4$ \\
+	583,5 * & $ 1.71*10^4$ \\
+	590,4 & $ 1.69*10^4$ \\
+	597,7 & $ 1.67*10^4$ \\
+	605.3 * & $ 1.65*10^4$ \\
+	612,9 & $ 1.63*10^4$ \\
+	620.3 * & $ 1.61*10^4$ \\
+	627,7 & $ 1.59*10^4$ \\
+	635.6 * & $ 1.57*10^4$ \\
+	643,4 & $ 1.55*10^4$ \\
+	652,4 & $ 1.53*10^4$ \\
+	661,3 & $ 1.51*10^4$ \\
+	669,8 & $ 1.49*10^4$ \\
+	678.0 * & $ 1.47*10^4$ \\
+	686,1 & $ 1.46*10^4$ \\
+	695.6 * & $ 1.44*10^4$ \\
+	705,1 & $ 1.42*10^4$ \\
+	714,6 & $ 1.40*10^4$ \\
+	725,2 & $ 1.38*10^4$ \\
+	733,6 & $ 1.36*10^4$ \\
+	743,1 & $ 1.35*10^4$ \\
+	753,1 & $ 1.33*10^4$ \\
+	764,2 & $ 1.31*10^4$ \\
+	773,2 & $ 1.29*10^4$ \\
+	783,8 & $ 1.28*10^4$ \\
+	\hline
+
+\end {tabular}
+\end {center}
+
+Alla våglängder markerade med * räknades ut i efterhand där mätvärden saknades.
+
+\newpage
+
+\section{Vågtalsskillnader och $\omega$}
+
+Med givna uträknade vågtal kan vi beräkna $\omega_e$ och $\omega_e\chi_e$:
+
+$$ \sigma_v - \sigma_{v+1} = \omega_e - 2\omega_e\chi_e - 2v\omega_e\chi_e $$
+
+Detta ger oss en linjär ekvation där $k = -2\omega_e\chi_e, x = v $ och $ m = \omega_e - 2\omega_e\chi_e $ i linjära ekvationen $y=kx+m$.
+
+Linjär minstakvadrat-anpassning av punktskillnaden ger k = -1.3182 och m = 213.4704 och grafen:
+
+\begin{center}
+\includegraphics[width=120mm]{als-fit}
+\end {center}
+
+Från ekvationen får vi:
+
+$$ \omega_e = 214,79 $$
+$$ \omega_e\chi_e = 0.6591 $$
+
+Tabellvärden är $214.5$ respektive $0.62$, så våra värden är rel. bra.
+
+Energin $D_e$ ges av formeln:
+
+$$D_e = \frac{\omega_e^2}{4\omega_e\chi_x} \approx 17500 $$
+
+Beräkning av a:
+
+$$ \omega_e\chi_e = \frac{ha^2}{16\pi^2c\mu} cm^{-1} $$
+
+$$ \mu = \frac{m_I^2}{2m_I} = 1.0597*10^{-25} kg$$
+
+$$ a = \sqrt{\frac{\omega_e\chi_e16\pi^2c\mu}{h}} \approx 2,234*10^{10} m^{-1} $$
+
+Rotationskonstanten tabellvärdet $B_e$
+
+$$ B_e = 0.0374 cm^{-1} $$
+
+Tillsammans med ekvationen: 
+
+$$ B_e = \frac{h}{8\pi^2c\mu r_e^2} $$
+
+får vi ut att:
+
+$$ r_e = \sqrt{\frac{h}{8*\pi^2c\mu B_e}} = 2.66*10^{-10} $$
+
+\section{Diskussion}
+
+Våra mätvärden för vätelampa var bra, då resultatet skiljde sig med mindre än någon procent från tabellvärden.
+
+Våra punktskillnader vid minstakvadratanpassning var dock väldigt utspridda, men verkar ändå stämma bra överrens mot de tabellvärden som finns för $\omega_e$ och $\omega_e\chi_e$, så det var ingen större felkälla.
 
 \end{document}
