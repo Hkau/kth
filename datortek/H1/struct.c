@@ -114,5 +114,13 @@ int main ()         /* Called as a method/function/subroutine. */
   printf ("ST.39: nesp->c='%c', (nesp->z).v1=%d,(nesp->z).v2=%d, str=\"%s\"\n",
           nesp->c, (nesp->z).v1, (nesp->z).v2, nesp->str );
 
+  nesp += 1;
+  printf ("ST.37: nesp: stored at %08x (hex); contains %d (dec), %08x (hex)\n",
+          (int) &nesp, (int) nesp, (int) nesp);
+  printf ("ST.38: Dereference pointer nesp and we find: nesp->val=%d, and...\n",
+          nesp->val );
+  printf ("ST.39: nesp->c='%c', (nesp->z).v1=%d,(nesp->z).v2=%d, str=\"%s\"\n",
+          nesp->c, (nesp->z).v1, (nesp->z).v2, nesp->str );
+
   return( 0 );
 }
