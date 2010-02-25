@@ -1,0 +1,42 @@
+1) Grannlistor VS Grannmatriser
+
+BFS:en i algoritmen kommer i värsta fall gå igenom |v| + |e| fall, då varje
+nods varje granne i värsta fall kommer att vara med i gången. Detta bygger på
+att för att gå igenom varje granne så behöver man endast gå igenom grannen, och
+ev. konstant tillgång till denna lista. Summeras dessa får man |e|. Det
+sistnämnda ger |v| eftersom man behöver göra något konstant vid varje nod i
+värsta fall.
+
+Ifall den istället implementeras med en grannmatris så kommer man för varje nod
+att behöva gå igenom alla andra noder för att se ifall de är grannar. Iteration
+över alla v från någon nod är O(v), då man behöver gå igenom alla noder oavsett
+om de faktiskt är grannar. |v| st. genomgångar per nod för att gå igenom dess
+grannar. |v| * |v| = O(|v|²) vilket är värsta fall för O(|v| + |e|) då |e| högst
+är |v|², vilket sker i kompletta grafer.
+
+f[v,u]:= -f[u,v] ger konstant tid i grannmatrisen, men inte i grannlistefallet.
+Motverkar man detta genom en referens till kanten som går att andra hållet får
+man konstant tid ist. för |v| här också.
+
+BFS ger: O(n + m) för grannlista, O(n²) för grannmatris. Vid m = O(n) får
+grannlistan O(n) medan grannmatrisen får O(n²). Dvs grannlistan blir O(n) gånger
+snabbare. Grymt.
+
+
+2) Kalles antagande (stigar längre än 3)
+
+När man går förbi en kant så skapar man ett "bakåtflöde" vilket simulerar att
+flödet hade kunnat ta en annan väg. När man i nästa sökning går förbi en sån
+kant så "ångrar" man ett tidigare drag, samtidigt som man omdirigerar det nya.
+Ett flöde inklusive denna ångring är alltid längre än 3 steg.
+
+
+3) Fortet Fulkerson genererar heltalsflöden (från heltal).
+
+När Ford-Fulkerson går igenom grafen så lägger den till och tar bort kant-
+kapaciteter från diverse tal. Ett flöde begränsas av den minsta kapaciteten på
+vägen. Dvs, ett flöde kommer alltid att bli en av kapaciteterna som finns i
+grafen. Eftersom grafens kantkapaciteter är heltal så kommer även flödena att
+bli det. En kantkapacitet kommer att kunna ändras, men endast genom att dra
+bort eller lägga till kapaciteter, detta ger att ett heltal summeras med eller
+subtraheras från ett heltal. +/- med heltal ger alltid heltal.
