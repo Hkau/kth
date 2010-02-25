@@ -22,6 +22,9 @@ BFS ger: O(n + m) för grannlista, O(n²) för grannmatris. Vid m = O(n) får
 grannlistan O(n) medan grannmatrisen får O(n²). Dvs grannlistan blir O(n) gånger
 snabbare. Grymt.
 
+Algoritmen gör ett visst antal såna genomgångar vilket i "vanliga fall" har
+komplexiteten O(|v|*|e|²) = O(n * m²), vilket är grannlista. Grannmatrisen är
+O(n) långsammare då m = O(n) vilket ger O(n³) mot O(n⁴).
 
 2) Kalles antagande (stigar längre än 3)
 
