@@ -1,0 +1,74 @@
+### Potentiella fel i din QuickSort.
+
+# Partition returnerar index inom pivotintervallet. (3-delning)
+
+	       mid[0] ↓             ↓ mid[1]
+	[2, 6, 3, 4 | 8 8 8 8 8 8 8 8 | 12 39 10 30]
+
+	dvs, qsort ska anropas på intervallen:
+		first → mid[0]-1
+		mid[1]+1 → end
+
+	alltså inte intervallen:
+		first → mid[0]
+		mid[1] → end
+
+	Felet ger i vissa fall oändlig rekursion.
+
+# Insertion-sort sorterar hela listan, qsort + insertionsort blir piss-
+  långsam då insertionsort kommer att sortera hela listan flera gånger.
+
+# Random.nextInt(n) ger tal 0, 1, ..., n-1, för 0...n krävs nextInt(n+1)
+
+# Random-pivot ges inte av Random.nextInt(last - first)
+
+	Ex: qsort(v, 3, 5)
+
+		Random.nextInt(5-3) => 0, 1.
+
+	Ett tal mellan och inkl. a och b, a <= b, ges av:
+
+		a + rand(b - a + 1)
+
+# Returnera efter insertion sort, sorteringen av det segmentet ska då
+  vara färdigt. Se till att inte *båda* händer.
+
+# Vid flera implementationer, se till att rekursiva anropen körs på rätt
+  implementationer också.
+
+# Antalet element kvar att sortera är inte last, utan (last - first).
+
+# Se till att pivotelementet skippas. (2-delning)
+
+	Annars:
+		qsort [2 8 8 8 8 8 8 12] =>
+		qsort [2], qsort [8 8 8 8 8 8] , qsort [12] =>
+		qsort [8 8 8 8 8 8]  =>
+		qsort [] , qsort [8 8 8 8 8 8]  =>
+		qsort [8 8 8 8 8 8]  =>
+		qsort [] , qsort [8 8 8 8 8 8]  =>
+		qsort [8 8 8 8 8 8]  =>
+		...
+
+		(Stack overflow på listor med något upprepat element.)
+
+# Medianfunktion, max-min funkar inte.
+
+	>>> max(3,min(2,1))
+	3
+	>>> min(1,max(2,3))
+	1
+
+# Medianen av tre tal räknas inte ut genom att ta medianen av 3 index
+  utan genom att ta medianen av de tre värden som ligger på platserna.
+
+# Pivotelementet är ett värde och inte pivot-index.
+
+	Ex: [8 3 <6> 5 4]
+
+		Pivoten är 6, och inte 2 vilket är pivotelementets index.
+
+# Din egenimplementade partition fungerar inte. Den kan t.ex. plocka ut
+  pivot för partitionering och sedan glömma att lägga tillbaka pivot i
+  mitten, eller swappa in fel tal som pivot i mitten.
+
