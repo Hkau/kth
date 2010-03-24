@@ -32,7 +32,6 @@ typedef struct edge
 	int target;
 	int capacity;
 
-	// additional capacity (external flow, needs to be updated)
 	int rest_flow; // stuff used by 'bro!
 
 	struct edge *bro; // komplementkant (backflow)
@@ -239,22 +238,21 @@ static inline void spawn_edge(int from, int to, int capacity)
 
 	to_edge->flow = &fakeflow;
 }
-
+int x, y;
 void read_graph()
 {
-	num_vertices = readint();
-	source_idx = readint();
-	drain_idx = readint();
+	x = readint();
+	y = readint();
+
+	num_vertices = x+y+2;
+
+	v = calloc(num_vertices+1, sizeof(vertex_t));
 
 	num_edges = readint();
 
-	//printf("num verts: %d, src: %d, drain: %d, num_edges: %d\n",
-	//		num_vertices, source_idx, drain_idx, num_edges);
+	edges = calloc(2*(x+y+num_edges), sizeof(edge_t));
 
-	// alloc vertices!!! :D
-	v = calloc(num_vertices+1, sizeof(vertex_t));
-	edges = calloc(2*num_edges, sizeof(edge_t)); // ska räcka :)
-	flows = calloc(num_edges, sizeof(flow_t));
+	flows = calloc(x+y+num_edges, sizeof(flow_t));
 
 	bfsnodes = malloc(num_vertices*sizeof(vertex_t));
 
@@ -263,10 +261,22 @@ void read_graph()
 	{
 		int from = readint();
 		int to = readint();
-		int capacity = readint();
-
-		spawn_edge(from, to, capacity);
+		spawn_edge(from, to, 1);
 	}
+
+	for(i = 1; i <= x; ++i)
+	{
+		spawn_edge(num_vertices-1, i, 1);
+	}
+
+	for(i = 1; i <= y; ++i)
+	{
+		spawn_edge(x+i, num_vertices, 1);
+	}
+
+	num_edges += x+y;
+	source_idx = num_vertices-1;
+	drain_idx = num_vertices;
 }
 
 void print_flow()
@@ -292,25 +302,25 @@ void print_graph()
 	}
 
 	// total flow! :)
-	printf("%d\n%d %d %d\n", num_vertices, source_idx, drain_idx, i);
+	printf("%d %d\n", x, y);
 
 
 	int flows = 0;
-	for(i = 1; i <= num_vertices; ++i)
+	for(i = 1; i <= num_vertices-2; ++i)
 	{
 		for(flow = v[i].first_flow; flow != NULL; flow = flow->next)
-			flows += (flow->value != 0);
+			flows += (flow->value != 0 && flow->target <= num_vertices-2 );
 	}
 
 	printf("%d\n", flows);
 
-	for(i = 1; i <= num_vertices; ++i)
+	for(i = 1; i <= num_vertices-2; ++i)
 	{
 		flow_t *flow;
 
 		for(flow = v[i].first_flow; flow != NULL; flow = flow->next)
-			if(flow->value != 0)
-				printf("%d %d %d\n", i, flow->target, flow->value);
+			if(flow->value != 0 && flow->target <= num_vertices-2)
+				printf("%d %d\n", i, flow->target);
 	}
 }
 
