@@ -19,13 +19,6 @@ static inline int readint()
 	return num;
 }
 
-typedef struct flow
-{
-	int target;
-	int value;
-	struct flow *next;
-} flow_t;
-
 //graph types
 typedef struct edge
 {
@@ -33,23 +26,19 @@ typedef struct edge
 	int capacity;
 
 	// additional capacity (external flow, needs to be updated)
-	int rest_flow; // stuff used by 'bro!
+	int flow; // stuff used by 'bro!
 
 	struct edge *bro; // komplementkant (backflow)
 	struct edge *next;
-
-	flow_t *flow;
 } edge_t;
 
 typedef struct
 {
-	edge_t *first_edge;
-	edge_t *last_edge;	// fast in-order assignment thing; 
-						// sort on first read?
 	int last_visit;
 
-	flow_t *first_flow;
-	flow_t *last_flow;
+	edge_t *first_edge;
+	edge_t *last_edge;	// fast in-order assignment thing; 
+				// sort on first read?
 } vertex_t;
 
 // graph metadata
@@ -62,15 +51,13 @@ int num_edges;
 
 // graphs
 
-vertex_t *v;
+vertex_t v[4001];
+//vertex_t *v;
 
-edge_t *edges;
+edge_t edges[20000];
+//edge_t *edges;
+
 int edge_index = 0;
-
-flow_t *flows;
-int flow_index = 0;
-
-flow_t fakeflow;
 
 typedef struct bfsnode
 {
@@ -80,7 +67,8 @@ typedef struct bfsnode
 	struct bfsnode *parent;
 } bfsnode_t;
 
-bfsnode_t *bfsnodes;
+bfsnode_t bfsnodes[4001];
+
 int visits = 0;
 
 bfsnode_t *find_path()
@@ -99,8 +87,9 @@ bfsnode_t *find_path()
 		{
 			int v_idx = e->target;
 
-			if(v[v_idx].last_visit == visits || e->capacity + e->rest_flow < 1)
+			if(v[v_idx].last_visit == visits || e->capacity < 1)
 				continue;
+
 			v[v_idx].last_visit = visits;
 
 			bfs_upper->vertex = v_idx;
@@ -128,8 +117,8 @@ int path_flow(bfsnode_t *path)
 
 	while(path->edge != NULL)
 	{
-		if(path->edge->capacity + path->edge->rest_flow < flow)
-			flow = path->edge->capacity + path->edge->rest_flow;
+		if(path->edge->capacity < flow)
+			flow = path->edge->capacity;
 		path = path->parent;
 	}
 	return flow;
@@ -138,17 +127,13 @@ int path_flow(bfsnode_t *path)
 static inline void update_flow(bfsnode_t *path, int flow)
 {
 	edge_t *edge;
+
 	while((edge = path->edge) != NULL)
 	{
-		int delflow = min(edge->capacity, flow);
-		edge->capacity -= delflow;
-		edge->bro->rest_flow += delflow;
-		edge->flow->value += delflow;
-
-		int rem = flow - delflow;
-		edge->rest_flow -= rem;
-		edge->bro->capacity += rem;
-		edge->bro->flow->value -= rem;
+		edge->capacity -= flow;
+		edge->bro->capacity += flow;
+		edge->flow += flow;
+		edge->bro->flow -= flow;
 
 		path = path->parent;
 	}
@@ -172,26 +157,13 @@ static inline void spawn_edge(int from, int to, int capacity)
 
 	edge_t *from_edge, *to_edge;
 
-	if(v[from].first_edge != NULL)
+	if(v[to].first_edge != NULL)
 	{
 		for(from_edge = v[from].first_edge; from_edge != NULL; from_edge = from_edge->next)
 			if(from_edge->target == to)
 			{
 				// kanten finns redan! (tidigare inläst backedge)
 				from_edge->capacity = capacity;
-
-				// TODO: Skapa riktig kant då! :)
-				if(v[from].first_flow != NULL)
-				{
-					v[from].last_flow->next = &flows[flow_index];
-					v[from].last_flow = &flows[flow_index];
-				}
-				else
-				{
-					v[from].first_flow = v[from].last_flow = &flows[flow_index];
-				}
-				flows[flow_index].target = to;
-				from_edge->flow = &flows[flow_index++];
 				return;
 			}
 
@@ -206,19 +178,6 @@ static inline void spawn_edge(int from, int to, int capacity)
 	}
 
 	from_edge->capacity = capacity;
-	// TODO: Skapa riktig from-kant
-	if(v[from].first_flow != NULL)
-	{
-		v[from].last_flow->next = &flows[flow_index];
-		v[from].last_flow = &flows[flow_index];
-	}
-	else
-	{
-		v[from].first_flow = v[from].last_flow = &flows[flow_index];
-	}
-
-	flows[flow_index].target = to;
-	from_edge->flow = &flows[flow_index++];
 
 	// skapa samtidigt back-edge
 	if(v[to].first_edge != NULL)
@@ -236,8 +195,6 @@ static inline void spawn_edge(int from, int to, int capacity)
 
 	from_edge->target = to;
 	to_edge->target = from;
-
-	to_edge->flow = &fakeflow;
 }
 
 void read_graph()
@@ -252,11 +209,12 @@ void read_graph()
 	//		num_vertices, source_idx, drain_idx, num_edges);
 
 	// alloc vertices!!! :D
-	v = calloc(num_vertices+1, sizeof(vertex_t));
-	edges = calloc(2*num_edges, sizeof(edge_t)); // ska räcka :)
-	flows = calloc(num_edges, sizeof(flow_t));
+	//v = calloc(num_vertices+1, sizeof(vertex_t));
+	//edges = calloc(2*num_edges, sizeof(edge_t)); // ska räcka :)
 
-	bfsnodes = malloc(num_vertices*sizeof(vertex_t));
+	//bfsnodes = malloc(num_vertices*sizeof(bfsnode_t));
+	bfsnodes->edge = NULL;
+	bfsnodes->parent = NULL;
 
 	int i;
 	for(i = 0; i < num_edges; ++i)
@@ -269,26 +227,17 @@ void read_graph()
 	}
 }
 
-void print_flow()
-{
-	int i;
-
-	for(i = 1; i <= num_vertices; ++i)
-	{
-		edge_t *edge;
-		for(edge = v[i].first_edge; edge != NULL; edge = edge->next)
-			printf("%d %d %d\n", i, edge->target, edge->capacity);
-	}
-}
-
 void print_graph()
 {
 	int i = 0;
 
-	flow_t *flow;
-	for(flow = v[source_idx].first_flow; flow != NULL; flow = flow->next)
+	edge_t *edge;
+	for(edge = v[source_idx].first_edge; edge != NULL; edge = edge->next)
 	{
-		i += flow->value;
+		if(edge->flow >0)
+			i += edge->flow;
+
+		//i+=(flow->value > 0)*flow->value;
 	}
 
 	// total flow! :)
@@ -298,19 +247,21 @@ void print_graph()
 	int flows = 0;
 	for(i = 1; i <= num_vertices; ++i)
 	{
-		for(flow = v[i].first_flow; flow != NULL; flow = flow->next)
-			flows += (flow->value != 0);
+		for(edge = v[i].first_edge; edge != NULL; edge = edge->next)
+			if(edge->flow > 0)
+				++flows;
+			//flows += (edge->flow > 0);
 	}
 
 	printf("%d\n", flows);
 
 	for(i = 1; i <= num_vertices; ++i)
 	{
-		flow_t *flow;
+		edge_t *edge;
 
-		for(flow = v[i].first_flow; flow != NULL; flow = flow->next)
-			if(flow->value != 0)
-				printf("%d %d %d\n", i, flow->target, flow->value);
+		for(edge = v[i].first_edge; edge != NULL; edge = edge->next)
+			if(edge->flow > 0)
+				printf("%d %d %d\n", i, edge->target, edge->flow);
 	}
 }
 
@@ -319,9 +270,7 @@ int main()
 	read_graph();
 
 	perform_flow();
-//puts("");
-//	print_flow();
-//puts("");
+
 	print_graph();
 
 	return 0;
