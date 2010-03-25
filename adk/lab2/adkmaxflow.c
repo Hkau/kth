@@ -157,7 +157,7 @@ static inline void spawn_edge(int from, int to, int capacity)
 
 	edge_t *from_edge, *to_edge;
 
-	if(v[to].first_edge != NULL)
+	if(v[from].first_edge != NULL)
 	{
 		for(from_edge = v[from].first_edge; from_edge != NULL; from_edge = from_edge->next)
 			if(from_edge->target == to)
