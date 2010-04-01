@@ -22,7 +22,7 @@ static inline int readint()
 //graph types
 typedef struct edge
 {
-	int target;
+	int from, to;
 	int capacity;
 
 	// additional capacity (external flow, needs to be updated)
@@ -71,37 +71,46 @@ bfsnode_t bfsnodes[4001];
 
 int visits = 0;
 
+int minflow;
+
 bfsnode_t *find_path()
 {
-	bfsnode_t *bfs_lower = bfsnodes;
-	bfsnode_t *bfs_upper = bfsnodes+1;
-	++visits;
-
-	bfs_lower->vertex = source_idx;
-
-	while(bfs_lower < bfs_upper)
+	while(minflow > 0)
 	{
-		int idx = bfs_lower->vertex;
-		edge_t *e;
-		for(e = v[idx].first_edge; e != NULL; e = e->next)
+		bfsnode_t *bfs_lower = bfsnodes;
+		bfsnode_t *bfs_upper = bfsnodes+1;
+		++visits;
+
+		bfs_lower->vertex = source_idx;
+
+		while(bfs_lower < bfs_upper)
 		{
-			int v_idx = e->target;
+			int idx = bfs_lower->vertex;
 
-			if(v[v_idx].last_visit == visits || e->capacity < 1)
-				continue;
+			edge_t *e;
 
-			v[v_idx].last_visit = visits;
+			for(e = v[idx].first_edge; e != NULL; e = e->next)
+			{
+				int v_idx = e->to;
 
-			bfs_upper->vertex = v_idx;
-			bfs_upper->edge = e;
-			bfs_upper->parent = bfs_lower;
+				if(v[v_idx].last_visit == visits || e->capacity < minflow)
+					continue;
 
-			if(v_idx == drain_idx)
-				return bfs_upper;
-			bfs_upper++;
+				v[v_idx].last_visit = visits;
+
+				bfs_upper->vertex = v_idx;
+				bfs_upper->edge = e;
+				bfs_upper->parent = bfs_lower;
+
+				if(v_idx == drain_idx)
+					return bfs_upper;
+
+				bfs_upper++;
+			}
+
+			bfs_lower++;
 		}
-
-		bfs_lower++;
+		minflow >>= 1;
 	}
 
 	return NULL;
@@ -126,10 +135,29 @@ int path_flow(bfsnode_t *path)
 
 static inline void update_flow(bfsnode_t *path, int flow)
 {
+
 	edge_t *edge;
 
 	while((edge = path->edge) != NULL)
 	{
+		if(edge->bro == NULL)
+		{
+			int target = edge->to;
+			if(v[target].first_edge == NULL)
+			{
+				v[target].first_edge = v[target].last_edge = &edges[edge_index++];
+			}
+			else
+			{
+				v[target].last_edge->next = &edges[edge_index++];
+				v[target].last_edge = v[target].last_edge->next;
+			}
+
+			v[target].last_edge->bro = edge;
+			edge->bro = v[target].last_edge;
+
+			v[target].last_edge->to = edge->from;
+		}
 		edge->capacity -= flow;
 		edge->bro->capacity += flow;
 		edge->flow += flow;
@@ -141,6 +169,15 @@ static inline void update_flow(bfsnode_t *path, int flow)
 
 void perform_flow()
 {
+	minflow = 0;
+	edge_t *e;
+
+	for(e = v[source_idx].first_edge; e != NULL; e = e->next)
+	{
+		if(e->capacity > minflow)
+			minflow = e->capacity;
+	}
+
 	bfsnode_t *flowpath;
 
 	while((flowpath = find_path()) != NULL)
@@ -155,46 +192,47 @@ static inline void spawn_edge(int from, int to, int capacity)
 {
 	//printf("edge:: from: %d, to: %d, capacity: %d\n", from, to, capacity);
 
-	edge_t *from_edge, *to_edge;
+	edge_t *from_edge;
 
-	if(v[from].first_edge != NULL)
-	{
-		for(from_edge = v[from].first_edge; from_edge != NULL; from_edge = from_edge->next)
-			if(from_edge->target == to)
+	for(from_edge = v[to].first_edge; from_edge != NULL; from_edge = from_edge->next)
+		if(from_edge->to == from)
+		{
+			// motkant finns, skapa kanten!
+			// kanten finns redan! (tidigare inläst backedge)
+			if(v[from].first_edge == NULL)
 			{
-				// kanten finns redan! (tidigare inläst backedge)
-				from_edge->capacity = capacity;
-				return;
+				v[from].first_edge = v[from].last_edge = &edges[edge_index++];
+			}
+			else
+			{
+				v[from].last_edge->next = &edges[edge_index++];
+				v[from].last_edge = v[from].last_edge->next;
 			}
 
-		// finns ingen kant mellan from eller to, måste fixas!
-		v[from].last_edge->next = from_edge = &edges[edge_index++];
-		v[from].last_edge = from_edge;
-	}
-	// finns ingen kant, måste åtgärdas! :D
-	else
-	{
-		v[from].last_edge = v[from].first_edge = from_edge = &edges[edge_index++];
-	}
+			v[from].last_edge->bro = from_edge;
+			from_edge->bro = v[from].last_edge;
 
-	from_edge->capacity = capacity;
+			v[from].last_edge->from = from;
+			v[from].last_edge->capacity = capacity;
+			v[from].last_edge->to = to;
 
-	// skapa samtidigt back-edge
-	if(v[to].first_edge != NULL)
+			return;
+		}
+
+	// fanns ingen motkant, skaaapa endast kant
+	if(v[from].first_edge == NULL)
 	{
-		v[to].last_edge->next = to_edge = &edges[edge_index++];
-		v[to].last_edge = to_edge;
+		v[from].first_edge = v[from].last_edge = &edges[edge_index++];
 	}
 	else
 	{
-		v[to].last_edge = v[to].first_edge = to_edge = &edges[edge_index++];
+		v[from].last_edge->next = &edges[edge_index++];
+		v[from].last_edge = v[from].last_edge->next;
 	}
-
-	from_edge->bro = to_edge;
-	to_edge->bro = from_edge;
-
-	from_edge->target = to;
-	to_edge->target = from;
+	
+	v[from].last_edge->from = from;
+	v[from].last_edge->capacity = capacity;
+	v[from].last_edge->to = to;
 }
 
 void read_graph()
@@ -261,7 +299,7 @@ void print_graph()
 
 		for(edge = v[i].first_edge; edge != NULL; edge = edge->next)
 			if(edge->flow > 0)
-				printf("%d %d %d\n", i, edge->target, edge->flow);
+				printf("%d %d %d\n", i, edge->to, edge->flow);
 	}
 }
 
