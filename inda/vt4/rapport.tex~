@@ -1,0 +1,116 @@
+\documentclass[a4paper,10pt,twoside]{article}
+\usepackage[inner=3cm,top=3cm,outer=2cm,bottom=3cm]{geometry}
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{moreverb}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{language=Java, fancyvrb=true, tabsize=4}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\newcommand{\Ordo}[1]{$\mathcal{O}(#1)$}
+\pagestyle{fancy}\headheight 13pt
+\fancyfoot{}
+\lhead{DD1340 - Peter Boström}
+\rhead{Inlämningsuppgift 4}
+\fancyfoot[LE,RO]{\thepage}
+\title{Hemuppgift 4 - DD1340 Introduktion till Datalogi}
+\date{2009-02-08}
+\author{Peter Boström}
+\begin{document}
+\maketitle % skapa titelsida
+	\thispagestyle{empty}\cfoot{}
+\newpage % ny sida
+\setcounter{page}{1} % börja räkna från sidnummer ett på den här sidan.
+
+\section{Tidskomplexitet} % ny sektion
+
+Uppgiften är att beräkna tidskomplexiteten för \emph{medelfallen} av insättning, borttagning och sökning efter element i diverse datastrukturer, inkl. hash table.
+
+	\subsection{Osorterad vektor}
+
+		\subsubsection*{Sökning}
+
+		\Ordo{n} eftersom elementet kan ligga var som helst i vektorn måste alla element gås igenom. Medelfallet förväntas hittas i mitten. Dvs. måste man gå igenom $\frac{n}{2}$ element, vilket är \Ordo{n}.
+
+		\subsubsection*{Insättning}
+
+		\Ordo{1} eftersom det endast är att placera elementet i slutet av listan. Räknar inte med omallokering av listan, utan antar att det finns plats för elementet.
+
+		\subsubsection*{Borttagning}
+
+		\Ordo{n} eftersom hälften av listan måste kopieras ett steg till vänster då medelfallet är att elementet tas bort från mitten. \Ordo{\frac{n}{2}} = \Ordo{n}.
+
+	\subsection{Sorterad vektor}
+
+		\subsubsection*{Sökning}
+
+		Binärsökning ger \Ordo{log(n)}.
+
+		\subsubsection*{Insättning}
+
+		\Ordo{n}. Att hitta var elementet ska placeras är \Ordo{log(n)}. Det ska genomsnittligt placeras i mitten av listan vilket kräver att hälften av alla element flyttas ett steg till höger. Att flytta hälften av alla element är \Ordo{n}.
+
+		\subsubsection*{Borttagning}
+
+		\Ordo{n} av samma anledning som insättning. Oavsett om sökning efter elementet som ska tas bort ingår i borttagningen eller inte är operationen \Ordo{n}. \Ordo{log(n)} < \Ordo{n}
+
+	\subsection{Osorterad enkellänkad lista}
+
+		\subsubsection*{Sökning}
+
+		\Ordo{n}. Alla element måste gås igenom tills det hittas. Medelfallet hittas i mitten, vilket är \Ordo{n}.
+
+		\subsubsection*{Insättning}
+
+		\Ordo{1}. Att bryta en länk och stoppa in ett annat element är konstant. Eftersom listan är osorterad spelar det ingen roll var utan elementet läggs till längst fram eller i slutet.
+
+		\subsubsection*{Borttagning}
+
+		\Ordo{1}. Av samma anledning som insättning.
+
+	\subsection{Sorterad enkellänkad lista}
+
+		\subsubsection*{Sökning}
+
+		Fortfarande \Ordo{n} eftersom man måste gå igenom hälften av alla element för att komma till mitten. Går inte att binärsöka.
+
+		\subsubsection*{Insättning}
+
+		\Ordo{n}. Hitta platsen där elementet ska sitta är \Ordo{n}. Att sedan sätta in elementet är \Ordo{1}. Tillsammans blir det \Ordo{n}.
+
+		\subsubsection*{Borttagning}
+
+		\Ordo{n} av samma anledning som insättning. Om det inte ingår att söka upp elementet eftersom det tidigare hittades med en iterering så är operationen konstant, \Ordo{1}
+
+	\subsection{Hashtabell}
+
+	Tidskomplexiteten för hashtabellen antar att antalet element är ungefär lika med hashtabellens storlek.
+
+	Analysen antar även att hashfunktionen har uniform distribution.
+
+		\subsubsection*{Sökning}
+
+		\Ordo{1}. Vid medelfallet finns inga kollisioner vid hashen mod storlek. Detta gör att hashen hittas på konstant tid. I värre mindre ovanliga fall får man gå igenom två-tre element, men det är mindre vanligt vid uniform distribution. Medelfallet är konstant.
+
+		\subsubsection*{Insättning}
+
+		\Ordo{1}. Fortfarande inga kollisioner för medelfallet. Att lägga till elementet i en tom lista är konstant, annars är det litet nog.
+
+		\subsubsection*{Borttagning}
+
+		\Ordo{1}. Fortfarande inga kollisioner för medelfallet. Att ta bort elementet i en tom lista är konstant, annars är det litet nog.
+
+
+\newpage
+\section{Källkod}
+	\subsection*{HashStringDictionary.java}
+		\VerbatimInput{src/HashStringDictionary.java}
+	\subsection*{HashStringDictionaryTest.java}
+		\VerbatimInput{src/HashStringDictionaryTest.java}
+
+\end{document}
+

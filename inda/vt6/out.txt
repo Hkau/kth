@@ -1,0 +1,119 @@
+Inducing JIT compilation through repeatedly calling sort on random elements:
+Java Quicksort implementation: 494 ms (stopped)
+Quicksort: 552 ms (stopped) - 1.1174089068825912
+Quicksort with random pivot: 750 ms (stopped) - 1.5182186234817814
+Quicksort with insertion sort: 462 ms (stopped) - 0.9352226720647774
+Quicksort with insertion sort and random pivot: 504 ms (stopped) - 1.0202429149797572
+Java Quicksort implementation: 665 ms (stopped)
+Quicksort: 471 ms (stopped) - 0.7082706766917293
+Quicksort with random pivot: 668 ms (stopped) - 1.0045112781954888
+Quicksort with insertion sort: 337 ms (stopped) - 0.5067669172932331
+Quicksort with insertion sort and random pivot: 344 ms (stopped) - 0.5172932330827068
+Java Quicksort implementation: 437 ms (stopped)
+Quicksort: 472 ms (stopped) - 1.080091533180778
+Quicksort with random pivot: 667 ms (stopped) - 1.5263157894736843
+Quicksort with insertion sort: 324 ms (stopped) - 0.7414187643020596
+Quicksort with insertion sort and random pivot: 356 ms (stopped) - 0.8146453089244852
+Java Quicksort implementation: 439 ms (stopped)
+Quicksort: 499 ms (stopped) - 1.1366742596810935
+Quicksort with random pivot: 670 ms (stopped) - 1.5261958997722096
+Quicksort with insertion sort: 337 ms (stopped) - 0.7676537585421412
+Quicksort with insertion sort and random pivot: 353 ms (stopped) - 0.8041002277904328
+Java Quicksort implementation: 443 ms (stopped)
+Quicksort: 484 ms (stopped) - 1.09255079006772
+Quicksort with random pivot: 680 ms (stopped) - 1.5349887133182845
+Quicksort with insertion sort: 348 ms (stopped) - 0.7855530474040632
+Quicksort with insertion sort and random pivot: 371 ms (stopped) - 0.837471783295711
+
+Starting test!
+
+
+Sorted list, 1000000 elements:
+
+Java Quicksort implementation: 300 ms (stopped)
+Quicksort: 444 ms (stopped) - 1.48
+Quicksort with random pivot: 634 ms (stopped) - 2.1133333333333333
+Quicksort with insertion sort: 145 ms (stopped) - 0.48333333333333334
+Quicksort with insertion sort and random pivot: 229 ms (stopped) - 0.7633333333333333
+
+Reversely sorted list, 1000000 elements:
+
+Java Quicksort implementation: 297 ms (stopped)
+Quicksort: 324 ms (stopped) - 1.0909090909090908
+Quicksort with random pivot: 659 ms (stopped) - 2.218855218855219
+Quicksort with insertion sort: 124 ms (stopped) - 0.4175084175084175
+Quicksort with insertion sort and random pivot: 181 ms (stopped) - 0.6094276094276094
+
+Mixed sorted list, 1000000 elements:
+
+Java Quicksort implementation: 307 ms (stopped)
+Quicksort: 334 ms (stopped) - 1.0879478827361564
+Quicksort with random pivot: 685 ms (stopped) - 2.231270358306189
+Quicksort with insertion sort: 149 ms (stopped) - 0.48534201954397393
+Quicksort with insertion sort and random pivot: 216 ms (stopped) - 0.7035830618892508
+Same value, 1000000 elements:
+
+Java Quicksort implementation: 31 ms (stopped)
+Quicksort: 398 ms (stopped) - 12.838709677419354
+Quicksort with random pivot: 475 ms (stopped) - 15.32258064516129
+Quicksort with insertion sort: 209 ms (stopped) - 6.741935483870968
+Quicksort with insertion sort and random pivot: 227 ms (stopped) - 7.32258064516129
+
+Random list, 1000 elements:
+
+Java Quicksort implementation: 0 ms (stopped)
+Quicksort: 0 ms (stopped) - ?
+Quicksort with random pivot: 0 ms (stopped) - ?
+Quicksort with insertion sort: 0 ms (stopped) - ?
+Quicksort with insertion sort and random pivot: 0 ms (stopped) - ?
+
+Random list, 10000 elements:
+
+Java Quicksort implementation: 3 ms (stopped)
+Quicksort: 3 ms (stopped) - 1.0
+Quicksort with random pivot: 5 ms (stopped) - 1.6666666666666667
+Quicksort with insertion sort: 2 ms (stopped) - 0.6666666666666666
+Quicksort with insertion sort and random pivot: 2 ms (stopped) - 0.6666666666666666
+Random list, 100000 elements:
+
+Java Quicksort implementation: 39 ms (stopped)
+Quicksort: 66 ms (stopped) - 1.6923076923076923
+Quicksort with random pivot: 96 ms (stopped) - 2.4615384615384617
+Quicksort with insertion sort: 29 ms (stopped) - 0.7435897435897436
+Quicksort with insertion sort and random pivot: 53 ms (stopped) - 1.358974358974359
+Random list, 1000000 elements:
+
+Java Quicksort implementation: 465 ms (stopped)
+Quicksort: 494 ms (stopped) - 1.0623655913978494
+Quicksort with random pivot: 691 ms (stopped) - 1.4860215053763441
+Quicksort with insertion sort: 356 ms (stopped) - 0.7655913978494624
+Quicksort with insertion sort and random pivot: 382 ms (stopped) - 0.821505376344086
+Random list, 1000000 elements:
+
+Java Quicksort implementation: 438 ms (stopped)
+Quicksort: 505 ms (stopped) - 1.1529680365296804
+Quicksort with random pivot: 700 ms (stopped) - 1.5981735159817352
+Quicksort with insertion sort: 329 ms (stopped) - 0.7511415525114156
+Quicksort with insertion sort and random pivot: 354 ms (stopped) - 0.8082191780821918
+Random list, 1000000 elements:
+
+Java Quicksort implementation: 433 ms (stopped)
+Quicksort: 474 ms (stopped) - 1.094688221709007
+Quicksort with random pivot: 678 ms (stopped) - 1.5658198614318706
+Quicksort with insertion sort: 346 ms (stopped) - 0.7990762124711316
+Quicksort with insertion sort and random pivot: 368 ms (stopped) - 0.8498845265588915
+Random list, 1000000 elements:
+
+Java Quicksort implementation: 437 ms (stopped)
+Quicksort: 497 ms (stopped) - 1.137299771167048
+Quicksort with random pivot: 698 ms (stopped) - 1.597254004576659
+Quicksort with insertion sort: 340 ms (stopped) - 0.7780320366132724
+Quicksort with insertion sort and random pivot: 376 ms (stopped) - 0.8604118993135011
+Random list, 1000000 elements:
+
+Java Quicksort implementation: 432 ms (stopped)
+Quicksort: 491 ms (stopped) - 1.1365740740740742
+Quicksort with random pivot: 699 ms (stopped) - 1.6180555555555556
+Quicksort with insertion sort: 375 ms (stopped) - 0.8680555555555556
+Quicksort with insertion sort and random pivot: 375 ms (stopped) - 0.8680555555555556
+
