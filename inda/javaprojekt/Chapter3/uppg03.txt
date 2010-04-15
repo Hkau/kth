@@ -1,0 +1,123 @@
+3.1:
+	Se bifogat diagram.
+
+3.2,3.3:
+	Klassdiagram ändras när man omstrukturerar kod. Dvs. när en klass kommer att kräva flera klasser.
+	Objektdiagram ändras när relaterade variabler ändras i körd kod, dvs under proogrammets gång.
+	Förutsatt att objekten ändras och byts ut.
+
+3.9:
+	!false
+	(34 != 33) && !false
+
+3.10:
+	(a == b)
+	
+3.11:
+	(a != b)
+
+3.12:
+	!(!a || !b)
+
+3.21:
+	public void increment()
+	{
+		if(value == limit)
+			value++;
+		else
+			value = 0;
+	}
+
+3.26:
+	Editor(String name, int i)
+
+3.27:
+	Rectangle window = new Rectangle(800, 600);
+
+3.30:
+	p1.print("uppg03.txt", false);
+	p1.print("ClockDisplay.java", true);
+	p1.getStatus(5);
+	p1.getStatus(42);
+
+3.31:
+    /**
+     * Update the internal string that represents the display.
+     */
+	private void updateDisplay()
+    {
+        int hour = hours.getValue();
+        boolean pm = (hour >= 12); //pm after 11:59
+
+        if(pm)
+            hour -= 12;
+
+        if(hour == 0) //zero gets displayed as "12"
+            displayString = "12:" + 
+                            minutes.getDisplayValue();
+        else
+            displayString = ""+ hour + ":" + 
+                            minutes.getDisplayValue();
+        if(pm)
+            displayString += " pm";
+        else
+            displayString += " am";
+    }
+
+3.32:
+	value i NumberDisplay utbytt mot "protected int value;" för att kunna kommas åt av HourDisplay.
+
+	hours typ byts ut mot HourDisplay.
+	
+	Följande kod läggs till i ClockDisplays updateDisplay():
+	
+		if(hours.isPM())
+			displayString += " pm";
+		else
+			displayString += " am";
+	
+	HourDisplays källkod:
+
+	public class HourDisplay extends NumberDisplay
+	{
+		private boolean pm; // Stores am or pm status
+
+		/**
+		 * Makes a display that handles the 12-hour format, with AM as default
+		 */
+		HourDisplay()
+		{
+		    super(13); //NumberDisplay(13);
+		    pm = false;
+		}
+		
+		/**
+		 * Increases hour.
+		 * Increases hour and wraps around, with 12 working. 0 is skipped in favor of 12
+		 */
+
+		public void increment()
+		{
+		    super.increment();
+		    if(value == 12)
+		        pm = !pm;
+		    else if (value == 0)
+		        value = 1;
+		}
+		
+		/**
+		 * Returns whether it's pm or am.
+		 */
+		public boolean isPM()
+		{
+		    return pm;
+		}
+	}
+
+	///
+	
+	Nya implementationen är snyggare eftersom den abstraherar timdisplayen från ClockDisplay-klassen, förutom am/pm som måste skrivas ut.
+
+3.34:
+	Se bifogat diagram.
+
