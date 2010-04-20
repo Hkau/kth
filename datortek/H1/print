@@ -1,0 +1,46 @@
+Message ST.01 from struct.c: Hello, structured World!
+ST.02: s1: stored at 0804a060 (hex), sizeof(s1) is 8 (dec)
+ST.03: s1.v1 at 0804a060 (hex) contains 11 (dec), 0000000b (hex)
+ST.04: s1.v2 at 0804a064 (hex) contains 17 (dec), 00000011 (hex)
+
+ST.05: Executed ipp = &s1;
+ST.06: ipp: stored at bf8cc6b4 (hex), contains 134520928 (dec), 0804a060 (hex)
+ST.07: Dereference pointer ipp and we find: (*ipp).v1=11, (*ipp).v2=17
+ST.08: Dereference with different syntax: ipp->v1=11, ipp->v2=17
+
+ST.09: Executed (*ipp).v1 = nes.val;
+ST.10: Executed ipp -> v2 = 4711;
+ST.11: Dereference pointer ipp and we find: (*ipp).v1=17, (*ipp).v2=4711
+
+ST.12: Initialized ipairarray.
+ST.13: Memory at 0804a080 (hex) contains 1000
+ST.14: Memory at 0804a084 (hex) contains 2000
+ST.15: Memory at 0804a088 (hex) contains 1001
+ST.16: Memory at 0804a08c (hex) contains 2001
+ST.17: Memory at 0804a090 (hex) contains 1002
+ST.18: Memory at 0804a094 (hex) contains 2002
+ST.19: Memory at 0804a098 (hex) contains 1003
+ST.20: Memory at 0804a09c (hex) contains 2003
+ST.21: Memory at 0804a0a0 (hex) contains 1004
+ST.22: Memory at 0804a0a4 (hex) contains 2004
+
+ST.23: Executed ipp = ipairarray;
+ST.24: ipp: stored at bf8cc6b4 (hex), contains 134520960 (dec), 0804a080 (hex)
+ST.25: Dereference pointer ipp and we find: ipp->v1=1000, ipp->v2=2000
+
+ST.26: Executed ipp = ipp + 1;
+ST.27: ipp: stored at bf8cc6b4 (hex), contains 134520968 (dec), 0804a088 (hex)
+ST.28: Dereference pointer ipp and we find: ipp->v1=1001, ipp->v2=2001
+
+ST.29: nes: stored at 0804a018 (hex), sizeof(nes) is 24 (dec)
+ST.30: nes.val at 0804a018 (hex) contains 17 (dec), 00000011 (hex)
+ST.31: nes.c at 0804a01c (hex) contains 'Q', 0x51 (hex)
+ST.32: nes.z: stored at 0804a020 (hex)
+ST.33: (nes.z).v1 at 0804a020 (hex) contains 117 (dec), 00000075 (hex)
+ST.34: (nes.z).v2 at 0804a024 (hex) contains 217 (dec), 000000d9 (hex)
+ST.35: nes.str at 0804a028 (hex) contains: Hello!
+
+ST.36: Executed nesp = &nes;
+ST.37: nesp: stored at bf8cc6b0 (hex); contains 134520856 (dec), 0804a018 (hex)
+ST.38: Dereference pointer nesp and we find: nesp->val=17, and...
+ST.39: nesp->c='Q', (nesp->z).v1=117,(nesp->z).v2=217, str="Hello!"
