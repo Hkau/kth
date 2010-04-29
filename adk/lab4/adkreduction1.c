@@ -42,10 +42,11 @@ int main()
 	printf("%d %d %d\n", n, s, k);
 
 	//n rader: antal skådespelare som kan ansätta rollen + de skådespelare som kan ansätta rollen
-	printf("1 1\n"); // första divrollen
-	printf("1 2\n"); // andra divrollen
+	printf("1 1\n"); // första divrollen 
+	printf("1 2\n"); // andra divrollen .. dessa får inte vara med "scenare"..
 	printf("1 3\n"); // bluffroll för scen med divor
 
+	//optimering: sprintf till buffer, sedan fwrite till stdout
 	int i;
 	for(i = 4; i <= n; ++i)
 	{
