@@ -175,6 +175,9 @@ typedef struct
 {
 	int total_options;
 	enum status_flag status;
+
+	// TODO RANDOM LIST SHIT HERE INDEDX YO
+
 	state_role *roles;
 } sudoku_state;
 
@@ -378,6 +381,16 @@ void update_state_flag(sudoku_state *s)
 	s->status = STATUS_DONE;
 }
 
+int num_states;
+sudoku_state **dinmamma;
+
+void update_state(sudoku_state *s)
+{
+	// stuff
+
+	update_state_flag(s);
+}
+
 void sudoku_casting()
 {
 	// Skapa ett state som beskriver ett graftillstånd att börja jobba på.
@@ -387,8 +400,28 @@ void sudoku_casting()
 	// kolla ifall tillståndet representerar en korrekt lösning
 	update_state_flag(s);
 
-
 	print_state(s);
 
+	puts("let's go!");
+
+	num_states = 1;
+	dinmamma = malloc(sizeof(sudoku_state *)*4711);
+
+	*dinmamma = s;
+
+	while(num_states > 0)
+	{
+		int idx = rand() % num_states;
+		s = dinmamma[idx];
+		dinmamma[idx] = dinmamma[--num_states];
+
+		update_state(s);
+
+		if(s->status == STATUS_DONE)
+			break;
+	}
+
+	print_state(s);
 	//while ( s = pickOption != NULL) ish 
 }
+
