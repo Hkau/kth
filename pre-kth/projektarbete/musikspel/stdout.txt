@@ -1,0 +1,5 @@
+Song directory: songs\9.5 Helicopter – Bloc Party\
+songs\9.5 Helicopter – Bloc Party\song.ogg
+songs\9.5 Helicopter – Bloc Party\guitar.ogg
+songs\9.5 Helicopter – Bloc Party\rhythm.ogg
+songs\9.5 Helicopter – Bloc Party\notes.mid

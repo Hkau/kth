@@ -1,0 +1,5 @@
+Tiden börjar närma sig nu.
+
+Idag gjorde jag ett system som översätter input från kontrollen till olika knapptryckningar, t.ex. behövde blåa och gula knappen bytas plats på, systemet ligger lite abstrakt och behöver inte SDL eller liknande, och poängen är väl lite att musikspelsdelen ska ligga så löst från andra komponenter (förutom stdlib) som möjligt.
+
+Hursomhelst så gick det helt ok, jag trodde att det skulle gå snabbare men det gjorde det inte. Känns bra att ha början till ett någorlunda vettigt event-system, även om det inte är avancerat.

@@ -1,0 +1,5 @@
+Jag har skrivit vidare på projektplaneringen, men den går inte riktigt att göra mer detaljerad än, eftersom jag inte har planerat precis vad som behöver vara med.
+
+Främst har jag planerat, skrivit upp saker som jag kunde tänka mig behövas vara med utifrån sett. Jag började bara tänka och plottade ner lite grejor, tänkte egentligen göra ett flödesschema, men vet inte riktigt hur man gör sådana, förutom i generella vektorprogram.
+
+Så jag började skriva ner en startpunkt, och sedan blev det mer att jag började tänka på vad som skulle behövas utifrån. Så jag har gjort en del, kunde ha gjort mer. Bra att tänka på interfacet, synd att jag inte fick något flödesschema påbörjat, men det är inte så farligt.

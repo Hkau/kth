@@ -1,0 +1,1145 @@
+#LyX file created by  tex2lyx 0.1.2
+\lyxformat 245
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+
+\end_preamble
+\options a4paper
+\language english
+\inputencoding latin1
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 1
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+
+wx\SpecialChar \-
+Blokus Class Reference
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \label{classwx_blokus}
+
+\end_inset
+
+
+\begin_inset LatexCommand \index{wxBlokus@{wxBlokus}}
+
+\end_inset
+
+ Main Blokus frame.
+\end_layout
+
+\begin_layout Standard
+
+
+\family typewriter
+#include 
+\begin_inset Formula $<$
+\end_inset
+
+wx\SpecialChar \-
+Blokus.h
+\begin_inset Formula $>$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+
+\end_layout
+
+\begin_layout Subsection*
+
+Public Member Functions
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{CompactItemize}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\series bold
+wx\SpecialChar \-
+Blokus
+\family default
+\series default
+\shape default
+ (const wx\SpecialChar \-
+String &title, const wx\SpecialChar \-
+Point &pos, const wx\SpecialChar \-
+Size &size) 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{CompactList}
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+doxyref
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+p.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+classwxblokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ constructor 
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{CompactList}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+void 
+\series bold
+On\SpecialChar \-
+Quit
+\family default
+\series default
+\shape default
+ (wx\SpecialChar \-
+Command\SpecialChar \-
+Event &event) 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{CompactList}
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ Quit event callback. 
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{CompactList}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+void 
+\series bold
+On\SpecialChar \-
+About
+\family default
+\series default
+\shape default
+ (wx\SpecialChar \-
+Command\SpecialChar \-
+Event &event) 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{CompactList}
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ About event callback. 
+\end_layout
+
+\begin_layout Standard
+
+\size small
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{CompactList}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{CompactItemize}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Detailed Description
+\end_layout
+
+\begin_layout Standard
+
+Main Blokus frame.
+\end_layout
+
+\begin_layout Standard
+
+deeper 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+doxyref
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+p.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+classwxblokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ explanation, lol, initializes sub frames blah blah parent frame blah blah
+\end_layout
+
+\begin_layout Standard
+
+Definition at line 5 of file wx\SpecialChar \-
+Blokus.h.
+\end_layout
+
+\begin_layout Subsection
+
+Constructor & Destructor Documentation
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \index{wxBlokus@{wx\-Blokus}!wxBlokus@{wxBlokus}}
+
+\end_inset
+
+ 
+\begin_inset LatexCommand \index{wxBlokus@{wxBlokus}!wxBlokus@{wx\-Blokus}}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+setlength{
+\backslash
+rightskip}{0pt plus 5cm}
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus::wx\SpecialChar \-
+Blokus (const wx\SpecialChar \-
+String & 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ title
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, const wx\SpecialChar \-
+Point & 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ pos
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, const wx\SpecialChar \-
+Size & 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ size
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \label{classwx_blokus_bc9a7a1dd8b92074937df3f1b17fbd49}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+doxyref
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+p.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+classwxblokus
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ constructor
+\end_layout
+
+\begin_layout Standard
+
+More elaborate description here.
+\end_layout
+
+\begin_layout Standard
+
+Definition at line 3 of file wx\SpecialChar \-
+Blokus.cpp.
+\end_layout
+
+\begin_layout Subsection
+
+Member Function Documentation
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \index{wxBlokus@{wx\-Blokus}!OnQuit@{OnQuit}}
+
+\end_inset
+
+ 
+\begin_inset LatexCommand \index{OnQuit@{OnQuit}!wxBlokus@{wx\-Blokus}}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+setlength{
+\backslash
+rightskip}{0pt plus 5cm}
+\end_layout
+
+\end_inset
+
+void wx\SpecialChar \-
+Blokus::On\SpecialChar \-
+Quit (wx\SpecialChar \-
+Command\SpecialChar \-
+Event & 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ event
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \label{classwx_blokus_b501e372c414b3c543be5b212a0189fe}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Quit event callback.
+\end_layout
+
+\begin_layout Standard
+
+Closes the frame.
+\end_layout
+
+\begin_layout Standard
+
+Definition at line 20 of file wx\SpecialChar \-
+Blokus.cpp.
+\begin_inset LatexCommand \index{wxBlokus@{wx\-Blokus}!OnAbout@{OnAbout}}
+
+\end_inset
+
+ 
+\begin_inset LatexCommand \index{OnAbout@{OnAbout}!wxBlokus@{wx\-Blokus}}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+setlength{
+\backslash
+rightskip}{0pt plus 5cm}
+\end_layout
+
+\end_inset
+
+void wx\SpecialChar \-
+Blokus::On\SpecialChar \-
+About (wx\SpecialChar \-
+Command\SpecialChar \-
+Event & 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ event
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \label{classwx_blokus_254a1092819095bca1305d733eebc753}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+About event callback.
+\end_layout
+
+\begin_layout Standard
+
+Displays Blokus information.
+\end_layout
+
+\begin_layout Standard
+
+Definition at line 25 of file wx\SpecialChar \-
+Blokus.cpp.
+\end_layout
+
+\begin_layout Standard
+
+The documentation for this class was generated from the following files:
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{CompactItemize}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus.h
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+item 
+\end_layout
+
+\end_inset
+
+wx\SpecialChar \-
+Blokus.cpp
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{CompactItemize}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document

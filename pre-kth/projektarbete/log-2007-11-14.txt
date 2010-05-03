@@ -1,0 +1,15 @@
+Jag har valt att projektet ska skrivas i (minst) två komponenter, framför allt ett bibliotek generellt för musikspel, med noter, timing etc., instruktioner för att ladda olika format, etc. och skrivas i C. Den andra delen är själva programmet, just nu är den skriven i C, men skulle C++ *behövas* får det skrivas en C++-wrapper till biblioteket.
+
+Just nu läggs krutet ner på att få någonting att visas/fungera över huvud taget. T.ex. ligger header-filer för biblioteket ouppdelade från programmet.
+Skrivet på biblioteket är det minsta möjliga för att visa någonting vettigt över huvud taget, not, och kanal av noter.
+
+Sedan har jag fått börjat på programmet, som numera siktar på att ersätta Frets on Fire, en klon av det populära musikspelet Guitar Hero. Problemet med Frets on Fire är att det är alldeles för buggigt, och kraschar, eller hittar på andra lustiga buggar.
+
+Själva programmet gör inget mer än att visa en test-triangel. Jag har alltså fått igång SDL och OpenGL, som ska användas i projektet, och sett till att de fungerade som de skulle.
+
+Ett problem jag stötte på var att jag såg ut att få betydligt lägre frame-rate än det simpla programmet glxgears, som i visar upp tre roterande kugghjul, medan mitt gjorde definitivt mindre.Efter att ha letat efter olikheter i källkoden till glxgears så testade jag helt enkelt att byta upplösning på programmet, till 50×50, och kom fram till att det då var mycket snabbare än glxgears. Sedan när jag ställde in båda på samma, 300×300, så var mitt program som väntat aningen snabbare.
+
+Jag har också satt upp en blogg på http://musikspel.wordpress.com/ där jag lagt upp tidigare loggar, och där releaser kommer att hamna.
+
+Jag är nöjd med vad jag lyckats åstakomma idag. Nästa gång är det dags att få saker att röra på sig, dvs att noter rör sig närmare skärmen ju närmare man kommer dem.
+

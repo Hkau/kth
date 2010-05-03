@@ -1,0 +1,215 @@
+\section{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
+\doxyref{Game}{p.}{class_game} class.  
+
+
+{\tt \#include $<$Game.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Game} ({\bf Rules} $\ast$rules, void($\ast$end\-Game\-Callback)())
+\begin{CompactList}\small\item\em \doxyref{Game}{p.}{class_game} constructor. \item\end{CompactList}\item 
+{\bf $\sim$Game} ()
+\begin{CompactList}\small\item\em \doxyref{Game}{p.}{class_game} destructor. \item\end{CompactList}\item 
+bool {\bf Place\-Tile} ({\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)
+\begin{CompactList}\small\item\em Place tile. \item\end{CompactList}\item 
+bool {\bf is\-Valid\-Place} ({\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)
+\begin{CompactList}\small\item\em Checks if tile placement is valid. \item\end{CompactList}\item 
+{\bf Field} $\ast$ {\bf get\-Field} ()
+\begin{CompactList}\small\item\em Get Field. \item\end{CompactList}\item 
+{\bf Rules} $\ast$ {\bf get\-Rules} ()
+\begin{CompactList}\small\item\em Get Rield. \item\end{CompactList}\item 
+u8 {\bf get\-Player\-Count} ()
+\begin{CompactList}\small\item\em Get \doxyref{Player}{p.}{class_player} count. \item\end{CompactList}\item 
+{\bf Player} $\ast$ {\bf get\-Player\-List} ()
+\begin{CompactList}\small\item\em Get \doxyref{Player}{p.}{class_player} list. \item\end{CompactList}\item 
+{\bf Player} $\ast$ {\bf get\-Current\-Player} ()
+\begin{CompactList}\small\item\em Get current \doxyref{Player}{p.}{class_player}. \item\end{CompactList}\item 
+{\bf Player} $\ast$ {\bf get\-Player} (u8 index)
+\begin{CompactList}\small\item\em Get \doxyref{Player}{p.}{class_player}. \item\end{CompactList}\item 
+void {\bf Cycle\-Players} ()
+\begin{CompactList}\small\item\em Cycle players. \item\end{CompactList}\item 
+void {\bf End\-Game} ()
+\begin{CompactList}\small\item\em End game. \item\end{CompactList}\item 
+bool {\bf Save\-Game} (const char $\ast$path)
+\begin{CompactList}\small\item\em Save game. \item\end{CompactList}\item 
+bool {\bf Load\-Game} (const char $\ast$path)
+\begin{CompactList}\small\item\em Load game. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+\doxyref{Game}{p.}{class_game} class. 
+
+Most game-related stuff happens here. 
+
+
+
+Definition at line 10 of file Game.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Game@{Game}!Game@{Game}}
+\index{Game@{Game}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Game::Game ({\bf Rules} $\ast$ {\em rules}, void($\ast$)() {\em end\-Game\-Callback})}\label{class_game_97116d00ed7b08a68a26f3392311a0f2}
+
+
+\doxyref{Game}{p.}{class_game} constructor. 
+
+Has all game components allocated by \doxyref{Rules}{p.}{class_rules}. 
+
+Definition at line 5 of file Game.cpp.
+
+References Rules::Create\-Field(), Rules::Create\-Players(), and Rules::get\-Player\-Count().\index{Game@{Game}!~Game@{$\sim$Game}}
+\index{~Game@{$\sim$Game}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Game::$\sim$Game ()}\label{class_game_e3d112ca6e0e55150d2fdbc704474530}
+
+
+\doxyref{Game}{p.}{class_game} destructor. 
+
+Destroys field and players. 
+
+Definition at line 20 of file Game.cpp.
+
+\subsection{Member Function Documentation}
+\index{Game@{Game}!PlaceTile@{PlaceTile}}
+\index{PlaceTile@{PlaceTile}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Game::Place\-Tile ({\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})}\label{class_game_474c06012030adcce6c03ce56e95224e}
+
+
+Place tile. 
+
+Places a tile if possible. 
+
+Definition at line 29 of file Game.cpp.
+
+References Tile::Blocks, Cycle\-Players(), End\-Game(), get\-Current\-Player(), Player::get\-Team(), Blokus\-Tile::get\-Tile\-Data(), Tile::Height, Rules::Placed\-Tile(), Rules::Valid\-Place\-Tile(), and Tile::Width.
+
+Referenced by wx\-Blokus::Key\-Down().\index{Game@{Game}!isValidPlace@{isValidPlace}}
+\index{isValidPlace@{isValidPlace}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Game::is\-Valid\-Place ({\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})\hspace{0.3cm}{\tt  [inline]}}\label{class_game_03cb324cfeb2de22d3aa329c62660b63}
+
+
+Checks if tile placement is valid. 
+
+Calls Game\-Rules::Valid\-Place\-Tile, returns true if tile placement is valid. 
+
+Definition at line 28 of file Game.h.
+
+References get\-Current\-Player(), and Rules::Valid\-Place\-Tile().
+
+Referenced by Field\-Panel::On\-Paint().\index{Game@{Game}!getField@{getField}}
+\index{getField@{getField}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Field}$\ast$ Game::get\-Field ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_232eadea1351b0ffc580bd3353c1f410}
+
+
+Get Field. 
+
+Returns field. 
+
+Definition at line 32 of file Game.h.
+
+Referenced by wx\-Blokus::Key\-Down(), and Field\-Panel::On\-Paint().\index{Game@{Game}!getRules@{getRules}}
+\index{getRules@{getRules}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rules}$\ast$ Game::get\-Rules ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_f02b9e7cf59be886f717dea9d2d7d1b1}
+
+
+Get Rield. 
+
+Returns current \doxyref{Rules}{p.}{class_rules}. 
+
+Definition at line 36 of file Game.h.\index{Game@{Game}!getPlayerCount@{getPlayerCount}}
+\index{getPlayerCount@{getPlayerCount}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Game::get\-Player\-Count ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_92a00b2de5f4784a999d8ba02a4de8f2}
+
+
+Get \doxyref{Player}{p.}{class_player} count. 
+
+Returns player count. 
+
+Definition at line 40 of file Game.h.
+
+Referenced by wx\-Blokus::Show\-Score().\index{Game@{Game}!getPlayerList@{getPlayerList}}
+\index{getPlayerList@{getPlayerList}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Player}$\ast$ Game::get\-Player\-List ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_f5a7a20eca723fd26d512fac98daa497}
+
+
+Get \doxyref{Player}{p.}{class_player} list. 
+
+Returns pointer to player list. 
+
+Definition at line 44 of file Game.h.\index{Game@{Game}!getCurrentPlayer@{getCurrentPlayer}}
+\index{getCurrentPlayer@{getCurrentPlayer}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Player}$\ast$ Game::get\-Current\-Player ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_ae26a0ef9667d9f673dfd458dd6b083d}
+
+
+Get current \doxyref{Player}{p.}{class_player}. 
+
+Returns pointer to current player. 
+
+Definition at line 48 of file Game.h.
+
+Referenced by is\-Valid\-Place(), wx\-Blokus::Key\-Down(), Field\-Panel::On\-Paint(), Place\-Tile(), wx\-Blokus::Refresh\-Tile\-Panels(), and wx\-Blokus::wx\-Blokus().\index{Game@{Game}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Player}$\ast$ Game::get\-Player (u8 {\em index})\hspace{0.3cm}{\tt  [inline]}}\label{class_game_6fe0e6411e74a7e52ec120804676c77a}
+
+
+Get \doxyref{Player}{p.}{class_player}. 
+
+Returns pointer to requested player. 
+
+Definition at line 52 of file Game.h.
+
+Referenced by Load\-Game(), Save\-Game(), and wx\-Blokus::Show\-Score().\index{Game@{Game}!CyclePlayers@{CyclePlayers}}
+\index{CyclePlayers@{CyclePlayers}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Game::Cycle\-Players ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_9f8cc66e69a380eb5b61f3e0036f0076}
+
+
+Cycle players. 
+
+Sets next player as current. 
+
+Definition at line 56 of file Game.h.
+
+Referenced by wx\-Blokus::On\-Skip(), and Place\-Tile().\index{Game@{Game}!EndGame@{EndGame}}
+\index{EndGame@{EndGame}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Game::End\-Game ()\hspace{0.3cm}{\tt  [inline]}}\label{class_game_75ee9668c881eb1b58a5a0ca8ab8ef99}
+
+
+End game. 
+
+Calls endgame callback. 
+
+Definition at line 66 of file Game.h.
+
+Referenced by Place\-Tile().\index{Game@{Game}!SaveGame@{SaveGame}}
+\index{SaveGame@{SaveGame}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Game::Save\-Game (const char $\ast$ {\em path})}\label{class_game_95838f555f2aa9e65464bc89f0571b2f}
+
+
+Save game. 
+
+Saves current state to path. 
+
+Definition at line 74 of file Game.cpp.
+
+References Tile::Blocks, Blokus\-Tile::get\-Amount(), Tile\-Set::get\-Num\-Tiles(), get\-Player(), Tile\-Set::get\-Tile(), Tile::Height, Player::Placed\-First\-Tile(), and Tile::Width.
+
+Referenced by wx\-Blokus::On\-Save().\index{Game@{Game}!LoadGame@{LoadGame}}
+\index{LoadGame@{LoadGame}!Game@{Game}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Game::Load\-Game (const char $\ast$ {\em path})}\label{class_game_266eac39c3112e67575de88c12c34407}
+
+
+Load game. 
+
+Loads previous state from path. 
+
+Definition at line 108 of file Game.cpp.
+
+References Tile::Blocks, Tile\-Set::get\-Num\-Tiles(), get\-Player(), Tile\-Set::get\-Tile(), Tile::Height, Blokus\-Tile::set\-Amount(), and Tile::Width.
+
+Referenced by wx\-Blokus::On\-Load().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+Game.h\item 
+Game.cpp\end{CompactItemize}

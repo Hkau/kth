@@ -1,0 +1,17 @@
+Sedan förra gången har jag gjort vissa mindre grejer som att dela upp interface från main och skapa mappings till kontrollen i linux (xpad, som har andra knappar för samma), enkla grejer som ändå kändes viktiga för att göra "rätt".
+
+ 
+
+Idag hade jag däremot gjort ett större genombrott, nu spelas ljud upp mixat från tre oggfiler, och har spelet är igång samtidigt. Det är inte så mycket ett spel som en musikspelare med en "spelplan" bakom, ungefär.
+
+ 
+
+Prestandamässigt så ligger spelet positivt, även efter ljudsystemet är inlagt, och på min dator så har det för nuvarande mellan 5000 och 6000 bilder i sekunden. Notera att bildskärmen som jag sitter på kan visa runt 60 bilder i sekunden.
+
+ 
+
+Ljudet mixas manuellt för att man ska slippa ladda ljudfilerna i RAM-minnet så genom att jag implementerade egen mixer så ligger minnesanvändningen på c:a +1MB ram, mot de ungefär50 som hade varit på den (relativt korta) låten.
+
+
+Förhoppningsvis så ska detta betyda att det kommer funka hur bra som helst att köra, även på äldre datorer. Detta är en klart positiv överraskning, och det känns som att med detta framsteget så känns det klart någorlunda genomförbart, och att oavsett hur det går så kommer det i alla fall bli roligare en frets on fire, som har en framerate på ungefär 10 bilder per sekund kanske, på min äldre dator. :)
+

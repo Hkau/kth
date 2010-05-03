@@ -1,0 +1,85 @@
+channel (.c & .h)
+
+Beskriver en lista av noter.
+
+Varje lista (kanal) beskriver var noterna ligger för en knapp.
+Innehåller även metoder för allokering och borttagning av kanaler.
+
+controller (.c & .h)
+
+Beskriver en joystick som används för input.
+
+Beskriver inte den fysiska delen, utan hanterar input från joystick,
+som förändringar i spakar och knapptryckningar. Abstrakt kontroll,
+beskriver inget riktigt. Detta görs av xplorer (olika bindings för
+win32/linux, då de är mappade olika)
+
+fof_song (.c & .h)
+
+Laddar in ett Frets on Fire-notschema från en MIDI-fil. Laddar även
+in låtspåren; Sång, Gitarr och Rytm-gitarr.
+
+interface (.c & .h)
+
+Synliga delen av spelet. Visualiserar noter som ligger i olika kanaler.
+Visar även om en knapp är nedtryckt eller inte med olika färgmättnader.
+Poäng visas i listen av fönstret.
+
+
+main (.c)
+
+Startpunkt i programmet, anropar interface och fof_song, arbetar med
+controller och tar in event från användaren som skickas vidare. Hanterar
+även tidsflödet inom programmet.
+
+note (.c & .h)
+
+Finns inuti channel. Representerar en tidpunkt då en specifik knapp ska
+spelas på.
+
+scene (.c & .h)
+
+Samling av kanaler, nuvarande för spelare 1.
+
+Specifierar även hur länge en låt ska pågå. Lagrar även vart i index
+en not senast spelades för varje kanal. För att slippa iterera från början.
+
+score (.c & .h)
+
+Kontrollerar poängsättningen i spelet. Nuvarande poängsättning är väldigt
+simpel. Man får helt enkelt en poäng för varje not man träffar. Det ger
+heller ingen nackdel om man spelar då det inte skulle spelas.
+
+sound (.c & .h)
+
+Hanterar spelning och avkodning av oggfiler. Callback anropas när en del
+av ljudbuffern behöver fyllas.
+
+types (.h)
+
+En samling av typedefs för synonymer av typer. Inkluderar även en bool
+utanför c++.
+
+
+
+misc (övriga program):
+
+oggplay (.c)
+
+Spelar .ogg-filer.
+
+oggwav (.c)
+
+Konverterar .ogg-filer till .wav.
+
+printmidi (.c)
+
+Skriver ut information om midi. Väldigt oklar, förmodligen buggig också.
+
+sdljoy (.c)
+
+Skriver ut information om joysticks anslutna till datorn.
+
+types (.h)
+
+Se types för huvudprojektet.

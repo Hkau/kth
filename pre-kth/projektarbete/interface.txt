@@ -1,0 +1,39 @@
+Händelser i musikspelskärnan, körs utifrån, inget grafiskt etc. sker i kärnan, alls.
+
+Init:
+	defaults;
+
+Load <song>:
+	Ladda sång, starta ej;
+
+Clear song:
+	Ladda ur tidigare laddad sång;
+
+Start:
+	set currentsettings;
+	spela;
+
+Pause?:
+	pausa;
+
+Resume?:
+	avpausa;
+
+Tick <deltatid>:
+	uppdatera;
+
+Event - (kommandon till musikspelskärnan)
+	GameButton -
+		KeyUp:
+			stuff;
+		KeyDown:
+			stuff;
+	CloseSong:
+		stuff;
+	Exit:
+		stäng av;
+	
+*Callbacks -
+	EndofSong
+	SongMetadata (default to a null callback)
+

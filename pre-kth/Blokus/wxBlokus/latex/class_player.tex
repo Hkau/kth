@@ -1,0 +1,267 @@
+\section{Player Class Reference}
+\label{class_player}\index{Player@{Player}}
+\doxyref{Player}{p.}{class_player}.  
+
+
+{\tt \#include $<$Player.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Player} ()
+\begin{CompactList}\small\item\em \doxyref{Player}{p.}{class_player} constructor. \item\end{CompactList}\item 
+u8 {\bf get\-Team} ()
+\begin{CompactList}\small\item\em Get team. \item\end{CompactList}\item 
+void {\bf set\-Team} (u8 team)
+\begin{CompactList}\small\item\em Set team. \item\end{CompactList}\item 
+void {\bf set\-Next\-Tile} ()
+\begin{CompactList}\small\item\em Set next tile. \item\end{CompactList}\item 
+void {\bf set\-Previous\-Tile} ()
+\begin{CompactList}\small\item\em Set previous tile. \item\end{CompactList}\item 
+{\bf Blokus\-Tile} $\ast$ {\bf get\-Previous\-Tile} ()
+\begin{CompactList}\small\item\em Get previous tile. \item\end{CompactList}\item 
+{\bf Blokus\-Tile} $\ast$ {\bf get\-Next\-Tile} ()
+\begin{CompactList}\small\item\em Get next tile. \item\end{CompactList}\item 
+{\bf Blokus\-Tile} $\ast$ {\bf get\-Current\-Tile} ()
+\begin{CompactList}\small\item\em Get current tile. \item\end{CompactList}\item 
+bool {\bf set\-Next\-Valid\-Tile} ()
+\begin{CompactList}\small\item\em Set next valid tile. \item\end{CompactList}\item 
+{\bf Tile\-Set} $\ast$ {\bf get\-Tile\-Set} ()
+\begin{CompactList}\small\item\em Get \doxyref{Tile\-Set}{p.}{class_tile_set}. \item\end{CompactList}\item 
+bool {\bf Placed\-First\-Tile} ()
+\begin{CompactList}\small\item\em Gets player's placed first tile status. \item\end{CompactList}\item 
+void {\bf Used\-Tile} ()
+\begin{CompactList}\small\item\em Used tile. \item\end{CompactList}\item 
+u16 {\bf get\-Score} ()
+\begin{CompactList}\small\item\em Get score. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+u8 {\bf Next\-Index} ()
+\begin{CompactList}\small\item\em Next index. \item\end{CompactList}\item 
+u8 {\bf Previous\-Index} ()
+\begin{CompactList}\small\item\em Previous index. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+u8 {\bf Team}\label{class_player_f24295108e23853449487c31abd28161}
+
+\item 
+u8 {\bf Tile\-Index}\label{class_player_178960194c5319751e07f3d209a39bae}
+
+\item 
+{\bf Tile\-Set} {\bf Tiles}\label{class_player_aef254f271668db117927d29e9261715}
+
+\item 
+bool {\bf Has\-Placed\-Tile}\label{class_player_b1c02e172dc573acf49d2dcce1be2b6c}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+\doxyref{Player}{p.}{class_player}. 
+
+Contains information on a certain player. 
+
+
+
+Definition at line 11 of file Player.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Player::Player ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_ffe0cc3cb714f6deb4e62f0c0d3f1fd8}
+
+
+\doxyref{Player}{p.}{class_player} constructor. 
+
+Sets default properties. 
+
+Definition at line 16 of file Player.h.
+
+References Has\-Placed\-Tile, set\-Team(), and Tile\-Index.
+
+\subsection{Member Function Documentation}
+\index{Player@{Player}!getTeam@{getTeam}}
+\index{getTeam@{getTeam}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Player::get\-Team ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_bb785e651ba8d09f6a846db6cfd8c237}
+
+
+Get team. 
+
+Returns player's team. 
+
+Definition at line 21 of file Player.h.
+
+References Team.
+
+Referenced by Field\-Panel::On\-Paint(), Game::Place\-Tile(), wx\-Blokus::Refresh\-Tile\-Panels(), Default\-Rules::Valid\-Place\-Tile(), and wx\-Blokus::wx\-Blokus().\index{Player@{Player}!setTeam@{setTeam}}
+\index{setTeam@{setTeam}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Player::set\-Team (u8 {\em team})\hspace{0.3cm}{\tt  [inline]}}\label{class_player_6d89dd126c96b0740789621db5256223}
+
+
+Set team. 
+
+Sets player's team. 
+
+Definition at line 25 of file Player.h.
+
+References Team.
+
+Referenced by Player().\index{Player@{Player}!setNextTile@{setNextTile}}
+\index{setNextTile@{setNextTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Player::set\-Next\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_bec52b21fbac0220aab36e3cda7231d9}
+
+
+Set next tile. 
+
+Sets next tile as current. 
+
+Definition at line 29 of file Player.h.
+
+References Next\-Index(), and Tile\-Index.
+
+Referenced by wx\-Blokus::Key\-Down().\index{Player@{Player}!setPreviousTile@{setPreviousTile}}
+\index{setPreviousTile@{setPreviousTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Player::set\-Previous\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_63395bebd89f887ebe8c64e978f1701d}
+
+
+Set previous tile. 
+
+Sets previous tile as current. 
+
+Definition at line 33 of file Player.h.
+
+References Previous\-Index(), and Tile\-Index.
+
+Referenced by wx\-Blokus::Key\-Down().\index{Player@{Player}!getPreviousTile@{getPreviousTile}}
+\index{getPreviousTile@{getPreviousTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Blokus\-Tile}$\ast$ Player::get\-Previous\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_ec6790ae3c60ca9d135d8187bb76fd1a}
+
+
+Get previous tile. 
+
+Gets previous tile. 
+
+Definition at line 37 of file Player.h.
+
+References Tile\-Set::get\-Tile(), Previous\-Index(), and Tiles.
+
+Referenced by wx\-Blokus::Refresh\-Tile\-Panels(), and wx\-Blokus::wx\-Blokus().\index{Player@{Player}!getNextTile@{getNextTile}}
+\index{getNextTile@{getNextTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Blokus\-Tile}$\ast$ Player::get\-Next\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_dddd8c7fc59508369c27b2c9cb4a15cd}
+
+
+Get next tile. 
+
+Gets next tile. 
+
+Definition at line 41 of file Player.h.
+
+References Tile\-Set::get\-Tile(), Next\-Index(), and Tiles.
+
+Referenced by wx\-Blokus::Refresh\-Tile\-Panels(), and wx\-Blokus::wx\-Blokus().\index{Player@{Player}!getCurrentTile@{getCurrentTile}}
+\index{getCurrentTile@{getCurrentTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Blokus\-Tile}$\ast$ Player::get\-Current\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_9c07e1df7947131f0f8353b45b4c669f}
+
+
+Get current tile. 
+
+Gets current tile. 
+
+Definition at line 45 of file Player.h.
+
+References Tile\-Set::get\-Tile(), Tile\-Index, and Tiles.
+
+Referenced by wx\-Blokus::Key\-Down(), Field\-Panel::On\-Paint(), wx\-Blokus::Refresh\-Tile\-Panels(), set\-Next\-Valid\-Tile(), and wx\-Blokus::wx\-Blokus().\index{Player@{Player}!setNextValidTile@{setNextValidTile}}
+\index{setNextValidTile@{setNextValidTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Player::set\-Next\-Valid\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_9b6fc271107b072b783b8d0cb6948b3c}
+
+
+Set next valid tile. 
+
+Sets next valid tile as current, if there are any. 
+
+Definition at line 49 of file Player.h.
+
+References Blokus\-Tile::get\-Amount(), get\-Current\-Tile(), Tile\-Set::get\-Num\-Tiles(), Tile\-Set::get\-Tile(), Next\-Index(), Tile\-Index, and Tiles.\index{Player@{Player}!getTileSet@{getTileSet}}
+\index{getTileSet@{getTileSet}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Tile\-Set}$\ast$ Player::get\-Tile\-Set ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_09b1990069c282abea149a4f437a44cd}
+
+
+Get \doxyref{Tile\-Set}{p.}{class_tile_set}. 
+
+Gets player's \doxyref{Tile\-Set}{p.}{class_tile_set}. 
+
+Definition at line 71 of file Player.h.
+
+References Tiles.\index{Player@{Player}!PlacedFirstTile@{PlacedFirstTile}}
+\index{PlacedFirstTile@{PlacedFirstTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Player::Placed\-First\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_48b86a7d0cc54f0479d609ab5fd2dcf2}
+
+
+Gets player's placed first tile status. 
+
+Returns true if the player has placed a tile, else false. 
+
+Definition at line 75 of file Player.h.
+
+References Has\-Placed\-Tile.
+
+Referenced by Game::Save\-Game(), and Default\-Rules::Valid\-Place\-Tile().\index{Player@{Player}!UsedTile@{UsedTile}}
+\index{UsedTile@{UsedTile}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Player::Used\-Tile ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_d329c57920a98edca716587f7440bf2c}
+
+
+Used tile. 
+
+Sets player's tile as used. 
+
+Definition at line 79 of file Player.h.
+
+References Has\-Placed\-Tile.
+
+Referenced by Default\-Rules::Placed\-Tile().\index{Player@{Player}!getScore@{getScore}}
+\index{getScore@{getScore}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u16 Player::get\-Score ()\hspace{0.3cm}{\tt  [inline]}}\label{class_player_c4189e681122449975732b7cb5da4517}
+
+
+Get score. 
+
+Calculates and returns player's score. 
+
+Definition at line 83 of file Player.h.
+
+References Blokus\-Tile::get\-Amount(), Tile\-Set::get\-Num\-Tiles(), Blokus\-Tile::get\-Score(), Tile\-Set::get\-Tile(), and Tiles.
+
+Referenced by wx\-Blokus::Show\-Score().\index{Player@{Player}!NextIndex@{NextIndex}}
+\index{NextIndex@{NextIndex}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Player::Next\-Index ()\hspace{0.3cm}{\tt  [inline, protected]}}\label{class_player_3a163cd95eccde35ba4cb94b76dcf4b1}
+
+
+Next index. 
+
+Returns next index. 
+
+Definition at line 98 of file Player.h.
+
+References Tile\-Set::get\-Num\-Tiles(), Tile\-Index, and Tiles.
+
+Referenced by get\-Next\-Tile(), set\-Next\-Tile(), and set\-Next\-Valid\-Tile().\index{Player@{Player}!PreviousIndex@{PreviousIndex}}
+\index{PreviousIndex@{PreviousIndex}!Player@{Player}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Player::Previous\-Index ()\hspace{0.3cm}{\tt  [inline, protected]}}\label{class_player_f8d08e8daf9327482b19762013235cfa}
+
+
+Previous index. 
+
+Returns previous index. 
+
+Definition at line 107 of file Player.h.
+
+References Tile\-Set::get\-Num\-Tiles(), Tile\-Index, and Tiles.
+
+Referenced by get\-Previous\-Tile(), and set\-Previous\-Tile().
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+Player.h\end{CompactItemize}
