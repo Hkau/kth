@@ -166,15 +166,20 @@ typedef struct
 
 enum status_flag
 {
-	STATUS_PENDING = 0,
-	STATUS_INVALID = 13,
-	STATUS_DONE = 42
+	STATUS_DONE = 1,
+	STATUS_DIVA1_ASSIGNED = 2,
+	STATUS_DIVA2_ASSIGNED = 4,
+	STATUS_DIVAS_ASSIGNED = STATUS_DIVA1_ASSIGNED | STATUS_DIVA2_ASSIGNED,
+	STATUS_SUCCESS = STATUS_DONE | STATUS_DIVAS_ASSIGNED,
+	STATUS_INVALID = 8
 };
 
 typedef struct
 {
 	int total_options;
 	enum status_flag status;
+
+	int assigned_roles;
 
 	// TODO RANDOM LIST SHIT HERE INDEDX YO
 
@@ -184,7 +189,7 @@ typedef struct
 sudoku_state *clone_state(sudoku_state *s)
 {
 	sudoku_state *new_state = malloc(sizeof(sudoku_state));
-	new_state->status = STATUS_PENDING;
+	new_state->status = 0;
 
 	new_state->total_options = s->total_options;
 	new_state->roles = (state_role *) malloc(n * sizeof(state_role)) - 1;
@@ -236,12 +241,21 @@ void print_state(sudoku_state *s)
 		putchar('\n');
 	}
 
-	if(s->status == STATUS_INVALID)
-		puts("gick inte bra :(");
-	else if(s->status == STATUS_DONE)
-		puts("fäärdig <3");
-	else if(s->status == STATUS_PENDING)
-		puts("working on it, boss!");
+	if(s->status & STATUS_INVALID)
+		puts("åt helvete");
+	else if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
+		puts("klar (:");
+	else if(s->status & STATUS_DONE)
+		puts("misslyckat att tillsätta divorna");
+	else if((s->status & STATUS_DIVAS_ASSIGNED) == STATUS_DIVAS_ASSIGNED)
+		puts("båda divorna tillsatta");
+	else if(s->status & STATUS_DIVA1_ASSIGNED)
+		puts("diva 1 tillsatt");
+	else if(s->status & STATUS_DIVA2_ASSIGNED)
+		puts("diva 2 tillsatt");
+	else
+		puts("inte klar");
+
 }
 
 void assign_role(sudoku_state *s, int role, int actor);
@@ -295,8 +309,12 @@ void remove_actor(sudoku_state *s, int role, int actor)
 	}
 }
 
+#include <assert.h>
 void assign_role(sudoku_state *s, int role, int actor)
 {
+	assert(s->roles[role].num_options != 0);
+
+	s->assigned_roles ++;
 	s->roles[role].actor = actor;
 	s->roles[role].num_options = 0;
 
@@ -306,26 +324,43 @@ void assign_role(sudoku_state *s, int role, int actor)
 
 	if(actor <= 2)
 	{
+		if(actor == 1)
+			s->status |= STATUS_DIVA1_ASSIGNED;
+		else
+			s->status |= STATUS_DIVA2_ASSIGNED;
+
+		if(s->assigned_roles == n)
+		{
+			s->status |= STATUS_DONE;
+			return;
+		}
+
 		// jobbiga divor :(
 		edge *e;
 		int other_actor = 3 - actor; // (actor == 1) ? 2 : 1;
 		for(e = roles[role].first_edge; e != NULL; e = e->next)
 		{
 			remove_actor(s, e->target, other_actor);
-			if(s->status != STATUS_PENDING)
+			if(s->status & STATUS_DONE)
 				return;
 		}
 
 		remove_actor(s, role, other_actor);
-		if(s->status != STATUS_PENDING)
+		if(s->status & STATUS_DONE)
 			return;
+	}
+
+	if(s->assigned_roles == n)
+	{
+		s->status |= STATUS_DONE;
+		return;
 	}
 
 	edge *e;
 	for(e = roles[role].first_edge; e != NULL; e = e->next)
 	{
 		remove_actor(s, e->target, actor);
-		if(s->status != STATUS_PENDING)
+		if(s->status & STATUS_DONE)
 			return;
 	}
 }
@@ -333,7 +368,7 @@ void assign_role(sudoku_state *s, int role, int actor)
 sudoku_state *first_state()
 {
 	sudoku_state *s = malloc(sizeof(sudoku_state));
-	s->status = STATUS_PENDING;
+	s->status = s->assigned_roles = 0;
 
 	s->roles = (state_role *)malloc(n*sizeof(state_role)) - 1;
 
@@ -359,7 +394,7 @@ sudoku_state *first_state()
 	{
 		if(roles[i].num_actors == 1)
 			assign_role(s, i, roles[i].actors[0]);
-		if(s->status != STATUS_PENDING)
+		if(s->status & STATUS_DONE)
 			break;
 	}
 
@@ -368,7 +403,7 @@ sudoku_state *first_state()
 
 void update_state_flag(sudoku_state *s)
 {
-	if(s->status != STATUS_PENDING)
+	if(s->status & STATUS_DONE)
 		return;
 
 	int i;
@@ -378,13 +413,13 @@ void update_state_flag(sudoku_state *s)
 			return;
 	}
 
-	s->status = STATUS_DONE;
+	s->status |= STATUS_DONE;
 }
 
 int num_states;
 sudoku_state **dinmamma;
 
-void update_state(sudoku_state *s)
+void run_state(sudoku_state *s)
 {
 	// stuff
 
@@ -396,6 +431,12 @@ void sudoku_casting()
 	// Skapa ett state som beskriver ett graftillstånd att börja jobba på.
 	// Alla entydiga lösningssteg utförs.
 	sudoku_state *s = first_state();
+
+	// TODO: avsluta om vi hittar en korrekt lösning
+	// om vi kommer till ett val så skapa alla val som behövs men så få som möjligt
+	// stoppa in valen i dinmamma
+	// ta ut ett val och bearbeta det
+	// loopa
 
 	// kolla ifall tillståndet representerar en korrekt lösning
 	update_state_flag(s);
@@ -415,9 +456,9 @@ void sudoku_casting()
 		s = dinmamma[idx];
 		dinmamma[idx] = dinmamma[--num_states];
 
-		update_state(s);
+		run_state(s);
 
-		if(s->status == STATUS_DONE)
+		if(s->status & STATUS_DONE)
 			break;
 	}
 
