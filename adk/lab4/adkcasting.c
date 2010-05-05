@@ -146,7 +146,7 @@ int main()
 		}
 	}
 
-	print_graph();
+	//print_graph();
 
 	sudoku_casting();
 
@@ -180,18 +180,15 @@ typedef struct
 	enum status_flag status;
 
 	int assigned_roles;
-
-	// TODO RANDOM LIST SHIT HERE INDEDX YO
-
 	state_role *roles;
 } sudoku_state;
 
 sudoku_state *clone_state(sudoku_state *s)
 {
-	sudoku_state *new_state = malloc(sizeof(sudoku_state));
-	new_state->status = 0;
+	sudoku_state *new_state = calloc(1,sizeof(sudoku_state));
 
-	new_state->total_options = s->total_options;
+	*new_state = *s;
+
 	new_state->roles = (state_role *) malloc(n * sizeof(state_role)) - 1;
 
 	int i;
@@ -367,8 +364,7 @@ void assign_role(sudoku_state *s, int role, int actor)
 
 sudoku_state *first_state()
 {
-	sudoku_state *s = malloc(sizeof(sudoku_state));
-	s->status = s->assigned_roles = 0;
+	sudoku_state *s = calloc(1, sizeof(sudoku_state));
 
 	s->roles = (state_role *)malloc(n*sizeof(state_role)) - 1;
 
@@ -416,14 +412,124 @@ void update_state_flag(sudoku_state *s)
 	s->status |= STATUS_DONE;
 }
 
-int num_states;
-sudoku_state **dinmamma;
-
-void run_state(sudoku_state *s)
+typedef struct choice
 {
-	// stuff
+	sudoku_state *state;
+	int role;
+	int actor;
 
+	struct choice *next;
+} choice;
+
+int num_states;
+
+int min_assigned, max_assigned;
+
+choice **sorted_choices;
+
+void gen_choices(sudoku_state *s)
+{
+	int assign = s->assigned_roles;
+
+	if(max_assigned < assign)
+		max_assigned = assign;
+	
+	// Hitta rollen med minst alternativ
+	// Skapa ett choice för varje alternativ
+	// Om vi hittar en roll med bara 2 alternativ tar vi den på en gång
+
+	int least_options = 0x7FFFFFFF; // massor (:
+	int idx = -1;
+
+	int i;
+	for(i = 1; i <= n; ++i)
+	{
+		int opts = s->roles[i].num_options;
+
+		if(opts != 0 && opts < least_options)
+		{
+			idx = i;
+			least_options = opts;
+			if(opts == 2)
+				break;
+		}
+	}
+
+	assert(idx != -1);
+
+	// lägg in alla alternativ i den sorterade listan av choices
+	choice *c = malloc(least_options * sizeof(choice));
+	edge *e = s->roles[idx].options;
+
+	choice *c_next = sorted_choices[assign];
+
+	for(i = 0; i < least_options; ++i)
+	{
+		c[i].state = s;
+		c[i].role = idx;
+
+		c[i].actor = e->target;
+		e = e->next;
+		c[i].next = c_next;
+		c_next = &c[i];
+	}
+	sorted_choices[assign] = &c[least_options-1];
+}
+
+sudoku_state *run_choice(choice *c)
+{
+	// klona state
+	sudoku_state *s = clone_state(c->state);
+
+	// anropa assign_role
+	assign_role(s, c->role, c->actor);
+
+	// uppdatera state
 	update_state_flag(s);
+	return s;
+}
+
+void print_output(sudoku_state *s)
+{
+	// Utdataformat:
+	// Rad ett: antal skådespelare som fått roller
+
+	int *num_assigned = calloc(k, sizeof(int));
+	edge **assigned = (edge **)calloc(k, sizeof(edge *)) - 1;
+	int assigned_roles = 0;
+
+	int i;
+	for(i = 1; i <= n; ++i)
+	{
+		int actor = s->roles[i].actor;
+
+		edge *e = malloc(sizeof(edge));
+		e->target = i;
+
+		if(assigned[actor] == NULL)
+			assigned_roles++;
+
+		e->next = assigned[actor];
+		assigned[actor] = e;
+
+		num_assigned[actor]++;
+	}
+
+	printf("%d\n", assigned_roles);
+
+	// En rad för varje skådespelare (som fått roller) med skådespelarens nummer,
+	// antalet roller skådespelaren tilldelats samt numren på dessa roller 
+	for(i = 1; i <= k; ++i)
+	{
+		if(num_assigned[i] == 0)
+			continue;
+		printf("%d %d", i, num_assigned[i]);
+
+		edge *e;
+		for(e = assigned[i]; e != NULL; e = e->next)
+			printf(" %d", e->target);
+		putchar('\n');
+	}
 }
 
 void sudoku_casting()
@@ -432,37 +538,43 @@ void sudoku_casting()
 	// Alla entydiga lösningssteg utförs.
 	sudoku_state *s = first_state();
 
-	// TODO: avsluta om vi hittar en korrekt lösning
-	// om vi kommer till ett val så skapa alla val som behövs men så få som möjligt
-	// stoppa in valen i dinmamma
-	// ta ut ett val och bearbeta det
-	// loopa
-
 	// kolla ifall tillståndet representerar en korrekt lösning
 	update_state_flag(s);
 
-	print_state(s);
-
-	puts("let's go!");
-
-	num_states = 1;
-	dinmamma = malloc(sizeof(sudoku_state *)*4711);
-
-	*dinmamma = s;
-
-	while(num_states > 0)
+	// skriv ut om den redan är entydigt klar
+	if(s->status & STATUS_DONE)
 	{
-		int idx = rand() % num_states;
-		s = dinmamma[idx];
-		dinmamma[idx] = dinmamma[--num_states];
-
-		run_state(s);
-
-		if(s->status & STATUS_DONE)
-			break;
+		print_output(s);
+		return;
 	}
 
-	print_state(s);
-	//while ( s = pickOption != NULL) ish 
+	// om vi kommer till ett val så skapa alla val som behövs men så få som möjligt
+	// stoppa in valen i dinmamma
+	// ta ut ett val med flest tilldelade roller och bearbeta det
+	// loopa
+
+	sorted_choices = calloc(n, sizeof(choice *));
+
+	min_assigned = max_assigned = s->assigned_roles;
+
+	gen_choices(s);
+
+	while(1)
+	{
+		choice *c = sorted_choices[max_assigned];
+		sorted_choices[max_assigned] = c->next;
+
+		while(sorted_choices[max_assigned] == NULL && max_assigned > min_assigned)
+			max_assigned--;
+
+		s = run_choice(c);
+		if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
+			break;
+
+		if((s->status & STATUS_DONE) == 0)
+			gen_choices(s);
+	}
+
+	print_output(s);
 }
 
