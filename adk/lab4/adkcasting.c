@@ -37,6 +37,23 @@ typedef struct
 	edge *first_edge;
 } role;
 
+void *malloc_fail(int size)
+{
+	void *ptr = malloc(size);
+	if(ptr == NULL)
+		exit(42);
+	return ptr;
+}
+#define malloc malloc_fail
+
+void *calloc_fail(int num, int size)
+{
+	void *ptr = calloc(num, size);
+	if(ptr == NULL)
+		exit(37);
+	return ptr;
+}
+#define calloc calloc_fail
 
 int n, s, k;
 
@@ -178,9 +195,11 @@ typedef struct
 {
 	int total_options;
 	enum status_flag status;
+	int refcount;
 
 	int assigned_roles;
 	state_role *roles;
+
 } sudoku_state;
 
 sudoku_state *clone_state(sudoku_state *s)
@@ -255,6 +274,7 @@ void print_state(sudoku_state *s)
 
 }
 
+void free_state(sudoku_state *s);
 void assign_role(sudoku_state *s, int role, int actor);
 
 void remove_actor(sudoku_state *s, int role, int actor)
@@ -277,8 +297,11 @@ void remove_actor(sudoku_state *s, int role, int actor)
 	{
 		// Minska antalet möjliga roller
 		s->roles[role].num_options--;
+
 		// Plocka bort actor som alternativ
+		edge *e = s->roles[role].options;
 		s->roles[role].options = opts->next;
+		free(e);
 
 		// Om rollen är entydig
 		if(s->roles[role].num_options == 1)
@@ -295,7 +318,9 @@ void remove_actor(sudoku_state *s, int role, int actor)
 		{
 			// ta bort förekomsten av actor
 			s->roles[role].num_options--;
+			edge *e = opts->next;
 			opts->next = opts->next->next;
+			free(e);
 
 			// Om rollen är entydig
 			if(s->roles[role].num_options == 1)
@@ -458,28 +483,38 @@ void gen_choices(sudoku_state *s)
 	assert(idx != -1);
 
 	// lägg in alla alternativ i den sorterade listan av choices
-	choice *c = malloc(least_options * sizeof(choice));
+	s->refcount = least_options;
 	edge *e = s->roles[idx].options;
 
 	choice *c_next = sorted_choices[assign];
 
+	choice *c;
+
 	for(i = 0; i < least_options; ++i)
 	{
-		c[i].state = s;
-		c[i].role = idx;
+		c = malloc(sizeof(choice));
+		c->next = c_next;
+		c_next = c;
+		c->state = s;
+		c->role = idx;
 
-		c[i].actor = e->target;
+		c->actor = e->target;
 		e = e->next;
-		c[i].next = c_next;
-		c_next = &c[i];
 	}
-	sorted_choices[assign] = &c[least_options-1];
+	sorted_choices[assign] = c;
 }
 
 sudoku_state *run_choice(choice *c)
 {
 	// klona state
-	sudoku_state *s = clone_state(c->state);
+
+	sudoku_state *s;
+	c->state->refcount--;
+	if(c->state->refcount == 0)
+		s = c->state;
+	else
+		s = clone_state(c->state);
+
 
 	// anropa assign_role
 	assign_role(s, c->role, c->actor);
@@ -489,12 +524,31 @@ sudoku_state *run_choice(choice *c)
 	return s;
 }
 
+void free_edge(edge *e)
+{
+	if(e->next != NULL)
+		free_edge(e->next);
+	free(e);
+}
+
+void free_state(sudoku_state *s)
+{
+	int i;
+	for(i = 1; i <= n; ++i)
+	{
+		if(s->roles[i].options != NULL)
+			free_edge(s->roles[i].options);
+	}
+	free(s->roles);
+	free(s);
+}
+
 void print_output(sudoku_state *s)
 {
 	// Utdataformat:
 	// Rad ett: antal skådespelare som fått roller
 
-	int *num_assigned = calloc(k, sizeof(int));
+	int *num_assigned = (int *)calloc(k, sizeof(int))-1;
 	edge **assigned = (edge **)calloc(k, sizeof(edge *)) - 1;
 	int assigned_roles = 0;
 
@@ -568,10 +622,14 @@ void sudoku_casting()
 			max_assigned--;
 
 		s = run_choice(c);
+		free(c);
 		if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
 			break;
 
-		if((s->status & STATUS_DONE) == 0)
+		if(s->status & STATUS_INVALID)
+			free_state(s);
+
+		else if((s->status & STATUS_DONE) == 0)
 			gen_choices(s);
 	}
 
