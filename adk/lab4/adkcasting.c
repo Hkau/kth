@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static inline int readint()
 {
@@ -19,12 +20,16 @@ static inline int readint()
 	return num;
 }
 
+void print_best();
+
 typedef struct edge
 {
 	int target;
 
 	struct edge *next;
 } edge;
+
+void free_edge(edge *e);
 
 typedef struct
 {
@@ -46,11 +51,12 @@ void *malloc_fail(int size)
 }
 #define malloc malloc_fail
 
+
 void *calloc_fail(int num, int size)
 {
 	void *ptr = calloc(num, size);
 	if(ptr == NULL)
-		exit(37);
+		exit(24);
 	return ptr;
 }
 #define calloc calloc_fail
@@ -166,7 +172,17 @@ int main()
 	//print_graph();
 
 	sudoku_casting();
+/*
+	for(i = 1; i <= n; ++i)
+		free(roles[i].actors);
 
+	for(i = 1; i <= n; ++i)
+		free_edge(roles[i].first_edge);
+
+	free(sceneroles);
+
+	free(roles+1);
+*/
 	return 0;
 }
 
@@ -200,6 +216,9 @@ typedef struct
 	int assigned_roles;
 	state_role *roles;
 
+	int *actors_rolecount;
+	int num_super; // antalet superskådespelare som används
+	int num_actors; // antalet vanliga skådespelare som används
 } sudoku_state;
 
 sudoku_state *clone_state(sudoku_state *s)
@@ -207,8 +226,11 @@ sudoku_state *clone_state(sudoku_state *s)
 	sudoku_state *new_state = calloc(1,sizeof(sudoku_state));
 
 	*new_state = *s;
+	new_state->refcount = 1;
 
 	new_state->roles = (state_role *) malloc(n * sizeof(state_role)) - 1;
+	new_state->actors_rolecount = (int*) malloc(k * sizeof(int)) - 1;
+	memcpy(new_state->actors_rolecount+1, s->actors_rolecount+1, k * sizeof(int));
 
 	int i;
 	for(i = 1; i <= n; ++i)
@@ -277,6 +299,13 @@ void print_state(sudoku_state *s)
 void free_state(sudoku_state *s);
 void assign_role(sudoku_state *s, int role, int actor);
 
+void unlink_state(sudoku_state *s)
+{
+	s->refcount --;
+	if(s->refcount == 0)
+		free_state(s);
+}
+
 void remove_actor(sudoku_state *s, int role, int actor)
 {
 	// Iterera över alla möjliga skådespelare för rollen och stryk ev. förekomst av actor.
@@ -286,7 +315,11 @@ void remove_actor(sudoku_state *s, int role, int actor)
 	if(s->roles[role].num_options == 0)
 	{
 		if(s->roles[role].actor == actor)
+		{
+			s->roles[role].actor = -1;
 			s->status = STATUS_INVALID;
+			s->num_super++;
+		}
 		return;
 	}
 
@@ -335,10 +368,17 @@ void remove_actor(sudoku_state *s, int role, int actor)
 void assign_role(sudoku_state *s, int role, int actor)
 {
 	assert(s->roles[role].num_options != 0);
+	//if(s->roles[role].num_options == 0)
+	//	*(int *)NULL = 42;
 
 	s->assigned_roles ++;
 	s->roles[role].actor = actor;
 	s->roles[role].num_options = 0;
+
+	// Räkna antalet skådespelare och antalet roller per skådespelare
+	if (s->actors_rolecount[actor] == 0)
+		s->num_actors++;
+	s->actors_rolecount[actor]++;
 
 	// Stryk alla alternativ i konlikt med detta val och alla val som tvingas av detta
 	// Iterera över varje kant, e, i statiska scengrafen som symboliserar att två roller deltar i
@@ -387,11 +427,17 @@ void assign_role(sudoku_state *s, int role, int actor)
 	}
 }
 
+void update_state_flag(sudoku_state *s);
+
+// skapa en state med alla självklara val gjorda
 sudoku_state *first_state()
 {
 	sudoku_state *s = calloc(1, sizeof(sudoku_state));
 
 	s->roles = (state_role *)malloc(n*sizeof(state_role)) - 1;
+	s->actors_rolecount = (int*)calloc(k, sizeof(int)) - 1;
+
+	s->refcount = 1;
 
 	int i;
 	for(i = 1; i <=n; ++i)
@@ -418,6 +464,8 @@ sudoku_state *first_state()
 		if(s->status & STATUS_DONE)
 			break;
 	}
+
+	update_state_flag(s);
 
 	return s;
 }
@@ -448,16 +496,45 @@ typedef struct choice
 
 int num_states;
 
-int min_assigned, max_assigned;
+int min_score, max_score;
+
+int best_score = 0x7FFFFFFF;
+sudoku_state *best_state = NULL;
+
+void score_state(sudoku_state *s)
+{
+	int score = n - s->assigned_roles + s->num_actors + s->num_super;
+	if(score < best_score)
+	{
+		if(best_state != NULL)
+		{
+			unlink_state(best_state);
+		}
+		best_score = score;
+		best_state = s;
+		s->refcount++;
+	}
+}
 
 choice **sorted_choices;
 
 void gen_choices(sudoku_state *s)
 {
-	int assign = s->assigned_roles;
+	update_state_flag(s);
+	int score = n - s->assigned_roles + s->num_actors + s->num_super;
 
-	if(max_assigned < assign)
-		max_assigned = assign;
+	if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
+	{
+		score_state(s);
+		return;
+	}
+	if(s->status & STATUS_DONE)
+		return;
+
+	if(min_score > score)
+		min_score = score;
+	if(max_score < score)
+		max_score = score;
 	
 	// Hitta rollen med minst alternativ
 	// Skapa ett choice för varje alternativ
@@ -482,11 +559,12 @@ void gen_choices(sudoku_state *s)
 
 	assert(idx != -1);
 
+	//least_options = 1;
 	// lägg in alla alternativ i den sorterade listan av choices
-	s->refcount = least_options;
+	s->refcount += least_options;
 	edge *e = s->roles[idx].options;
 
-	choice *c_next = sorted_choices[assign];
+	choice *c_next = sorted_choices[score];
 
 	choice *c;
 
@@ -501,7 +579,7 @@ void gen_choices(sudoku_state *s)
 		c->actor = e->target;
 		e = e->next;
 	}
-	sorted_choices[assign] = c;
+	sorted_choices[score] = c;
 }
 
 sudoku_state *run_choice(choice *c)
@@ -509,12 +587,13 @@ sudoku_state *run_choice(choice *c)
 	// klona state
 
 	sudoku_state *s;
-	c->state->refcount--;
-	if(c->state->refcount == 0)
+	if(c->state->refcount == 1)
 		s = c->state;
 	else
+	{
 		s = clone_state(c->state);
-
+		unlink_state(c->state);
+	}
 
 	// anropa assign_role
 	assign_role(s, c->role, c->actor);
@@ -536,20 +615,24 @@ void free_state(sudoku_state *s)
 	int i;
 	for(i = 1; i <= n; ++i)
 	{
-		if(s->roles[i].options != NULL)
+		if(s->roles[i].num_options != 0)
 			free_edge(s->roles[i].options);
 	}
-	free(s->roles);
+	free(s->roles+1);
+	free(s->actors_rolecount+1);
 	free(s);
 }
+
+int num_assigned[0xFFFF];
+edge *assigned[0xFFFF];
+edge edgepool[0xFFFF];
+int edge_index = 0;
 
 void print_output(sudoku_state *s)
 {
 	// Utdataformat:
 	// Rad ett: antal skådespelare som fått roller
 
-	int *num_assigned = (int *)calloc(k, sizeof(int))-1;
-	edge **assigned = (edge **)calloc(k, sizeof(edge *)) - 1;
 	int assigned_roles = 0;
 
 	int i;
@@ -557,7 +640,7 @@ void print_output(sudoku_state *s)
 	{
 		int actor = s->roles[i].actor;
 
-		edge *e = malloc(sizeof(edge));
+		edge *e = &edgepool[edge_index++];
 		e->target = i;
 
 		if(assigned[actor] == NULL)
@@ -586,53 +669,172 @@ void print_output(sudoku_state *s)
 	}
 }
 
+void print_best()
+{
+	if(best_state == NULL)
+		exit(13);
+	// skapa supers
+	int i;
+	for(i = 1; i <=n; ++i)
+	{
+		if(best_state->roles[i].num_options != 0)
+			best_state->roles[i].actor = ++k;
+	}
+	print_output(best_state);
+}
+
+void assign_second(sudoku_state *s)
+{
+	if(s->status & STATUS_DIVA2_ASSIGNED)
+	{
+		update_state_flag(s);
+		gen_choices(s);
+		score_state(s);
+		return;
+	}
+
+	int i;
+	for(i = 1; i <= n; ++i)
+	{
+		edge *e;
+
+		if(s->roles[i].num_options == 0)
+			continue;
+
+		for(e = s->roles[i].options; e != NULL; e = e->next)
+		{
+			if(e->target == 2)
+			{
+				sudoku_state *s_new = clone_state(s);
+				assign_role(s_new, i, 2);
+				update_state_flag(s_new);
+				gen_choices(s_new);
+				score_state(s_new);
+				unlink_state(s_new);
+				break;
+			}
+		}
+	}
+}
+
+void assign_divas(sudoku_state *s)
+{
+	if(s->status & STATUS_DIVA1_ASSIGNED)
+	{
+		assign_second(s);
+		return;
+	}
+
+	int i;
+	for(i = 1; i <= n; ++i)
+	{
+		edge *e;
+
+		if(s->roles[i].num_options == 0)
+			continue;
+
+		for(e = s->roles[i].options; e != NULL; e = e->next)
+		{
+			if(e->target == 1)
+			{
+				sudoku_state *s_new = clone_state(s);
+				assign_role(s_new, i, 1);
+				assign_second(s_new);
+				unlink_state(s_new);
+
+				break;
+			}
+		}
+	}
+}
+
 void sudoku_casting()
 {
 	// Skapa ett state som beskriver ett graftillstånd att börja jobba på.
 	// Alla entydiga lösningssteg utförs.
 	sudoku_state *s = first_state();
 
-	// kolla ifall tillståndet representerar en korrekt lösning
-	update_state_flag(s);
-
-	// skriv ut om den redan är entydigt klar
-	if(s->status & STATUS_DONE)
+	if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
 	{
 		print_output(s);
 		return;
 	}
 
-	// om vi kommer till ett val så skapa alla val som behövs men så få som möjligt
-	// stoppa in valen i dinmamma
-	// ta ut ett val med flest tilldelade roller och bearbeta det
-	// loopa
+	sorted_choices = calloc(k + n, sizeof(choice *));
 
-	sorted_choices = calloc(n, sizeof(choice *));
+	min_score = n+k-1;
+	max_score = 0;
 
-	min_assigned = max_assigned = s->assigned_roles;
+	// Se till att divorna blir tilldelade varsin roll
+	assign_divas(s);
 
-	gen_choices(s);
 
+	// *stoppa in valen i dinmamma
 	while(1)
 	{
-		choice *c = sorted_choices[max_assigned];
-		sorted_choices[max_assigned] = c->next;
+		// samla ihop de bästa gamla choices för ny körning
+		choice *prev_choices = NULL;
 
-		while(sorted_choices[max_assigned] == NULL && max_assigned > min_assigned)
-			max_assigned--;
-
-		s = run_choice(c);
-		free(c);
-		if((s->status & STATUS_SUCCESS) == STATUS_SUCCESS)
+		// ifall inga val är kvar, avsluta
+		if(sorted_choices[min_score] == NULL)
 			break;
 
-		if(s->status & STATUS_INVALID)
-			free_state(s);
+		// plocka dom 10 bästa choices och testa
+		// testa alla choices som finns i poolen, tag den/de bästa, släng resten
+		int i;
+		for(i=0;i<1;i++)
+		{
+			choice *c = sorted_choices[min_score];
 
-		else if((s->status & STATUS_DONE) == 0)
+			if(c == NULL)
+				break;
+
+			sorted_choices[min_score] = c->next;
+
+			// vi är klara när det inte finns fler val
+
+			while(sorted_choices[min_score] == NULL && min_score < max_score)
+				min_score++;
+
+			c->next = prev_choices;
+			prev_choices = c;
+		}
+		// töm sorted_choices
+		while(sorted_choices[min_score] != NULL)
+		{
+			choice *c = sorted_choices[min_score];
+			sorted_choices[min_score] = c->next;
+
+			unlink_state(c->state);
+			free(c);
+
+			while(sorted_choices[min_score] == NULL && min_score < max_score)
+				min_score++;
+		}
+
+		min_score = n+k-1;
+		max_score = 0;
+
+		// kör alla val
+		while(prev_choices != NULL)
+		{
+			choice *next = prev_choices->next;
+			sudoku_state *s = run_choice(prev_choices);
+
+			free(prev_choices);
+
 			gen_choices(s);
+			unlink_state(s);
+
+			prev_choices = next;
+		}
 	}
 
-	print_output(s);
+	free(sorted_choices);
+
+	print_best();
+	unlink_state(s);
+	//unlink_state(best_state);
+	//print_output(s);
 }
 
