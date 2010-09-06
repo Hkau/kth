@@ -1,0 +1,53 @@
+# exercise 1
+# test answers, don't comment on them
+ex1=[1,2,0,2,1,1,0]
+
+# exercise 2
+
+# request list: [3,1,4,0,3,0,-1]
+# elev 1: moves to closest stop
+
+# table: floor, pool, left, action
+# 0, [3], [1,4,0,3,0,-1], 1 .. 3 closest, going up
+# 1, [3], [4,0,3,0,-1], 1 .. 1 got in and out, 3 is still closest, going up
+# 2, [3,4], [0,3,0,-1], 1 .. 3 closest
+# 3, [4,0], [3,0,-1], 1 .. 4 closest
+# 4, [0,3], [0,-1], -1 .. 3 closest, going down
+# 3, [0,0], [-1], -1 .. 0 closest, going down
+# 2, [0,0,-1], [], -1 .. 0 closest
+# 1, [0,0,-1], [], -1 .. 0 closest
+# 0, [-1], [], -1 .. -1 closest, going down
+# -1, [] ... done!
+
+# first the commands output for agent 1, in python list format
+ex2a=[1,1,1,1,-1,-1,-1,-1,-1]
+
+# request list: [3,1,4,0,3,0,-1]
+# elev 2: moves up whenever anyone wants to go up
+
+# table: floor, pool, left, action
+# 0, [3], [1,4,0,3,0,-1], 1 .. 3 above, going up
+# 1, [3], [4,0,3,0,-1], 1 .. 1 got in and out, 3 is still up, going up
+# 2, [3,4], [0,3,0,-1], 1 .. 3 up
+# 3, [4,0], [3,0,-1], 1 .. 4 up
+# 4, [0,3], [0,-1], -1 .. exits in pool all below floor 4, going down
+# 3, [0,0], [-1], -1 .. exits below, going down
+# 2, [0,0,-1], [], -1 .. exits below going down
+# 1, [0,0,-1], [], -1 .. exits below going down
+# 0, [-1], [], -1 .. exits below, going down
+# -1, [] ... done!
+
+# Note that this is exactly what agent 1 happened to do. Not generally so.
+
+# then the commands output for agent 2, in python list format
+ex2b=[1,1,1,1,-1,-1,-1,-1,-1]
+
+#exercise 3
+# i created another program to solve it (part3.py), i include it in the .zip
+# set A
+# [bfs, dfs, ids], and for each method
+# [time,max memory consumption,[sequence of nodes in memory when solution is found, empty if didn't fit]]
+ex3a = [[3066,511,[]],[24534,12,[1,3,7,15,31,63,127,255,511]],[6078,9,[1,3,7,15,31,63,127,255,511]]]
+# set B
+ex3b = [[936,156,[]],[23406,6,[1,6,31,156]],[1164,4,[1,6,31,156]]]
+
