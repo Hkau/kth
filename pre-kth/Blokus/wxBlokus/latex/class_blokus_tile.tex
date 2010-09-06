@@ -1,0 +1,125 @@
+\section{Blokus\-Tile Class Reference}
+\label{class_blokus_tile}\index{BlokusTile@{BlokusTile}}
+Blokus tile.  
+
+
+{\tt \#include $<$Blokus\-Tile.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+u8 {\bf get\-Amount} ()
+\begin{CompactList}\small\item\em Get amount. \item\end{CompactList}\item 
+void {\bf set\-Amount} (u8 amount)
+\begin{CompactList}\small\item\em Set amount. \item\end{CompactList}\item 
+u8 {\bf get\-Score} ()
+\begin{CompactList}\small\item\em Get score. \item\end{CompactList}\item 
+void {\bf set\-Score} (u8 score)
+\begin{CompactList}\small\item\em Set score. \item\end{CompactList}\item 
+{\bf Tile} $\ast$ {\bf get\-Tile\-Data} ()
+\begin{CompactList}\small\item\em Get \doxyref{Tile}{p.}{struct_tile} data. \item\end{CompactList}\item 
+void {\bf set\-Tile} ({\bf Tile} $\ast$tile)
+\begin{CompactList}\small\item\em Set \doxyref{Tile}{p.}{struct_tile} data. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+{\bf Tile} $\ast$ {\bf Tile\-Data}\label{class_blokus_tile_4fa98460fba370b8c9aa58631e8133de}
+
+\item 
+u8 {\bf Amount}\label{class_blokus_tile_a1dda3d31cb1fd473ea251bbea467e2d}
+
+\item 
+u8 {\bf Score}\label{class_blokus_tile_e959866a42f42b4ac78a252b3df9438f}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Blokus tile. 
+
+Wraps tile data and adds amount and score to it. 
+
+
+
+Definition at line 8 of file Blokus\-Tile.h.
+
+\subsection{Member Function Documentation}
+\index{BlokusTile@{Blokus\-Tile}!getAmount@{getAmount}}
+\index{getAmount@{getAmount}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Blokus\-Tile::get\-Amount ()\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_f8896a0e776dc547cbbbf6ed6cebf4f2}
+
+
+Get amount. 
+
+Returns amount of tiles. 
+
+Definition at line 13 of file Blokus\-Tile.h.
+
+References Amount.
+
+Referenced by Player::get\-Score(), Tile\-Panel::On\-Paint(), Default\-Rules::Placed\-Tile(), Game::Save\-Game(), Player::set\-Next\-Valid\-Tile(), and Default\-Rules::Valid\-Place\-Tile().\index{BlokusTile@{Blokus\-Tile}!setAmount@{setAmount}}
+\index{setAmount@{setAmount}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Blokus\-Tile::set\-Amount (u8 {\em amount})\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_ecbb3e1c47753194ddd71a17e8d878a9}
+
+
+Set amount. 
+
+Sets amount of tiles. 
+
+Definition at line 17 of file Blokus\-Tile.h.
+
+References Amount.
+
+Referenced by Game::Load\-Game(), and Default\-Rules::Placed\-Tile().\index{BlokusTile@{Blokus\-Tile}!getScore@{getScore}}
+\index{getScore@{getScore}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Blokus\-Tile::get\-Score ()\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_d65cef9e274f310c9ca1286dbc14aa49}
+
+
+Get score. 
+
+Gets score per tiles. 
+
+Definition at line 21 of file Blokus\-Tile.h.
+
+References Score.
+
+Referenced by Player::get\-Score().\index{BlokusTile@{Blokus\-Tile}!setScore@{setScore}}
+\index{setScore@{setScore}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Blokus\-Tile::set\-Score (u8 {\em score})\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_9b0d0d77c76db99a8f7a1933ee57d888}
+
+
+Set score. 
+
+Sets score per tiles. 
+
+Definition at line 25 of file Blokus\-Tile.h.
+
+References Score.\index{BlokusTile@{Blokus\-Tile}!getTileData@{getTileData}}
+\index{getTileData@{getTileData}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Tile}$\ast$ Blokus\-Tile::get\-Tile\-Data ()\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_b92b43fad76e845246ca6e50b334c1eb}
+
+
+Get \doxyref{Tile}{p.}{struct_tile} data. 
+
+Returns pointer to actual tile data. 
+
+Definition at line 29 of file Blokus\-Tile.h.
+
+References Tile\-Data.
+
+Referenced by wx\-Blokus::Key\-Down(), Tile\-Panel::On\-Paint(), Field\-Panel::On\-Paint(), Game::Place\-Tile(), and Default\-Rules::Valid\-Place\-Tile().\index{BlokusTile@{Blokus\-Tile}!setTile@{setTile}}
+\index{setTile@{setTile}!BlokusTile@{Blokus\-Tile}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Blokus\-Tile::set\-Tile ({\bf Tile} $\ast$ {\em tile})\hspace{0.3cm}{\tt  [inline]}}\label{class_blokus_tile_416b06426f83b87ef85a2597fa3d3478}
+
+
+Set \doxyref{Tile}{p.}{struct_tile} data. 
+
+Associates \doxyref{Blokus\-Tile}{p.}{class_blokus_tile} with actual data. 
+
+Definition at line 33 of file Blokus\-Tile.h.
+
+References Tile\-Data.
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+Blokus\-Tile.h\end{CompactItemize}

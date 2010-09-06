@@ -1,0 +1,54 @@
+
+
+Okej, nu blir det nog ganska kort, för klockan är ~3 på morgonen.
+
+Idag blev jag ganska taggad på att se hur det var att jobba med ogg och vorbis (container och codec för ljudfiler som bl.a. används i frets on fire, filer som jag hoppas på att kunna läsa. Till skillnad från mp3 så kommer Vorbis utan patentkrångel osv. och det finns gratis officiella bibliotek för att decode:a och encode:a filer/strömmar direkt från skaparna.
+
+Ogg Vorbis
+
+http://vorbis.com/
+
+http://xiph.org/vorbis/ (dev. resource, typ, officiell)
+
+Waveform
+
+http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
+
+Jag har, bara för att se hur det funkar, gjort ett program som omvandlar ogg-filer till wav-filer, dvs decodar och sparar ogg. (Med biblioteket, krångligaste delen gjord.)
+
+Det som gick bra var väl att det blev klart (för att jag var ihärdig, klockan är 3 på morgonen), och att jag fick öva mig med diverse C-funktioner för in/ut. Också bra att jag numera har börjat jobba vidare, sista loggboken skrevs för mer än 2 månader sen.
+
+Till det som gjorde att klockan är 3 på morgonen då. Jag har verkligen inte gjort tillräckligt med i/o i C, först så var problemet hur man ska skriva ut heltal på 2 bytes. Slutade med memcpy direkt från tillfälligt ställe. Sedan var det memcpy på diverse olika värden. Sedan då jag fått bort alla varningar så segfaultade programmet. (Läs kraschade.)
+
+lemming@lemming:~/Desktop$ gcc oggwav.c -lvorbisfile -o oggwav && ./oggwav Bloody\ Tears.ogg
+
+Ogg to WAV decoder/converter.
+
+Vorbis file info:
+
+Channels: 2
+Samples: 4904064
+Samplerate: 44100.
+
+Length: ~111 s.
+
+PCM size: 19616256 bytes.
+
+WAV size: 19616300 bytes.
+
+Decoding:
+
+Segmentation fault (core dumped)
+
+Jahapp! Skitkonstigt, tänker jag. Så jag byter ut memcpy mot strcpy för strängarna, bara för att liksom. Programmet slutar krascha. Fast filen som produceras går inte att spela upp. Jag öppnar filen i en hex-editor och ser att alla värden i headern utom strängarna är 0×00 00 00 00 etc. Och jag vet att värdena stämmer. Något kopieras inte rätt. Ser att argumenten för memcpy står omlott om de ska vara samma som strcpy, och C brukar vara ganska konsekvent. Så jag kollar upp det.
+
+Mycket riktigt, den tomma buffern har kopierats över mina tal istället för tvärt om. Värdelöst. Jag byter tillbaka texten till memcpy som är snabbare. Och det funkar, för att de är i rätt ordning. Så jag byter resten, inga mer segfaults. Startar Bloody Tears-wav, och den låter helt perfekt. Skönt att vara klar för dagen. :) Den skickar bara ut “out.wav” men tar commandline drag-n-drop.
+
+Vidare planering för projektarbetet; målet för nuvarande är att sikta lågt så att man får något att visa upp i slutändan, istället för att säga “jag hade tänkt att ha det här och det där, men jag hann inte.” Planen just nu är enkelt command-line-interface för att välja låt etc. och score och sånt visas i command line efter det är klart. Scoringen hade jag tänkt att ta från ett annat musikspel som jag gillar, beatmania, för att den tycker jag är mycket trevligare.
+
+http://vjarmy.com/wiki/index.php/What_Is_Beatmania_IIDX
+
+http://vjarmy.com/wiki/index.php/IIDX_General_Info (Scoring)
+
+http://lemming.zapto.org/oggwav.c
+

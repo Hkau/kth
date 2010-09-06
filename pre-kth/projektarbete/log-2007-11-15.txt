@@ -1,0 +1,29 @@
+Idag lirade jag lite Guitar Hero och det gick väl sådär, men jag tänkte också tanka lite låtar från Simon och lira Frets on Fire, så jag tog X-plorer:n, som kontrollen heter (trivia - knockoff av Gibson Explorer). Kontrollen pluggas in, och Windows frågar om den får leta efter drivrutiner via Windows Update - “ok”. Så den laddar ner drivrutiner för Xbox 360-kontroller till Windows, och det poppar upp att den har installerat “Guitar Hero X-plorer”.
+
+I kontrollpanelens spelenheter syns den, med X/Y Axis, rotation för X,Y,Z, 10 knappar och en “View Hat”, a.k.a. D-pad.
+
+X-rotation är whammy-bar:en,
+
+Y-rotation används för att aktivera star-power,
+
+Z verkar vara runt gitarrens egen axel, men så vitt jag vet så har den ingen funktion i spelet.
+
+X/Y Axis är oanvända, och troligtvis movement stick på vanliga 360. Troligtvis finns de med som bluffaxlar i kontrollen för att axis 0,1 används av vanliga kontrollen för vänstra stickan (obekräftat), så om whammy bar och tilt av kontrollen skulle sitta som axis 0,1 så skulle de styra i menyerna.
+
+Istället styr man i menyerna med D-pad:en. Strum-bar är även upp och ner på pad:en, och fungerar i menyerna som upp och ner.
+
+Och så till knapparna:
+
+Färgknapparna för banden på gitarren är 0 till 4. 3:e bandet och 4:e bandet har bytts plats på, så index går från vänster: 0, 1, 3, 2, 4. Troligtvis för att den ska behålla sin funktion som vanlig kontroll. Gul på xboxkontrollen är Y, och det vore irriterande att styra i Dashboard om gul inte är Y, när den säger tryck på gula Y för att logga ut. Färgschemat som är behöll Harmonix sedan Guitar Hero I.
+
+Start är 7
+
+Select är 6
+
+Då återstår 5, 8, 9, som inte verkar ha någon funktion på gitarren, men kanske har det på vanliga kontrollen, som antingen triggers, eller L/R button, osv. Tyvärr kan jag inte bekräfta detta utan en sladdad 360-kontroll.
+
+Jag skrev kvickt ihop ett litet program i C som med SDL läser av joysticks., det är smått fulkodat eftersom det inte clearar skärmen och skriver om, utan den skriver nytt gång på gång,. Men det spelar ingen roll; det fungerar och visar att det går hur bra som helst att läsa av kontrollen.
+
+Programmet räknar frår 0 när det gäller axis etc., precis som listan. Knapparna 0-4 i listan motsvarar 1-5 i kontrollpanelen.
+
+Källkoden till programmet finns här (http://lemming.zapto.org/sdljoy.c).

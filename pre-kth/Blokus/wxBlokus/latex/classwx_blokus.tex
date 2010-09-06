@@ -1,0 +1,218 @@
+\section{wx\-Blokus Class Reference}
+\label{classwx_blokus}\index{wxBlokus@{wxBlokus}}
+Main frame for Blokus.  
+
+
+{\tt \#include $<$wx\-Blokus.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf wx\-Blokus} (const wx\-String \&title, const wx\-Point \&pos, const wx\-Size \&size)
+\begin{CompactList}\small\item\em \doxyref{wx\-Blokus}{p.}{classwx_blokus} constructor \item\end{CompactList}\item 
+{\bf $\sim$wx\-Blokus} ()
+\begin{CompactList}\small\item\em \doxyref{wx\-Blokus}{p.}{classwx_blokus} destructor \item\end{CompactList}\item 
+void {\bf On\-Quit} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em Quit event. \item\end{CompactList}\item 
+void {\bf On\-Load} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em Load event. \item\end{CompactList}\item 
+void {\bf On\-Save} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em Save event. \item\end{CompactList}\item 
+void {\bf On\-About} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em About event. \item\end{CompactList}\item 
+void {\bf On\-Skip} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em Skip event. \item\end{CompactList}\item 
+void {\bf On\-Count\-Score} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em Count score event. \item\end{CompactList}\item 
+void {\bf On\-New} (wx\-Command\-Event \&event)
+\begin{CompactList}\small\item\em New event. \item\end{CompactList}\item 
+void {\bf Key\-Down} (wx\-Key\-Event \&event)
+\begin{CompactList}\small\item\em Key\-Down event. \item\end{CompactList}\item 
+void {\bf On\-Game\-End} ()
+\begin{CompactList}\small\item\em \doxyref{Game}{p.}{class_game} End callback. \item\end{CompactList}\item 
+void {\bf Refresh\-Tile\-Panels} ()
+\begin{CompactList}\small\item\em Refresh tile panels. \item\end{CompactList}\item 
+void {\bf Show\-Score} ()
+\begin{CompactList}\small\item\em Show\-Score. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{CompactItemize}
+\item 
+static void {\bf Game\-End} ()
+\begin{CompactList}\small\item\em Static \doxyref{Game}{p.}{class_game} End callback. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Main frame for Blokus. 
+
+Main window. Contains \doxyref{Rules}{p.}{class_rules} and \doxyref{Game}{p.}{class_game} for gameplay mechanics. A \doxyref{Field\-Panel}{p.}{class_field_panel}, and a few instances of \doxyref{Tile\-Panel}{p.}{class_tile_panel} show the previous, current and next \doxyref{Tile}{p.}{struct_tile}. This frame also handles key events from child windows and have a couple of commands from menus that allows players save, load, skip one's turn etc. 
+
+
+
+Definition at line 20 of file wx\-Blokus.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{wxBlokus@{wx\-Blokus}!wxBlokus@{wxBlokus}}
+\index{wxBlokus@{wxBlokus}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}wx\-Blokus::wx\-Blokus (const wx\-String \& {\em title}, const wx\-Point \& {\em pos}, const wx\-Size \& {\em size})}\label{classwx_blokus_bc9a7a1dd8b92074937df3f1b17fbd49}
+
+
+\doxyref{wx\-Blokus}{p.}{classwx_blokus} constructor 
+
+Allocates \doxyref{Game}{p.}{class_game}, \doxyref{Rules}{p.}{class_rules}, and panels etc. 
+
+Definition at line 7 of file wx\-Blokus.cpp.
+
+References Game\-End(), Game::get\-Current\-Player(), Player::get\-Current\-Tile(), Player::get\-Next\-Tile(), Player::get\-Previous\-Tile(), and Player::get\-Team().\index{wxBlokus@{wx\-Blokus}!~wxBlokus@{$\sim$wxBlokus}}
+\index{~wxBlokus@{$\sim$wxBlokus}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}wx\-Blokus::$\sim$wx\-Blokus ()}\label{classwx_blokus_76120f66e17fe6f13da3364acce591d0}
+
+
+\doxyref{wx\-Blokus}{p.}{classwx_blokus} destructor 
+
+Deletes game and rules. 
+
+Definition at line 89 of file wx\-Blokus.cpp.
+
+\subsection{Member Function Documentation}
+\index{wxBlokus@{wx\-Blokus}!OnQuit@{OnQuit}}
+\index{OnQuit@{OnQuit}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Quit (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_b501e372c414b3c543be5b212a0189fe}
+
+
+Quit event. 
+
+Closes the frame. 
+
+Definition at line 166 of file wx\-Blokus.cpp.\index{wxBlokus@{wx\-Blokus}!OnLoad@{OnLoad}}
+\index{OnLoad@{OnLoad}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Load (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_fdb1b054285bb01d97f6811a1c45b93a}
+
+
+Load event. 
+
+Loads a previously saved game from file selector. 
+
+Definition at line 181 of file wx\-Blokus.cpp.
+
+References Game::Load\-Game(), and Refresh\-Tile\-Panels().\index{wxBlokus@{wx\-Blokus}!OnSave@{OnSave}}
+\index{OnSave@{OnSave}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Save (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_7e56c267c7ec272bb558cd92b79bd97d}
+
+
+Save event. 
+
+Saves the current game. 
+
+Definition at line 198 of file wx\-Blokus.cpp.
+
+References Game::Save\-Game().\index{wxBlokus@{wx\-Blokus}!OnAbout@{OnAbout}}
+\index{OnAbout@{OnAbout}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-About (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_254a1092819095bca1305d733eebc753}
+
+
+About event. 
+
+Displays Blokus information. 
+
+Definition at line 171 of file wx\-Blokus.cpp.\index{wxBlokus@{wx\-Blokus}!OnSkip@{OnSkip}}
+\index{OnSkip@{OnSkip}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Skip (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_609c24a4ea5c7ec9681a0fe900b2d76a}
+
+
+Skip event. 
+
+Closes the frame. 
+
+Definition at line 110 of file wx\-Blokus.cpp.
+
+References Game::Cycle\-Players(), and Refresh\-Tile\-Panels().\index{wxBlokus@{wx\-Blokus}!OnCountScore@{OnCountScore}}
+\index{OnCountScore@{OnCountScore}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Count\-Score (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_e0c42f09fc4baa5a8f60ef4bc67f67c6}
+
+
+Count score event. 
+
+Displays the score in a message box. 
+
+Definition at line 156 of file wx\-Blokus.cpp.
+
+References Show\-Score().\index{wxBlokus@{wx\-Blokus}!OnNew@{OnNew}}
+\index{OnNew@{OnNew}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-New (wx\-Command\-Event \& {\em event})}\label{classwx_blokus_51b7867e8371746fc2af4226c5ee7270}
+
+
+New event. 
+
+Resets the game. 
+
+Definition at line 119 of file wx\-Blokus.cpp.
+
+References Game\-End(), Refresh\-Tile\-Panels(), Field\-Panel::set\-Game(), Field\-Panel::set\-Tile\-X(), and Field\-Panel::set\-Tile\-Y().\index{wxBlokus@{wx\-Blokus}!KeyDown@{KeyDown}}
+\index{KeyDown@{KeyDown}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::Key\-Down (wx\-Key\-Event \& {\em event})}\label{classwx_blokus_27ce7bbbe20e0bfdb02359bf6bf6bb02}
+
+
+Key\-Down event. 
+
+Moves, changes and manipulates tiles based on key presses. 
+
+Definition at line 210 of file wx\-Blokus.cpp.
+
+References Game::get\-Current\-Player(), Player::get\-Current\-Tile(), Game::get\-Field(), Blokus\-Tile::get\-Tile\-Data(), Field\-Panel::get\-Tile\-X(), Field\-Panel::get\-Tile\-Y(), Tile::Height, Game::Place\-Tile(), Refresh\-Tile\-Panels(), Player::set\-Next\-Tile(), Player::set\-Previous\-Tile(), Field\-Panel::set\-Tile\-X(), Field\-Panel::set\-Tile\-Y(), and Tile::Width.\index{wxBlokus@{wx\-Blokus}!OnGameEnd@{OnGameEnd}}
+\index{OnGameEnd@{OnGameEnd}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::On\-Game\-End ()}\label{classwx_blokus_45c3f1cd210ff24c5ed1cf2dabda983b}
+
+
+\doxyref{Game}{p.}{class_game} End callback. 
+
+Displays the score in a message box. 
+
+Definition at line 161 of file wx\-Blokus.cpp.
+
+References Show\-Score().
+
+Referenced by Game\-End().\index{wxBlokus@{wx\-Blokus}!RefreshTilePanels@{RefreshTilePanels}}
+\index{RefreshTilePanels@{RefreshTilePanels}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::Refresh\-Tile\-Panels ()}\label{classwx_blokus_351c8b6c716c18316817ff610dc4237b}
+
+
+Refresh tile panels. 
+
+Updates tile panels and has them redrawn. 
+
+Definition at line 95 of file wx\-Blokus.cpp.
+
+References Game::get\-Current\-Player(), Player::get\-Current\-Tile(), Player::get\-Next\-Tile(), Player::get\-Previous\-Tile(), Player::get\-Team(), Tile\-Panel::set\-Team(), and Tile\-Panel::set\-Tile().
+
+Referenced by Key\-Down(), On\-Load(), On\-New(), and On\-Skip().\index{wxBlokus@{wx\-Blokus}!GameEnd@{GameEnd}}
+\index{GameEnd@{GameEnd}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void wx\-Blokus::Game\-End ()\hspace{0.3cm}{\tt  [inline, static]}}\label{classwx_blokus_ca4e3d532d85c2043f307038da8adc4d}
+
+
+Static \doxyref{Game}{p.}{class_game} End callback. 
+
+Calls the current wx\-Blokus' Game\-End function. 
+
+Definition at line 73 of file wx\-Blokus.h.
+
+References On\-Game\-End().
+
+Referenced by On\-New(), and wx\-Blokus().\index{wxBlokus@{wx\-Blokus}!ShowScore@{ShowScore}}
+\index{ShowScore@{ShowScore}!wxBlokus@{wx\-Blokus}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void wx\-Blokus::Show\-Score ()}\label{classwx_blokus_cc7203de55946e7a4f8a5c238de1d120}
+
+
+Show\-Score. 
+
+Displays the score in a message box. 
+
+Definition at line 136 of file wx\-Blokus.cpp.
+
+References Game::get\-Player(), Game::get\-Player\-Count(), and Player::get\-Score().
+
+Referenced by On\-Count\-Score(), and On\-Game\-End().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+wx\-Blokus.h\item 
+wx\-Blokus.cpp\end{CompactItemize}

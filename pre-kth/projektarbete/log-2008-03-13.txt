@@ -1,0 +1,9 @@
+Fick igång musikspelet i Windows idag, och den öppnar numera låtar med argument, snarare än statiskt i källkoden, då försvinner problemen med path/to/file och path\to\file mellan operativsystemen, som var jobbigt att ha statiskt. (Det var inte planerat att hållas statiskt, alls.)
+
+    F:\projektarbete\musikspel>musikspel “songs\The Metal - Tenacious D”
+    Song directory: songs\The Metal û Tenacious D\
+    songs\The Metal û Tenacious D\song.ogg
+    songs\The Metal û Tenacious D\guitar.ogg
+    songs\The Metal û Tenacious D\rhythm.ogg
+
+Jag får samma höga framerate i Windows också, fast cappar istället framerate så att den inte ligger och drar hundra procent cpu.

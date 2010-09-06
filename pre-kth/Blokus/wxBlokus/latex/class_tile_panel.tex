@@ -1,0 +1,81 @@
+\section{Tile\-Panel Class Reference}
+\label{class_tile_panel}\index{TilePanel@{TilePanel}}
+\doxyref{Tile}{p.}{struct_tile} panel.  
+
+
+{\tt \#include $<$Tile\-Panel.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Tile\-Panel} ({\bf Blokus\-Tile} $\ast$tile, u8 team, wx\-Window $\ast$parent, wx\-Window\-ID id=wx\-ID\_\-ANY, const wx\-Point \&pos=wx\-Default\-Position, const wx\-Size \&size=wx\-Default\-Size)
+\begin{CompactList}\small\item\em \doxyref{Tile\-Panel}{p.}{class_tile_panel} constructor. \item\end{CompactList}\item 
+void {\bf On\-Paint} (wx\-Paint\-Event \&event)
+\begin{CompactList}\small\item\em Paint event. \item\end{CompactList}\item 
+void {\bf set\-Team} (u8 team)
+\begin{CompactList}\small\item\em Set team. \item\end{CompactList}\item 
+void {\bf set\-Tile} ({\bf Blokus\-Tile} $\ast$tile)
+\begin{CompactList}\small\item\em Set \doxyref{Tile}{p.}{struct_tile}. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+\doxyref{Tile}{p.}{struct_tile} panel. 
+
+Displays a tile with color related to set team. 
+
+
+
+Definition at line 9 of file Tile\-Panel.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{TilePanel@{Tile\-Panel}!TilePanel@{TilePanel}}
+\index{TilePanel@{TilePanel}!TilePanel@{Tile\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Tile\-Panel::Tile\-Panel ({\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em team}, wx\-Window $\ast$ {\em parent}, wx\-Window\-ID {\em id} = {\tt wxID\_\-ANY}, const wx\-Point \& {\em pos} = {\tt wxDefaultPosition}, const wx\-Size \& {\em size} = {\tt wxDefaultSize})}\label{class_tile_panel_564dfb2e1400e3c39d17522a9f2cd01c}
+
+
+\doxyref{Tile\-Panel}{p.}{class_tile_panel} constructor. 
+
+Sets tile and team. 
+
+Definition at line 11 of file Tile\-Panel.cpp.
+
+\subsection{Member Function Documentation}
+\index{TilePanel@{Tile\-Panel}!OnPaint@{OnPaint}}
+\index{OnPaint@{OnPaint}!TilePanel@{Tile\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Panel::On\-Paint (wx\-Paint\-Event \& {\em event})}\label{class_tile_panel_7a2a4f431c3beeb344776d23762d9375}
+
+
+Paint event. 
+
+Draws the tile. 
+
+Definition at line 21 of file Tile\-Panel.cpp.
+
+References Tile::Blocks, Blokus\-Tile::get\-Amount(), Blokus\-Tile::get\-Tile\-Data(), Tile::Height, and Tile::Width.\index{TilePanel@{Tile\-Panel}!setTeam@{setTeam}}
+\index{setTeam@{setTeam}!TilePanel@{Tile\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Panel::set\-Team (u8 {\em team})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_panel_8d1596c31dbad484a9d2b9b3e7caee76}
+
+
+Set team. 
+
+Sets display team for the tile. 
+
+Definition at line 23 of file Tile\-Panel.h.
+
+Referenced by wx\-Blokus::Refresh\-Tile\-Panels().\index{TilePanel@{Tile\-Panel}!setTile@{setTile}}
+\index{setTile@{setTile}!TilePanel@{Tile\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Panel::set\-Tile ({\bf Blokus\-Tile} $\ast$ {\em tile})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_panel_c97c08db9f83a9c9e14c7ddad1d3316d}
+
+
+Set \doxyref{Tile}{p.}{struct_tile}. 
+
+Sets tile to be displayed. 
+
+Definition at line 27 of file Tile\-Panel.h.
+
+Referenced by wx\-Blokus::Refresh\-Tile\-Panels().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+Tile\-Panel.h\item 
+Tile\-Panel.cpp\end{CompactItemize}

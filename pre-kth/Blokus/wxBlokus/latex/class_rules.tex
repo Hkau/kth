@@ -1,0 +1,114 @@
+\section{Rules Class Reference}
+\label{class_rules}\index{Rules@{Rules}}
+\doxyref{Rules}{p.}{class_rules}.  
+
+
+{\tt \#include $<$Rules.h$>$}
+
+Inheritance diagram for Rules::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{class_rules}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+virtual {\bf Field} $\ast$ {\bf Create\-Field} ()
+\begin{CompactList}\small\item\em Create field. \item\end{CompactList}\item 
+virtual {\bf Player} $\ast$ {\bf Create\-Players} ()=0
+\begin{CompactList}\small\item\em Create players. \item\end{CompactList}\item 
+u8 {\bf get\-Player\-Count} ()
+\begin{CompactList}\small\item\em Get player count. \item\end{CompactList}\item 
+virtual bool {\bf Valid\-Place\-Tile} ({\bf Field} $\ast$field, {\bf Player} $\ast$player, {\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)=0
+\begin{CompactList}\small\item\em Tells if tile can be placed at location. \item\end{CompactList}\item 
+virtual void {\bf Placed\-Tile} ({\bf Field} $\ast$field, {\bf Player} $\ast$player, {\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)=0
+\begin{CompactList}\small\item\em Placed \doxyref{Tile}{p.}{struct_tile}. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+u8 {\bf Field\-Width}\label{class_rules_f17f1206d0f65e1e599f23af28aa2b90}
+
+\item 
+u8 {\bf Field\-Height}\label{class_rules_761b2485cddaa36f2ac4516b7b8b38bb}
+
+\item 
+u8 {\bf Player\-Count}\label{class_rules_b989f18e551d499554c9575c0646de8d}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+\doxyref{Rules}{p.}{class_rules}. 
+
+Virtual base class. Handles creation of field, players etc.. 
+
+
+
+Definition at line 10 of file Rules.h.
+
+\subsection{Member Function Documentation}
+\index{Rules@{Rules}!CreateField@{CreateField}}
+\index{CreateField@{CreateField}!Rules@{Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Field}$\ast$ Rules::Create\-Field ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{class_rules_47c0b14e4096a3a1458052dadd7d90b5}
+
+
+Create field. 
+
+Allocates and returns a field. 
+
+Definition at line 15 of file Rules.h.
+
+References Tile::Blocks, Field\-Height, Field\-Width, Tile::Height, and Tile::Width.
+
+Referenced by Game::Game().\index{Rules@{Rules}!CreatePlayers@{CreatePlayers}}
+\index{CreatePlayers@{CreatePlayers}!Rules@{Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Player}$\ast$ Rules::Create\-Players ()\hspace{0.3cm}{\tt  [pure virtual]}}\label{class_rules_1abeb2e177853e11031608eda5dff85d}
+
+
+Create players. 
+
+Returns array of players. 
+
+Implemented in {\bf Default\-Rules} \doxyref{}{p.}{class_default_rules_253de1558424507af6c80eaed251cbad}.
+
+Referenced by Game::Game().\index{Rules@{Rules}!getPlayerCount@{getPlayerCount}}
+\index{getPlayerCount@{getPlayerCount}!Rules@{Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Rules::get\-Player\-Count ()\hspace{0.3cm}{\tt  [inline]}}\label{class_rules_04c8485ffa02d6a8b3757febc1892145}
+
+
+Get player count. 
+
+Returns player count. 
+
+Definition at line 30 of file Rules.h.
+
+References Player\-Count.
+
+Referenced by Game::Game().\index{Rules@{Rules}!ValidPlaceTile@{ValidPlaceTile}}
+\index{ValidPlaceTile@{ValidPlaceTile}!Rules@{Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}virtual bool Rules::Valid\-Place\-Tile ({\bf Field} $\ast$ {\em field}, {\bf Player} $\ast$ {\em player}, {\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})\hspace{0.3cm}{\tt  [pure virtual]}}\label{class_rules_bc3a38b93b141d967fd6d175982bfea4}
+
+
+Tells if tile can be placed at location. 
+
+Returns true if the tile can be placed by player at the location. 
+
+Implemented in {\bf Default\-Rules} \doxyref{}{p.}{class_default_rules_b98432a0b845159f29cac52e89d3b048}.
+
+Referenced by Game::is\-Valid\-Place(), and Game::Place\-Tile().\index{Rules@{Rules}!PlacedTile@{PlacedTile}}
+\index{PlacedTile@{PlacedTile}!Rules@{Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}virtual void Rules::Placed\-Tile ({\bf Field} $\ast$ {\em field}, {\bf Player} $\ast$ {\em player}, {\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})\hspace{0.3cm}{\tt  [pure virtual]}}\label{class_rules_c5e5348f67651ca636f1d79536d6d500}
+
+
+Placed \doxyref{Tile}{p.}{struct_tile}. 
+
+Gets called by game after tile has been placed. 
+
+Implemented in {\bf Default\-Rules} \doxyref{}{p.}{class_default_rules_423fc15b39bce215f6ad5151376693a4}.
+
+Referenced by Game::Place\-Tile().
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+Rules.h\end{CompactItemize}

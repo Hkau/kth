@@ -1,0 +1,7 @@
+Loggbok 2007-10-04
+
+Jag har skrivit början av en projektplan på lektionstid. Projektplanen är väldigt grundlig eftersom jag inte har planerat vad som ska vara med så kan jag därför heller inte veta när varje delmoment ska vara klart.
+
+Jag planerar att sätta upp en blogg för projektet, och förhandla om den kan användas för kommunikation istället för fronter, då fronter fungerar lite halvdant utan java.
+
+Nästa steg i projektet är att planera alla delmoment som kan behövas och dess prioritet, meny har t.ex. lägre prioritet än att kunna spela upp ljud.

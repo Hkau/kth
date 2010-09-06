@@ -1,0 +1,120 @@
+\section{Field\-Panel Class Reference}
+\label{class_field_panel}\index{FieldPanel@{FieldPanel}}
+Field panel.  
+
+
+{\tt \#include $<$Field\-Panel.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Field\-Panel} ({\bf Game} $\ast$game, wx\-Window $\ast$parent, wx\-Window\-ID id=wx\-ID\_\-ANY, const wx\-Point \&pos=wx\-Default\-Position, const wx\-Size \&size=wx\-Default\-Size)
+\begin{CompactList}\small\item\em \doxyref{Field\-Panel}{p.}{class_field_panel} constructor. \item\end{CompactList}\item 
+void {\bf On\-Paint} (wx\-Paint\-Event \&event)
+\begin{CompactList}\small\item\em Paint event. \item\end{CompactList}\item 
+u8 {\bf get\-Tile\-X} ()
+\begin{CompactList}\small\item\em Gets X coordinate for the tile. \item\end{CompactList}\item 
+u8 {\bf get\-Tile\-Y} ()
+\begin{CompactList}\small\item\em Gets Y coordinate for the tile. \item\end{CompactList}\item 
+void {\bf set\-Tile\-X} (u8 value)
+\begin{CompactList}\small\item\em Sets X coordinate for the tile. \item\end{CompactList}\item 
+void {\bf set\-Tile\-Y} (u8 value)
+\begin{CompactList}\small\item\em Sets Y coordinate for the tile. \item\end{CompactList}\item 
+void {\bf set\-Game} ({\bf Game} $\ast$game)
+\begin{CompactList}\small\item\em Sets pointer to game. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Field panel. 
+
+Displays a field. 
+
+
+
+Definition at line 9 of file Field\-Panel.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{FieldPanel@{Field\-Panel}!FieldPanel@{FieldPanel}}
+\index{FieldPanel@{FieldPanel}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Field\-Panel::Field\-Panel ({\bf Game} $\ast$ {\em game}, wx\-Window $\ast$ {\em parent}, wx\-Window\-ID {\em id} = {\tt wxID\_\-ANY}, const wx\-Point \& {\em pos} = {\tt wxDefaultPosition}, const wx\-Size \& {\em size} = {\tt wxDefaultSize})}\label{class_field_panel_e748d6012bc3c5d7c32ebc406a6cd0a7}
+
+
+\doxyref{Field\-Panel}{p.}{class_field_panel} constructor. 
+
+Shows itself, initialises and sets values. 
+
+Definition at line 10 of file Field\-Panel.cpp.
+
+\subsection{Member Function Documentation}
+\index{FieldPanel@{Field\-Panel}!OnPaint@{OnPaint}}
+\index{OnPaint@{OnPaint}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Field\-Panel::On\-Paint (wx\-Paint\-Event \& {\em event})}\label{class_field_panel_94d918177c2bdb8aa62d456ee22fdc5e}
+
+
+Paint event. 
+
+Paints out the field. 
+
+Definition at line 22 of file Field\-Panel.cpp.
+
+References Tile::Blocks, Game::get\-Current\-Player(), Player::get\-Current\-Tile(), Game::get\-Field(), Player::get\-Team(), Blokus\-Tile::get\-Tile\-Data(), Tile::Height, Game::is\-Valid\-Place(), and Tile::Width.\index{FieldPanel@{Field\-Panel}!getTileX@{getTileX}}
+\index{getTileX@{getTileX}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Field\-Panel::get\-Tile\-X ()\hspace{0.3cm}{\tt  [inline]}}\label{class_field_panel_bb31988dc165a2a4ffdf2254f804eeca}
+
+
+Gets X coordinate for the tile. 
+
+Gets the X coordinate for the displayed tile. 
+
+Definition at line 23 of file Field\-Panel.h.
+
+Referenced by wx\-Blokus::Key\-Down().\index{FieldPanel@{Field\-Panel}!getTileY@{getTileY}}
+\index{getTileY@{getTileY}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Field\-Panel::get\-Tile\-Y ()\hspace{0.3cm}{\tt  [inline]}}\label{class_field_panel_80eb1a260dce8ef5ae8470023022e7d6}
+
+
+Gets Y coordinate for the tile. 
+
+Gets the Y coordinate for the displayed tile. 
+
+Definition at line 27 of file Field\-Panel.h.
+
+Referenced by wx\-Blokus::Key\-Down().\index{FieldPanel@{Field\-Panel}!setTileX@{setTileX}}
+\index{setTileX@{setTileX}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Field\-Panel::set\-Tile\-X (u8 {\em value})\hspace{0.3cm}{\tt  [inline]}}\label{class_field_panel_0e3113f8bff7ea666a8fdc4aafced835}
+
+
+Sets X coordinate for the tile. 
+
+Sets the X coordinate for the displayed tile. 
+
+Definition at line 31 of file Field\-Panel.h.
+
+Referenced by wx\-Blokus::Key\-Down(), and wx\-Blokus::On\-New().\index{FieldPanel@{Field\-Panel}!setTileY@{setTileY}}
+\index{setTileY@{setTileY}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Field\-Panel::set\-Tile\-Y (u8 {\em value})\hspace{0.3cm}{\tt  [inline]}}\label{class_field_panel_215504e3cce5cd38e2605cf72383e931}
+
+
+Sets Y coordinate for the tile. 
+
+Sets the Y coordinate for the displayed tile. 
+
+Definition at line 35 of file Field\-Panel.h.
+
+Referenced by wx\-Blokus::Key\-Down(), and wx\-Blokus::On\-New().\index{FieldPanel@{Field\-Panel}!setGame@{setGame}}
+\index{setGame@{setGame}!FieldPanel@{Field\-Panel}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Field\-Panel::set\-Game ({\bf Game} $\ast$ {\em game})\hspace{0.3cm}{\tt  [inline]}}\label{class_field_panel_3a22fb322148e1e3579efa57d199d9cc}
+
+
+Sets pointer to game. 
+
+Sets the \doxyref{Game}{p.}{class_game} pointer from which the class reads. 
+
+Definition at line 39 of file Field\-Panel.h.
+
+Referenced by wx\-Blokus::On\-New().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+Field\-Panel.h\item 
+Field\-Panel.cpp\end{CompactItemize}

@@ -1,0 +1,13 @@
+
+
+Idag har jag gjort en ogg-spelare, helt enkel, som spelar upp en låt från början till slut, utan att man kan pausa eller något.
+
+Jobbigast var att få den att funka i Windows, mest för att jag inte hade någon environment uppsatt, och att jag inte hade de bibliotek jag behövde. libvorbis var jobbigast att få igång pga. fel nånstans i makefilerna, men funkade om man byggde som statiskt bibliotek, istället för dll-fil. Jobbigt att hitta dock.
+
+Hur som helst så funkar den i Windows (och Linux) så jag kommer inte att ha problem med att ljud inte går att spela där, vilket är bra eftersom målet är att den ska funka perfekt lite överallt.
+
+Den är pretty much en moddad version av oggwav sedan tidigare, förutom att den fyller en buffer på begäran, istället för att kopiera en stream. Tog bort en bugg som fanns i förra programmet också, men det spelar ingen roll.
+
+http://lemming.zapto.org/oggplay.c
+
+Senare kommer jag att behöva mixa ljud också, och tänkte använda SDL_mixer (http://www.libsdl.org/projects/SDL_mixer/) till det (en del av SDL, som används).

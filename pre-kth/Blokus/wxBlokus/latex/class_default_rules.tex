@@ -1,0 +1,106 @@
+\section{Default\-Rules Class Reference}
+\label{class_default_rules}\index{DefaultRules@{DefaultRules}}
+Default rules.  
+
+
+{\tt \#include $<$Default\-Rules.h$>$}
+
+Inheritance diagram for Default\-Rules::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{class_default_rules}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Default\-Rules} ()
+\begin{CompactList}\small\item\em \doxyref{Default\-Rules}{p.}{class_default_rules} constructor. \item\end{CompactList}\item 
+virtual {\bf $\sim$Default\-Rules} ()
+\begin{CompactList}\small\item\em \doxyref{Default\-Rules}{p.}{class_default_rules} destructor. \item\end{CompactList}\item 
+{\bf Player} $\ast$ {\bf Create\-Players} ()
+\begin{CompactList}\small\item\em Create players. \item\end{CompactList}\item 
+bool {\bf Valid\-Place\-Tile} ({\bf Field} $\ast$field, {\bf Player} $\ast$player, {\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)
+\begin{CompactList}\small\item\em Checks if a tile can be placed at a certain location. \item\end{CompactList}\item 
+void {\bf Placed\-Tile} ({\bf Field} $\ast$field, {\bf Player} $\ast$player, {\bf Blokus\-Tile} $\ast$tile, u8 x, u8 y)
+\begin{CompactList}\small\item\em Called after a tile has been placed. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Default rules. 
+
+The default Blokus rules 
+
+
+
+Definition at line 8 of file Default\-Rules.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{DefaultRules@{Default\-Rules}!DefaultRules@{DefaultRules}}
+\index{DefaultRules@{DefaultRules}!DefaultRules@{Default\-Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Default\-Rules::Default\-Rules ()}\label{class_default_rules_21e410006427c44c7f8f5bdd784976e8}
+
+
+\doxyref{Default\-Rules}{p.}{class_default_rules} constructor. 
+
+Sets field width, height, \doxyref{Player}{p.}{class_player} count and initialize standard tiles. 
+
+Definition at line 5 of file Default\-Rules.cpp.
+
+References Rules::Field\-Height, Rules::Field\-Width, and Rules::Player\-Count.\index{DefaultRules@{Default\-Rules}!~DefaultRules@{$\sim$DefaultRules}}
+\index{~DefaultRules@{$\sim$DefaultRules}!DefaultRules@{Default\-Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Default\-Rules::$\sim$Default\-Rules ()\hspace{0.3cm}{\tt  [virtual]}}\label{class_default_rules_6d406bfd669e91d7d179d806eff951d4}
+
+
+\doxyref{Default\-Rules}{p.}{class_default_rules} destructor. 
+
+Destroy the standard tiles. 
+
+Definition at line 15 of file Default\-Rules.cpp.
+
+\subsection{Member Function Documentation}
+\index{DefaultRules@{Default\-Rules}!CreatePlayers@{CreatePlayers}}
+\index{CreatePlayers@{CreatePlayers}!DefaultRules@{Default\-Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Player} $\ast$ Default\-Rules::Create\-Players ()\hspace{0.3cm}{\tt  [virtual]}}\label{class_default_rules_253de1558424507af6c80eaed251cbad}
+
+
+Create players. 
+
+Allocates a list of players and gives them a \doxyref{Tile\-Set}{p.}{class_tile_set}. 
+
+Implements {\bf Rules} \doxyref{}{p.}{class_rules_1abeb2e177853e11031608eda5dff85d}.
+
+Definition at line 204 of file Default\-Rules.cpp.
+
+References Rules::Player\-Count.\index{DefaultRules@{Default\-Rules}!ValidPlaceTile@{ValidPlaceTile}}
+\index{ValidPlaceTile@{ValidPlaceTile}!DefaultRules@{Default\-Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Default\-Rules::Valid\-Place\-Tile ({\bf Field} $\ast$ {\em field}, {\bf Player} $\ast$ {\em player}, {\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})\hspace{0.3cm}{\tt  [virtual]}}\label{class_default_rules_b98432a0b845159f29cac52e89d3b048}
+
+
+Checks if a tile can be placed at a certain location. 
+
+Checks if a tile can be placed at a certain location, according to the official Blokus rules. 
+
+Implements {\bf Rules} \doxyref{}{p.}{class_rules_bc3a38b93b141d967fd6d175982bfea4}.
+
+Definition at line 20 of file Default\-Rules.cpp.
+
+References Tile::Blocks, Blokus\-Tile::get\-Amount(), Player::get\-Team(), Blokus\-Tile::get\-Tile\-Data(), Tile::Height, Player::Placed\-First\-Tile(), and Tile::Width.\index{DefaultRules@{Default\-Rules}!PlacedTile@{PlacedTile}}
+\index{PlacedTile@{PlacedTile}!DefaultRules@{Default\-Rules}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Default\-Rules::Placed\-Tile ({\bf Field} $\ast$ {\em field}, {\bf Player} $\ast$ {\em player}, {\bf Blokus\-Tile} $\ast$ {\em tile}, u8 {\em x}, u8 {\em y})\hspace{0.3cm}{\tt  [virtual]}}\label{class_default_rules_423fc15b39bce215f6ad5151376693a4}
+
+
+Called after a tile has been placed. 
+
+Removes a tile from the count and sets that player has used a tile. 
+
+Implements {\bf Rules} \doxyref{}{p.}{class_rules_c5e5348f67651ca636f1d79536d6d500}.
+
+Definition at line 198 of file Default\-Rules.cpp.
+
+References Blokus\-Tile::get\-Amount(), Blokus\-Tile::set\-Amount(), and Player::Used\-Tile().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+Default\-Rules.h\item 
+Default\-Rules.cpp\end{CompactItemize}

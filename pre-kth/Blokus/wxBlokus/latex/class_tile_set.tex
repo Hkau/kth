@@ -1,0 +1,100 @@
+\section{Tile\-Set Class Reference}
+\label{class_tile_set}\index{TileSet@{TileSet}}
+\doxyref{Tile}{p.}{struct_tile} set.  
+
+
+{\tt \#include $<$Tile\-Set.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf $\sim$Tile\-Set} ()
+\begin{CompactList}\small\item\em \doxyref{Tile\-Set}{p.}{class_tile_set} destructor. \item\end{CompactList}\item 
+u8 {\bf get\-Num\-Tiles} ()
+\begin{CompactList}\small\item\em Get number of tiles. \item\end{CompactList}\item 
+{\bf Blokus\-Tile} $\ast$ {\bf get\-Tile} (u8 index)
+\begin{CompactList}\small\item\em Get a certain tile. \item\end{CompactList}\item 
+void {\bf set\-Tile} (u8 index, {\bf Blokus\-Tile} $\ast$tile)
+\begin{CompactList}\small\item\em Set a certain tile. \item\end{CompactList}\item 
+void {\bf set\-Tile\-Amount} (u8 tile\-Amount)
+\begin{CompactList}\small\item\em Set tile amount. \item\end{CompactList}\item 
+void {\bf set\-Tile\-List} ({\bf Blokus\-Tile} $\ast$tile\-List)
+\begin{CompactList}\small\item\em Set tile list. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+\doxyref{Tile}{p.}{struct_tile} set. 
+
+\doxyref{Tile}{p.}{struct_tile} set for the player, contains amount of tiles and which tiles they are. 
+
+
+
+Definition at line 8 of file Tile\-Set.h.
+
+\subsection{Constructor \& Destructor Documentation}
+\index{TileSet@{Tile\-Set}!~TileSet@{$\sim$TileSet}}
+\index{~TileSet@{$\sim$TileSet}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Tile\-Set::$\sim$Tile\-Set ()\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_f9813549a45674dd14eea76b69c7c922}
+
+
+\doxyref{Tile\-Set}{p.}{class_tile_set} destructor. 
+
+Deletes tiles. 
+
+Definition at line 13 of file Tile\-Set.h.
+
+\subsection{Member Function Documentation}
+\index{TileSet@{Tile\-Set}!getNumTiles@{getNumTiles}}
+\index{getNumTiles@{getNumTiles}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u8 Tile\-Set::get\-Num\-Tiles ()\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_29c0262e06b582af94abfd9dfa5cddf5}
+
+
+Get number of tiles. 
+
+Gets the amount of tiles in the set. 
+
+Definition at line 17 of file Tile\-Set.h.
+
+Referenced by Player::get\-Score(), Game::Load\-Game(), Player::Next\-Index(), Player::Previous\-Index(), Game::Save\-Game(), and Player::set\-Next\-Valid\-Tile().\index{TileSet@{Tile\-Set}!getTile@{getTile}}
+\index{getTile@{getTile}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Blokus\-Tile}$\ast$ Tile\-Set::get\-Tile (u8 {\em index})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_7d654816846735180fc4435a4b95dbcd}
+
+
+Get a certain tile. 
+
+Gets the requested tile. 
+
+Definition at line 21 of file Tile\-Set.h.
+
+Referenced by Player::get\-Current\-Tile(), Player::get\-Next\-Tile(), Player::get\-Previous\-Tile(), Player::get\-Score(), Game::Load\-Game(), Game::Save\-Game(), and Player::set\-Next\-Valid\-Tile().\index{TileSet@{Tile\-Set}!setTile@{setTile}}
+\index{setTile@{setTile}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Set::set\-Tile (u8 {\em index}, {\bf Blokus\-Tile} $\ast$ {\em tile})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_e846e79ce07ab8c151fea76cdfebd7db}
+
+
+Set a certain tile. 
+
+Overwrites a tile in the set to a specified one. 
+
+Definition at line 25 of file Tile\-Set.h.\index{TileSet@{Tile\-Set}!setTileAmount@{setTileAmount}}
+\index{setTileAmount@{setTileAmount}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Set::set\-Tile\-Amount (u8 {\em tile\-Amount})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_107d988d0d1e933edb8cde20f500db56}
+
+
+Set tile amount. 
+
+Sets amount of tiles, used during creation. 
+
+Definition at line 31 of file Tile\-Set.h.\index{TileSet@{Tile\-Set}!setTileList@{setTileList}}
+\index{setTileList@{setTileList}!TileSet@{Tile\-Set}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Tile\-Set::set\-Tile\-List ({\bf Blokus\-Tile} $\ast$ {\em tile\-List})\hspace{0.3cm}{\tt  [inline]}}\label{class_tile_set_54f0c9dc5d3ec9377239adb058341cb2}
+
+
+Set tile list. 
+
+Sets the pointer to a \doxyref{Blokus\-Tile}{p.}{class_blokus_tile} array. 
+
+Definition at line 35 of file Tile\-Set.h.
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+Tile\-Set.h\end{CompactItemize}
