@@ -1,0 +1,22 @@
+\documentclass[a4paper] {article}
+\usepackage[utf8]{inputenc}
+\title {DD2380 Artificial Intelligence:\\
+	Homework 1, Part B, Answers}
+\author {Mattias Mikkola, mmikkola@kth.se\\
+	Peter Boström, pbos@kth.se}
+
+\begin {document}
+\maketitle
+\begin {enumerate}
+\item DFS since the search tree will never have levels below the goal. BFS will take longer to start probing towards potential solutions.
+
+\item 473, see program in attached .zip
+
+\item 18375, see program in attached .zip
+
+\item 123, see program in attached .zip
+
+\item Yes. In some cases DFS and best first are equal (esp. when the dirt limit is set high).. Depending on the order of moves in dfs, there could possibly be designed some edge case to work against best first so that it'll be marginally slower, but it's probably not of great significance. BFS will never be beneficial, because it requires expansion of the whole tree above the last layer, and will still not find it faster than DFS, because they will have expanded the whole tree at the same time, and in all other cases DFS requires less nodes expanded.
+
+\end{enumerate}
+\end{document}

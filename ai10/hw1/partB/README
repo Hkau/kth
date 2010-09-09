@@ -1,0 +1,18 @@
+This script runs on the python 2.6 version available as 'python' in CSC's 
+computer rooms. Tested on Ubuntu.
+
+run `python drone.py`
+
+This will run the scripts, executing best-first, dfs, and finally bfs. In that 
+order. The script takes approximately 2-3 minutes to finish, with most time 
+being spent on the BFS.
+
+The script will then report the number of expanded nodes during the search. 
+Invalid moves are failed and do not count as an expanded node. It will also 
+print the room's state and which moves the robot took to get there. The moves 
+are indexed in the same way Javier did in an attached image explaining the 
+moves.
+
+	Mattias Mikkola <mmikkola@kth.se>
+	Peter Boström <pbos@kth.se>
+
