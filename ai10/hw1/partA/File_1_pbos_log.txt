@@ -1,0 +1,52 @@
+===== pbos =====
+
+=== Exercise 1 ===
+Your answers are [1, 2, 0, 2, 1, 1, 0], the correct answers are [1, 2, 0, 2, 1, 1, 0]
+Points: [2, 2, 2, 2, 2, 2, 2] 
+ 
+=== Exercise 2 ===
+Ex2 input: [3, 1, 4, 0, 3, 0, -1]
+
+correction2a 
+['current floor: 0', 'requests queue: [3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 1', 'requests queue: [3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 2', 'requests queue: [4, 3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 3', 'requests queue: [0, 4]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 4', 'requests queue: [3, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 3', 'requests queue: [0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 2', 'requests queue: [-1, 0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 1', 'requests queue: [-1, 0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 0', 'requests queue: [-1]', 'correct command : -1', 'suggested command : -1', 'no comment']
+Your grade for ex2a is 10/10
+
+correction2b 
+['current floor: 0', 'requests queue: [3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 1', 'requests queue: [3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 2', 'requests queue: [4, 3]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 3', 'requests queue: [0, 4]', 'correct command : 1', 'suggested command : 1', 'no comment']
+['current floor: 4', 'requests queue: [3, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 3', 'requests queue: [0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 2', 'requests queue: [-1, 0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 1', 'requests queue: [-1, 0, 0]', 'correct command : -1', 'suggested command : -1', 'no comment']
+['current floor: 0', 'requests queue: [-1]', 'correct command : -1', 'suggested command : -1', 'no comment']
+Your grade for ex2b is 10/10
+
+=== Exercise 3 ===
+Ex3 input: [[8, 3], [11, 5], [2, 5], 46, 6]
+
+Your time consumption for setA bfs is correct
+Your mem consumption for setA bfs is correct
+Your time consumption for setA dfs is too high : 24534 > 24492
+Your mem consumption for setA dfs is correct
+Your time consumption for setA ids is correct
+Your mem consumption for setA ids is correct
+Your time consumption for setB bfs is correct
+Your mem consumption for setB bfs is correct
+Your time consumption for setB dfs is too high : 23406 > 23256
+Your mem consumption for setB dfs is too low : 6 < 26
+Your time consumption for setB ids is correct
+Your mem consumption for setB ids is too low : 4 < 16
+Your partial scores in partA are [[2, 2, 2, 2, 2, 2, 2], [10, 10], [[[1.25, 1.25, 1.25], [0, 1.25, 1.25], [1.25, 1.25, 1.25]], [[1.25, 1.25, 1.25], [0, 0, 1.25], [1.25, 0, 1.25]]]]
+
+
+=====Your total score for partA is 51/54=====
