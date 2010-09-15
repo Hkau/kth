@@ -1,0 +1,6 @@
+Usage: ./run.sh [n]
+
+requires /bin/sh and gcc
+
+to print solution, uncomment "print_board(&board);" inside main()
+
