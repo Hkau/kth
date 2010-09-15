@@ -120,7 +120,7 @@ bool move_is_valid(amazon_board *board, int x, int y)
 bool solve(amazon_board *board)
 {
 	int solve_iter = 0;
-	if(NUM_AMAZON != 1 && NUM_AMAZON < 5)
+	if(NUM_AMAZON != 1 && NUM_AMAZON < 10)
 		return false;
 	int iter = 0;
 	while(true)
@@ -196,7 +196,7 @@ bool solve(amazon_board *board)
 
 int main(int argc, char *argv[])
 {
-	printf("num_amazons: %d sizeof: %d\n", NUM_AMAZON, sizeof(amazon_board));
+	printf("%d amazons\n", NUM_AMAZON);
 
 	amazon_board board;
 	init_board(&board);
@@ -206,7 +206,8 @@ int main(int argc, char *argv[])
 		puts("det blev ingen cd. :(");
 		return 0;
 	}
-	// print_board(&board);
+
+	//print_board(&board);
 
 	return 0;
 }
