@@ -92,11 +92,23 @@ void init_board(amazon_board *board)
 	for(i = 0; i < NUM_AMAZON; ++i)
 		board->pos_y[i] = -1;
 
-	place_pos(board, 0, 0);
+	int placements[NUM_AMAZON];
+	for(i = 0; i < NUM_AMAZON; ++i)
+		placements[i] = i;
+	int last_idx = NUM_AMAZON -1;
+	while(last_idx > 0)
+	{
+		int tmp_idx = rand() % (last_idx+1);
+		int tmp = placements[tmp_idx];
+		placements[tmp_idx] = placements[last_idx];
+		placements[last_idx] = tmp;
+		--last_idx;
+	}
+
 
 	for(i = 0; i < NUM_AMAZON; ++i)
 	{
-		place_pos(board, i, rand() % NUM_AMAZON);
+		place_pos(board, i, placements[i]);
 	}
 }
 
@@ -110,16 +122,28 @@ bool solve(amazon_board *board)
 	int solve_iter = 0;
 	if(NUM_AMAZON != 1 && NUM_AMAZON < 5)
 		return false;
+	int iter = 0;
 	while(true)
 	{
+		
+		//print_board(board);
+		++iter;
 		// todo, try random index order
 		int i;
-		int max_x = 0, max_obst = -1;
-		for(i = 0; i < NUM_AMAZON; ++i)
+		int start_idx = rand() % NUM_AMAZON;
+		int max_x = start_idx, max_obst = num_conflicts(board, start_idx, board->pos_y[start_idx]);
+		for(i = start_idx+1; i != start_idx; ++i)
 		{
+			if(i == NUM_AMAZON)
+			{
+				i = 0;
+				if(start_idx == 0)
+					break;
+			}
+
 			int obst = num_conflicts(board, i, board->pos_y[i]);
 
-			if(obst >= max_obst)
+			if(obst > max_obst)
 			{
 				max_obst = obst;
 				max_x = i;
@@ -127,13 +151,21 @@ bool solve(amazon_board *board)
 		}
 
 		// remove pos from board so that it doesn't interfere with readings
-		//remove_pawn(board, max_x);
-		int min_y = 0, min_obst = 0x7FFFFFFF;
-		for(i = 0; i < NUM_AMAZON; ++i)
+		//remove_pawn(board, max_x); // though it seems non-beneficial
+		start_idx = rand() % NUM_AMAZON;
+		int min_y = start_idx, min_obst = num_conflicts(board, max_x, start_idx);
+		for(i = start_idx+1; i != start_idx; ++i)
 		{
+			if(i == NUM_AMAZON)
+			{
+				i = 0;
+				if(start_idx == 0)
+					break;
+			}
+
 			int obst = num_conflicts(board, max_x, i);
 
-			if(obst <= min_obst)
+			if(obst < min_obst)
 			{
 				min_obst = obst;
 				min_y = i;
@@ -149,7 +181,10 @@ bool solve(amazon_board *board)
 				break;
 		}
 		if(z == NUM_AMAZON)
+		{
+			printf("%d solve iterations\n", iter);
 			return true;
+		}
 
 		if(++solve_iter == NUM_AMAZON) // good limit? I think not?
 		{
@@ -171,7 +206,7 @@ int main(int argc, char *argv[])
 		puts("det blev ingen cd. :(");
 		return 0;
 	}
-	print_board(&board);
+	// print_board(&board);
 
 	return 0;
 }
@@ -194,7 +229,6 @@ void print_board(amazon_board *board)
 	}
 
 	// print board
-
 	for(i = 0; i < NUM_AMAZON; ++i)
 	{
 		fwrite(buffer[i], 1, sizeof(char)*NUM_AMAZON, stdout);
