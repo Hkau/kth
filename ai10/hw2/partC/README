@@ -1,0 +1,13 @@
+Build with:
+
+gcc *.c -O3 -ansi -Wall -pedantic -o namazon
+ 
+ or
+ 
+gcc *.c -ansi -Wall -pedantic -o namazon -DDEBUG
+
+The latter steps through the solution with 1 iteration per second. This is to make it easier to verify the behaviour of the program, if desired. 
+
+to run the program, pass the boardsize as argument:
+
+namazon [size]

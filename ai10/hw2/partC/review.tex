@@ -1,0 +1,28 @@
+\documentclass[a4paper,11pt]{article}
+
+\title{DD2380 Artificial Intelligence\\
+        Homework 2 Review}
+        
+\begin{document}
+\maketitle
+
+\paragraph{a)}
+The CSP constraints lack the column requirement ($i \neq j$ or $col(a_i) \neq col(a_j)$). The knight movement is incorrectly specified. $row(a_i) - row(a_j) \neq 2 ~~\mbox{AND}~~ i-j \neq -1$ will fail the whole row two places above any piece, along with the column to the left of any piece, which would make the problem impossible to solve. Instead the constraint should have been specified as $row(a_i) - row(a_j) \neq 2 ~~\mbox{OR}~~ i-j \neq -1$, since it would only be true for a position that is not contested by another amazon.
+
+\textbf{Result:} \emph{0 (Fail)} - Only two constraints were correct. 
+
+\paragraph{b)}
+The program performs the task, albeit not very efficiently. Solutions on fairly small boards could vary between 5k and 50k iterations, meaning that the solution is highly dependant on "luck" and could've been faster, even in best cases. Also, initially placing all pieces in a diagonal state guarantees a very, very (maximally) conflicting initial state.
+
+\textbf{Result:} \emph{1 - OK} - Works, but not very fast and with very varying results.
+
+\paragraph{c)}
+A min-conflict solution demands that the boards initial state be determined randomly (Wikipedia). This is important™.
+
+\textbf{Results:} \emph{2 - Good} - Explains the heuristic, and the largest flaws in it. Many flaws are also explained in part d), it looks well analyzed.
+
+\paragraph{d)}
+The analysis of the implementation's performance is very good. Most flaws are pointed out and lots of ideas for improving performance in flawed places are given. The random nature of the heuristic is also discussed.
+
+\textbf{Results:} \emph{2 - Good} - Excellent Analysis!
+\end{document}

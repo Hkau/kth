@@ -1,0 +1,20 @@
+-- (Obj) --
+
+Vagn ((VagnNr), Rök, VTyp)
+Plats ((VagnNr, PlatsNr), Rabattbar)
+Etapp ((EtappNr), Pris)
+Rabatt ((RNr), RPris)
+Station ((SNamn), Adress, Stationsinfo ...)
+Biljett ((BiljettNr), Pnr)
+Passagerare ((Pnr), Namn, Tfn)
+
+-- (Smb) --
+
+Resa ((BiljettID, EtappNr, Tid)
+Bokad ((PlatsNr, VagnNr, BiljettID)
+Start ((EtappNr, SNamn))
+Slut ((EtappNr, SNamn))
+Erbjudande ((RabattID, EtappNr))
+Linjetillhörighet ((SNamn, LinjeNr))
+Vagnbokning ((VagnNr, EtappNr))
+
