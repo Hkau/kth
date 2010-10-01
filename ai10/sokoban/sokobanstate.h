@@ -141,7 +141,7 @@ public:
 		}
 
 		int width = level.GetWidth(), height = level.GetHeight();
-		char *reachable = new char[width*height];
+		char reachable[width*height];
 		memset(reachable, FLOOR, sizeof(char)*width*height);
 
 		for(int y = 0; y < height; ++y)
@@ -294,7 +294,7 @@ public:
 	bool SpawnChildren(Queue<SokobanState *> &q)
 	{
 		int width = level.GetWidth(), height = level.GetHeight();
-		char *reachable = new char[width*height];
+		char reachable[width*height];
 		memset(reachable, FLOOR, sizeof(char)*width*height);
 
 		for(int y = 0; y < height; ++y)

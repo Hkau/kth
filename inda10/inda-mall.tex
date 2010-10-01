@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc} % -- använd denna "när det funkar", dvs på skolans nya datorer + linux, ibland på windows
+% \usepackage[latin1]{inputenc} % -- använd denna om överstående inte fungerar (åäö etc.)
+
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{language=Java,
+	numbers=left,
+	numberstyle=\footnotesize,
+	title=\lstname,
+	showstringspaces=false,
+	fancyvrb=true,
+	extendedchars=true,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4}
+
+\lstset{ % För att å, ä och ö ska funka inuti lstlistings, kan behövas för andra symboler också..
+	literate={ö}{{\"o}}1
+		{ä}{{\"a}}1
+		{å}{{\aa}}1
+	}
+
+\author{Peter Boström \\ pbos@kth.se}
+\title{DD1341 inda10 \\ Uppgift HT42}
+
+\begin{document}
+
+	\maketitle
+
+	\section*{4711-17: Fibonacci-talföljden}
+		Programmet beräknar fibonacci rekursivt utan att lagra någon form av tidigare uträknade resultat. Därför kommer fib(1), fib(2), fib(3) etc. räknas ut väldigt, väldigt många gånger.
+
+		\subsection*{Källkod}
+
+			\lstinputlisting{Fib.java}
+	\newpage
+	\section*{42: Program med långa rader}
+		Vår uppgift var att skriva en klass med långa kommentarer så att de inte får plats på en sida i rapporten.
+
+		\subsection*{Källkod}
+			\begin{lstlisting}
+public class Bus {
+	// För mig är den här kommentaren väldigt lång, därför hoppas jag även på att den kommer att ta upp flera rader i rapportdokumentet på vilket jag väntar på med väldig, väldig spänning!
+}
+			\end{lstlisting}
+
+\end{document}
