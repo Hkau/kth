@@ -1,0 +1,115 @@
+% Att vi vill ha ett dokument som ser ut som en teknisk artikel, på a4-papper, tvåsidigt med 10 punkters font.
+\documentclass[a4paper,10pt,titlepage]{article}
+% sidmarginaler
+\usepackage[inner=3cm,top=3cm,outer=2cm,bottom=3cm]{geometry}
+% svenska avstavningsregler
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+% teckenencoding
+\usepackage[utf8x]{inputenc}
+
+% för import av icke eps-bilder
+\usepackage[pdftex]{graphicx}
+
+% mattesymboler
+\usepackage{amssymb}
+
+% fina kodlistings
+\usepackage{fancyvrb}
+\usepackage{listings}
+
+\usepackage{sectsty}
+\sectionfont{\normalsize}
+
+% lite inställningar till listings-paketet, bland annat så att den bryter för långa rader
+\lstset{
+	% vilket språk vi använder i våra kodlistings, så att listings-paketet vet hur den ska highligta saker
+%	language=Python, 
+	% huruvida vi ska ha syntax highlighting
+	fancyvrb=true, 
+	% hur stora tabstopp vi ska ha
+	tabsize=4, 
+	% huruvida vi ska tillåta andra tecken än a-z
+	extendedchars=\true
+	% hur breda listings vi vill ha (skriv exempelvis linewidth=0.5\textwidth för att få listings som bara tar upp halva bredden av sidan)
+	linewidth=\textwidth, 
+	% huruvida vi ska visa mellanslag
+	showstringspaces=false, 
+	% huruvida vi ska bryta rader som är för långa
+	breaklines=true, 
+	% huruvida den ska få bryta rader mitt i ord eller inte (true här betyder att den bara bryter mellan ord)
+	breakatwhitespace=true, 
+	% indentera radbrytningar automatiskt
+	breakautoindent=true,
+	% lägg in radnummer på vänster sida
+	numbers=left, 
+	% hur stora radnumren ska vara
+	numberstyle=\tiny, 
+	% hur långt det ska vara mellan radnumren och koden
+	numbersep=8pt
+}
+% stoppa in fina hyperlänkar (som man kan klicka på) i tableofcontents
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue}
+
+% Ett litet paket för fin pseudokod
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+% stoppa in ditt namn här nedanför
+\def\myName{Peter Boström}
+\def\myEmail{pbos@kth.se}
+
+% kurskod här (skriver in indans kod som default)
+\def\courseCode{DD2440}
+% kursnamn här (återigen inda som default)
+\def\courseName{Avancerade algoritmer}
+
+% stoppa in numret på inlämningen här nedanför
+\def\assignmentNumber{A}
+
+% stoppa in datum för när du skriver den här inlämningen här
+\def\writtenDate{2010-10-01}
+
+% fina sidheaders/footers
+\usepackage{fancyhdr}
+% inställningar till fancyhdr
+\pagestyle{fancy}\headheight 13pt
+\fancyfoot{}
+% sidhuvud, vänster sida, fyll i ditt namn här
+\lhead{\courseCode\ - \myName}
+% sidhuvud, höger sida, fyll i vilken uppgift detta gäller
+\rhead{Uppgift \assignmentNumber}
+% sidnumrering på vänster sida för jämna sidnummer, höger sida för ojämna sidnummer
+%\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[RO]{\thepage}
+
+\title{\courseName\\\vspace{4pt}Uppgift \assignmentNumber}
+\date{\writtenDate}
+\author{\myName\\\emph{\myEmail}}
+\begin{document}
+\maketitle
+
+\section*{Assignment}
+In the lectures you've seen how to sort n word-sized integers on a unit-cost RAM model in O(n log log n) time. In this homework you will study special cases where it's possible to find easier algorithms or better time bounds. 
+
+
+\section{Give a short description of the unit-cost RAM model and explain how the word-size w gives an upper bound on the number of integers n in the sorting problem above. (5p)}
+
+The unit-cost RAM model gives a simplified computing model where all operations, arithmetic as well as loading/storing are performed in constant time.
+
+A RAM model using a word size $w$, uses word-sized address pointers as well. Each element to be sorted (or even stored) requires an unique address. A pointer using a word size of $w$ bits, cannot be used to address more than $2^w$ elements. This introduces a limit to the number of elements that can be addressed, and therefore sorted, to $2^w$.
+
+
+\section {If the maximum element m is O(n) you may sort in linear time using a simple algorithm. Describe how. (5p) }
+
+Counting sort. (Note that all integers are positive or zero.)
+
+Reserve space for $m+1$ elements, initialize all to zero. This is assumed to be done in $O(m)$ and therefore $O(n)$ time. This array, $counts$, will be used to count the number of occurances of each element. Increase $counts[i]$ for each element $i$ in the list. All elements are now represented by the $counts$ array, and the sum of each element in the $counts$ array will be equal to the length of the original array, that is $n$. Now start writing back the counts of the array. Iterate through each possible value $i$ which goes from $0$ to $m$, and insert it into the array $counts[i]$ times. This is an $O(n) + O(m)$ operation, that is $O(n)$.
+
+\section {Give an algorithm that sorts in linear time when the maximum element $m$ is $O(n^k)$, where $k$ is a positive constant. (5p)}
+
+Radix sort. Logarithms only differ with constants.
+
+\end{document}
+

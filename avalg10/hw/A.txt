@@ -1,3 +1,0 @@
-#1 Give a short description of the unit-cost RAM model and explain how the word-size w gives an upper bound on the number of integers n in the sorting problem above. (5p) 
-
-
