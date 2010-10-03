@@ -49,8 +49,8 @@
 	numbersep=8pt
 }
 % stoppa in fina hyperlänkar (som man kan klicka på) i tableofcontents
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=blue}
+%\usepackage{hyperref}
+%\hypersetup{colorlinks=true, linkcolor=blue}
 
 % Ett litet paket för fin pseudokod
 \usepackage{algorithmic}
@@ -109,7 +109,10 @@ Reserve space for $m+1$ elements, initialize all to zero. This is assumed to be 
 
 \section {Give an algorithm that sorts in linear time when the maximum element $m$ is $O(n^k)$, where $k$ is a positive constant. (5p)}
 
-Radix sort. Logarithms only differ with constants.
+Radix sort. Each number will be looked upon $k$ times and sorted into $n$ different lists depending on their $i$th digit.
 
+\section {Describe an algorithm that sorts in linear time if there are many repeated elements. How many distinct elements can your algorithm handle and how fast is it? (5p)}
+
+\section {The algorithm discussed in class uses large amounts of memory. How much? By doing the radix sorting phase in more than two steps you may reduce the memory requirements while increasing the running time. Explain how to do this and give a formula describing the time-space tradeoff. (5p)}
 \end{document}
 
