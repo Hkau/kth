@@ -54,6 +54,7 @@ ex2a = [0.7411422229056]
 # Militia's vote is therefore worth DIFF * 1 500 000 to the company, that is: 144482.0056416
 #
 # (One could also argue that the company'd be willing to pay nothing, because it is fairly immoral.)
+# Personally, I'd answer ex2b = [0].
 ex2b = [ 144482.0056416 ]
 
 # Ex C: Find P(UN'|XWIN'), P(Militia'|XWIN') and P(Tabloid'|XWIN')
@@ -92,7 +93,7 @@ ex2b = [ 144482.0056416 ]
 #
 # Probability that UN didn't vote for X: P(UN'|XWIN')
 #   = 1 - 0.255236048 * 0.990 / 0.2588577770944
-#   ≈ 0.97614871902361875310 
+#   ≈ 0.02385128097638124690
 # 
 #
 # P(XWIN|Militia):
@@ -123,12 +124,15 @@ ex2b = [ 144482.0056416 ]
 #   = 1 - 0.19970025 * 0.79554 / 0.2588577770944
 #   ≈ 0.38626708971906371092
 ex2c = [
-	0.97614871902361875310, # Probability that UN didn't vote for X, given that X lost.
+	0.02385128097638124690, # Probability that UN didn't vote for X, given that X lost. REASONABLE? DOUBLE-CHECK IT!
 	0.50257243735256662547, # Probability that Militia didn't vote for X, given that X lost.
 	0.38626708971906371092] # Probability that Tabloids didn't vote for X, given that X lost. 
 
 # exercise three
-# the nodes don't need to be order in the sequence {}
-# just the number of the node should match the utility
-ex3a={1:0.721,2:0.892,4:0.382}
-ex3b={1:0.100,2:0.901,4:0.511}
+# computed with ex3.py, attached
+# discount = 0.9
+# [0.71000000000000008, 1.0, -1.0, 0.62094761180000013, 0.65510000000000013]
+ex3a={1:0.710,3:0.6209,4:0.6551}
+# discount = 0.1
+# [0.070000000000000021, 1.0, -1.0, -0.0037373737999999981, 0.0063000000000000052]
+ex3b={1:0.070,3:-0.00373737,4:0.00630}
