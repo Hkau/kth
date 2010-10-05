@@ -10,14 +10,14 @@
 \section*{Hidden Markov Models}
 	\subsubsection*{a) Describe what procedures should be used for estimating the model and how training data would be generated.}
 
-		Det blev ingen CD.
+		You should use the robot as you're expecting to use it, in an environment where it's going to be used. From here, you act as you would. While doing this, you gather statistics for "what the robot percieves" when you for instance point LEFT. This will be the observation matrix. At the same time, you gather statistics of your own behaviour, because this is relevant for the transition matrix. When you're pointing forward, how common is it that this command is followed by another forward, for instance? These statistics, what commands follow others, is your transition matrix. 
 
 	\subsubsection*{b) If we have no observation, what is the probability of the second state $x_2$ being LEFT? And the probability of second observation $o_2$ being $H_2$? Finally, what is the probability $P(o_2 = H_2|x_2 = LEFT)$?}
 
 		First, we iteratively calculate probabilities of $P(x_t=s)$ using $$P(x_t) = \sum_{i \in S}{P(x_{t-1}=i)*P(i\rightarrow s)}$$ where $S = \{LEFT, RIGHT, STOP, FORWARD\}$, and $s$ a state.
 		That is, the probability of $x_t$ being a certain state $s$, is the sum of the probabilities of $x_{t-1}$ being each state multiplied by the transition probability between that state and $s$.
 
-		\begin{quote} \emph{"It's $50\%$ likely for me to get to a state, and $25\%$ likely for me to enter this state from there. Therefore I'm 12.5\% likely to get there from that state."} \end{quote}
+		\begin{quote} \emph{"It's $50\%$ likely for me to get to a state, and $25\%$ likely for me to enter this state from there. Therefore I'm 12.5\% likely to get here from that state, and 87.5\% likely to end up here, from another state, or outside."} \end{quote}
 
 		Note that $P(x_1)$ is the first row of the transition matrix. Because $x_0=RIGHT$ is known, the probability of $x_0$ is simply the probability for the transition between $RIGHT$ and the state for that row.
 
@@ -40,8 +40,23 @@
 
 		$$P(o_2 = H_2) = 0.147333$$
 
-	\subsubsection*{c) Viterbi's Motherfucker}
+	\subsubsection*{c) Viterbi's algorithm}
 
-		Source: \emph{viterbi.c}. \emph{gcc -o viterbi viterbi.c; ./viterbi} to run.
+		[RIGHT, FORWARD, FORWARD, FORWARD, STOP, STOP, STOP, STOP, STOP, STOP].
 
+		Source: \emph{\textbf{viterbi.c}}. \emph{gcc -o viterbi viterbi.c; ./viterbi} to run.
+
+	\subsubsection*{d)With the sequence of observations described above, what is the sequence
+	of most likely hidden states?}
+
+		[RIGHT, STOP, STOP, FORWARD, LEFT, RIGHT, STOP, RIGHT, RIGHT, LEFT]
+		Source: \emph{\textbf{alphabeta.c}}. \emph{gcc -o alphabeta alphabeta.c; ./alphabeta} to run.
+
+	\subsubsection*{e) With the sequence of observations described above and the most likely
+	sequence in (c), what is the most likely $o_{11}$?}
+		Using the last column in (c), this is a probability distribution after C. from there we expand probability using the translation matrix to state 11, and sum probabilities of each observation from each state. The observation with the maximum probability is our $o_{11}$.
+		
+		Answer: H3.
+
+		Source: \emph{\textbf{viterbi.c}}. Same as above.
 \end{document}

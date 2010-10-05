@@ -118,6 +118,50 @@ int main()
 		cur_idx = chain[i][cur_idx].prev_idx;
 	}
 
+	puts("probabilities: ");
+
+	for(i = 0; i < n; ++i)
+	{
+		int j;
+		for(j = 0; j <=t; ++j)
+		{
+			printf("%e ", chain[j][i].prob);
+		}
+		puts("");
+	}
+
+	double prob_last[n];
+	for(i = 0; i < n; ++i)
+	{
+		double sum = 0;
+		int j;
+		for(j = 0; j < n; ++j)
+		{
+			sum += chain[t][j].prob * tl_prob[j][i];
+		}
+		prob_last[i] = sum;
+	}
+
+	int max_obs;
+	double max_prob = -1;
+
+	for(i = 1; i <= 4; ++i)
+	{
+		int j;
+		double sum = 0;
+		for(j = 0; j < n; ++j)
+		{
+			double val = prob_last[j] * obs_prob[j][i];
+			sum += val;
+		}
+		if(sum > max_prob)
+		{
+			max_prob = sum;
+			max_obs = i;
+		}
+	}
+
+	printf("%s\n", observations[max_obs]);
 	// printf("Viterbi's motherfucker.\n");
 	return 0;
 }
