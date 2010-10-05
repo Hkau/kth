@@ -1,0 +1,47 @@
+\documentclass[a4paper] {article}
+\usepackage[utf8]{inputenc}
+\title {DD2380 Artificial Intelligence:\\
+	Homework 3, Part B, Answers}
+\author {Peter Boström, pbos@kth.se}
+
+\begin {document}
+\maketitle
+
+\section*{Hidden Markov Models}
+	\subsubsection*{a) Describe what procedures should be used for estimating the model and how training data would be generated.}
+
+		Det blev ingen CD.
+
+	\subsubsection*{b) If we have no observation, what is the probability of the second state $x_2$ being LEFT? And the probability of second observation $o_2$ being $H_2$? Finally, what is the probability $P(o_2 = H_2|x_2 = LEFT)$?}
+
+		First, we iteratively calculate probabilities of $P(x_t=s)$ using $$P(x_t) = \sum_{i \in S}{P(x_{t-1}=i)*P(i\rightarrow s)}$$ where $S = \{LEFT, RIGHT, STOP, FORWARD\}$, and $s$ a state.
+		That is, the probability of $x_t$ being a certain state $s$, is the sum of the probabilities of $x_{t-1}$ being each state multiplied by the transition probability between that state and $s$.
+
+		\begin{quote} \emph{"It's $50\%$ likely for me to get to a state, and $25\%$ likely for me to enter this state from there. Therefore I'm 12.5\% likely to get there from that state."} \end{quote}
+
+		Note that $P(x_1)$ is the first row of the transition matrix. Because $x_0=RIGHT$ is known, the probability of $x_0$ is simply the probability for the transition between $RIGHT$ and the state for that row.
+
+		The calculation of $P(x_2=RIGHT)$ is given with $0.45*0.45+0.09*0.08+0.10*0.08+0.36*0.09 = 0.2501 $ but was omitted from the table for readability. The values, in order, are: $P(x_1 = RIGHT)*P(RIGHT\rightarrow RIGHT) + P(x_1 = LEFT)*P(LEFT\rightarrow RIGHT) + \{STOP\} + \{FWD\}$. The same step is repeated for each state.
+		\begin{center}
+		\begin{tabular}{|l||l|l|l|}
+			\hline
+			state & $P(x_0)$ & $P(x_1)$ & $P(x_2)$ \\
+			\hline
+			\hline
+			RIGHT & $1.0$ & $0.45$ & $0.2501$ \\
+			LEFT & $0.0$ & $0.09$ & $0.1344$ \\
+			STOP & $0.0$ & $0.10$ & $0.168$ \\
+			FWD & $0.0$ & $0.36$ & $0.4475$ \\
+			\hline
+		\end{tabular}
+		\end{center}
+
+		Similarly, we calculate the probability of observing $H_2$ from a state, and multiply by the chance of $x_2$ being that state. These calculations, for all possible states are summed up. Just like before, except we use the probability of observing $H_2$ instead of transitioning to a state.
+
+		$$P(o_2 = H_2) = 0.147333$$
+
+	\subsubsection*{c) Viterbi's Motherfucker}
+
+		Source: \emph{viterbi.c}. \emph{gcc -o viterbi viterbi.c; ./viterbi} to run.
+
+\end{document}

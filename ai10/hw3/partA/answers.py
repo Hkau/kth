@@ -6,7 +6,7 @@ ex1=[
 	1, # when solving a POMDP one typically solves an MDP and therefore use the methods developed for MDPs.
 	2, # regression planners (1961-1998), because they perform only relevant actions
 	0, # the belief state in POMDP's is fully observable and continuous
-	2, # you might need a discount factor even if you have a terminal state
+	1, # if you have a terminal state you are guaranteed not to need a discount factor
 	1, # you can train your HMM using Baum-Welch once you decide manually the number of states in your model
 	0] # none of the other two sentences
 
