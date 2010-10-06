@@ -109,10 +109,37 @@ Reserve space for $m+1$ elements, initialize all to zero. This is assumed to be 
 
 \section {Give an algorithm that sorts in linear time when the maximum element $m$ is $O(n^k)$, where $k$ is a positive constant. (5p)}
 
-Radix sort. Each number will be looked upon $k$ times and sorted into $n$ different lists depending on their $i$th digit.
+Radix sort. Radix sort does a lexicographical sort with a certain base. When sorting text strings this could be done with base 256, if each character is a byte. Each text string can then be sorted according to their MSD, most significant digit, into 256 separate lists. These lists will be in rising order, that is each element in a "smaller list" will be larger than every element in all "larger lists". Then we repeat the step internally for the second most significant digit, and so on. Recursively, when all lists of a level is sorted, they're merged back in. This step is similar to merge sort. Each step is $O(n)$, and we have repeat the process $k$ times, where $k$ is the number of digits, or characters, in the maximum string. The MSD will have to be found once, which is $O(n*k)$ for strings, and $O(n)+O(k)$ for integers. Unless we know the lengths of the strings, then it's $O(n)$. Extracting each digit will be $O(1)$, if the key is iteratively cut down, or at worst $O(k)$, with a naive implementation. This has to be done once per element per step, and as there are $n$ elements, these give $O(n*k)$ together, or $O(n*k^2)$ with a worse implementation. Both are ok, if $k$ is constant, we get a $O(n)$ algorithm.
+
+The previous example was with strings that would be of constant length. Our problem is a bit more tricky. The size of our keys depend on the number of integers to sort. We will then perform a trick that lets us sort in $k$ steps, even though the maximum element is allowed to get larger for larger lists. This trick is done as follows: Instead of sorting into a constant number of buckets; 256 in the previous example, we will sort into $n$ buckets. If we get a longer list, we use more buckets. And as the largest key will not require more than $O(k)$ sorting steps, this sorting is done in linear time.
+
+In short, radix sort with base-$n$ digits.
 
 \section {Describe an algorithm that sorts in linear time if there are many repeated elements. How many distinct elements can your algorithm handle and how fast is it? (5p)}
 
+Create a list with reserved space for $k$ tuples, with two values, 'value' and 'count'. This will be used to store each distinct element and count how many times it's been included in the list.
+
+For each element, find the corresponding tuple for that element's value. If the corresponding tuple exists, increase count, else create a new tuple with count one.
+
+Empty the original list, then sort all tuples by value, and go through them in order. Append 'count' of 'value' elements to the list. As all tuples are sorted, the list will also be sorted.
+
+$O(k)$ tuples will be inserted into the list over time, each insertion being constant. $O(k)$.
+
+This list of tuples will be looked upon $n$ times, and as the list is unsorted, each of them will take $O(k)$ time, this step will take $O(n*k)$.
+
+Sorting the tuple list takes $O(k*log(k))$. As the tuples cannot be more than $n$, merging back into the list will take $O(n)$ time.
+
+In total, this gives an algorithm with $O(n*k + k*log(k))$ k running time. If we set the number of repeated elements to a constant, say $42$, this algorithm can be improved to sort a list of any size with $42$ different values in linear time.
+
+By using a different data structure for the tuples which keeps the elements sorted and guarantees $O(log(n))$ insertion time and $O(n*log(n))$ removal we can get an algorithm which runs in $O(n*log(k) + k*log(k)$. Note that as $k \leq n$, this results in an $O(n*log(k))$ algorithm which sorts $n$ elements of $k$ distinct values. This can be done for instance by using a balanced binary tree. Limit the number of values $k$ to a constant, and it still sorts in linear time.
+
 \section {The algorithm discussed in class uses large amounts of memory. How much? By doing the radix sorting phase in more than two steps you may reduce the memory requirements while increasing the running time. Explain how to do this and give a formula describing the time-space tradeoff. (5p)}
+
+The radix sorting phase uses $2*2^{W/2}$ buckets, using a common word size of $32$ bits, this gives $2*2^{16} = 2*17$ buckets, but only gives $2$ radix steps. If we decide to do this in $n$ steps, we get a $n*2^{W/n}$ buckets, where $n$ must be a power of two, or numbers won't be divisible. So say that we did this in four steps instead, giving $4*2^{32/4} = 4*2^{8} = 2^{10}$ buckets. 
+
+To have this work, we first perform a radix step on the $W/n$ MSB, then the second most significant bits, and so on, in n steps. When we perform the merging step, we merge from left to right. The LSB are sorted into the second least significant bit buckets, and so on.
+
+This means that the radix step with $4$ buckets take twice as long, as there are $4$ lists to merge, instead of $2$. This step is done $loglog(n)$ times, so the algorithm will take $O(2*loglog(n))$ times longer, which is thankfully still $O(n*loglog(n))$.
+
 \end{document}
 
