@@ -26,9 +26,7 @@ class LevelFromServer
 {
 private:
 	// Don't allow copy-constructor
-	LevelFromServer(const LevelFromServer & lvl)
-	{
-	}
+	LevelFromServer(const LevelFromServer & lvl);
 
 	int status;
 	SOCKET ConnectSocket;

@@ -12,7 +12,7 @@ public:
 	FILE * GetFile() { return file; }
 };
 
-int levelfromfile(const char *filename)
+std::string levelfromfile(const char *filename)
 {
 	// stdin is default
 	FILE * file = stdin;
@@ -24,37 +24,24 @@ int levelfromfile(const char *filename)
 	if (file == NULL)
 	{
 		fprintf(stderr, "Failed to open file \"%s\"\n", filename);
-		return -1;
+		return "";
 	}
 
 	// Make sure the file is closed on exit
 	AutoClose auto_close(file);
 
-	int width = 0;
-	int x = 0;
-	int y = 0;
-
-	char c;
-	do
-	{
+    std::string s;
+	char c[2] = {fgetc(file), '\0'};
+	while (c[0] != EOF)
+    {
+        if (c[0] == '\r')
+            c[0] = '\n';
+        //putchar(c[0]);
+        s.append(c);
 		// Read character
-		c = fgetc(file);
+		c[0] = fgetc(file);
+	}
 
-		if (c == '\n') {
-			if (width !=0 && width != x)
-				fprintf(stderr, "Warning: Widht is not uniform\n");
-			width = x;
-			y++;
-		} else if (c == PLAYER) {
-		} else if (c == PLAYER_GOAL) {
-		} else if (c == BOX) {
-		} else if (c == BOX_GOAL) {
-		} else if (c == GOAL) {
-		} else if (c == FLOOR) {
-		}
-		x++;
-	} while (c != EOF);
-
-	return 0;
+	return s;
 }
 

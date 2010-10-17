@@ -34,6 +34,7 @@ struct Position
 	{
 		return x != b.x || y != b.y;
 	}
+
 	bool operator <(const Position &b) const
 	{
 		if(this->y < b.y)
@@ -43,6 +44,12 @@ struct Position
 			return false;
 
 		return this->x < b.x;
+	}
+
+	int DistanceTo(const Position &b) const
+	{
+	    // Manhattan distance
+	    return (x < b.x ? b.x-x : x-b.x) + (y < b.y ? b.y-y : y-b.y);
 	}
 };
 
