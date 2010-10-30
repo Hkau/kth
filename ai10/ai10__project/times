@@ -1,0 +1,773 @@
+pbos@brown-13:~/Desktop/ai10__project$ ulimit -t 61; time for i in `seq 1 138`; do echo $i/138 >&2; echo ./Sokoban++ $i; time ./Sokoban++ $i; done > laser
+1/138
+
+real	0m0.010s
+user	0m0.010s
+sys	0m0.000s
+2/138
+
+real	0m5.116s
+user	0m4.900s
+sys	0m0.210s
+3/138
+
+real	0m0.009s
+user	0m0.010s
+sys	0m0.000s
+4/138
+Terminated
+
+real	1m34.164s
+user	0m35.150s
+sys	0m2.060s
+5/138
+
+real	0m8.287s
+user	0m6.500s
+sys	0m0.380s
+6/138
+
+real	0m1.015s
+user	0m0.920s
+sys	0m0.080s
+7/138
+
+real	0m0.023s
+user	0m0.010s
+sys	0m0.010s
+8/138
+Terminated
+
+real	0m59.438s
+user	0m30.780s
+sys	0m2.150s
+9/138
+Terminated
+
+real	0m11.305s
+user	0m9.830s
+sys	0m0.770s
+10/138
+Terminated
+
+real	0m9.751s
+user	0m9.250s
+sys	0m0.490s
+11/138
+
+real	0m12.644s
+user	0m11.990s
+sys	0m0.640s
+12/138
+
+real	0m0.039s
+user	0m0.040s
+sys	0m0.000s
+13/138
+
+real	0m2.675s
+user	0m2.520s
+sys	0m0.140s
+14/138
+Terminated
+
+real	0m46.336s
+user	0m33.790s
+sys	0m1.860s
+15/138
+Terminated
+
+real	2m4.787s
+user	0m37.160s
+sys	0m2.940s
+16/138
+
+real	0m1.524s
+user	0m0.930s
+sys	0m0.060s
+17/138
+
+real	0m6.187s
+user	0m5.840s
+sys	0m0.330s
+18/138
+
+real	0m0.020s
+user	0m0.020s
+sys	0m0.000s
+19/138
+
+real	0m0.128s
+user	0m0.130s
+sys	0m0.000s
+20/138
+
+real	0m1.252s
+user	0m1.130s
+sys	0m0.130s
+21/138
+
+real	0m0.390s
+user	0m0.360s
+sys	0m0.020s
+22/138
+
+real	0m25.937s
+user	0m24.580s
+sys	0m1.340s
+23/138
+Terminated
+
+real	1m9.252s
+user	0m31.120s
+sys	0m2.000s
+24/138
+
+real	0m3.227s
+user	0m2.660s
+sys	0m0.070s
+25/138
+
+real	0m0.154s
+user	0m0.130s
+sys	0m0.020s
+26/138
+Terminated
+
+real	1m18.202s
+user	0m30.400s
+sys	0m1.910s
+27/138
+
+real	0m1.110s
+user	0m0.230s
+sys	0m0.010s
+28/138
+Terminated
+
+real	1m31.497s
+user	0m29.350s
+sys	0m2.030s
+29/138
+
+real	0m2.168s
+user	0m1.360s
+sys	0m0.100s
+30/138
+
+real	0m1.278s
+user	0m1.170s
+sys	0m0.100s
+31/138
+
+real	0m14.330s
+user	0m13.600s
+sys	0m0.710s
+32/138
+
+real	0m0.175s
+user	0m0.160s
+sys	0m0.010s
+33/138
+Terminated
+
+real	1m25.731s
+user	0m36.300s
+sys	0m2.100s
+34/138
+
+real	0m1.185s
+user	0m0.140s
+sys	0m0.000s
+35/138
+Terminated
+
+real	1m26.960s
+user	0m30.000s
+sys	0m2.260s
+36/138
+
+real	0m21.684s
+user	0m20.030s
+sys	0m0.760s
+37/138
+
+real	0m3.903s
+user	0m3.690s
+sys	0m0.210s
+38/138
+Terminated
+
+real	1m1.705s
+user	0m37.100s
+sys	0m1.850s
+39/138
+
+real	0m1.994s
+user	0m0.950s
+sys	0m0.060s
+40/138
+
+real	0m3.980s
+user	0m3.650s
+sys	0m0.320s
+41/138
+
+real	0m0.147s
+user	0m0.130s
+sys	0m0.020s
+42/138
+Terminated
+
+real	0m49.738s
+user	0m27.540s
+sys	0m1.610s
+43/138
+
+real	0m24.658s
+user	0m22.250s
+sys	0m1.310s
+44/138
+
+real	0m0.028s
+user	0m0.030s
+sys	0m0.000s
+45/138
+
+real	0m3.593s
+user	0m3.440s
+sys	0m0.140s
+46/138
+Terminated
+
+real	0m57.156s
+user	0m34.420s
+sys	0m2.010s
+47/138
+
+real	0m10.487s
+user	0m8.450s
+sys	0m0.400s
+48/138
+Terminated
+
+real	0m50.412s
+user	0m31.850s
+sys	0m1.630s
+49/138
+Terminated
+
+real	1m24.653s
+user	0m37.460s
+sys	0m2.110s
+50/138
+
+real	0m2.503s
+user	0m0.830s
+sys	0m0.080s
+51/138
+
+real	0m1.249s
+user	0m1.160s
+sys	0m0.090s
+52/138
+Terminated
+
+real	1m6.500s
+user	0m39.650s
+sys	0m2.050s
+53/138
+
+real	0m17.323s
+user	0m15.310s
+sys	0m0.860s
+54/138
+
+real	0m2.533s
+user	0m2.430s
+sys	0m0.110s
+55/138
+
+real	0m1.021s
+user	0m0.950s
+sys	0m0.070s
+56/138
+
+real	0m5.383s
+user	0m5.030s
+sys	0m0.340s
+57/138
+Terminated
+
+real	1m36.360s
+user	0m36.260s
+sys	0m2.050s
+58/138
+
+real	0m11.981s
+user	0m10.440s
+sys	0m0.640s
+59/138
+
+real	0m8.805s
+user	0m8.420s
+sys	0m0.370s
+60/138
+
+real	0m2.365s
+user	0m2.270s
+sys	0m0.090s
+61/138
+Terminated
+
+real	1m19.474s
+user	0m37.420s
+sys	0m2.070s
+62/138
+Terminated
+
+real	1m19.740s
+user	0m33.030s
+sys	0m1.900s
+63/138
+Terminated
+
+real	1m13.185s
+user	0m36.020s
+sys	0m1.930s
+64/138
+Terminated
+
+real	1m37.784s
+user	0m30.510s
+sys	0m2.100s
+65/138
+Terminated
+
+real	1m27.046s
+user	0m34.900s
+sys	0m1.960s
+66/138
+
+real	0m8.076s
+user	0m7.040s
+sys	0m0.370s
+67/138
+Terminated
+
+real	0m44.261s
+user	0m26.550s
+sys	0m1.890s
+68/138
+Terminated
+
+real	0m50.500s
+user	0m32.810s
+sys	0m1.540s
+69/138
+Terminated
+
+real	0m47.294s
+user	0m32.280s
+sys	0m1.830s
+70/138
+
+real	0m28.768s
+user	0m26.590s
+sys	0m1.170s
+71/138
+
+real	0m11.287s
+user	0m10.810s
+sys	0m0.470s
+72/138
+Terminated
+
+real	0m56.954s
+user	0m33.400s
+sys	0m1.950s
+73/138
+Terminated
+
+real	2m24.139s
+user	0m33.440s
+sys	0m2.160s
+74/138
+
+real	0m10.456s
+user	0m5.450s
+sys	0m0.380s
+75/138
+Terminated
+
+real	1m39.262s
+user	0m37.910s
+sys	0m1.930s
+76/138
+
+real	0m8.721s
+user	0m7.890s
+sys	0m0.390s
+77/138
+Terminated
+
+real	1m2.569s
+user	0m29.600s
+sys	0m1.870s
+78/138
+Terminated
+
+real	1m40.815s
+user	0m40.630s
+sys	0m2.280s
+79/138
+
+real	0m4.397s
+user	0m1.430s
+sys	0m0.050s
+80/138
+Terminated
+
+real	1m10.641s
+user	0m36.340s
+sys	0m1.950s
+81/138
+
+real	0m24.914s
+user	0m22.490s
+sys	0m1.200s
+82/138
+
+real	0m4.390s
+user	0m4.160s
+sys	0m0.220s
+83/138
+Terminated
+
+real	1m0.065s
+user	0m29.880s
+sys	0m1.900s
+84/138
+Terminated
+
+real	0m49.347s
+user	0m32.710s
+sys	0m1.920s
+85/138
+Terminated
+
+real	1m4.078s
+user	0m34.970s
+sys	0m1.870s
+86/138
+Terminated
+
+real	0m58.359s
+user	0m35.910s
+sys	0m2.040s
+87/138
+Terminated
+
+real	1m31.852s
+user	0m28.340s
+sys	0m2.130s
+88/138
+Terminated
+
+real	1m19.876s
+user	0m36.940s
+sys	0m1.980s
+89/138
+
+real	0m7.356s
+user	0m4.820s
+sys	0m0.260s
+90/138
+Terminated
+
+real	0m32.458s
+user	0m29.370s
+sys	0m1.670s
+91/138
+Terminated
+
+real	1m38.721s
+user	0m33.270s
+sys	0m2.100s
+92/138
+Terminated
+
+real	0m31.436s
+user	0m27.650s
+sys	0m1.790s
+93/138
+Terminated
+
+real	0m31.754s
+user	0m28.930s
+sys	0m1.780s
+94/138
+
+real	0m0.079s
+user	0m0.010s
+sys	0m0.000s
+95/138
+Terminated
+
+real	1m10.680s
+user	0m34.480s
+sys	0m1.870s
+96/138
+Terminated
+
+real	0m36.322s
+user	0m31.660s
+sys	0m1.660s
+97/138
+Terminated
+
+real	0m2.346s
+user	0m1.990s
+sys	0m0.110s
+98/138
+Terminated
+
+real	0m36.033s
+user	0m29.840s
+sys	0m1.810s
+99/138
+Terminated
+
+real	1m4.880s
+user	0m33.930s
+sys	0m2.080s
+100/138
+
+real	0m5.837s
+user	0m4.070s
+sys	0m0.210s
+101/138
+Terminated
+
+real	1m51.430s
+user	0m33.390s
+sys	0m2.300s
+102/138
+
+real	0m3.537s
+user	0m2.960s
+sys	0m0.130s
+103/138
+Terminated
+
+real	1m24.534s
+user	0m36.410s
+sys	0m1.780s
+104/138
+Terminated
+
+real	0m40.118s
+user	0m32.940s
+sys	0m1.570s
+105/138
+Terminated
+
+real	1m21.987s
+user	0m37.430s
+sys	0m2.030s
+106/138
+
+real	0m3.581s
+user	0m2.530s
+sys	0m0.170s
+107/138
+Terminated
+
+real	1m18.234s
+user	0m37.170s
+sys	0m1.930s
+108/138
+Terminated
+
+real	1m10.435s
+user	0m35.830s
+sys	0m1.920s
+109/138
+
+real	0m14.790s
+user	0m13.250s
+sys	0m0.690s
+110/138
+
+real	0m9.892s
+user	0m9.450s
+sys	0m0.440s
+111/138
+Terminated
+
+real	4m0.829s
+user	0m40.270s
+sys	0m2.840s
+112/138
+Terminated
+
+real	1m55.805s
+user	0m31.050s
+sys	0m2.150s
+113/138
+Terminated
+
+real	0m38.269s
+user	0m34.930s
+sys	0m1.650s
+114/138
+Terminated
+
+real	0m50.296s
+user	0m28.230s
+sys	0m1.800s
+115/138
+Terminated
+
+real	0m34.690s
+user	0m29.530s
+sys	0m1.800s
+116/138
+Terminated
+
+real	1m1.132s
+user	0m44.940s
+sys	0m1.880s
+117/138
+Terminated
+
+real	1m2.189s
+user	0m34.640s
+sys	0m1.640s
+118/138
+Terminated
+
+real	0m42.187s
+user	0m32.360s
+sys	0m1.720s
+119/138
+Terminated
+
+real	1m6.519s
+user	0m32.290s
+sys	0m2.060s
+120/138
+Terminated
+
+real	0m56.829s
+user	0m37.120s
+sys	0m1.760s
+121/138
+Terminated
+
+real	1m27.765s
+user	0m35.610s
+sys	0m1.880s
+122/138
+Terminated
+
+real	0m42.851s
+user	0m28.420s
+sys	0m1.740s
+123/138
+Terminated
+
+real	0m44.512s
+user	0m33.280s
+sys	0m1.680s
+124/138
+Terminated
+
+real	1m2.593s
+user	0m29.370s
+sys	0m2.120s
+125/138
+Terminated
+
+real	0m47.859s
+user	0m29.970s
+sys	0m1.540s
+126/138
+Terminated
+
+real	0m35.864s
+user	0m31.280s
+sys	0m1.830s
+127/138
+Terminated
+
+real	0m56.285s
+user	0m37.580s
+sys	0m1.830s
+128/138
+
+real	0m41.431s
+user	0m38.780s
+sys	0m1.420s
+129/138
+Terminated
+
+real	0m59.942s
+user	0m36.710s
+sys	0m1.870s
+130/138
+Terminated
+
+real	1m4.329s
+user	0m31.520s
+sys	0m1.870s
+131/138
+
+real	0m0.790s
+user	0m0.010s
+sys	0m0.000s
+132/138
+
+real	0m0.012s
+user	0m0.010s
+sys	0m0.000s
+133/138
+
+real	0m0.094s
+user	0m0.010s
+sys	0m0.000s
+134/138
+Terminated
+
+real	1m20.656s
+user	0m34.790s
+sys	0m1.650s
+135/138
+
+real	0m1.249s
+user	0m0.100s
+sys	0m0.010s
+136/138
+Terminated
+
+real	0m46.181s
+user	0m26.040s
+sys	0m1.820s
+137/138
+Terminated
+
+real	0m32.079s
+user	0m24.990s
+sys	0m1.560s
+138/138
+Segmentation fault
+
+real	0m0.651s
+user	0m0.190s
+sys	0m0.000s
+
+real	90m37.891s
+user	46m11.060s
+sys	2m37.990s
+pbos@brown-13:~/Desktop/ai10__project$ 
+

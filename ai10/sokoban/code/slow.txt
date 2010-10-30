@@ -1,0 +1,25 @@
+Board 85:   38.674s
+Board 113:  37.318s
+Board 111:  36.490s
+Board 124:  25.262s
+Board 121:  19.874s
+Board 125:  13.686s
+Board 8:    10.330s
+Board 128:  8.075s
+Board 130:  8.875s
+Board 89:   6.962s
+Board 119:  6.244s
+Board 102:  5.994s
+Board 97:   5.716s
+Board 93:   4.732s
+Board 84:   4.179s
+Board 73:   3.902s
+Board 116:  3.313s
+Board 106:  3.012s
+Board 86:   2.438s
+Board 72:   2.247s
+Board 114:  1.394s
+Board 127:  1.296s
+Board 92:   1.173s
+Board 122:  1.049s
+

@@ -1,0 +1,3024 @@
+./Sokoban++ 1
+Solving 
+########
+#   # .#
+#   $$.#
+####   #
+####@ ##
+########
+
+Solution found!
+Action: 1D->R U R U U L D
+Action: 0L->L
+Action: 0L->L
+Action: 1U->R D D R U
+Action: 1R->L U R
+Action: 0R->L L U L L D R
+Action: 0R->R
+Action: 0R->R
+Action: 1U->D R R U
+Action: 0R->D L L U R
+Solution: R U R U U L D L L R D D R U L U R L L U L L D R R R D R R U D L L U R 
+Good solution
+./Sokoban++ 2
+Solving 
+#########
+#.. #####
+##.$# ###
+##.   ###
+#..#  ###
+#.$$$ $@#
+#   $ $ #
+#       #
+#########
+
+Solution found!
+Action: 5L->D D L L U L
+Action: 3U->U
+Action: 0D->R U U L L L U U R D
+Action: 0L->L D D L D D R D R R U U R U U L L
+Action: 0U->R R D D L D D L L U L U U R U
+Action: 1U->D L D D R U
+Action: 2L->D D R R U U L
+Action: 5L->R D L
+Action: 5L->L
+Action: 5U->D L U
+Action: 5U->U
+Action: 2L->D R R U L
+Action: 4L->R R R D D R R U U L
+Action: 4L->L
+Action: 4L->L
+Action: 0U->R U U L L L U
+Action: 0L->R U L
+Action: 3U->R D D R R D D L U
+Action: 3L->R U L
+Action: 1U->D D D L L U U
+Action: 1U->U
+Action: 1U->U
+Action: 3L->D D D D R R U U U L
+Action: 3U->R D D D L L U U U
+Action: 4L->R R D D L
+Action: 4U->D L U
+Action: 6U->R R R D D R U
+Action: 6L->R U L
+Action: 6L->L
+Action: 6U->D L U
+Action: 6U->U
+Action: 6L->R U L
+Action: 6L->L
+Solution: D D L L U L U R U U L L L U U R D L D D L D D R D R R U U R U U L L R R D D L D D L L U L U U R U D L D D R U D D R R U U L R D L L D L U U D R R U L R R R D D R R U U L L L R U U L L L U R U L R D D R R D D L U R U L D D D L L U U U U D D D D R R U U U L R D D D L L U U U R R D D L D L U R R R D D R U R U L L D L U U R U L L 
+Good solution
+./Sokoban++ 3
+Solving 
+#######
+###  ##
+###  ##
+#   @##
+# *$. #
+###   #
+#######
+
+Solution found!
+Action: 1U->D D L U
+Action: 1U->U
+Action: 0R->L L D R
+Action: 0R->R
+Action: 1D->U R U U L D
+Action: 1L->R D L
+Action: 1R->D L L U R
+Action: 1R->R
+Action: 0L->D D R R U L
+Action: 0L->L
+Action: 1D->U U R D
+Solution: D D L U U L L D R R U R U U L D R D L D L L U R R D D R R U L L U U R D 
+Good solution
+./Sokoban++ 4
+Solving 
+./Sokoban++ 5
+Solving 
+############
+###        #
+### ## ##  #
+### # $    #
+#    $@$#. #
+# # # $ #. #
+# #$## #.#.#
+# #      . #
+# ###### ###
+#        ###
+############
+
+Solution found!
+Action: 3D->D
+Action: 0U->U U
+Action: 1R->R R R U U L L L L L L D D D R R
+Action: 4U->U R R R R D D R D D L L L L L L L U
+Action: 4U->U
+Action: 3D->D D R R R R R R R U U L U U L L L L D D R D
+Action: 4R->U L U U R R R R D R D D D L L D D L L L L L L L U U U U U R R
+Action: 3R->D D D R R R
+Action: 3R->R
+Action: 3R->R
+Action: 2U->L L U U R U
+Action: 2R->D L L U U R R
+Action: 2R->R
+Action: 2R->R
+Action: 2D->U R D
+Action: 2D->D
+Action: 2D->D
+Action: 1D->L U U L L L D
+Action: 1D->D
+Action: 1D->D
+Action: 1R->U R U U R R U U L L L L L L D D D D D D R R R
+Action: 1R->R
+Action: 1U->L L L L U U U L L D D D D D R R R R R R R U U
+Action: 0D->L L U U U U R R R U U L L L D
+Action: 0R->U R R R D D L L D L L U R
+Action: 0R->R
+Action: 0R->R
+Action: 0D->L L U U R R R D D
+Action: 0D->D
+Action: 4R->U L L L U U L L L D D D R
+Action: 4R->R
+Action: 4U->D R U
+Action: 4R->L U R
+Action: 4R->R
+Action: 4R->R
+Action: 4D->L L U U R R R D D
+Solution: D U U R R R U U L L L L L L D D D R R U R R R R D D R D D L L L L L L L U U D D R R R R R R R U U L U U L L L L D D R D U L U U R R R R D R D D D L L D D L L L L L L L U U U U U R R D D D R R R R R L L U U R U D L L U U R R R R U R D D D L U U L L L D D D U R U U R R U U L L L L L L D D D D D D R R R R L L L L U U U L L D D D D D R R R R R R R U U L L U U U U R R R U U L L L D U R R R D D L L D L L U R R R L L U U R R R D D D U L L L U U L L L D D D R R D R U L U R R R L L U U R R R D D 
+Good solution
+./Sokoban++ 6
+Solving 
+############
+##     #####
+#  ### #####
+# #  # #####
+#   .#     #
+###. ##### #
+### *    $ #
+##...##  ###
+##    $$$$ #
+#######   @#
+############
+
+Solution found!
+Action: 3U->L L L U
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 0U->U U
+Action: 0U->U
+Action: 3U->D D D R R R U
+Action: 3L->R U L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 2R->D L L D R
+Action: 2R->R
+Action: 2R->R
+Action: 3D->L U U U L D
+Action: 4U->R R R R D D D R U
+Action: 1L->L U U L L L L U U L L U U R U R R R R D D D R R R R D D L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 4U->R R R D D R U
+Action: 2R->L U L L L D D R R
+Action: 2U->L L U U R R R D R D D L U
+Action: 3L->L L L U L
+Action: 0D->R U U L U U R D
+Action: 0D->D
+Action: 0D->D
+Action: 4L->U L U L L U U R U R R R R D D D R R R R D D L L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 1U->R R R D D L L L L L U U
+Action: 1U->U
+Action: 4L->D D D R R R R R U U L L L L
+Action: 1L->U U L
+Action: 2U->R D D R R R R D D L U
+Action: 2L->R U L
+Action: 2L->L
+Action: 2L->L
+Action: 4U->R R D D L L L L U U
+Action: 4U->U
+Action: 2L->D D D R R R R U U L L L
+Action: 2D->U L D
+Action: 5L->R R R R R D D D R R U L
+Action: 5L->L
+Action: 5U->D L U
+Action: 4D->R U U L L L L U U U L D
+Action: 5U->R D D R R R R D D L U
+Action: 5L->R U L
+Action: 5L->L
+Action: 5L->L
+Action: 1R->R R R R R U U L L L L U U U L L L L D L D D R
+Action: 1R->R
+Solution: L L L U L L L U U U D D D R R R U R U L L L L D L L D R R R L U U U L D R R R R D D D R U L U U L L L L U U L L U U R U R R R R D D D R R R R D D L L L L L L R R R D D R U L U L L L D D R R L L U U R R R D R D D L U L L L U L R U U L U U R D D D U L U L L U U R U R R R R D D D R R R R D D L L L L L R R R D D L L L L L U U U D D D R R R R R U U L L L L U U L R D D R R R R D D L U R U L L L R R D D L L L L U U U D D D R R R R U U L L L U L D R R R R R D D D R R U L L D L U R U U L L L L U U U L D R D D R R R R D D L U R U L L L R R R R R U U L L L L U U U L L L L D L D D R R 
+Good solution
+./Sokoban++ 7
+Solving 
+########
+#  ... #
+#.$ #  #
+# #$$$ #
+#.$ @  #
+########
+
+Solution found!
+Action: 4L->L L
+Action: 0L->R R R R U U L U L L D L
+Action: 3U->R U R R D R D D L U
+Action: 3U->U
+Action: 1U->D D L L U
+Action: 1U->U
+Action: 1R->L U R
+Action: 2L->D D D R R U L
+Action: 2U->D L U
+Action: 2U->U
+Solution: L L R R R R U U L U L L D L R U R R D R D D L U U D D L L U U L U R D D D R R U L D L U U 
+Good solution
+./Sokoban++ 8
+Solving 
+./Sokoban++ 9
+Solving 
+./Sokoban++ 10
+Solving 
+./Sokoban++ 11
+Solving 
+##############
+#####@ #######
+#   ##    ####
+# $###  $ ####
+#    ###$$   #
+##..      $  #
+##..#    ### #
+#######   #  #
+#######      #
+########  . ##
+#########   ##
+##############
+
+Solution found!
+Action: 1L->R D R R R D L
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2R->L D R
+Action: 2D->U R D
+Action: 2R->L D R
+Action: 3L->U R R U R U U L U L L
+Action: 3D->U L D
+Action: 3L->R D L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3D->U L D
+Action: 1R->R R R R R U U U L L D R
+Action: 1D->U R D
+Action: 1D->D
+Action: 1L->R D L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1D->U L D
+Action: 4L->R R R R R R R U R R D L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 0D->U L L L U U R D
+Action: 0D->D
+Solution: R D R R R D L D D D D L D R U R D L D R U R R U R U U L U L L U L D R D L L L L L U L D R R R R R U U U L L D R U R D D R D L L L L L L U L D R R R R R R R U R R D L L L L L L L U L L L U U R D D 
+Good solution
+./Sokoban++ 12
+Solving 
+###########
+#######  ##
+##        #
+##.*****$ #
+###     @##
+######  ###
+###########
+###########
+
+Solution found!
+Action: 3U->L L U
+Action: 1U->D L L U
+Action: 5U->D R R R R U
+Action: 0L->D L L L L U L
+Action: 2L->R D R R U L
+Action: 4L->R D R R U L
+Action: 5D->U U R D
+Action: 5L->R D L
+Action: 3R->D L L L U U R
+Action: 3R->R
+Action: 3D->U R D
+Action: 5D->L D
+Action: 4L->L
+Action: 1R->D L L L U U R
+Action: 1R->R
+Action: 3L->L L D D R R R U R U R R D L
+Action: 5L->D L
+Action: 5U->D L U
+Action: 1R->L L L U U R R R
+Action: 1R->R
+Action: 3D->D
+Action: 4D->U L L D
+Action: 2L->L
+Action: 5L->R U R R D L
+Action: 3U->D D R U
+Action: 3L->R U L
+Action: 4R->U L L L D D R
+Action: 4R->R
+Action: 3U->U
+Action: 1D->R U U R D
+Action: 5L->L D L L
+Action: 1L->R R U R R D L
+Action: 4L->D L
+Action: 4U->D L U
+Action: 3R->L U U R
+Action: 3R->R
+Action: 3D->U R D
+Action: 1D->L D
+Action: 4L->L
+Action: 3L->R U R R D L
+Action: 1L->D L
+Action: 1U->D L U
+Solution: L L U D L L U D R R R R U D L L L L U L R D R R U L R D R R U L U U R D R D L D L L L U U R R U R D L D L D L L L U U R R L L D D R R R U R U R R D L D L D L U L L L U U R R R R D U L L D L R U R R D L D D R U R U L U L L L D D R R U R U U R D L D L L R R U R R D L D L D L U L U U R R U R D L D L R U R R D L D L D L U 
+Good solution
+./Sokoban++ 13
+Solving 
+##############
+######  ######
+######      ##
+###### ###$$##
+#..  # #     #
+#        #@  #
+#..  # #     #
+###### ###$$##
+######      ##
+######  ######
+##############
+
+Solution found!
+Action: 1D->U L L D L L U U U R R R R R D
+Action: 0U->U L L L L L D D D R R U R R U
+Action: 0L->R U L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 0D->U L D
+Action: 0D->D
+Action: 0D->D
+Action: 0L->U U R R R R D D L L D L L
+Action: 0L->L
+Action: 0L->L
+Action: 0D->U L D
+Action: 0L->R D L
+Action: 3U->R U R R D D D R R R R R U
+Action: 2D->D L L L L L U U U R R D R R D
+Action: 2L->R D L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2U->D L U
+Action: 2U->U
+Action: 2U->U
+Action: 2L->D D R R R R U U L L U L L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2D->U L D
+Action: 3L->R R R R R R R D R R U R R D L
+Action: 3D->U L D
+Action: 3D->D
+Action: 3L->R D L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3U->D L U
+Action: 3U->U
+Action: 1L->D R R R R R U U R U U L
+Action: 1U->D L U
+Action: 1U->U
+Action: 1L->R U L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1D->U L D
+Action: 1D->D
+Action: 1D->D
+Action: 1L->U U R R R R D D L L D L L
+Action: 1L->L
+Action: 1L->L
+Action: 1U->D L U
+Action: 3U->R R R R R D R R D D L L L L U U
+Action: 3L->D D R R R R U U L L U L L
+Action: 3L->L
+Action: 3L->L
+Action: 1L->U L
+Action: 1L->L
+Action: 3U->R R D D L U
+Action: 3L->R U L
+Solution: U L L D L L U U U R R R R R D U L L L L L D D D R R U R R U R U L L L L U L D D D U U R R R R D D L L D L L L L U L D R D L R U R R D D D R R R R R U D L L L L L U U U R R D R R D R D L L L L D L U U U D D R R R R U U L L U L L L L L L U L D R R R R R R R D R R U R R D L U L D D R D L L L L D L U U D R R R R R U U R U U L D L U U R U L L L L U L D D D U U R R R R D D L L D L L L L D L U R R R R R D R R D D L L L L U U D D R R R R U U L L U L L L L U L L R R D D L U R U L 
+Good solution
+./Sokoban++ 14
+Solving 
+./Sokoban++ 15
+Solving 
+./Sokoban++ 16
+Solving 
+#########
+##  #####
+##  #####
+## $ $  #
+##$ $ $ #
+#.  #   #
+#.$.##.##
+##.@.####
+#########
+
+Solution found!
+Action: 0U->U U U U
+Action: 0D->L U U R D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 5L->L
+Action: 0R->D R
+Action: 2D->U U U U L D
+Action: 2D->D
+Action: 2D->D
+Action: 1R->R U U U R R
+Action: 1L->D D R R U U L
+Action: 4D->D
+Action: 4D->D
+Action: 3L->L U L
+Action: 3D->U L D
+Action: 3D->D
+Action: 1L->U R R R U L
+Action: 1L->L
+Action: 1D->D L L U U R D
+Action: 1L->R D L
+Action: 1D->U L D
+Action: 1L->R D L
+Solution: U U U U L U U R D D D D D L D R U U U U L D D D R U U U R R D D R R U U L D D L U L U L D D U R R R U L L D L L U U R D R D L U L D R D L 
+Good solution
+./Sokoban++ 17
+Solving 
+#######
+#     #
+# #*  #
+# .*. #
+#  *  #
+# #*# #
+#  *  #
+# $*$ #
+#  *  #
+#  @  #
+##   ##
+#######
+
+Solution found!
+Action: 8R->L U R
+Action: 4R->L L U U R R
+Action: 1R->L L U U R U R
+Action: 1U->L L U U R R R D R D D L U
+Action: 2R->L L D R
+Action: 3U->L L D D R R U
+Action: 3U->U
+Action: 6U->D D L L D D R R U
+Action: 6U->U
+Action: 6U->U
+Action: 3L->D D D D R R U U U U U U L L
+Action: 6U->R R D D D D D D L L U U U U U
+Action: 4L->D D D D D R R U U U L
+Action: 4U->R D D D L L U U U
+Action: 8L->R R D D L
+Action: 5R->D L L L U U R
+Action: 7U->D D R R U U
+Action: 7L->R U L
+Action: 2L->R U U L
+Action: 1D->U R U U L D
+Solution: L U R L L U U R R L L U U R U R L L U U R R R D R D D L U L L D R L L D D R R U U D D L L D D R R U U U D D D D R R U U U U U U L L R R D D D D D D L L U U U U U D D D D D R R U U U L R D D D L L U U U R R D D L D L L L U U R D D R R U U R U L R U U L U R U U L D 
+Good solution
+./Sokoban++ 18
+Solving 
+########
+###    #
+# $ ## #
+# # .$ #
+# #. # #
+# .. # #
+## $$@ #
+###   ##
+########
+
+Solution found!
+Action: 2U->D L L U
+Action: 0R->L U L U U U R
+Action: 3L->L D D D R D R D R R U L
+Action: 2L->U L
+Action: 3U->R D D L U
+Action: 0D->R R R U U U U U L L L D
+Action: 0D->D
+Action: 1L->U U R R R D D L
+Solution: D L L U L U L U U U R L D D D R D R D R R U L U L R D D L U R R R U U U U U L L L D D U U R R R D D L 
+Good solution
+./Sokoban++ 19
+Solving 
+###################
+#####          ####
+##### ######## ####
+#   #     #  ...  #
+# # # # # # $.*.$ #
+#   ##### @ $#$#$##
+####      #      ##
+###################
+
+Solution found!
+Action: 0L->R U U R R D L
+Action: 3U->R U R U U L L L L L L L L L D D R R R R D D R R D R U
+Action: 0D->L L L U U L L L L U U R R R R R R R R R D D L L L D
+Action: 3L->U R R D L
+Action: 1L->R U R R D L
+Action: 0L->U L L D D L
+Action: 4U->R D R R U
+Action: 4U->U
+Action: 2L->R U R R D L
+Action: 4L->U L L
+Action: 3D->D D D L L U U U L D
+Action: 4L->R D D R R U U U L
+Action: 1R->R D D D L L U U R
+Action: 1D->U R D
+Action: 2L->U R R D L
+Action: 4R->U L L D L L U R
+Action: 4R->R
+Action: 4R->R
+Action: 3U->L L D D D L U
+Action: 0R->R U R U R U U L L L L L L L L L D D R R R R D D R
+Action: 0R->R
+Action: 0U->D R U
+Action: 4R->L L L U U L L L L U U R R R R R R R R R D D R
+Action: 3D->L L L L D
+Action: 4L->U R R R R D R R U L
+Action: 4L->L
+Action: 4L->L
+Action: 3R->U U L L L L L L L L L D D R R R R D D R R
+Action: 4R->U U R R
+Action: 2R->D R
+Action: 1U->L U L L D D D R R R U
+Action: 0R->D L L L U U R
+Action: 5U->L D D R R R R R U
+Action: 5U->U
+Action: 5L->R U L
+Action: 3U->D D D L L L L U
+Action: 3U->U
+Action: 3R->L U R
+Solution: R U U R R D L R U R U U L L L L L L L L L D D R R R R D D R R D R U L L L U U L L L L U U R R R R R R R R R D D L L L D U R R D L R U R R D L U L L D D L R D R R U U R U R R D L U L L D D D L L U U U L D R D D R R U U U L R D D D L L U U R U R D U R R D L U L L D L L U R R R L L D D D L U R U R U R U U L L L L L L L L L D D R R R R D D R R D R U L L L U U L L L L U U R R R R R R R R R D D R L L L L D U R R R R D R R U L L L U U L L L L L L L L L D D R R R R D D R R U U R R D R L U L L D D D R R R U D L L L U U R L D D R R R R R U U R U L D D D L L L L U U L U R 
+Good solution
+./Sokoban++ 20
+Solving 
+#########
+###   ###
+###@* ###
+#  * *  #
+# $ * . #
+#  * *  #
+### * ###
+###   ###
+#########
+
+Solution found!
+Action: 2D->U R R D D
+Action: 1L->L L
+Action: 5D->D D
+Action: 6R->R R
+Action: 4U->L U
+Action: 2R->R
+Action: 3R->L L D L L U R
+Action: 3R->R
+Action: 5U->D R R D D L L U
+Action: 6L->D R R U U U U R R D D L
+Action: 4R->R U U L L U U L L D D R
+Action: 1R->L D L L U R
+Solution: U R R D D L L D D R R L U R L L D L L U R R D R R D D L L U D R R U U U U R R D D L R U U L L U U L L D D R L D L L U R 
+Good solution
+./Sokoban++ 21
+Solving 
+#########
+###@ ####
+##.$ ####
+###$#####
+# . #####
+# *  ####
+# .$ ####
+# .  ####
+# .$##.##
+# * $ $ #
+#  #.#  #
+# ##$## #
+# ## ## #
+#       #
+#########
+
+Solution found!
+Action: 0L->R D L
+Action: 1D->D
+Action: 1D->D
+Action: 8U->L L D D D D D D D D D R R R U U
+Action: 7U->D D R R R U U U L U
+Action: 6L->L L
+Action: 5U->R R D R D D D L L L L L L U U U R U
+Action: 6L->L D D D D R R R R R R U U U L U L L L
+Action: 2U->R R R R D D D D L L L L L L U U U U U U R U U
+Action: 3L->D D R R U L
+Action: 3D->D L L U U R D
+Action: 4U->L D D D D D D D R R R R R R U U U L U L L L U
+Action: 4U->U
+Action: 4L->R U L
+Action: 1L->R U L
+Solution: R D L D D L L D D D D D D D D D R R R U U D D R R R U U U L U L L R R D R D D D L L L L L L U U U R U L D D D D R R R R R R U U U L U L L L R R R R D D D D L L L L L L U U U U U U R U U D D R R U L D L L U U R D L D D D D D D D R R R R R R U U U L U L L L U U R U L R U L 
+Good solution
+./Sokoban++ 22
+Solving 
+############
+####    ####
+###  $#$ ###
+###  @$  ###
+##    ##   #
+## #$### # #
+#    ...   #
+# $  ... ###
+# $#########
+#  #########
+############
+
+Solution found!
+Action: 3D->L D D
+Action: 3D->D
+Action: 3R->L D R
+Action: 3R->R
+Action: 3R->R
+Action: 4R->L L L U L L D R
+Action: 4R->R
+Action: 4R->R
+Action: 4R->R
+Action: 5U->L L L L D D R U
+Action: 5R->L U R
+Action: 5R->R
+Action: 5R->R
+Action: 2L->U R R R R U U U L L
+Action: 2L->L
+Action: 1D->D L L U U R U R R R D
+Action: 1R->U L L L D L D D R R U R R
+Action: 1D->U R D
+Action: 1D->D
+Action: 1D->D
+Action: 1L->U R R D D L L
+Action: 2D->U U U L U U L L L D D
+Action: 2D->D
+Action: 2D->D
+Action: 2R->U L L D D R R
+Action: 2R->R
+Action: 0D->L U U U U U R D
+Action: 0L->U R R D D L L
+Action: 0D->U L D
+Action: 0D->D
+Action: 0D->D
+Action: 0R->U L L D D R R
+Solution: L D D D L D R R R L L L U L L D R R R R L L L L D D R U L U R R R U R R R R U U U L L L D L L U U R U R R R D U L L L D L D D R R U R R U R D D D U R R D D L L U U U L U U L L L D D D D U L L D D R R R L U U U U U R D U R R D D L L U L D D D U L L D D R R 
+Good solution
+./Sokoban++ 23
+Solving 
+./Sokoban++ 24
+Solving 
+#######
+#     #
+#  *  #
+# .*. #
+#  *  #
+# #*# #
+#  *  #
+# $*$ #
+#  *  #
+#  @  #
+#######
+
+Solution found!
+Action: 8R->L U R
+Action: 4R->L L U U R R
+Action: 2R->L L U U R R
+Action: 1R->L U R
+Action: 3U->D L L D D R R U
+Action: 3U->U
+Action: 6U->D D L L D D R R U
+Action: 6U->U
+Action: 0L->L L U U R U U U R R D L
+Action: 3U->U L L D D R D R U
+Action: 6U->D L L D D R R U
+Action: 6U->U
+Action: 4L->D D D D D R R U U U L
+Action: 4U->R D D D L L U U U
+Action: 8L->R R D D L
+Action: 5R->D L L L U U R
+Action: 7U->D D R R U U
+Action: 7L->R U L
+Action: 2L->R U U L
+Action: 0D->R U U L U L L D
+Solution: L U R L L U U R R L L U U R R L U R D L L D D R R U U D D L L D D R R U U L L U U R U U U R R D L U L L D D R D R U D L L D D R R U U D D D D D R R U U U L R D D D L L U U U R R D D L D L L L U U R D D R R U U R U L R U U L R U U L U L L D 
+Good solution
+./Sokoban++ 25
+Solving 
+#########
+##  @   #
+##$ $ $ #
+# $ # $ #
+#  $ # ##
+#......##
+#########
+
+Solution found!
+Action: 5D->L D D D
+Action: 5L->R D L
+Action: 5L->L
+Action: 1L->R U U U U R R D L
+Action: 1D->U L D
+Action: 1D->D
+Action: 1D->D
+Action: 2L->U U R R U R R D L
+Action: 4U->U L L D L D D R D R R U U
+Action: 3R->D D L L U L L L U R
+Action: 4D->D R R D R R U U R U U L D
+Action: 4D->D
+Action: 4D->D
+Action: 3D->U U U L L L D D
+Action: 1R->L D D R
+Action: 1R->R
+Action: 3D->L L U U R D
+Action: 3R->L D R
+Action: 2L->U U U R U R R D L
+Action: 2L->L
+Action: 2D->U L D
+Action: 2D->D
+Action: 2D->D
+Action: 0D->U U U L D
+Action: 0D->D
+Action: 0D->D
+Solution: L D D D R D L L R U U U U R R D L U L D D D U U R R U R R D L U L L D L D D R D R R U U D D L L U L L L U R D R R D R R U U R U U L D D D U U U L L L D D L D D R R L L U U R D L D R U U U R U R R D L L U L D D D U U U L D D D 
+Good solution
+./Sokoban++ 26
+Solving 
+./Sokoban++ 27
+Solving 
+##########
+#######  #
+#######$ #
+#######  #
+##       #
+###.#.# ##
+### #@.  #
+#  .$$.# #
+# $$$  . #
+###   ####
+##########
+
+Solution found!
+Action: 2U->R D D L U
+Action: 1R->R U R U U L L L L D D D R
+Action: 1R->R
+Action: 0D->D R R R U U L U U U R U U L D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0L->U L L L L D D D R R D R R R U U L
+Action: 4U->R D D L L L D L L U
+Action: 5R->R
+Action: 5R->R
+Action: 5R->R
+Action: 4U->L L L U
+Action: 3R->L L D R
+Action: 4U->U R U
+Action: 3U->D R D D L U
+Action: 2U->R R U U
+Solution: R D D L U R U R U U L L L L D D D R R D R R R U U L U U U R U U L D D D D U L L L L D D D R R D R R R U U L R D D L L L D L L U R R R L L L U L L D R U R U D R D D L U R R U U 
+Good solution
+./Sokoban++ 28
+Solving 
+./Sokoban++ 29
+Solving 
+############
+####  ######
+####  ######
+##      ####
+#  #..#  ###
+# $$**$$ ###
+##  ..  ####
+####  #  @ #
+######     #
+############
+
+Solution found!
+Action: 0U->L L U L L L L L U
+Action: 2U->D R R U
+Action: 2U->U
+Action: 3D->R D
+Action: 2U->L U U
+Action: 1R->D D D L L U R
+Action: 1U->D R U
+Action: 1D->R U U L D
+Action: 0D->U L L D
+Action: 0R->L D R
+Action: 3U->D R R D R U
+Action: 3U->U
+Action: 1D->D L L L U U U R R D D
+Action: 1L->R D L
+Action: 0R->U U U L L D D R
+Action: 0D->L U U R R D D
+Action: 5U->R D R R U
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 5D->U U R R R D
+Action: 5L->R D L
+Action: 0U->D L L D L U
+Action: 1R->R R R U U U L L L L L D D D R
+Action: 1R->R
+Action: 0D->L L U U U R R D D
+Action: 5L->U U R R R D D L
+Action: 4R->R U U L L L L L D D R
+Action: 2D->L U U R R R U U L D
+Action: 2D->D
+Solution: L L U L L L L L U D R R U U R D L U U D D D L L U R D R U R U U L D U L L D L D R D R R D R U U D L L L U U U R R D D R D L U U U L L D D R L U U R R D D R D R R U L L L U U R R R D R D L D L L D L U R R R U U U L L L L L D D D R R L L U U U R R D D U U R R R D D L R U U L L L L L D D R L U U R R R U U L D D 
+Good solution
+./Sokoban++ 30
+Solving 
+#########
+#      ##
+#  $ $ ##
+# $$ # ##
+# $  # ##
+#  ### ##
+####.# ##
+##  .# ##
+## $.# ##
+## . #  #
+## . @  #
+## .##  #
+#########
+
+Solution found!
+Action: 1R->R U U U U U U U U U L L D R
+Action: 0R->L U L L D R
+Action: 0R->R
+Action: 3U->D D L U
+Action: 2R->R U U L L L D D R
+Action: 1D->U U R R R R D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 1L->R D L
+Action: 1L->L
+Action: 1L->L
+Action: 1U->U L L D D R U
+Action: 0R->R R R U U U U U U U U U L L D R
+Action: 3R->L U L L D R
+Action: 3R->R
+Action: 2U->D D L U
+Action: 0D->R U U R R D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0L->R D L
+Action: 0L->L
+Action: 0L->L
+Action: 1R->U U U L L D D R
+Action: 5U->U
+Action: 0U->D L D D R U
+Action: 0U->U
+Action: 3R->D R R R U U U U U U U U U L L D R
+Action: 2R->L U L L D R
+Action: 2R->R
+Action: 3D->U R R D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 3L->R D L
+Action: 3L->L
+Action: 3L->L
+Action: 1U->U
+Action: 3U->L L D D R U
+Action: 1U->R U U
+Action: 1U->U
+Action: 3R->D D D L L U R
+Action: 5R->L U U R
+Action: 2R->L D D R D R R R U U U U U U U U U L L D R
+Action: 2D->U R D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2L->R D L
+Action: 2L->L
+Action: 2L->L
+Action: 3U->U
+Action: 2D->L D
+Action: 4U->R R R U U U U U U U U L L L L D L D D R U
+Action: 4U->U
+Action: 4R->L U R
+Action: 4R->R
+Action: 4R->R
+Action: 4R->R
+Action: 4D->U R D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 4L->R D L
+Action: 4L->L
+Action: 4L->L
+Action: 0D->U L L U U R D
+Solution: R U U U U U U U U U L L D R L U L L D R R D D L U R U U L L L D D R U U R R R R D D D D D D D D R D L L L U L L D D R U R R R U U U U U U U U U L L D R L U L L D R R D D L U R U U R R D D D D D D D D R D L L L U U U L L D D R U D L D D R U U D R R R U U U U U U U U U L L D R L U L L D R R U R R D D D D D D D D R D L L L U L L D D R U R U U U D D D L L U R L U U R L D D R D R R R U U U U U U U U U L L D R U R D D D D D D D D R D L L L U L D R R R U U U U U U U U L L L L D L D D R U U L U R R R R U R D D D D D D D D R D L L L U L L U U R D 
+Good solution
+./Sokoban++ 31
+Solving 
+############
+#      #####
+# $ #$ ##. #
+#  #   ..  #
+#  @$ $#   #
+#  #   ..  #
+# $ #$ ##. #
+#      #####
+############
+
+Solution found!
+Action: 3D->L U L U U R R R R R D D D
+Action: 3R->L D R
+Action: 3R->R
+Action: 3R->R
+Action: 3D->U R D
+Action: 2R->L L L D D L L L L L U U R U R R
+Action: 2D->U R D
+Action: 2R->L D R
+Action: 2R->R
+Action: 2R->R
+Action: 5U->L D D L U
+Action: 5R->R U U L L D R
+Action: 5R->R
+Action: 0D->U U U U L L L L D
+Action: 0D->D
+Action: 0R->L D R
+Action: 0R->R
+Action: 0R->R
+Action: 1D->U R R U U L D
+Action: 1R->R D D D L L U U R
+Action: 1R->R
+Action: 0U->D D L U
+Action: 1R->R U R
+Action: 1R->R
+Action: 1U->D R U
+Action: 0R->L L L D L L U R
+Action: 0R->R
+Action: 0R->R
+Action: 4U->L L D D D D L L L U
+Action: 4U->U
+Action: 4R->L U R
+Action: 4R->R
+Action: 4R->R
+Action: 4U->D R U
+Action: 4R->L U R
+Action: 4R->R
+Solution: L U L U U R R R R R D D D L D R R R U R D L L L D D L L L L L U U R U R R U R D L D R R R L D D L U R U U L L D R R U U U U L L L L D D L D R R R U R R U U L D R D D D L L U U R R D D L U R U R R D R U L L L D L L U R R R L L D D D D L L L U U L U R R R D R U L U R R 
+Good solution
+./Sokoban++ 32
+Solving 
+########
+##  ####
+#   $  #
+# $$#@ #
+# $ ## #
+#    #.#
+## $ ..#
+###  ..#
+########
+
+Solution found!
+Action: 4R->R D D D L L U L L D R
+Action: 4D->U R D
+Action: 2D->L U L L U U U R R D
+Action: 2D->D
+Action: 2D->D
+Action: 0L->R D R R U U U L U L
+Action: 2R->R D R D D D L L U L L D R
+Action: 2R->R
+Action: 2R->R
+Action: 2U->D R U
+Action: 4R->L L L D R
+Action: 4R->R
+Action: 0D->L L U U L L U U U R U R D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0R->L D R
+Action: 0D->U R D
+Action: 0R->L D R
+Action: 3R->L U L U L U R
+Action: 3D->L U U R R D D
+Action: 3D->D
+Action: 3R->L D R
+Action: 3R->R
+Action: 3R->R
+Action: 1D->L L U U U U L D
+Action: 1D->D
+Action: 1R->L D R
+Action: 1D->U R D
+Action: 1R->L D R
+Action: 1R->R
+Solution: R D D D L L U L L D R U R D L U L L U U U R R D D D R D R R U U U L U L R D R D D D L L U L L D R R R D R U L L L D R R L L U U L L U U U R U R D D D D L D R U R D L D R L U L U L U R L U U R R D D D L D R R R L L U U U U L D D L D R U R D L D R R 
+Good solution
+./Sokoban++ 33
+Solving 
+./Sokoban++ 34
+Solving 
+##########
+###     ##
+### $ @ ##
+##### # ##
+# $     ##
+#  #$## ##
+#..$  #  #
+#..      #
+##########
+
+Solution found!
+Action: 1R->R D D D D D L L L L L L U U U R
+Action: 1R->R
+Action: 1R->R
+Action: 1R->R
+Action: 0R->U U U L L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0D->U R D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0L->R D L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 1R->U U U R R R R
+Action: 1D->L U U R R D D
+Action: 1D->D
+Action: 1D->D
+Action: 1L->R D L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 1L->L
+Action: 3L->R U L
+Action: 2D->R R D R R U U U L L L D
+Action: 3L->U R R R D D D L L L L U L
+Action: 2L->R D R R U L
+Action: 2L->L
+Solution: R D D D D D L L L L L L U U U R R R R U U U L L D R R R U R D D D D D R D L L L L L L U U U R R R R L U U R R D D D D R D L L L L L R U L R R D R R U U U L L L D U R R R D D D L L L L U L R D R R U L L 
+Good solution
+./Sokoban++ 35
+Solving 
+./Sokoban++ 36
+Solving 
+#########
+#       #
+#  #$#  #
+#  $  $ #
+#  ###  #
+#  $ #$ #
+# $ $  ##
+# ..#.. #
+##.###* #
+##. # . #
+### @ ###
+#########
+
+Solution found!
+Action: 4D->L U L U U L U U R U U U U R R R R D R D D L D
+Action: 4D->D
+Action: 4L->U R U U U L U L L L L D D D D L D D R D D R D R R U R R U U L
+Action: 7D->D
+Action: 5D->U U U R U U U L U L L L L D D D D D
+Action: 5D->D
+Action: 5D->D
+Action: 2D->U U U U U U U R R R R D D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 6L->U L L
+Action: 3L->U L
+Action: 3D->R D R R U U U U U L L L L D D D D
+Action: 3D->D
+Action: 3D->D
+Action: 1L->U U R R D R R U U U L L L
+Action: 0D->R R R U U L L D
+Action: 1D->U L L D D
+Action: 0R->R R
+Action: 0R->R
+Action: 0D->L U U R R D D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 6D->L L U L D
+Action: 1D->L U L U U R D
+Action: 1D->D
+Action: 1D->D
+Solution: L U L U U L U U R U U U U R R R R D R D D L D D U R U U U L U L L L L D D D D L D D R D D R D R R U R R U U L D U U U R U U U L U L L L L D D D D D D D U U U U U U U R R R R D D D D D D U L L U L R D R R U U U U U L L L L D D D D D D U U R R D R R U U U L L L R R R U U L L D U L L D D R R R L U U R R D D D D D L L U L D L U L U U R D D D 
+Good solution
+./Sokoban++ 37
+Solving 
+#########
+####.  ##
+##     .#
+## $#.$ #
+#  $.#. #
+#  $#.# #
+#  $  $ #
+##     @#
+#########
+
+Solution found!
+Action: 4R->L L L L L U R
+Action: 4R->R
+Action: 4U->D R U
+Action: 1D->D R R U U U U U L D
+Action: 2R->L U L L L D D R
+Action: 0U->U
+Action: 3U->D L D D R U
+Action: 3U->U
+Action: 0R->L U U R
+Action: 0R->R
+Action: 3U->L L D D R U
+Action: 3R->L U R
+Action: 0U->D D D D R R D R R U U U U L L U
+Action: 3R->R R D D D D D L L L L U U U U U R
+Action: 0L->L D D D D R R D R R U U U U L U U L
+Action: 3D->D
+Action: 5R->L L D D D D R R R
+Action: 5U->D R U
+Action: 5U->U
+Action: 5U->U
+Action: 5U->U
+Solution: L L L L L U R R D R U D R R U U U U U L D L U L L L D D R U D L D D R U U L U U R R L L D D R U L U R D D D D R R D R R U U U U L L U R R D D D D D L L L L U U U U U R L D D D D R R D R R U U U U L U U L D L L D D D D R R R D R U U U U 
+Good solution
+./Sokoban++ 38
+Solving 
+./Sokoban++ 39
+Solving 
+#############
+##     ##  ##
+#  #.   #  ##
+#      .#  ##
+##$$##@##$$##
+##  #.      #
+##  #   .#  #
+##  #  #   ##
+#############
+
+Solution found!
+Action: 0D->U L L L L D
+Action: 0D->D
+Action: 1U->R U
+Action: 1R->L U R
+Action: 1R->R
+Action: 1R->R
+Action: 1D->U R D
+Action: 1D->D
+Action: 1D->D
+Action: 1R->L D R
+Action: 2U->U R R R U
+Action: 2U->U
+Action: 3D->R D
+Action: 3L->L D L D D R R U R U L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 1R->D R
+Action: 0U->L U U U L L L D D D D L U
+Action: 0U->U
+Action: 0U->U
+Action: 0R->R U R U U L L D L D R
+Action: 0R->R
+Action: 0R->R
+Action: 2D->U R R D D D R R R U U R U U L D
+Action: 2D->D
+Action: 2D->D
+Action: 2L->R D L
+Action: 2L->L
+Action: 2L->L
+Action: 2U->D L U
+Action: 2U->U
+Action: 2U->U
+Action: 2L->R U L
+Action: 0R->U L L D D R
+Action: 0R->R
+Action: 2L->U L
+Solution: U L L L L D D R U L U R R R U R D D D L D R U R R R U U R D L D L D D R R U R U L L L L L D R L U U U L L L D D D D L U U U R U R U U L L D L D R R R U R R D D D R R R U U R U U L D D D R D L L L D L U U U R U L U L L D D R R U L 
+Good solution
+./Sokoban++ 40
+Solving 
+#######
+##   ##
+# . . #
+#. . .#
+## . ##
+### ###
+##   ##
+#  $  #
+# $$$ #
+#  @  #
+# $ $ #
+##   ##
+#######
+
+Solution found!
+Action: 0R->L L U U R R
+Action: 2U->L L D D R R U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2R->L U R
+Action: 2R->R
+Action: 1U->L D D D D D D L U
+Action: 4U->D R D D L U
+Action: 4U->U
+Action: 4R->L U R
+Action: 4U->D R U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 4L->R U L
+Action: 4L->L
+Action: 3L->R D D D D D D R R U L
+Action: 3U->D L U
+Action: 3U->U
+Action: 3U->U
+Action: 3U->U
+Action: 3U->U
+Action: 3U->U
+Action: 3R->L U R
+Action: 5U->D D D D D D D D D R U
+Action: 5U->U
+Action: 5L->R U L
+Action: 5U->D L U
+Action: 5U->U
+Action: 5U->U
+Action: 1R->D D L L U R
+Action: 5U->U R U
+Action: 5U->U
+Action: 5L->R U L
+Action: 1U->D D D L D D R U
+Action: 1U->U
+Action: 0L->D D R R U L
+Action: 1U->U L U
+Action: 1U->U
+Action: 5U->L U
+Action: 0U->D R D D R D D L U
+Action: 0U->U
+Action: 0U->U
+Solution: L L U U R R L L D D R R U U U U U L U R R L D D D D D D L U D R D D L U U L U R D R U U U U U R U L L R D D D D D D R R U L D L U U U U U U L U R D D D D D D D D D R U U R U L D L U U U D D L L U R U R U U R U L D D D L D D R U U D D R R U L U L U U L U D R D D R D D L U U U 
+Good solution
+./Sokoban++ 41
+Solving 
+#############
+######  #####
+##       ####
+#   #       #
+# $$$ ## ## #
+##    #    @#
+#####. .  ###
+##### .  ####
+#############
+
+Solution found!
+Action: 1U->L L L L D L L U L L U
+Action: 1U->U
+Action: 1R->L U R
+Action: 1R->R
+Action: 1R->R
+Action: 1D->D R R U U L D
+Action: 1R->L D R
+Action: 1R->R
+Action: 1D->U R D
+Action: 1D->D
+Action: 1D->D
+Action: 1L->R D L
+Action: 1D->U L D
+Action: 1L->R D L
+Action: 2R->U L L U L L U R
+Action: 2U->D R U
+Action: 2U->U
+Action: 2R->D L L U U R R
+Action: 2D->D R R U U L D
+Action: 2R->L D R
+Action: 2R->R
+Action: 2D->U R D
+Action: 2D->D
+Action: 2D->D
+Action: 2L->R D L
+Action: 0R->U U U L L L D L L U L L D R
+Action: 0D->U R D
+Action: 0R->L D R
+Action: 0R->R
+Action: 0D->U R D
+Solution: L L L L D L L U L L U U L U R R R D R R U U L D L D R R U R D D D R D L U L D R D L U L L U L L U R D R U U D L L U U R R D R R U U L D L D R R U R D D D R D L U U U L L L D L L U L L D R U R D L D R R U R D 
+Good solution
+./Sokoban++ 42
+Solving 
+./Sokoban++ 43
+Solving 
+######     ####
+####.#######  #
+####.##..  #$ #
+####.####  #  #
+####.#### ##$ #
+#### #        #
+#    #    # # #
+#  # $$ ### # #
+## ##$@$    ###
+##     ########
+##  ###########
+###############
+
+Solution found!
+Action: 5R->R
+Action: 3U->L U
+Action: 2R->D D L L L L U U U R R D R
+Action: 4D->D
+Action: 4L->R D L
+Action: 4L->L
+Action: 4L->L
+Action: 4U->D L U
+Action: 4U->U
+Action: 4U->U
+Action: 4R->L U R
+Action: 4R->R
+Action: 4U->L D D D R R R U U L U
+Action: 2L->D R D R R U L
+Action: 3D->R U U L D
+Action: 3D->D
+Action: 3L->R D L
+Action: 2R->D L L L L U U U R R D R
+Action: 2D->L U L L D D D R R R R U R U U L D
+Action: 3D->L D
+Action: 2L->U R R D L
+Action: 5L->R U U R R U R R D D D L L L
+Action: 3L->R R R U U U L L L L L D D D D L
+Action: 3L->L
+Action: 3L->L
+Action: 3U->D L U
+Action: 3U->U
+Action: 3U->U
+Action: 3R->L U R
+Action: 4U->D D D R R R R U U L L U U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 3R->D D D D D R R D D L L L L U U U R
+Action: 5L->L D D D R R R R U U R U R R U R R D D D L L L L
+Action: 2D->U L L D
+Action: 5L->U R R D L
+Action: 2L->D L
+Action: 2L->L
+Action: 2L->L
+Action: 2U->D L U
+Action: 2U->U
+Action: 2U->U
+Action: 2R->L U R
+Action: 3U->D D D R R R R U U L L U
+Action: 3U->U
+Action: 3U->U
+Action: 3U->U
+Action: 2R->D D D D R R D D L L L L U U U R
+Action: 5D->L D D D R R R R U U L D
+Action: 5L->R D L
+Action: 5L->L
+Action: 5L->L
+Action: 5U->D L U
+Action: 5U->U
+Action: 5U->U
+Action: 5R->L U R
+Action: 2U->D D D R R R U U L U
+Action: 2U->U
+Action: 2U->U
+Action: 5R->D D D R D D L L L U U U R
+Action: 5U->L D D D R R R U U L U
+Action: 5U->U
+Action: 1D->D D R R R U R R U R R R R U U L D
+Action: 0D->U R U U L D
+Action: 0D->D
+Action: 1L->R D D L
+Action: 1L->L
+Action: 1L->L
+Action: 0D->R R R U U L D
+Action: 0L->R D L
+Action: 0L->L
+Action: 1U->D D D L L L L U U R R U
+Action: 1U->U
+Action: 1U->U
+Action: 1L->R U L
+Action: 1L->L
+Action: 0L->R D D D L L D D D R R R R U U U L
+Action: 0U->R D D D L L L L U U R R U
+Action: 0U->U
+Action: 0U->U
+Action: 0L->R U L
+Solution: R L U D D L L L L U U U R R D R D R D L L L D L U U U L U R R L D D D R R R U U L U D R D R R U L R U U L D D R D L D L L L L U U U R R D R L U L L D D D R R R R U R U U L D L D U R R D L R U U R R U R R D D D L L L R R R U U U L L L L L D D D D L L L D L U U U L U R D D D R R R R U U L L U U U U U D D D D D R R D D L L L L U U U R L D D D R R R R U U R U R R U R R D D D L L L L U L L D U R R D L D L L L D L U U U L U R D D D R R R R U U L L U U U U D D D D R R D D L L L L U U U R L D D D R R R R U U L D R D L L L D L U U U L U R D D D R R R U U L U U U D D D R D D L L L U U U R L D D D R R R U U L U U D D R R R U R R U R R R R U U L D U R U U L D D R D D L L L R R R U U L D R D L L D D D L L L L U U R R U U U R U L L R D D D L L D D D R R R R U U U L R D D D L L L L U U R R U U U R U L 
+Good solution
+./Sokoban++ 44
+Solving 
+#########
+##     ##
+# .$#$. #
+# $ .   #
+##.$ $.##
+### @ ###
+#########
+
+Solution found!
+Action: 4L->U U R R D L
+Action: 3U->D L L U
+Action: 2U->L U
+Action: 3R->R
+Action: 0D->D D R R U U R U U L L L D
+Action: 0D->D
+Action: 3R->R
+Action: 3R->R
+Action: 4U->D D L U
+Action: 0L->L
+Action: 1D->U U U R R D
+Action: 3U->U L L D D D R R R U
+Action: 1D->D L L L U U U R R D D
+Action: 1R->U U L L D D D R R
+Solution: U U R R D L D L L U L U R D D R R U U R U U L L L D D R R D D L U L U U U R R D U L L D D D R R R U D L L L U U U R R D D U U L L D D D R R 
+Good solution
+./Sokoban++ 45
+Solving 
+#######
+##   ##
+#     #
+# ... #
+##...##
+### ###
+##   ##
+#  $  #
+# $$$ #
+#  @  #
+# $ $ #
+##   ##
+#######
+
+Solution found!
+Action: 0L->R R U U L L
+Action: 2U->R R D D L L U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2R->L U R
+Action: 2D->U R D
+Action: 3U->L D D D D D D R U
+Action: 0R->L D L L U U R
+Action: 0U->L D D R R U U
+Action: 0U->U
+Action: 0U->U
+Action: 0U->U
+Action: 0L->L U U R R D L
+Action: 0D->U L D
+Action: 1U->R D D D D D D L U
+Action: 1R->L U R
+Action: 1U->D R U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 1R->L U R
+Action: 1D->U R D
+Action: 4U->L D D D D D D D D D L U
+Action: 4U->U
+Action: 4U->U
+Action: 5U->R D D D R U
+Action: 5U->U
+Action: 5L->R U L
+Action: 5U->D L U
+Action: 5U->U
+Action: 5U->U
+Action: 4R->D D L L U R
+Action: 5U->U R U
+Action: 5U->U
+Action: 5U->U
+Action: 5L->L U U R R D L
+Action: 5D->U L D
+Action: 4U->R D D D D L D D R U
+Action: 4U->U
+Action: 3L->D D R R U L
+Action: 4U->U L U
+Action: 4U->U
+Action: 3U->D D R D D L U
+Action: 3U->U
+Action: 3U->U
+Solution: R R U U L L R R D D L L U U U U U L U R U R D L D D D D D D R U L D L L U U R L D D R R U U U U U L U U R R D L U L D R D D D D D D L U L U R D R U U U U U L U R U R D L D D D D D D D D D L U U U R D D D R U U R U L D L U U U D D L L U R U R U U U L U U R R D L U L D R D D D D L D D R U U D D R R U L U L U U D D R D D L U U U 
+Good solution
+./Sokoban++ 46
+Solving 
+./Sokoban++ 47
+Solving 
+##########
+##     ###
+## $  $ ##
+### # #@##
+###.# $ ##
+###..$ ###
+#  ..# ###
+# #.*# ###
+#  #.$$$ #
+##   # # #
+####     #
+##########
+
+No solution found!
+./Sokoban++ 48
+Solving 
+./Sokoban++ 49
+Solving 
+./Sokoban++ 50
+Solving 
+#########
+##      #
+#. ## # #
+# $ $ # #
+#$ # *# #
+# $ $ # #
+# ## @# #
+#   #.# #
+###...  #
+#########
+
+Solution found!
+Action: 5U->L U
+Action: 4R->R D D D L L U L L U U R
+Action: 4R->R
+Action: 3D->L L D D R R D R R R R U U U U U U U L L D D D
+Action: 3D->D
+Action: 3D->D
+Action: 4R->U U U U U R R D D D D D D D L L L L U L L U U R R R
+Action: 0D->L L L D D R R D R R R R U U U U U U U L L L L L D D
+Action: 1R->R R
+Action: 3D->L L U U R R R R R D D D D D D D L L L L U L L U U R R R D R D
+Action: 2U->U L U L L L U
+Action: 2U->U
+Action: 5D->R R R D
+Action: 4D->R D
+Action: 4D->D
+Action: 5R->U U L U L L L D D R R R
+Action: 3L->U U L L U U R R R R R D D D D D D D L L
+Action: 3L->L
+Action: 4D->R R R U U U U U U U L L L L L D D R R D D D R D
+Action: 5D->U L U U R D
+Action: 5D->D
+Action: 4L->L U U U L L U U R R R R R D D D D D D D L L
+Action: 5D->R R U U U U U U U L L L L L D D R R D R D D D
+Action: 0D->U L U U U L L D
+Action: 0R->L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0D->U R D
+Action: 0D->D
+Action: 1D->U U L U L L U U R R R D D
+Solution: L U R D D D L L U L L U U R R L L D D R R D R R R R U U U U U U U L L D D D D D U U U U U R R D D D D D D D L L L L U L L U U R R R L L L D D R R D R R R R U U U U U U U L L L L L D D R R L L U U R R R R R D D D D D D D L L L L U L L U U R R R D R D U L U L L L U U R R R D R D D U U L U L L L D D R R R U U L L U U R R R R R D D D D D D D L L L R R R U U U U U U U L L L L L D D R R D D D R D U L U U R D D L U U U L L U U R R R R R D D D D D D D L L R R U U U U U U U L L L L L D D R R D R D D D U L U U U L L D L D R R R U R D D U U L U L L U U R R R D D 
+Good solution
+./Sokoban++ 51
+Solving 
+#########
+##      #
+##$ # $ #
+## $.$###
+## #$   #
+# $...# #
+# @*#.$ #
+# $...###
+#########
+
+Solution found!
+Action: 5R->L U R
+Action: 2R->U U R
+Action: 3D->U U R R D D
+Action: 3D->D
+Action: 3D->D
+Action: 3D->D
+Action: 8R->U U U U U L L D D L D D L D D R
+Action: 8R->R
+Action: 0D->L U U U U R U U L D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 0R->L D R
+Action: 7L->U U U U R U U R R D D D R R D D L
+Action: 1L->R U U L L U U U R R D L
+Action: 1D->U L D
+Action: 1D->D
+Action: 1D->D
+Action: 2L->U L
+Action: 4D->D
+Action: 2R->U R U U L L L D D R
+Solution: L U R U U R U U R R D D D D D U U U U U L L D D L D D L D D R R L U U U U R U U L D D D D D L D R U U U U R U U R R D D D R R D D L R U U L L U U U R R D L U L D D D U L D U R U U L L L D D R 
+Good solution
+./Sokoban++ 52
+Solving 
+./Sokoban++ 53
+Solving 
+#########
+#       #
+# *$$$# #
+# .$  $ #
+# ..$@###
+# ##.$###
+# ... ###
+# *.*$###
+#     ###
+#########
+
+No solution found!
+./Sokoban++ 54
+Solving 
+########
+#  $ . #
+# #.$. #
+# $$.@ #
+# . $$ #
+# .$.# #
+##. $  #
+########
+
+Solution found!
+Action: 7L->R D D D L L
+Action: 7L->L
+Action: 6L->R U L
+Action: 4D->R D R R U U U L L D
+Action: 5L->U R R D L
+Action: 0R->R D D L L L U U L L U U U R R
+Action: 1R->D R
+Action: 3U->L U L L D D D R R U
+Action: 2R->D L L U R
+Action: 2R->R
+Action: 5L->D D D R R R U U L L
+Action: 5L->L
+Action: 0R->U L L U U R R R
+Solution: R D D D L L L R U L R D R R U U U L L D U R R D L R D D L L L U U L L U U U R R D R L U L L D D D R R U D L L U R R D D D R R R U U L L L U L L U U R R R 
+Good solution
+./Sokoban++ 55
+Solving 
+#########
+####  ###
+###   ###
+###$.$  #
+###.$.  #
+# . .$###
+#  .$ ###
+###$  ###
+###  @###
+#########
+
+Solution found!
+Action: 3U->U U U
+Action: 2U->L U
+Action: 2U->U
+Action: 5U->D D R D D L D L U
+Action: 5U->U
+Action: 5L->D R R U U L L
+Action: 1R->R U U R
+Action: 2D->U U L D
+Action: 2D->D
+Action: 2D->D
+Action: 3D->U R D
+Action: 1L->R R U L
+Action: 1L->L
+Action: 3U->D L L D D D R R U U
+Action: 3R->D D L L U U U R R
+Action: 4L->D D L
+Action: 3L->R U U U R R D L
+Action: 0D->U L U L L D
+Solution: U U U L U U D D R D D L D L U U D R R U U L L R U U R U U L D D D U R D R R U L L D L L D D D R R U U D D L L U U U R R D D L R U U U R R D L U L U L L D 
+Good solution
+./Sokoban++ 56
+Solving 
+###########
+##   ######
+## $.##   #
+###$...$  #
+### .$. ###
+#@$ $$#####
+# $ ..#####
+# $  .  ###
+#####   ###
+###########
+
+Solution found!
+Action: 8R->D D R
+Action: 8R->R
+Action: 8R->R
+Action: 5D->U L U U R D
+Action: 3L->U U R R D L
+Action: 6D->D
+Action: 2R->U R U R
+Action: 2L->U R R D L
+Action: 2L->L
+Action: 3R->D L L D L L U R
+Action: 3R->R
+Action: 0R->L U U U L L D R
+Action: 0D->U R D
+Action: 0D->D
+Action: 1U->R D D L L U U
+Action: 1R->R U U L L D R
+Action: 0U->D D D R U
+Action: 7R->L D D D L L U R
+Action: 4R->L U R
+Action: 5U->D D R R U
+Action: 5U->U
+Action: 4R->D D L L U U R
+Action: 5R->U R
+Action: 4U->L D L D D R R U U
+Action: 7R->L L D R
+Action: 5U->U R R U
+Solution: D D R R R U L U U R D U U R R D L D U R U R U R R D L L D L L D L L U R R L U U U L L D R U R D D R D D L L U U R U U L L D R D D D R U L D D D L L U R L U R D D R R U U D D L L U U R U R L D L D D R R U U L L D R U R R U 
+Good solution
+./Sokoban++ 57
+Solving 
+./Sokoban++ 58
+Solving 
+#######
+#.   .#
+# $$$ #
+# $@$ #
+#.$$$.#
+#.. ..#
+#######
+
+Solution found!
+Action: 6D->D
+Action: 7R->R
+Action: 1U->L U U
+Action: 2R->R
+Action: 4D->D
+Action: 7D->R D
+Action: 5L->U L L D L
+Action: 6R->D R
+Action: 0L->U U U L
+Action: 3D->D
+Action: 3D->D
+Action: 5D->U L D
+Action: 4R->R R R
+Action: 0D->L L U U U L D
+Action: 0D->D
+Action: 2U->R R R R U
+Action: 1L->L U L
+Action: 1L->L
+Solution: D R L U U R D R D U L L D L D R U U U L D D U L D R R R L L U U U L D D R R R R U L U L L 
+Good solution
+./Sokoban++ 59
+Solving 
+#############
+####        #
+####$#$#$#$ #
+####    $   #
+# $@$...# ###
+# ##$##.# ###
+#   ....# ###
+#######   ###
+#############
+
+Solution found!
+Action: 6R->R
+Action: 6R->R
+Action: 5R->U R R D D D L L L L L L U U R
+Action: 5R->R
+Action: 5R->R
+Action: 7D->D
+Action: 1D->U U R R R D D D D R R U U U U R R U U L L L L L D
+Action: 1L->U R R R R R D D L L D D D D L L U U U U L
+Action: 0D->U U L L D
+Action: 0D->D
+Action: 0D->D
+Action: 7R->L L L D D R R R
+Action: 7R->R
+Action: 7R->R
+Action: 0D->L L L L L U U R R R D
+Action: 1L->U U U U R R D D L
+Action: 1D->R U U L L D D
+Action: 1D->D
+Action: 0R->L L L D D R R R
+Action: 0R->R
+Action: 7U->L L L L U U R R R U R R U U R R R R R D D L L D D D D L L U
+Action: 7U->U
+Action: 0R->D D R R U U U U R R U U L L L L L D D L L D L L L D D R R R R R
+Action: 1D->L L L L L U U R R R D
+Action: 1R->U L L L D D R R R
+Action: 1R->R
+Action: 0U->L U U U R R U U R R R R R D D L L D D D D L L U
+Action: 1R->D R R U U U U R R U U L L L L L D D L L D D D R R
+Action: 4L->L L U U U R R U U R R R R R D D L L L
+Action: 4L->L
+Action: 4L->L
+Action: 4L->L
+Action: 4D->R U U L L D D
+Action: 4D->D
+Action: 4D->D
+Action: 4R->U L L L D D R R R
+Action: 4R->R
+Action: 2D->L U U U R R U U R R D
+Action: 2L->U R R R D D L L L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2D->R U U L L D D
+Action: 2D->D
+Action: 2D->D
+Action: 2R->U L L L D D R R R
+Action: 3D->U U U R R R R U U R R D
+Action: 3L->R D L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3L->L
+Action: 3D->R U U L L D D
+Action: 3D->D
+Action: 3D->D
+Solution: R R U R R D D D L L L L L L U U R R R D U U R R R D D D D R R U U U U R R U U L L L L L D U R R R R R D D L L D D D D L L U U U U L U U L L D D D L L L D D R R R R R L L L L L U U R R R D U U U U R R D D L R U U L L D D D L L L D D R R R R L L L L U U R R R U R R U U R R R R R D D L L D D D D L L U U D D R R U U U U R R U U L L L L L D D L L D L L L D D R R R R R L L L L L U U R R R D U L L L D D R R R R L U U U R R U U R R R R R D D L L D D D D L L U D R R U U U U R R U U L L L L L D D L L D D D R R L L U U U R R U U R R R R R D D L L L L L L R U U L L D D D D U L L L D D R R R R L U U U R R U U R R D U R R R D D L L L L L L R U U L L D D D D U L L L D D R R R U U U R R R R U U R R D R D L L L L L L R U U L L D D D D 
+Good solution
+./Sokoban++ 60
+Solving 
+#########
+####  ###
+#  $ $@##
+# *#.$ ##
+# ...#$##
+# ...$ ##
+### #   #
+##  $$  #
+##     ##
+#########
+
+No solution found!
+./Sokoban++ 61
+Solving 
+./Sokoban++ 62
+Solving 
+./Sokoban++ 63
+Solving 
+./Sokoban++ 64
+Solving 
+./Sokoban++ 65
+Solving 
+./Sokoban++ 66
+Solving 
+###########
+#         #
+#.......  #
+########  #
+########$ #
+########  #
+########$ #
+#@      $ #
+#  $ $ $$ #
+######    #
+###########
+
+Solution found!
+Action: 2L->R R R R R D D R R R U U L
+Action: 0U->R U U L U
+Action: 1U->D R D D L U
+Action: 6U->D R D D L U
+Action: 0U->R U U U U L U
+Action: 1U->D R D D L U
+Action: 6U->D R D D L U
+Action: 5R->D D L L U R
+Action: 4R->L U L L D R
+Action: 3R->L U L L D R
+Action: 4R->U R R D R
+Action: 3R->L U L L D R
+Action: 1U->U R R D D R R R U U U U L U
+Action: 6U->D R D D L U
+Action: 5U->D R D D L U
+Action: 0L->R U U U U U U L
+Action: 0L->L
+Action: 1U->R R D D L U
+Action: 6U->D R D D L U
+Action: 5U->D R D D L U
+Action: 4R->D D L L U R
+Action: 3R->L U L L D R
+Action: 3R->R
+Action: 6U->D R R R U U U U L U
+Action: 5U->D R D D L U
+Action: 4U->D R D D L U
+Action: 0L->R U U U U U U U L L D L
+Action: 1L->R U R R D L
+Action: 0L->U L L D L
+Action: 1L->R U R R D L
+Action: 6U->R R D D L U
+Action: 5U->D R D D L U
+Action: 4U->D R D D L U
+Action: 3R->D D L L U R
+Action: 5U->D R R U U U U L U
+Action: 4U->D R D D L U
+Action: 3U->D R D D L U
+Action: 0L->R U U U U U U U L L L L D L
+Action: 1L->R U R R D L
+Action: 6L->R U R R D L
+Action: 0L->U L L L L D L
+Action: 1L->R U R R D L
+Action: 6L->R U R R D L
+Action: 5U->R R D D L U
+Action: 4U->D R D D L U
+Action: 3U->D R D D L U
+Action: 4U->R U U L U
+Action: 3U->D R D D L U
+Action: 2R->D D L L U R
+Action: 0L->D R R U U U U U U U L L L L L L D L
+Action: 1L->R U R R D L
+Action: 6L->R U R R D L
+Action: 5L->R U R R D L
+Action: 1L->U L L L L D L
+Action: 6L->R U R R D L
+Action: 5L->R U R R D L
+Action: 4U->R R D D L U
+Action: 3U->D R D D L U
+Action: 2U->D R D D L U
+Action: 3U->R U U L U
+Action: 2U->D R D D L U
+Action: 6L->R U U U U U L L L L D L
+Action: 5L->R U R R D L
+Action: 4L->R U R R D L
+Action: 5L->U L L D L
+Action: 4L->R U R R D L
+Action: 3U->R R D D L U
+Action: 2U->D R D D L U
+Action: 2U->U
+Action: 4L->R U U U L L D L
+Action: 3L->R U R R D L
+Action: 3L->L
+Action: 2U->R R D D L U
+Action: 2L->R U L
+Solution: R R R R R D D R R R U U L R U U L U D R D D L U D R D D L U R U U U U L U D R D D L U D R D D L U D D L L U R L U L L D R L U L L D R U R R D R L U L L D R U R R D D R R R U U U U L U D R D D L U D R D D L U R U U U U U U L L R R D D L U D R D D L U D R D D L U D D L L U R L U L L D R R D R R R U U U U L U D R D D L U D R D D L U R U U U U U U U L L D L R U R R D L U L L D L R U R R D L R R D D L U D R D D L U D R D D L U D D L L U R D R R U U U U L U D R D D L U D R D D L U R U U U U U U U L L L L D L R U R R D L R U R R D L U L L L L D L R U R R D L R U R R D L R R D D L U D R D D L U D R D D L U R U U L U D R D D L U D D L L U R D R R U U U U U U U L L L L L L D L R U R R D L R U R R D L R U R R D L U L L L L D L R U R R D L R U R R D L R R D D L U D R D D L U D R D D L U R U U L U D R D D L U R U U U U U L L L L D L R U R R D L R U R R D L U L L D L R U R R D L R R D D L U D R D D L U U R U U U L L D L R U R R D L L R R D D L U R U L 
+Good solution
+./Sokoban++ 67
+Solving 
+./Sokoban++ 68
+Solving 
+./Sokoban++ 69
+Solving 
+./Sokoban++ 70
+Solving 
+############
+#. #   #####
+#.$    #####
+#.$###.#  @#
+#.$ # $$$ ##
+# $ #..#  ##
+##  #  #  ##
+##*   .$ ###
+##  #  #####
+############
+
+Solution found!
+Action: 8L->L D D L D D L
+Action: 8L->L
+Action: 8U->D L U
+Action: 2L->L L U U U L
+Action: 6U->R D D L U
+Action: 2U->L U
+Action: 2U->U
+Action: 2U->U
+Action: 0R->R
+Action: 0R->R
+Action: 0R->R
+Action: 3D->U R R D D D
+Action: 3D->D
+Action: 3D->D
+Action: 8U->U U U U U L L D L L L D D D R R D D R R U
+Action: 6L->D L L U U U L
+Action: 1U->U
+Action: 1L->D R D D D R R U R U U U U U L L D L L
+Action: 3U->D D R D D D R R D R U
+Action: 3U->U
+Action: 8D->L D L L U U U L U U R R U R R D D D L D
+Action: 8D->D
+Action: 8L->R D L
+Action: 3D->U U U R D
+Action: 5D->L D D R R R U U R U U L D
+Action: 7U->R D D L D L L L U U R U U U U L L D L L D D D D R D D L U
+Action: 7U->U
+Action: 8L->R U U L U U R R U R R D D D L D D D L
+Action: 8U->R U U R U U U U L L D L L D D R D D L D D R U
+Action: 4L->R R R R R U R U U L L
+Action: 3D->R R D D L D L L L U U R D
+Action: 7U->L D L L L U U
+Action: 6U->L U
+Action: 7L->D R R U L
+Action: 4D->U U R R U R R D D D
+Action: 4D->D
+Action: 3L->U R R R D D L D L L
+Action: 3L->L
+Action: 5U->R R R U U
+Action: 5L->R U L
+Action: 5L->L
+Action: 4D->R D D D L L L U U R D
+Action: 4R->L D R
+Action: 3L->L L
+Action: 3L->L
+Action: 8U->U
+Action: 5D->L U U U U R R U R R D D D
+Action: 3U->L D D D L L D L U
+Action: 3U->U
+Action: 8D->R D R R U U U R U U U L L D L L D D R D
+Action: 8D->D
+Action: 8R->L D R
+Action: 8R->R
+Action: 8U->L U U U L U U R R U R R D D D L D D R D D L U
+Action: 4L->L L U U U L U U R R U R R D D D R R D D D L
+Action: 3D->R U U U L L U U U L L D L L D D D
+Action: 3D->D
+Action: 8U->R D R R U
+Action: 0R->D L L U U U L U U R R R
+Action: 0D->U R D
+Solution: L D D L D D L L D L U L L U U U L R D D L U L U U U R R R U R R D D D D D U U U U U L L D L L L D D D R R D D R R U D L L U U U L U D R D D D R R U R U U U U U L L D L L D D R D D D R R D R U U L D L L U U U L U U R R U R R D D D L D D R D L U U U R D L D D R R R U U R U U L D R D D L D L L L U U R U U U U L L D L L D D D D R D D L U U R U U L U U R R U R R D D D L D D D L R U U R U U U U L L D L L D D R D D L D D R U R R R R R U R U U L L R R D D L D L L L U U R D L D L L L U U L U D R R U L U U R R U R R D D D D U R R R D D L D L L L R R R U U R U L L R D D D L L L U U R D L D R L L L U L U U U U R R U R R D D D L D D D L L D L U U R D R R U U U R U U U L L D L L D D R D D L D R R L U U U L U U R R U R R D D D L D D R D D L U L L U U U L U U R R U R R D D D R R D D D L R U U U L L U U U L L D L L D D D D R D R R U D L L U U U L U U R R R U R D 
+Good solution
+./Sokoban++ 71
+Solving 
+#######
+# $.  #
+#. .$.#
+#$.*. #
+# $*$ #
+#  .  #
+# $*$ #
+#  * @#
+#######
+
+Solution found!
+Action: 1R->U U U U U U L L D R
+Action: 0R->L L L U R
+Action: 6U->D R R D R D D L U
+Action: 4U->D L L U
+Action: 7U->D L D D R U
+Action: 5R->L U U R R
+Action: 3U->U
+Action: 9U->D D R R D D L U
+Action: 9L->R U L
+Action: 6L->R U U L
+Action: 5U->R D D L U
+Action: 7U->L L L D D R U
+Action: 7R->L U R
+Action: 2U->L U
+Solution: U U U U U U L L D R L L L U R D R R D R D D L U D L L U D L D D R U L U U R R U D D R R D D L U R U L R U U L R D D L U L L L D D R U L U R L U 
+Good solution
+./Sokoban++ 72
+Solving 
+./Sokoban++ 73
+Solving 
+./Sokoban++ 74
+Solving 
+#########
+###   ###
+###.  ###
+#  *$*$ #
+# @. .  #
+# $*$*  #
+###  .###
+###   ###
+#########
+
+Solution found!
+Action: 6D->R R D
+Action: 1U->U U
+Action: 0R->D L L U R
+Action: 7L->D R R R D L
+Action: 6R->D D L L U R
+Action: 7U->U
+Action: 7L->R U L
+Action: 7L->L
+Action: 2D->U U U R R D D
+Action: 2D->D
+Action: 3L->R R U L
+Action: 3D->D L L L U U U R R D D
+Action: 0R->U U L L D D R
+Action: 5U->D D D L U
+Action: 4R->R U U L L L D D R
+Action: 1L->L U U R R U U R R D L
+Action: 7U->D L L L D D R U
+Action: 7R->L U R
+Solution: R R D U U D L L U R D R R R D L D D L L U R U R U L L U U U R R D D D R R U L D L L L U U U R R D D U U L L D D R D D D L U R U U L L L D D R L U U R R U U R R D L D L L L D D R U L U R 
+Good solution
+./Sokoban++ 75
+Solving 
+./Sokoban++ 76
+Solving 
+########
+#     ##
+# #*# ##
+# .*.  #
+#  *   #
+# #*# ##
+#  *  ##
+# $*$ ##
+#  *  ##
+#  @  ##
+########
+
+Solution found!
+Action: 4R->L U L U U R R
+Action: 4R->R
+Action: 7U->L L L D D R D R R U U
+Action: 4U->R U
+Action: 4U->U
+Action: 4U->U
+Action: 1L->L U L
+Action: 4L->R D R R U L
+Action: 7R->U U L L L L D D D D D R R R
+Action: 5U->L L L D D R U
+Action: 5R->L U R
+Action: 7U->D D D R R R U U U
+Action: 7U->U
+Action: 4L->D L D D D L L U U U L U U U U U R R R R D D L
+Action: 7U->R U U L L L L D D D D D R D D D R R R U U U U U
+Action: 7L->R U L
+Solution: L U L U U R R R L L L D D R D R R U U R U U U L U L R D R R U L U U L L L L D D D D D R R R L L L D D R U L U R D D D R R R U U U U D L D D D L L U U U L U U U U U R R R R D D L R U U L L L L D D D D D R D D D R R R U U U U U R U L 
+Good solution
+./Sokoban++ 77
+Solving 
+./Sokoban++ 78
+Solving 
+./Sokoban++ 79
+Solving 
+###########
+##     ####
+## ###.   #
+##    # # #
+# .#$ $ # #
+# #  *  # #
+# # $ $#. #
+# # #    ##
+#   .### ##
+####      #
+########  #
+########@ #
+###########
+
+Solution found!
+Action: 3L->U U U U L L L U L
+Action: 3D->U L D
+Action: 3D->D
+Action: 3R->U R R D R R R U R U U U U L L L U L L L L D D D L D D D D R R
+Action: 4D->L L U U U U R U U U R R R R D R D D D L D
+Action: 4R->L D R
+Action: 4R->R
+Action: 4D->L U U R U U U R R D D D D L D
+Action: 4D->D
+Action: 4D->D
+Action: 0U->U U L L L U L U U
+Action: 0L->R U L
+Action: 0L->L
+Action: 0D->R D D D R R U R U U U L U L L L L D D
+Action: 1R->R R R D R
+Action: 1U->D R U
+Action: 1U->U
+Action: 1L->D L D D D R R U R U U U U L L
+Action: 4U->D D D L D D R R D D R D D L U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Solution: U U U U L L L U L U L D D U R R D R R R U R U U U U L L L U L L L L D D D L D D D D R R L L U U U U R U U U R R R R D R D D D L D L D R R L U U R U U U R R D D D D L D D D U U L L L U L U U R U L L R D D D R R U R U U U L U L L L L D D R R R D R D R U U D L D D D R R U R U U U U L L D D D L D D R R D D R D D L U U U U 
+Good solution
+./Sokoban++ 80
+Solving 
+./Sokoban++ 81
+Solving 
+#########
+##..#####
+#.. #####
+#.. .####
+#  ######
+#   $ $ #
+## $ $  #
+##  $ $ #
+###  $  #
+#### @ ##
+#########
+
+Solution found!
+Action: 3L->R U R U U L L
+Action: 0L->U L
+Action: 0L->L
+Action: 0U->R R D R R D D L D L L U L U L U U
+Action: 0U->U
+Action: 0R->L U R
+Action: 0R->R
+Action: 2U->L D D D D R U
+Action: 2L->D D R D R R U R U U L L U L L
+Action: 1L->R R D R R U L
+Action: 1L->L
+Action: 1L->L
+Action: 3L->R D L
+Action: 2U->R R R D D L D L L U L U L U U
+Action: 2U->U
+Action: 2U->U
+Action: 3L->D D D D R D R D R R U R U U L L L L
+Action: 3U->D L U
+Action: 3U->U
+Action: 2R->L U U U R
+Action: 2U->D R U
+Action: 3U->L D L D D R U
+Action: 3L->L U U R R D L
+Action: 6U->D D D R D D R D R U
+Action: 6U->U
+Action: 4L->L
+Action: 4U->D L U
+Action: 4L->R U L
+Action: 4U->D L U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 4L->R U L
+Action: 5L->D D D D R R D R D R R U L
+Action: 5L->L
+Action: 5L->L
+Action: 5U->D L U
+Action: 5L->R U L
+Action: 6L->R U R R D L
+Action: 6L->L
+Action: 5U->D L L U
+Action: 5U->U
+Action: 5U->U
+Action: 5U->U
+Action: 5U->U
+Action: 6L->D D D D D R R U L
+Action: 6U->D L U
+Action: 6U->U
+Action: 6U->U
+Action: 6U->U
+Action: 1L->D D D R R U L
+Action: 1U->D L U
+Action: 1U->U
+Solution: R U R U U L L U L L R R D R R D D L D L L U L U L U U U L U R R L D D D D R U D D R D R R U R U U L L U L L R R D R R U L L L R D L R R R D D L D L L U L U L U U U U D D D D R D R D R R U R U U L L L L D L U U L U U U R D R U L D L D D R U L U U R R D L D D D R D D R D R U U L D L U R U L D L U U U U R U L D D D D R R D R D R R U L L L D L U R U L R U R R D L L D L L U U U U U D D D D D R R U L D L U U U U D D D R R U L D L U U 
+Good solution
+./Sokoban++ 82
+Solving 
+############
+####  ######
+####    ####
+####  #   @#
+##### # ####
+###  *.*  ##
+### $.*.$ ##
+##### # ####
+#  #  #  ###
+# $#  $  ###
+#  .  #  ###
+############
+
+Solution found!
+Action: 1D->L L L D D
+Action: 1D->D
+Action: 1D->D
+Action: 1D->D
+Action: 0D->U U U U U U L L D D D
+Action: 1U->R R D D D R D D L U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 4L->R R D L
+Action: 4D->U L D
+Action: 4D->D
+Action: 4D->D
+Action: 1D->U U U L L U U U R R D D
+Action: 0D->U U L L D D D D
+Action: 0D->D
+Action: 0D->D
+Action: 0U->L D D R U
+Action: 0U->U
+Action: 0U->U
+Action: 0U->U
+Action: 0U->U
+Action: 2R->L L D R
+Action: 2D->U R D
+Action: 2D->D
+Action: 2D->D
+Action: 1R->U U U R R
+Action: 0D->U U U L L D D
+Action: 4U->U U R R D D D D D D R D D L U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 0L->L L
+Action: 2U->D D D L D D R U
+Action: 6R->R
+Action: 2U->L U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 1L->R R D R R U L
+Action: 1L->L
+Action: 6U->D D D R D D L U
+Action: 6U->U
+Action: 6U->U
+Action: 2U->D D L L U U U U U
+Action: 2U->U
+Action: 2D->L U U R D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 4D->U U U U U U R R D D
+Action: 0R->U U L L D D D D L L U R
+Action: 2U->D R D D L D D R U
+Action: 2U->U
+Action: 2U->U
+Action: 5D->D L D D L L L U U R D
+Action: 5R->L D R
+Solution: L L L D D D D D U U U U U U L L D D D R R D D D R D D L U U U U U R R D L U L D D D U U U L L U U U R R D D U U L L D D D D D D L D D R U U U U U L L D R U R D D D U U U R R U U U L L D D U U R R D D D D D D R D D L U U U U U L L D D D L D D R U R L U U U U R R D R R U L L D D D R D D L U U U D D L L U U U U U U L U U R D D D D D D D U U U U U U R R D D U U L L D D D D L L U R D R D D L D D R U U U D L D D L L L U U R D L D R 
+Good solution
+./Sokoban++ 83
+Solving 
+./Sokoban++ 84
+Solving 
+./Sokoban++ 85
+Solving 
+./Sokoban++ 86
+Solving 
+./Sokoban++ 87
+Solving 
+./Sokoban++ 88
+Solving 
+./Sokoban++ 89
+Solving 
+############
+####  ######
+####  ######
+####       #
+#####.#.#$##
+##### #@.  #
+#    .$$*# #
+# $ $$$ ...#
+#####   ####
+############
+
+Solution found!
+Action: 6U->R R R D D L L L D L L U
+Action: 6U->U
+Action: 6U->U
+Action: 6U->U
+Action: 6U->U
+Action: 0D->R R R R D
+Action: 0L->U L L L L D D D D D R R U R R R U U L
+Action: 7R->R D D L L L D L L U R
+Action: 7R->R
+Action: 7R->R
+Action: 7R->R
+Action: 2D->L L L L U U U U R R D D D
+Action: 2R->U U U L L D D D D R R
+Action: 2R->R
+Action: 5R->L L L U L L D R
+Action: 5R->R
+Action: 5R->R
+Action: 5R->R
+Action: 1L->U L
+Action: 4R->D L L L U L L D R
+Action: 4R->R
+Action: 4R->R
+Action: 4R->R
+Action: 4R->R
+Action: 6D->U R U U U L L L U U R D
+Action: 6D->D
+Action: 4U->R R D D D L D D R U
+Action: 4U->U
+Action: 4U->U
+Solution: R R R D D L L L D L L U U U U U R R R R D U L L L L D D D D D R R U R R R U U L R D D L L L D L L U R R R R L L L L U U U U R R D D D U U U L L D D D D R R R L L L U L L D R R R R U L D L L L U L L D R R R R R U R U U U L L L U U R D D R R D D D L D D R U U U 
+Good solution
+./Sokoban++ 90
+Solving 
+./Sokoban++ 91
+Solving 
+./Sokoban++ 92
+Solving 
+./Sokoban++ 93
+Solving 
+./Sokoban++ 94
+Solving 
+########
+###   ##
+### *$ #
+#  .$. #
+#  $. ##
+###  @##
+########
+
+Solution found!
+Action: 3L->L U L
+Action: 3R->U L L D R
+Action: 3R->R
+Action: 2L->D R R U U L
+Action: 2L->L
+Action: 1D->U U R R D
+Action: 2R->U L L D D D L L U R
+Solution: L U L U L L D R R D R R U U L L U U R R D U L L D D D L L U R 
+Good solution
+./Sokoban++ 95
+Solving 
+./Sokoban++ 96
+Solving 
+./Sokoban++ 97
+Solving 
+./Sokoban++ 98
+Solving 
+./Sokoban++ 99
+Solving 
+./Sokoban++ 100
+Solving 
+##############
+##   ##   # ##
+## #.##$ $   #
+## .... $ #$@#
+#  #.##$ $   #
+#    ##   # ##
+##   #########
+##############
+
+Solution found!
+Action: 5L->D L L L
+Action: 2L->U L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2L->L
+Action: 2D->R U U L L D D
+Action: 2D->D
+Action: 2R->L D R
+Action: 0D->U U R R R R R R U U L D
+Action: 0L->R D L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 0R->U U L L D D R
+Action: 0U->L D D D R R U U U
+Action: 2R->L L D D R
+Action: 2U->D R U
+Action: 1L->L L U U R R R R R R R D R R R U U L L L
+Action: 3U->D D R R U
+Action: 3L->R U L
+Action: 3L->L
+Action: 4U->R D D L L D L L U
+Action: 4L->D R R U U L L
+Action: 1D->U U R D
+Action: 3L->L D D D R R U R R U U L L
+Action: 4L->U L L D D L
+Action: 4L->L
+Action: 4L->L
+Action: 1L->R R R U U R R D D L
+Action: 1L->L
+Action: 3D->U U R D
+Action: 1L->L D L
+Action: 1L->L
+Action: 3L->R R U R R D L
+Action: 3L->L
+Action: 5U->D D R U
+Action: 3L->L U L
+Action: 5L->R U R R D L
+Action: 5L->L
+Solution: D L L L U L L L L L L R U U L L D D D L D R U U R R R R R R U U L D R D L L L L U U L L D D R L D D D R R U U U L L D D R D R U L L U U R R R R R R R D R R R U U L L L D D R R U R U L L R D D L L D L L U D R R U U L L U U R D L D D D R R U R R U U L L U L L D D L L L R R R U U R R D D L L U U R D L D L L R R U R R D L L D D R U L U L R U R R D L L 
+Good solution
+./Sokoban++ 101
+Solving 
+./Sokoban++ 102
+Solving 
+##### #####
+#   ###  ##
+# $     @##
+##$*****$##
+# $.....$ #
+#   #     #
+########  #
+###########
+
+Solution found!
+Action: 5D->L L D
+Action: 5D->D
+Action: 9L->R D R R U L
+Action: 7U->U
+Action: 6L->L
+Action: 7D->U U R D
+Action: 7D->D
+Action: 7D->D
+Action: 7U->R D D L U
+Action: 9U->L U
+Action: 9U->U
+Action: 5R->D L L D R
+Action: 9D->U R U R U U L D
+Action: 7D->R D D
+Action: 4D->U U L L L D
+Action: 6U->U R R R D D L L U
+Action: 6R->L U R
+Action: 0R->L L L U L L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0R->R
+Action: 4U->D R D D L U
+Action: 3U->L U
+Action: 4L->D R R U L
+Action: 9L->R D R R U L
+Action: 6D->R U U L D
+Action: 0R->R D D L L L U U R
+Action: 0R->R
+Action: 6D->D
+Action: 8R->U L L D D L L D L L U R
+Action: 8R->R
+Action: 8R->R
+Action: 8R->R
+Action: 3L->U U L
+Action: 3L->L
+Action: 2D->D
+Action: 2L->U R R D D L L
+Action: 9L->R R U U R R D L
+Action: 8U->U L L L D D R R D R U
+Action: 6L->L L L U U R R R R D R D L
+Action: 7U->R R D D L U
+Action: 7L->R U L
+Action: 5R->U L U L L L L D D R R D R R
+Action: 9D->L L U L L U U R R D
+Action: 8L->U R R D L
+Action: 5U->R R D R D D L U
+Action: 7U->L U
+Action: 5L->D R R U L
+Action: 7L->U L
+Action: 0D->U U R D
+Action: 0D->D
+Action: 0D->D
+Action: 0U->R D D L U
+Action: 5U->L U
+Action: 0L->D R R U L
+Action: 2R->U U L L L L L D D D L L U R
+Action: 2R->R
+Action: 3R->U U U L L D R
+Action: 1D->D
+Action: 1R->R D D L L U R
+Action: 3D->U U U R D
+Solution: L L D D R D R R U L U L U U R D D D R D D L U L U U D L L D R U R U R U U L D R D D U U L L L D U R R R D D L L U L U R L L L U L L D R R R R D R D D L U L U D R R U L R D R R U L R U U L D R D D L L L U U R R D U L L D D L L D L L U R R R R U U L L D U R R D D L L R R U U R R D L U L L L D D R R D R U L L L U U R R R R D R D L R R D D L U R U L U L U L L L L D D R R D R R L L U L L U U R R D U R R D L R R D R D D L U L U D R R U L U L U U R D D D R D D L U L U D R R U L U U L L L L L D D D L L U R R U U U L L D R D R D D L L U R U U U R D 
+Good solution
+./Sokoban++ 103
+Solving 
+./Sokoban++ 104
+Solving 
+./Sokoban++ 105
+Solving 
+./Sokoban++ 106
+Solving 
+#########
+##  @  ##
+##*$*$*##
+## .$. ##
+##. # .##
+#  *$*  #
+#   *   #
+#  ###  #
+#### ####
+
+Solution found!
+Action: 0D->L L D
+Action: 0D->D
+Action: 0D->D
+Action: 0D->D
+Action: 4D->U U U U R R R R D
+Action: 4D->D
+Action: 4D->D
+Action: 4D->D
+Action: 5L->U L U L
+Action: 5L->L
+Action: 4U->R R R D D R D D L U
+Action: 8U->L U
+Action: 8U->U
+Action: 4D->R D
+Action: 2D->U U U U L L D
+Action: 3R->R
+Action: 1R->L U L L D R
+Action: 0U->D D L D L D D R U
+Action: 9R->R R
+Action: 6U->L U
+Action: 7R->R
+Action: 0R->L D L L U R
+Action: 5U->U U
+Action: 5D->R U U L D
+Action: 5D->D
+Action: 5D->D
+Action: 5D->D
+Action: 8D->U U R U U R R D D
+Action: 5U->U U L L L D D D D L D D R U
+Action: 5U->U
+Action: 0L->D R R U L
+Action: 6U->U
+Action: 6U->U
+Action: 7L->L U U R R R D D R D D L
+Action: 7L->L
+Action: 7U->D L U
+Action: 0R->D L L U R
+Action: 5D->D R R U R R U U L U U L L L D D D
+Action: 5D->D
+Action: 0R->R
+Action: 0R->R
+Action: 7D->L L U U R D
+Action: 7D->D
+Action: 2L->U U L U U R R R D D L
+Action: 2L->L
+Action: 2U->D L U
+Action: 5U->D D L D D R U
+Action: 5U->U
+Action: 7L->R R D L
+Action: 6D->U U U R R U U L L D
+Action: 4U->U R R D D R D D R D D L U
+Action: 9L->L
+Action: 9L->L
+Action: 4U->R R U
+Action: 0R->D L L U R
+Action: 8U->U
+Action: 0L->D D R R U L
+Action: 7U->D L L U L L L D D R U
+Action: 9R->R
+Action: 7R->L L U R
+Solution: L L D D D D U U U U R R R R D D D D U L U L L R R R D D R D D L U L U U R D U U U U L L D R L U L L D R D D L D L D D R U R R L U R L D L L U R U U R U U L D D D D U U R U U R R D D U U L L L D D D D L D D R U U D R R U L U U L U U R R R D D R D D L L D L U D L L U R D R R U R R U U L U U L L L D D D D R R L L U U R D D U U L U U R R R D D L L D L U D D L D D R U U R R D L U U U R R U U L L D U R R D D R D D R D D L U L L R R U D L L U R U D D R R U L D L L U L L L D D R U R L L U R 
+Good solution
+./Sokoban++ 107
+Solving 
+./Sokoban++ 108
+Solving 
+./Sokoban++ 109
+Solving 
+############
+#######.####
+######.  .##
+##### .   ##
+####     ###
+# $  ### ###
+#    ### ###
+## $@### ###
+### $.   ###
+###  ##  ###
+####$### ###
+#### ### ###
+###  ###  ##
+### $#### ##
+##   ####  #
+## ####### #
+## ####### #
+## #     # #
+##   ###   #
+############
+
+Solution found!
+Action: 1R->U L L D R
+Action: 2R->D R
+Action: 2R->R
+Action: 2R->R
+Action: 2R->R
+Action: 2U->D R U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2U->U
+Action: 2L->L U U R R D L
+Action: 2L->L
+Action: 3U->D R D D D D D D D D R D D R D D D D L L U L L L L D L L U U U U R U U R U U
+Action: 1D->D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U L U L L L L U U R D
+Action: 1R->L D R
+Action: 1R->R
+Action: 1R->R
+Action: 1R->R
+Action: 1U->D R U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 1U->U
+Action: 0R->L L L L D L D L L U R
+Action: 0R->R
+Action: 0D->D R D D R R R R U U U U L L L L D
+Action: 0D->D
+Action: 0D->D
+Action: 0R->L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0R->R
+Action: 3U->D R D D D R D D R D D D D L L U L L L L D L L U U U U R U U R U U U
+Action: 3R->L U R
+Action: 3R->R
+Action: 3R->R
+Action: 1U->L L U U U U R R R R U
+Action: 1L->R U L
+Action: 1L->L
+Action: 4U->D D L L L D D D D D D D D L D D R U
+Action: 4U->U
+Action: 4U->U
+Action: 4U->U
+Action: 0U->D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U
+Action: 0U->U
+Action: 0U->U
+Action: 0U->U
+Action: 0U->U
+Action: 3R->L L L L D D D D R R R
+Action: 4U->D R D D D R D D R D D D D L L U L L L L D L L U U U U R R U U U U U
+Action: 4R->L U R
+Action: 3U->D D D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U
+Action: 3U->U
+Action: 3U->U
+Action: 0L->D D D D D D R D D R D D D D L L U L L L L D L L U U U U R R U U U U U U U U U U R R R U U R R D L
+Action: 3U->D L L L L D D D D D D D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U U U U
+Action: 3U->U
+Action: 3U->U
+Action: 0U->D L U
+Action: 0U->U
+Action: 3R->R
+Solution: U L L D R D R R R R D R U U U U U L U U R R D L L D R D D D D D D D D R D D R D D D D L L U L L L L D L L U U U U R U U R U U D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U L U L L L L U U R D L D R R R R D R U U U U U L L L L D L D L L U R R D R D D R R R R U U U U L L L L D D D L D R R R R D R D D D R D D R D D D D L L U L L L L D L L U U U U R U U R U U U L U R R R L L U U U U R R R R U R U L L D D L L L D D D D D D D D L D D R U U U U D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U U U U U L L L L D D D D R R R D R D D D R D D R D D D D L L U L L L L D L L U U U U R R U U U U U L U R D D D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U U U D D D D D D R D D R D D D D L L U L L L L D L L U U U U R R U U U U U U U U U U R R R U U R R D L D L L L L D D D D D D D D L D D L D D D D R R U R R R R D R R U U U U L U U L U U U U U U U U U D L U U R 
+Good solution
+./Sokoban++ 110
+Solving 
+#########
+###  ####
+###@ ####
+#      ##
+##.$.# ##
+## ...$##
+##$$. $ #
+#  $# # #
+#  $.   #
+#    ####
+#########
+
+Solution found!
+Action: 4L->R D D D R D D D R R U U L
+Action: 4U->R D D L L U U
+Action: 1D->L U U U R R D D
+Action: 1L->U U L L D D D R D D R R U U L
+Action: 6R->R D D L L L D L L U R
+Action: 2U->L U U
+Action: 3R->R
+Action: 4L->U R U U R R D D L
+Action: 1U->R D R D D L L U U
+Action: 0R->R U U U L L L L D R
+Action: 5U->D D L D D R U
+Action: 5U->U
+Action: 2U->L U
+Solution: R D D D R D D D R R U U L R D D L L U U L U U U R R D D U U L L D D D R D D R R U U L R D D L L L D L L U R L U U R U R U U R R D D L R D R D D L L U U R U U U L L L L D R D D L D D R U U L U 
+Good solution
+./Sokoban++ 111
+Solving 
+./Sokoban++ 112
+Solving 
+./Sokoban++ 113
+Solving 
+./Sokoban++ 114
+Solving 
+./Sokoban++ 115
+Solving 
+./Sokoban++ 116
+Solving 
+./Sokoban++ 117
+Solving 
+./Sokoban++ 118
+Solving 
+./Sokoban++ 119
+Solving 
+./Sokoban++ 120
+Solving 
+./Sokoban++ 121
+Solving 
+./Sokoban++ 122
+Solving 
+./Sokoban++ 123
+Solving 
+./Sokoban++ 124
+Solving 
+./Sokoban++ 125
+Solving 
+./Sokoban++ 126
+Solving 
+./Sokoban++ 127
+Solving 
+./Sokoban++ 128
+Solving 
+###########
+#   #   ###
+#   $  . ##
+##$### #$##
+## #.. # ##
+##  .$*# ##
+## #...$ ##
+##$# ###  #
+##  @  $  #
+###  ###  #
+###########
+
+Solution found!
+Action: 0L->U U U U R R U U L L
+Action: 0L->L
+Action: 6U->R R R D D L L D D D D L L U
+Action: 0R->D R R U U U U R R U U L L L U L L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0R->R
+Action: 2D->U R R D R D
+Action: 2D->D
+Action: 2D->D
+Action: 2D->D
+Action: 5L->L
+Action: 5L->L
+Action: 4U->U
+Action: 4U->U
+Action: 1U->L L D L L U U
+Action: 6U->D D R R D D D L L U U
+Action: 6U->U
+Action: 5L->R R U R R D D L
+Action: 5U->R U U L L D L L D D D R R U U
+Action: 5U->U
+Action: 1R->D R R R R U U U U L U L L D L L U L L D R
+Action: 6D->D D
+Action: 6D->D
+Action: 1L->R R D R R R R U U U U L U L L D L L
+Action: 1D->U L D
+Action: 0L->R R R U R R D L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Action: 4D->R R R D
+Action: 4D->D
+Action: 3U->U U R R D D D D L L L U
+Action: 4D->D R R R U U U U L L D D D
+Action: 0R->U U U L L L U L L D R
+Action: 0R->R
+Action: 0R->R
+Action: 0R->R
+Action: 0D->U R D
+Action: 0D->D
+Action: 4L->U R R D D D D L L
+Action: 2D->R R D
+Action: 1U->U L L U L L L L U U
+Action: 6U->D D R R D D D L L U U
+Action: 6U->U
+Action: 2U->R R R R D R R D R D D L U
+Action: 7L->L
+Action: 7L->L
+Action: 7L->L
+Action: 7L->L
+Action: 2D->U U U R R D R R D
+Action: 2L->R D L
+Action: 2L->L
+Action: 2L->L
+Action: 7R->R R U U L L U L L L L D D D R
+Action: 7U->D R U
+Action: 2L->L L U U U R R R R D R R D D L L L
+Action: 2L->L
+Action: 6U->R R R R U U L L U L L L L U
+Action: 1R->D R R R R D R R U U U U L L L L L U L L D R
+Action: 1R->R
+Action: 1R->R
+Action: 1R->R
+Action: 6U->U R R D R D D D D L L U L L L L U U
+Action: 7U->D D R R R R D R R D D L L L L U
+Action: 7U->U
+Action: 1R->D D R R R R U U U U U U L U L L D R
+Action: 0D->D D
+Action: 0D->D
+Action: 6R->U U U L L L U L L D R
+Action: 2R->D D D D D D R
+Action: 2U->D R U
+Action: 2U->U
+Action: 6R->D L L U U U U U U R
+Action: 6R->R
+Action: 6R->R
+Action: 6D->U R D
+Action: 6D->D
+Action: 6D->D
+Solution: U U U U R R U U L L L R R R D D L L D D D D L L U D R R U U U U R R U U L L L U L L D R R R R U R R D R D D D D L L U U L L D L L U U D D R R D D D L L U U U R R U R R D D L R U U L L D L L D D D R R U U U D R R R R U U U U L U L L D L L U L L D R D D D R R D R R R R U U U U L U L L D L L U L D R R R U R R D L L L L R R R D D U U R R D D D D L L L U D R R R U U U U L L D D D U U U L L L U L L D R R R R U R D D U R R D D D D L L R R D U L L U L L L L U U D D R R D D D L L U U U R R R R D R R D R D D L U L L L L U U U R R D R R D R D L L L R R U U L L U L L L L D D D R D R U L L U U U R R R R D R R D D L L L L R R R R U U L L U L L L L U D R R R R D R R U U U U L L L L L U L L D R R R R U R R D R D D D D L L U L L L L U U D D R R R R D R R D D L L L L U U D D R R R R U U U U U U L U L L D R D D D U U U L L L U L L D R D D D D D D R D R U U D L L U U U U U U R R R U R D D D 
+Good solution
+./Sokoban++ 129
+Solving 
+./Sokoban++ 130
+Solving 
+./Sokoban++ 131
+Solving 
+#########
+#@      #
+#  $    #
+#     . #
+#########
+
+Solution found!
+Action: 0D->R R D
+Action: 0R->L D R
+Action: 0R->R
+Action: 0R->R
+Solution: R R D L D R R R 
+Good solution
+./Sokoban++ 132
+Solving 
+#########
+#       #
+#     $ #
+#@.     #
+#########
+
+Solution found!
+Action: 0D->R R R R U U R D
+Action: 0L->R D L
+Action: 0L->L
+Action: 0L->L
+Action: 0L->L
+Solution: R R R R U U R D R D L L L L 
+Good solution
+./Sokoban++ 133
+Solving 
+#######
+#     #
+#   $ #
+#     #
+#+    #
+#######
+
+Solution found!
+Action: 0D->R R U U U R D
+Action: 0D->D
+Action: 0L->R D L
+Action: 0L->L
+Action: 0L->L
+Solution: R R U U U R D D R D L L L 
+Good solution
+./Sokoban++ 134
+Solving 
+./Sokoban++ 135
+Solving 
+##########
+#    *   #
+# .  * $@#
+#    *   #
+#    *   #
+##########
+
+Solution found!
+Action: 1L->U L L D L
+Action: 1L->L
+Action: 1L->L
+Action: 2L->R R R U R R D L
+Action: 2L->L
+Solution: U L L D L L L R R R U R R D L L 
+Good solution
+./Sokoban++ 136
+Solving 
+./Sokoban++ 137
+Solving 
+./Sokoban++ 138
+Solving 

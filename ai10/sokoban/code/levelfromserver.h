@@ -20,7 +20,7 @@
 #include <netdb.h>
 #endif
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 4096
 
 class LevelFromServer
 {
