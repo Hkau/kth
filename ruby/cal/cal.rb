@@ -8,16 +8,22 @@ $course_names = { # Any comma you may want needs to be escaped '\,'
 	"DD2387" => "C++",
 	"DS1385" => "Jap FK2",
 	"SF1901" => "Sannstat",
-	"SF1604" => "Markov",
+	"SF1904" => "Markov",
 }
 
 def is_course_code (line)
   return (line.size == 6 and line =~ /[A-Z0-9][A-Z0-9][0-3][0-9][0-9][0-9XVUAN]/)
 end
 
-$event_types = ["frl", "ten", "ovn", "le"]
+$event_types = {
+	"frl"=>"Frl",
+	"ten"=>"TEN",
+	"ovn"=>"Ovn",
+	"le"=>"Lek"
+}
+
 def is_event_type (line)
-  return $event_types.include? line.downcase
+  return $event_types[line.downcase] != nil
 end
 
 def summary_ignore (line)
@@ -74,10 +80,10 @@ cmds.each do |input|
           print '\n', line.to_s
         end
       end
-      puts
+      print "\r\n"
 
       if event['location'] != nil
-        puts 'LOCATION:' + event['location']
+        print 'LOCATION:', event['location'], "\r\n"
       end
       event = {}
       event_comments = []
@@ -87,7 +93,7 @@ cmds.each do |input|
     instr.each do |line|
       line.gsub! /\\n|\,|/, ''
       line.strip!
-      if is_course_code line
+      if is_course_code line # todo: varna om det inte finns nån översättning av kurskoden samt prioritera kursinput via args
 	if event['code'] == nil
 	  event['code'] = line
 	  event['name'] = $course_names[line]
@@ -102,7 +108,7 @@ cmds.each do |input|
       elsif is_special_course line
         event['name'] = special_course[line]
       elsif is_event_type line
-        event['type'] = line
+        event['type'] = $event_types[line.downcase]
       elsif summary_ignore line
       else
         event_comments << line
