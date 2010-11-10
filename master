@@ -33,7 +33,7 @@ DD2431 - Maskininlärning (6hp)								| x  |    |    |    |
 DD2423 - Bildbehandling + datorseende (7.5hp)				|    | x  |    |    |
 DD2427 - Image based recognition and classificiation (6hp)	|    |    |    | x  |
 DD2429 - Datorfotografi (6hp)								| x  |    |    |    |
-DD2432 - ANN och andra lärande system (6hp)					|    |    | x  |    | 
+DD2432 - ANN och andra lärande system (6hp)					|    |    | x  |    |
 DD2387 - C++ - KLAR (6hp)                                   |    |    |    |    |
 ---															|    |    |    |    |
 DD2448 - Krypto (7.5hp)										|    |    | x  |    |
@@ -88,9 +88,9 @@ DS1385 - Japanska FK2 (9hp)									|         |   4.5   |
 
 + SF1604 - linalg (7.5hp)									|         |   7.5   |
 + DD2432 - ANN (6hp)										|         | 6  |    |
-/ DA2210 - Vettig (6hp)										|         |   6     |
+/ DA2210 - Vettig (6hp)										|         |    6    |
 
-sum:														|         |  33     |
+sum:														|         |   33    |
 
 	- Fråga Yoko om vi kan göra terminskurs av Japanskan!
 	- Fråga Henrik Eriksson om vi får skriva vettig på vårterminen. <3

@@ -1,0 +1,287 @@
+% Breensoft Document Specification 0.8
+%
+% Changelog:
+%
+% 0.8
+% + Added \derive command
+%
+% 0.7
+% * Changed the way requirement identifiers are generated.
+%
+% 0.6
+% + Added ulem-package
+% ...
+%
+% 0.5
+% + Added a list of requirements
+% * the tocloft package now takes care of the incrementing integer.
+%
+% 0.4
+% + Added \leftblank command
+%
+% 0.3
+% + Added the requirement environment and related commands.
+% + Changed font for titlepage
+% + Changed font for title headers.
+%
+% 0.2
+% + Added the changerecord environment.
+% + Added \version to specify document version number.
+% + Added \projectname to specify project name.
+% + Added the project name to the titlepage
+%
+% 0.1
+% + Package created.
+%
+\ProvidesPackage{bds}
+
+% utf-8 är bra grejer.
+\usepackage[utf8]{inputenc}
+
+% Setup for fullpage use
+\usepackage{fullpage}
+
+% Kan vara bra att ha korrekt formaterade urls.
+\usepackage{url}
+
+% Coolt paket för citations
+\usepackage{natbib}
+\bibpunct{[}{]}{;}{s}{,}{,}
+
+% Vettiga indenteringar
+\setlength{\parindent}{0pt} 
+\setlength{\parskip}{2ex}
+
+% Fixa depth på innehållsförteckningen.
+\setcounter{tocdepth}{2}
+
+% Snyggare Typsnitt
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Extra Symboler
+\usepackage{latexsym}
+
+\usepackage{float}
+
+% pdflatex haxx.
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+
+% Snygg font för Sektioner
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+% Standardpaket med diverse formatteringskommandon
+\usepackage[normalem]{ulem}
+
+% Custom lista över Requirements
+\usepackage{tocloft}
+\newcommand{\listreqname}{}
+\newlistof{req}{exp}{\listreqname}
+\setlength{\cftreqnumwidth}{2.3em}
+\newcommand{\req}[2]{
+	\refstepcounter{req}
+	\reqtemplate #1. #2
+	\addcontentsline{exp}{req}{
+		\protect\numberline{#1}
+		#2
+	}
+}
+
+% Använd fancyhdr paketet.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% fancyhdr och fullpage funkar inte så bra så vi måste omdefinera några 
+% marginaler.
+\setlength{\headheight}{15pt}
+\setlength{\headsep}{15pt}
+\setlength{\footskip}{30pt}
+
+% Vi vill ha en linje som separerar header och sida.
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Töm headers och footers
+\fancyhf{}
+\fancypagestyle{plain}
+{
+    \fancyhead{}
+    \fancyfoot{}
+}	% clear header and footer of plain page because of ToC
+
+% Bygg en cool header.
+\fancyhead[RE,RO]{\textsl{\leftmark}}
+
+% Och en cool footer
+\newcommand{\startfooter}{
+	\fancyfoot[LO,RE]{\thepage}
+	\fancyfoot[CE,CO]{Breensoft}
+	\fancyfoot[RO,LE]{}
+}
+
+% Definera lite useful stuff:
+\renewcommand{\title}[1]{
+	\fancyhead[LE,LO]{#1}
+	\renewcommand{\title}{#1}
+}
+
+\newcommand{\reqtemplate}[1]{
+	\renewcommand{\reqtemplate}{#1}
+}
+
+\newcommand{\preq}[1]{
+	\reqtemplate{#1}
+}
+
+\renewcommand{\author}[1]{
+	\renewcommand{\author}{#1}
+}
+
+\newcommand{\project}[1]{
+	\renewcommand{\project}{#1}
+}
+
+% Fixar footer för innehållsförteckning, inga sidnummer etc.
+\newcommand{\toc}{
+\fancyfoot{}
+\tableofcontents
+\fancypagestyle{plain}
+{
+    \fancyhead{}
+    \fancyfoot[C]{\thepage}
+}	% clear header and footer of plain page because of ToC
+}
+
+% Kommando som behövs för \maketitle
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% Version
+\newcommand{\version}[1]{
+	\renewcommand{\version}{#1}
+}
+
+% Custom titlepage, wohooo
+\renewcommand{\maketitle}{
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{\fill}
+		  	\includegraphics[width=100mm]{bds/BSLOGO.pdf}\\
+			\vspace{10mm}
+			\HRule \\
+			\vspace{3mm}
+			\huge{
+				\sffamily\textbf{\project}\\
+				\title
+			}\\
+			\HRule \\
+			\vspace{10mm}
+			\author\\
+			\vspace*{\fill}
+			\version\\
+			\today
+			\vspace*{\fill}
+		\end{center}
+	\end{titlepage}
+	\newpage
+}
+
+% Environment for the Document Change Record
+\newenvironment{changerecord}{
+	\titlepage
+	\begin{center}
+	\textbf{Document Change Record}
+	\newline
+	\vspace*{10mm}
+}{
+	\end{center}
+	\newpage
+}
+
+% Environment för specifika requirements.
+\newenvironment{requirement}{
+	\begin{center}
+	\begin{tabular}{p{2.5cm} p{12.2cm}}
+		\noalign{\smallskip} \hline \noalign{\smallskip}
+}{
+	\end{tabular}
+	\end{center}
+}
+
+% Kommandon för att simplifiera Requirements
+\newcommand{\identifier}[2]{
+	\sffamily\textbf{Identifier} & \req{\arabic{subsection}.#1}{#2} \\
+	\hline
+}
+\newcommand{\reqdescription}[1]{
+	\sffamily\textbf{Description} & #1 \\
+}
+
+\newcommand{\justification}[1]{
+	\sffamily\textbf{Justification} & #1 \\
+}
+
+\newcommand{\need}[1]{
+	\sffamily\textbf{Need} & #1 \\
+}
+
+\newcommand{\priority}[1]{
+	\sffamily\textbf{Priority} & #1 \\
+}
+
+\newcommand{\stability}[1]{
+	\sffamily\textbf{Stability} & #1 \\
+}
+
+\newcommand{\source}[1]{
+	\sffamily\textbf{Source} & #1 \\
+}
+
+\newcommand{\verifiability}[1]{
+	\sffamily\textbf{Verifiability} & #1 \\
+}
+
+\newcommand{\derive}[1]{
+	\sffamily\textbf{Derives} & #1 \\
+}
+
+% This page intentionally left blank
+\newcommand{\leftblank}{
+	\newpage
+	\begin{center}
+		\vspace*{\fill}
+		\textbf{This page intentionally left blank.}
+		\vspace*{\fill}
+	\end{center}
+	\newpage
+}
+
+\def\cleardoublepage{
+	\clearpage
+	\ifodd
+	\c@page
+	\else
+    \hbox{}\par\vfill\centerline%
+    {\sffamily{\textbf{This page intentionally left blank.}}}%
+    \vfill\newpage
+	\fi
+}
+
+\usepackage{ifthen}
+\usepackage{color}
+ 
+\newcommand{\cleardoublepagetwo}{
+	\ifthenelse{\isodd{\thepage}}{\newpage}{
+	\newpage
+ 	\hbox{}\par\vfill\centerline%
+    {\sffamily{\textbf{This page intentionally left blank.}}}%%	\thispagestyle{empty}
+	\vfill\newpage
+	}
+}
+
+% Fixa titeln på References
+\renewcommand*{\refname}{\vspace*{-12mm}}

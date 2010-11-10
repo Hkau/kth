@@ -1,0 +1,56 @@
+h1. Project Planning Document
+
+{{>toc}}
+
+Här (före abstracten) kan vi nog skriva hur mycket notes som helst. Jag ska se till att scriptet slänger allt som ligger före abstract, så det är inget problem för dokumentgenerering heller. - Peter
+
+h1. abstract
+
+Detta är en sammanfattning. Det är viktigt att den har namnet _abstract_ _kickass_ och hamnar +först+, annars blir *scriptet* ägt. Det kommer förmodligen att vaska allt som ligger före abstracten.
+
+h1. Problemformulering
+
+h2. Detaljerad Problemformulering
+
+(Betydligt mer detaljer spec, prata med kund)
+Ansvaret har Rasmus.
+
+h2. Motivering av projektet
+
+(Varför tog vi oss an projektet?)
+Ansvaret har Per.
+
+h2. Mål
+
+(personliga, karriär, lära sig)
+Ansvaret har Per
+
+h2. Projektgruppens kompetenser
+
+(Vad vi kan, vad vi behöver lära oss)
+Ansvaret har Per
+
+
+h1. Problembakgrund
+
+h2. Kommersiell problembakgrund
+
+(Hitta liknande produkter som finns)
+Ansvaret har Andreas Tarandi. Daniel är också med här.
+
+h2. Teknisk bakgrund
+
+(Vilka plattformar fungerar för oss)
+Ansvaret har Erik. Victor är med här också.
+
+
+h1. Slutsats
+
+(riskanalys, genomförbart)
+Ansvaret har Kalle
+
+h1. Appendix
+
+(Gruppmedlemmar, roller)
+Ansvaret har André Gräsman
+

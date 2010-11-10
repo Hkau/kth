@@ -1,0 +1,84 @@
+
+% A little package for generating a list of definitions.
+
+% Author:
+  % Marco Ahumada Juntunen
+
+% Version:
+  % 0.05  - Rough prototype
+
+% Date:
+  % March 8 2010
+
+
+\ProvidesPackage{defnlist}
+
+% Will probably want to use later on...
+\RequirePackage{ifthen}
+
+%%
+%Define the new output file for the definitions
+\def\ext@defn{lod}
+
+%%
+% Set the name for the list...
+  % Possibly a package argument...
+\newcommand\@listdefnname{Lista av definitioner}
+
+%%
+% It is possible to order the definition under the document sections
+% in the table. Looks cluttered to me, but at this point it is an easy
+% fix. This will be a future option
+
+\let\ld@section\section
+\renewcommand{\section}[1]
+{
+	\ld@section{#1}
+  \addtocontents{lod}{\textbf{Section \thesection: #1} %\hfill \ \thepage
+  \newline}%
+  %%\addcontentsline{lod}{chapter}{\protect\numberline{\thechapter}#1}%
+}%
+
+\let\ld@section\section
+\renewcommand{\section}[1]
+{
+	\ld@section{#1}
+  %\addcontentsline{lod}{section}{\protect\numberline{\thesection}#1}%
+}%
+
+\let\ld@part\part
+\renewcommand{\part}[1]
+{
+	\ld@part{#1}
+  %\addcontentsline{lod}{part}{\protect\numberline{\thepart}#1}%
+}
+
+
+%%
+% The good parts of the package
+%
+
+%%
+% Define the defn-command.
+%
+% #1: (Name) The thing you want to define
+% #2: (Definition) The definition of the thing
+%
+% Future: Allow for three arguments where the second may be aliases
+% for the name such as abbreviations or synonyms
+\newcommand{\defn}[2]{%
+  %\footnote{Defined #1} % Debug info...
+  \addtocontents{lod}{\textbf{#1} \dotfill \ \thepage \newline \indent}%
+  \addtocontents{lod}{#2 \newline\newline}%
+}
+
+%%
+% Define command for producing the list of definitions
+\newcommand\listofdefn[1]{%
+    \par\renewcommand{\baselinestretch}{1}\normalfont
+        \@starttoc{lod}%
+    \par\renewcommand{\baselinestretch}{1.5}\normalfont
+}
+\newcommand*\l@defn{}
+
+\typeout{ }

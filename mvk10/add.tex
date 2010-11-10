@@ -1,0 +1,87 @@
+%Software  Requirements Document
+% © 2009 Breensoft
+\documentclass[a4paper,twoside,11pt,titlepage]{article}
+
+\usepackage{bds/bds}
+
+\title{Architecture Design Document}
+\project{Eye-Controlled Game for Young Individuals}
+\author{
+	\small Ahlgren, Joel \\
+	\small Ahumada Juntunen, Marco \\
+	\small Erneholm, Carl-Oscar \\
+	\small Eklund, Viktor \\
+	\small Forsberg, John \\
+	\small Lindh, Fredrik \\
+	\small Mattson, Lukas \\
+	\small Mikkola, Mattias  \\
+	\small Nycander, Martin
+}
+
+\version{Version 1.4-FINAL}
+\reqtemplate{ADR}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.eps, .jpg}
+\fi
+
+\maketitle
+
+\begin{abstract}
+	\input{include/abstract.tex}
+\end{abstract}
+\newpage
+
+\toc
+\cleardoublepagetwo
+\setcounter{page}{1}
+\startfooter
+\section*{Document Change Record}
+\input{include/document_change_record.tex}
+\cleardoublepage
+
+\section{Introduction}
+\input{include/1.introduction.tex}
+\cleardoublepage
+
+\section{System Overview}
+\input{include/2.system_overview.tex}
+\cleardoublepage
+
+\section{System Context}
+\input{include/3.system_context.tex}
+\cleardoublepage
+
+
+\section{System Design}
+\input{include/4.system_design.tex}
+\cleardoublepage
+
+\section{Component Description}
+\input{include/5.component_description.tex}
+\cleardoublepage
+
+\section{Feasability and Resource Estimates}
+\input{include/6.feasability_and_resource_estimates.tex}
+\cleardoublepage
+
+\section{Traceability Matrix}
+\input{include/7.software_requirements_vs_components_traceability_matrix.tex}
+\cleardoublepage
+
+\section{List of Components}
+\listofreq
+
+\cleardoublepage
+\appendix
+
+\section{Meeting Notes}
+\input{include/appendix/mp.tex}
+
+\newpage
+
+\end{document}
