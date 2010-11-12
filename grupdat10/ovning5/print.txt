@@ -1,0 +1,178 @@
+deck.py
+===========
+import random
+
+class card:
+	suit = None
+	valor = None
+	flipped = None
+	def __init__(self, suit, valor):
+		self.suit = suit
+		self.valor = valor
+		self.flipped = False
+
+	def flip(self):
+		self.flipped = not self.flipped
+	def __str__(self):
+		if self.flipped:
+			return '(BACK)'
+		out = '(' + self.suit + ': '
+		if self.valor == 1:
+			out += 'A'
+		elif self.valor == 11:
+			out += 'J'
+		elif self.valor == 12:
+			out += 'Q'
+		elif self.valor == 13:
+			out += 'K'
+		else:
+			out += str(self.valor)
+
+		out += ')'
+		return out
+
+class deck:
+	cards = None
+	def __init__(self):
+		self.cards = []
+		for suit in ['D', 'H', 'C', 'S']:
+			for valor in range(1, 13+1):
+				self.cards.append(card(suit, valor))
+
+	def __str__(self):
+		out = '[ '
+		for card in self.cards:
+			out += str(card) + ' '
+		out += ']'
+		return out
+
+	def shuffle(self):
+		random.shuffle(self.cards)
+
+	def size(self):
+		return len(self.cards)
+
+	def put(self, card):
+		self.cards.append(card)
+
+	def pick(self):
+		return self.cards.pop() # tar bort och returnera sista elementet (kortet)
+
+d = deck()
+
+# ta ut det översta kortet, vänd på det och stoppa tillbaka det.
+c = d.pick()
+c.flip()
+d.put(c)
+print(d)
+d.shuffle()
+print(d)
+
+
+
+queuestack.py
+===========
+class stack:
+	lista = None
+	def __init__(self):
+		self.lista = [] # stacken tom från början
+
+	def isempty(self):
+		return len(self.lista) is 0
+
+	def push(self, item):
+		self.lista.append(item)
+
+	def pop(self):
+		return self.lista.pop()
+
+s = stack()
+
+s.push(1)
+s.push(2)
+s.push(3)
+
+while not s.isempty():
+	print(s.pop())
+
+# baklänges utskrivet! :)
+
+print('--')
+
+from queue import Queue # i modulen queue finns en klass som heter Queue, så det så.
+
+q = Queue()
+
+q.put(1)
+q.put(2)
+q.put(3)
+
+while not q.empty():
+	print(q.get())
+
+
+# uppgift 82. vill man vända på en kö lägger man hela kön på en stack och lägger sedan tillbaka varje element i kön
+
+
+
+rassel.py
+===========
+# coding: utf8
+raffel = list(range(52))
+
+l = raffel
+
+iter = 0
+while True:
+	tmp = []
+	for i in range(len(l)//2):
+		tmp += [l[i], l[len(l)//2+i]];
+	l = tmp
+	print(l)
+	iter += 1
+	if raffel == l:
+		break
+
+print("Raffelcykeln tog", iter, "gånger")
+
+
+
+readfile.py
+===========
+import codecs
+fil = codecs.open('ordlista2', 'r', 'iso8859')
+# eller
+fil = open('ordlistautf')
+
+# fil:
+# afton
+# akter
+# andel
+
+ordlista = fil.readlines()
+fil.close()
+
+for ord in ordlista:
+	print (ord)
+
+# ger:
+# ord
+#
+# ord2
+# 
+# osv
+#
+
+for i in range( len(ordlista) ):
+	ordlista[i] = ordlista[i].strip()
+
+for ord in ordlista:
+	print(ord)
+
+# ger:
+# ord
+# ord2
+# osv
+
+
+
