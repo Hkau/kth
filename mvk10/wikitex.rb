@@ -49,14 +49,16 @@ while not split.empty?
   section = split[0].match /^h([1-4])\.\s+(.*)\s*$/
   if section[2] == "appendix"
     puts "\t\\appendix"
+    puts
     split.shift
     split.shift
     next
   elsif section[1] == '1'
     print '\chapter{',section[2],'}'
   else
-    print "\t" * (section[1].to_i - 2), '\\', 'sub'*(section[1].to_i - 2), 'section{', section[2], '}'
+    print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 2), 'section{', section[2], '}'
   end
+  puts
   puts
   split[1].each do |line|
     print "\t" * (section[1].to_i), line
@@ -65,20 +67,6 @@ while not split.empty?
   puts
   split.shift
   split.shift
-end
-
-#if not split[0] =~ /(^h[123]. )/
-#  split.shift
-#end
-
-#split.each do |par|
-#  par.gsub!(/^h[123]. /) {|match| print match}
-#end
-# print
-
-split.each do |par|
-  print par
-  print "\n====\n"
 end
 
 puts open('nyx-foot.tex').read
