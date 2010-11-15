@@ -161,7 +161,7 @@
 % Och en cool footer
 \newcommand{\startfooter}{
 	\fancyfoot[LO,RE]{}
-	\fancyfoot[CE,CO]{Breensoft}
+	\fancyfoot[CE,CO]{Nyx}
 	\fancyfoot[RO,LE]{\thepage}
 }
 
@@ -210,20 +210,22 @@
 \renewcommand{\maketitle}{
 	\begin{titlepage}
 		\begin{center}
-			\vspace*{\fill}
+			%\vspace*{\fill}
 		  	\includegraphics[width=100mm]{bds/BSLOGO.pdf}\\
-			\vspace{10mm}
+			\vspace{4mm}
 			\HRule \\
-			\vspace{3mm}
+			\vspace{4mm}
 			\huge{
 				\sffamily\textbf{\project}\\
 				\title
 			}\\
 			\HRule \\
-			\vspace{10mm}
+			\vspace{4mm}
 			\author\\
-			\vspace*{\fill}
-			\version\\
+			\vspace{10mm}
+			\textbf{Nyx}\\
+			\vspace{2mm}
+			Version \version\\
 			\today
 			\vspace*{\fill}
 		\end{center}

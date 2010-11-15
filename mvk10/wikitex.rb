@@ -1,19 +1,22 @@
 puts open('nyx-head.tex').read
 
 input = $stdin.read
+input.gsub!(/\r/, '')
 
 split = input.split(/(^h[1-4]\. .*)/)
 
 # Get rid of stray spaces and newline characters.
+level = 0
 split.each do |section|
   section.strip!
-  # replace *format* _format_ and +format+
   section.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
+  # replace *format* _format_ and +format+ etc.
   section.gsub!(/\"(.+?)\"/,  '``\1\'\'')
   section.gsub!(/\[http:\/\/(.+?)\]/, '\url{http://\1}')
   section.gsub!(/\+(.+?)\+/, '\underline{\1}')
   section.gsub!(/_(.+?)_/, '\emph{\1}')
   section.gsub!(/\*(.+?)\*/, '\textbf{\1}')
+  section.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
 end
 
 # remove everything before abstract
@@ -21,16 +24,21 @@ while true do
   if split[0] =~ /^h1. abstract\s*$/
     puts '\maketitle'
     puts
+    puts '\selectlanguage{english}'
     puts '\begin{abstract}'
       print "\t", split[1]
       puts
     puts '\end{abstract}'
+    puts '\selectlanguage{swedish}'
     puts
     puts '\newpage'
     puts
     puts '\tableofcontents'
     puts
-    puts '\newpage'
+    puts '\clearpage'
+    puts '\setcounter{page}{1}'
+    puts
+    puts '\startfooter'
     puts
     split.shift
     split.shift
@@ -47,16 +55,19 @@ end
 while not split.empty?
   #puts split[0]
   section = split[0].match /^h([1-4])\.\s+(.*)\s*$/
-  if section[2] == "appendix"
+  if "appendix".casecmp(section[2]) == 0
+    puts '\clearpage'
     puts "\t\\appendix"
     puts
     split.shift
     split.shift
     next
-  elsif section[1] == '1'
-    print '\chapter{',section[2],'}'
+#  elsif section[1] == '1'
+#    puts '\chapter{',section[2],'}'
+  elsif section[1] == '4'
+    print "\t" * 3, '\paragraph{', section[2], '}'
   else
-    print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 2), 'section{', section[2], '}'
+    print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 1), 'section{', section[2], '}'
   end
   puts
   puts
