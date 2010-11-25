@@ -12,16 +12,25 @@ split.each do |section|
   section.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
   # replace *format* _format_ and +format+ etc.
   section.gsub!(/\"(.+?)\"/,  '``\1\'\'')
-  section.gsub!(/\[http:\/\/(.+?)\]/, '\url{http://\1}')
+  section.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
   section.gsub!(/\+(.+?)\+/, '\underline{\1}')
   section.gsub!(/_(.+?)_/, '\emph{\1}')
-  section.gsub!(/\*(.+?)\*/, '\textbf{\1}')
+  section.gsub!(/_/, '\_')
+  section.gsub!(/(^|\s)\*(.+?)\*($|\s)/, ' \textbf{\2} ')
   section.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
 end
 
+split.shift
+match = /^h1.\s+(.*)$/.match(split[0]) # extract document title
+split.shift
+split.shift
+puts '\title{' + match[1] + '}'
+puts
+puts '\begin{document}'
+
 # remove everything before abstract
 while true do
-  if split[0] =~ /^h1. abstract\s*$/
+  if split[0] =~ /^h1. abstract\s*$/i
     puts '\maketitle'
     puts
     puts '\selectlanguage{english}'
@@ -51,6 +60,7 @@ while true do
   split.shift
 end
 
+in_table = false
 # eat the rest, nom nom :3
 while not split.empty?
   #puts split[0]
@@ -69,11 +79,39 @@ while not split.empty?
   else
     print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 1), 'section{', section[2], '}'
   end
+  level = section[1].to_i - 1
   puts
   puts
   split[1].each do |line|
-    print "\t" * (section[1].to_i), line
+    if line.strip == ''
+      next
+    end
+    if line =~ /^\|([^|]*\|)+$/
+      line.strip!
+      line.slice!(0)
+      line.chop!
+      line = (line+' ').split '|'
+      if not in_table
+        in_table = true
+	puts "\t" * level + '\begin{tabular} { |' + ' l |' * line.size + ' }'
+	level += 1
+	puts "\t" * level + '\hline'
+      end
+      line = (line.join ' & ') + " \\\\\n" + "\t" * level + "\\hline"
+    else
+      if in_table
+        in_table = false
+	level -= 1
+	puts level * "\t" + '\end{tabular}'
+      end
+    end
+    print "\t" * level + line
     puts
+  end
+  if in_table
+    in_table = false
+    level -= 1
+    puts "\t" * level + '\end{tabular}'
   end
   puts
   split.shift
