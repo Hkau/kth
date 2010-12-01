@@ -1,0 +1,751 @@
+h1. User Requirements Document (URD)
+
+_Genererat från revision 1 av "User_Requirements_Document"._
+
+
+
+h1. Abstract
+
+_Genererat från revision 3 av "URDabstract"._
+
+
+This document aims to describe the user requirements for Kårspexets online booking system, developed by Nyx. It contains the systems capabilities, its constraints, assumptions, and dependencies, as well as its user characteristics, and operational enviroment. The document also features an extensive list of detailed requirements of the system, deduced from the preceding descriptions.
+
+
+h1. Ändringslogg
+
+_Genererat från revision 4 av "URDÄndringslogg"._
+
+
+|_.Version|_.Ändringar|
+|_.0.1|Första sammanställd version av dokumentet.|
+|_.0.2|Texter under bearbetning men i stort sätt färdigkomponerade. Texter i dokumentet numreras numera med sitt revisionsnummer i dokumenthanteringssystemet för spårbarhet. Kravdatabas innehåller kundens funktionalitetskrav, men beskrivande texter saknas till vissa av dem. |
+
+
+h1. Introduktion
+
+_Genererat från revision 4 av "URDIntroduktion"._
+
+
+h2. Syfte
+
+_Genererat från revision 5 av "URDIntroduktionSyfte"._
+
+
+Det här dokumentet innehåller en detaljerad sammanfattning av produktens krav och dess motiveringar inom vårat projekt. Dokumentets tänkta läsare är tekniskt datakunniga personer samt utvecklare. 
+h2. Mjukvarans omfattning
+
+_Genererat från revision 3 av "URDIntroduktionMjukvarans_omfattning"._
+
+
+Produkten består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt och ett kraftfullt administrationsverktyg. Administrationsgränssnittet utgörs av tre delar; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+h2. Definitioner, akronymer och förkortningar
+
+_Genererat från revision 42 av "URDIntroduktionDefinitioner_akronymer_och_förkortningar"._
+
+
+*Algoritm* _Inom matematik och datorvetenskap är detta en begränsad uppsättning tydliga instruktioner för att utföra en uppgift._
+
+*Apache* _I datasammanhang en webbserver som är gratis att använda._
+
+*Applikation* _I datasammanhang även kallat tillämpningsprogram. Ett dataprogram som fyller ett direkt syfte för användaren._
+
+*Bandbredd* _I vardagligt tal en storhet för hur mycket information som kan överföras på en viss tid. Vanlig enhet är Mbit/sekund._
+
+*Bit* (Binary Digit) _Den grundläggande enhet som datorer arbetar med. En bit kan anta ett utav två möjliga värden (ofta angivna som 0 eller 1)._
+
+*Byte* _En vanlig enhet för informationsmängd i datasammanhang. En byte är ett paket bestående av åtta bitar._
+
+*CentOS* _Ett operativsystem baserat på Red Hat Enterprise Linux som är gratis att använda._
+
+*Databas* _En databas är en samling information ordnad på ett sådant sätt att informationen i den effektivt går att hitta._
+
+*Epostklient* _Även kallat Epostprogram. Datorprogram för att hantera/läsa/skicka epost._
+
+*Epostprogram* _Se Epostklient._
+
+*FK* _Foreign Key, ett fält som innehåller ett värde som är sparat i en annan tabell_
+
+*GHz* _Enhet för antalet miljarder svängningar per sekund. "G" är binärt prefix för 10^9. "Hz" är förkortning för Hertz._
+
+*Gränssnitt* _Utformningen av en mjukvarumodul avsedd att användas av användare eller annan mjukvara för att kommunicera med hårdvarumoduler._
+
+*HTML* (Hyper Text Markup Language) _Ett språk och webbstandard som används för att beskriva strukturering av text, bilder och annan media på en webbsida._
+
+*HTTP* (HyperText Transfer Protocol) _Ett standardiserat protokoll som definierar hur kommunikation över webben sker._
+
+*Hårdvara* _Även kallat Maskinvara. Ett samlingsnamn för en dators fysiska komponenter._
+
+*kB* (kilobyte) _Se kbyte._
+
+*kbyte* (kilobyte) _Enhet för datamängd. "k" är prefix för 10^3. För "byte", se Byte._
+
+*KiB* (kibibyte) _Enhet för datamängd. "Ki" är ett binärt prefix för 2^10. "B" är förkortning för Byte._
+
+*Klockfrekvens* _Beteckning för den hastighet i vilken en processor arbetar i._
+
+*KTH* (Kungliga Tekniska Högskolan) _Sveriges största tekniska universitet._
+
+*Latens* _Även känt som svarstid, tidsfördröjning eller lagg. Tidsskillnaden mellan en begäran och respons på begäran._
+
+*Latency* _Engelskt ord för Latens._
+
+*Linux* _Open source Unix liknande operativsystem._
+
+*Mb* (Megabyte) _Se Mbyte._
+
+*Mbyte* (Megabyte) _Enhet för datamängd. "M" är prefix för 10^6.  För "byte", se Byte._
+
+*MHz* _Enhet för antalet miljoner svängningar per sekund. "M" är binärt prefix för 10^6. "Hz" är förkortning för Hertz._
+
+*MiB* (mebibyte) _Enhet för datamängd. "Mi" är ett binärt prefix för 2^20. "B" är förkortning för Byte._
+
+*MiBit/s* (mebibit per sekund) _Enhet för datahastighet. "Mi" är ett binärt prefix för 2^20. "Bit" är den minsta enheten för informationsmängder i datasammanhang._
+
+*Mjukvara* _Även kallat programvara. En organiserad samling av data och maskininstruktioner._
+
+*Mjukvarubibliotek* _En samling av redan existerande program eller delar av program som används för att utveckla mjukvara._
+
+*MVC* (Model-View-Controller) _Ett koncept som bygger på att separera data (modeller), logik (kontroller) och användarinterface (vyer)._
+
+*MySQL* _En typ av relationsdatabas baserad på SQL-standarden. Ett relationsdatabas hanteringssystem där flera användare kan arbeta med flera databaser._
+
+*Open Source* _Engelskt låneord för öppen källkod._
+
+*Operativsystem* _Ett datorprogram vars syfte är att underlätta användandet av en dator genom att vara länken mellan programvara och hårdvara._
+
+*PHP* _Ett programmeringsspråk som ofta används för att skapa webbapplikationer._
+
+*PK* _Primary Key, det/de fält som gör en rad i tabellen unik_
+
+*Processor* _Den komponent i en dator som genomför beräkningar och andra instruktioner._
+
+*Programmeringsspråk* _Språk som människor använder för att skapa datorprogram._
+
+*Rails* _I datorsammanhang vanlig förkortning för Ruby on Rails._
+
+*Red Hat Enterprise Linux* _Variant av Linux._
+
+*Ruby* _Ett objektorienterat programmeringsspråk._
+
+*Ruby on Rails* _Ett abstrakt mjukvarubibliotek med öppen källkod för utveckling av webbapplikationer._
+
+*Systemminne* _Även kallat RAM (Random Access Memory) eller Arbetsminne. Utgör datorns primärminne och används för att tillfälligt lagra data som datorn arbetar med._
+
+*Spex* _Humoristisk studentamatörteaterföreställning, förkortning av spektakel._
+
+*SQL* (Structured Query Language) _Ett språk designat för att interagera med databaser._
+
+*Unix* _Ett operativsystem som ofta används i olika typer av servrar och arbetsstationer._
+
+*URL* (Uniform Resource Locator) _Den formella benämningen av en webbadress. En text som beskriver var en viss resurs på internet finns, samt hur den går att komma åt._
+
+*Webb* _Även känt som WWW (World Wide Web). Det system som används för att hämta, visa och manipulera delar på internet. WWW utgörs av standarderna URL, HTTP respektive HTML._
+
+*Webbapplikation* _Samlingsnamn för mjukvara som användare kommer åt via en webbläsare._
+
+*Webbläsare* _Ett program som hämtar, tolkar och återger webbsidor kodade exempelvis HTML._
+
+*Webbserver* _Program som körs på en server och distribuerar webbsidor och/eller andra filer som en webbläsare begär via HTTP-protokollet._
+
+*Webbsida* _En fil, innehållandes exempelvis HTML, avsedd att visas av en webbläsare._
+
+*Öppen källkod* _Innebär möjlighet att ändra i konstruktionen för ett system. I ett datorprogram som har öppen källkod kan den som vill göra ändringar i programmet och utveckla det vidare._
+
+h2. Källor
+
+_Genererat från revision 2 av "URDIntroduktionKällor"._
+
+h2. Dokumentöversikt
+
+_Genererat från revision 3 av "URDIntroduktionDokumentöversikt"._
+
+
+Provides a birds-eye view of what information is given in this report, and where in the report it can be found. Description can be focused towards different types of reader, e.g. end-user, technical, developer, specialist, domain expert, accountant, legal, management, customers customer etc.
+
+
+
+
+h1. Allmän beskrivning
+
+_Genererat från revision 2 av "URDAllmän_beskrivning"._
+
+
+h2. Produktperspektiv
+
+_Genererat från revision 19 av "URDAllmän_beskrivningProduktperspektiv"._
+
+
+Kårspexet vill ha ett nytt bokningssystem till sina föreställningar eftersom de är missnöjda med sin nuvarande lösning. De vill ha ett väldokumenterat system med tillgång till källkoden så de kan vidareutveckla systemet vid behov. Lösningen måste vara enkel så att Kårspexet slipper lägga mer tid än nödvändigt på administrationen. På så sätt får de mer tid att fokusera på andra aktiviteter som marknadsföring och anordna bra spex.
+
+Vårt uppdrag är att skapa ett nytt bokningssystem efter Kårspexets önskemål. Vi skall fokusera på att skapa ett enkelt och visuellt tilltalande system för Kårspexet och deras besökare. Systemet som används idag är tråkigt, något föråldrat och ser komplicerat ut. Det system som vi kommer att konstruerar skall ha olika vyer för kunder, administratörer och säljare. Varje vy kommer att anpassas för sin målgrupp och dokumenteras där efter. På så sätt kommer interaktionen mot bokningssystemet bli lättare och angenämare för användarna.
+
+Ett lättare och angenämare bokningssystem kan hjälpa Kårspexet att höja sina intäkter genom en ökad biljettförsäljning. Svåra och icke användarvänliga system kan få osäkra besökare att avstå från ett köp, medans ett enkelt system kan locka till sig fler kunder. Ett bra bokningssystem kan ge ett bättre intryck inför studenter och andra besökare. Vilket kan ge möjligheten att producera fler spex som leder till ytterligare intäkter.
+
+
+*// André ändrat lite till..  Nu så:*
+*Cruella de vil has left the building!*
+*Vi stampar lite försiktigare på fysikalen*
+h2. "General Capabilities"
+
+_Genererat från revision 5 av "URDAllmän_beskrivningGeneral_Capabilities"._
+
+
+Bokningssystemet ska användas av fyra typer av användare: kund, säljare, ekonomichef och administratör. Dessa har olika roller som interagerar med varandra.
+
+h3. Boka biljetter från hemsidan
+
+Kunder ska kunna boka biljetter från kårspexets hemsida. Efter att kunden har genomfört en bokning ska kunden få ett mail med betalningsuppgifter och bokningsnummer.
+
+h3. Registrera betalningar
+
+Ekonomichefen ska kunna registrera betalningar för bokingar som kunder gjort.
+
+h3. Administrera biljetter
+
+Efter att kunden har bokat och ekomichefen registrerat kundens betalning placerar administratören ut vilka stolar kunden ska få sitta på under föreställningen. När placeringen är klar får kunden ett mail som uppmanar kunden att hämta ut sina biljetter.
+
+h3. Lämna ut bokade biljetter
+
+När kunden kommer till säljaren ska denna verifiera att biljetterna är redo att hämtas samt registrera att biljetterna har hämtats. Gränssnittet för säljaren ska vara lätt att lära sig eftersom säljarna ofta byts ut.
+
+h3. Sälja biljetter direkt
+
+Säljaren ska även kunna sälja biljetter kontant. Då är det säljaren som väljer vilka stolar som kunden får sitta på.
+
+h3. Administrera mailutskick
+
+Administratören ska kunna ändra informationen i de automatiska utskicken som sker samt kunna göra nya utskick till valda kunder.
+
+h3. Administrera föreställningar och teatrar
+
+När det vankas nya föreställningar är det administratören som matar in dem i systemet. Priser ska kunna ändras och om föreställningen är på en ny teater ska den kunna läggas till. Detta innebär att nya salongsskisser med nya sektioner och stolar ska kunna matas in. Admistratören ska kunna välja vilka föreställningar det går att boka/köpa biljetter till.
+
+h3. Administrera konton
+
+Administratören ska kunna ändra både sitt eget och andras lösenord. Säljarens lösenord ska kunna genereras automatiskt och vara giltigt en begränsad tid.
+
+h3. Statistik
+
+Administratören och ekonomichefen ska kunna se statistik om antalet bokade och sålda biljetter för att kunna få inblick i verksamheten.
+h2. Allmänna begränsningar
+
+_Genererat från revision 27 av "URDAllmän_beskrivningAllmänna_begränsningar"._
+
+
+_General constraints. Describes the main constraints that apply to the product, and why they exist._
+
+h3. Datamodell
+
+_Describes the constraints on data in the form of a data model, which may be an object diagram, class diagram or data dictionary. (Note: a data model must be presented.)_
+
+h3. Resurser
+
+Vi kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera främst då vi totalt är fem programmerare. På tre veckor ska vi hinna implementera fyra gränssnitt mot bokningssystemets användare. Gränssnitten kommer behöva testas men då vi har nästan lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. Det som kommer vara vårt största hinder under utvecklingen är administratörsgränssnittet då det är där de flesta funktionerna kommer finnas och även de mest avancerade.
+
+Vi har inte någon budget för projektet och vi kommer inte att tillföra egna pengar för att köpa in något, detta gör att vi begränsas till att använda programvara som är gratis. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+h3. Kundbehov
+
+Nyx mål är att leverera ett fullständigt bokningssystem med alla de funktioner som Kårspexet har specificerat. På grund av systemets förväntade komplexitet och tidsramen vi har kommer kvaliteten i delar av slutprodukten vara begränsad.
+
+Gränssnittet för besökare (slutkunder) respektive säljare ska designas på ett sätt som gör att det går att använda utan några speciella förkunskaper inom vårt system. Det ska alltså fungera på ett sätt som efterliknar liknande produkter. Detta begränsar oss i hur pass många funktioner och val vi kan låta användarna exponeras för på en och samma gång. Administrationsgränsnittet är inte begränsat på samma sätt då dess användare kommer utbildas i förväg.
+
+h3. Tekniska begränsningar
+
+Vi är begränsade till att utnyttja mjukvara som är fri att använda, dels på grund av avsaknad av ekonomiska resurser, och dels för att vi valt detta redan från början. _(står om detta i början, bör ev. skrivas om?)_
+
+Kårspexet står för den server som kommer att köra vår webbapplikation. Vi har ingen kontroll över dess hårdvara men har verifierat att operativsystemet som körs på den är kompatibelt med Apache, Ruby med Rails [1] samt MySQL. 
+
+Applikationen kommer inte att inkludera avancerade algoritmer utan till störst del involverade mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i kabelanslutningar.
+
+Systemet kommer enligt våra uppskattningar exponeras för upp till tio simultanta anslutningar. Rails under Apache kommer i detta fall att, under godtycklig tidpunkt, använda uppskattningsvis 250 mb systemminne [2]. CentOS anger 256 mb minne samt en klockfrekvens på minst 500 MHz som minimikrav för datorer som kör operativsystemet [3]. Med MySQL och Apache körandes samtidigt utöver dessa bör servern ha minst en gigabyte systemminne samt en processor med klockfrekvensen 1 GHz eller högre.
+
+*LÄGG IN FAKTISK SPEC FÖR KÅRSPEXETS SERVER HÄR*
+
+[1]: http://hasham2.blogspot.com/2008/07/install-phusion-passenger-on-cent-os-5.html
+[2]: http://www.rubyenterpriseedition.com/comparisons.html
+[3]: http://www.centos.org/docs/5/html/CDS/install/8.0/Installation_Guide-Support-Platforms.html
+h2. Användarbeskrivning
+
+_Genererat från revision 23 av "URDAllmän_beskrivningAnvändarbeskrivning"._
+
+
+Produkten kommer att ha 4 olika användare: Kund, säljare, administratör och ekonomiansvarig. 
+
+h3. Kund
+
+h4. Teknisk bakgrund för kund
+
+Kunder är uppdelad i två läger; de som pluggar på en teknisk högskola eller ett universitet, och släktingar eller bekanta till Kårspexets medlemmar som inte är associerade med en teknisk högskola eller ett universitet.
+
+h4. Tekniska högskolestudenter
+
+Använder datorer dagligen, antingen som del av sin utbildning och/eller för privat bruk. Van användare av emailklienter, och anpassar sig i behaglig takt till nya sidlayouter eller program. 
+
+h4. Släktingar och bekanta
+
+Den tekniska kunnigheten varierar stort inom denna grupp, från datorvana tonåringar till pensionärer som aldrig rört en dator. Kan använda emailklienter till viss mån, och tar lång tid på sig att anpassa sig till nya sidlayouter eller program. 
+
+h4. Typscenario för kunden
+
+Kunden går in på Kårspexets hemsida, och trycker på boka biljett. Kunden behöver en snabb och genomförlig överblick av vilka föreställningar som finns, och hur många platser som finns i respektive sektioner. Kunden får snabbt återkoppling på sina val och går igenom flera steg av bokningen; val av föreställning, val av sektion, betalningsuppgifter, och bokningsbekräftelse. Kunden får sedan ett mail från Kårspexet om betalmedel, och betalar sin biljett. Kunden får sedan ett mail från Kårspexet om att hans/hennes biljett finns att hämta hos ombud. 
+
+h3. Säljare
+
+h4. Teknisk bakgrund för säljare
+
+Säljare är medlemmer i Kårspexet, är därmed kårmedlemmar vid en teknisk högskola. De är först och främst aktiva med kårspexet arrangemang, och säljare i andra hand. Det är därför viktigt att säljare snabbt lär sig använda bokningssystemet, då de inte ska kräva någon tidigare utbildning i systemet. 
+
+h4. Typscenario för säljare
+
+Säljaren står i Kårhuset eller på utsatt plats, och loggar in på Kårspexets hemsida. Antingen så säljs biljetter på plats, med kunder som står i kö; eller så kommer en kund som bokad sin biljett på hemsidan och valt att betala kontant. I båda fallen så placerar säljaren ut en plats i den sektion kunden har valt, och tar emot betalning för bokningen. Säljaren ger även ut utplacerade biljetter som blivit betalda, till kunder som fått mail från Kårspexet om att deras biljett finns att hämta.  
+
+h3. Administratör och ekonomiansvarig
+
+h4. Allmän teknisk bakgrund för administratören och ekonomiansvarige
+
+Både administratören och ekonomiansvarige är studenter på en teknisk högskola, i Kårspexets fall KTH. De är därmed vana att navigera personliga inloggningssidor, t.ex. Mina sidor, eller studera.nu. De är även vana användare av emailklienter. Deras tekniska bakgrund är uppdelad i två ganska jämna läger; de mindre tekniskt kunniga, och de med lite mer teknisk bakgrund. 
+
+h4. Mindre teknisk kunnig
+
+Organisatören kan ha en bakgrund i matematik, biologi, kemi, eller liknande ämne, där programmering inte är en väsentlig del av utbildningen. Organisatören kan hantera textredigerare väl, då han/hon är van att skriva rapporter. Det tar lite längre tid för den mindre tekniskt kunnige att använda nya program eller anpassa sig till nya sidlayouter.
+
+h4. Mer teknisk kunnig
+
+Organisatören kan ha en bakgrund i datalogi, teknisk fysik, eller liknande ämne, där programmering har varit del av utbildningen. Organisatören förstår objektorientering, och kanske html eller webbprogrammering. En sida söks igenom systematiskt, och organisatören lär sig snabbt nya sidlayouter eller program.
+
+h4. Typscenario för administratören
+
+Administratören loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 15 minuter till 2 timmar till förfogande att jobba med sina uppgifter. 
+Gör ofta: placera ut betalda bokningar, planera föreställningar och ta hand om specialbokningar, t.ex. handikappsbokningar eller stora företagsbokningar. 
+Gör mer sällan: lägga till en ny teater, lägga till en ny omgång, skicka massutskick till b.la. kundbokningar, kolla på statistik.	
+
+h4. Typscenario för ekonomiansvarige		
+
+Ekonomiansvarige loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 15 minuter till 2 timmar till förfogande att jobba med sina uppgifter.
+Gör ofta: bockar av betalade bokningar, skickar påminnelser till obetalda bokningar, tar bort gamla bokningar.
+Gör mer sällan: Kolla på utförlig statistik. 
+h2. Antaganden och beroenden
+
+_Genererat från revision 20 av "URDAllmän_beskrivningAntaganden_och_beroenden"._
+
+
+Bokningssystemet som utvecklas för Kårspexet är beroende av datorkraft från webbservrar där mjukvaran körs. Mjukvaran och systemet i sin helhet ställer krav på yttre faktorer för att systemet skall bli användbart. De yttre faktorerna är framför allt bandbreddsuppkoppling och serverprestanda.
+
+Bandbreddsuppkopplingen talar om i vilken hastighet webbservern kan kommunicera med omvärlden. Omvärlden som består av ett flertal användare kräver var och en, en viss del av den totala bandbredden då en användare är aktiv. Med andra ord beror behovet av bandbreddsuppkoppling på hur många som använder systemet samtidigt.
+
+Serverprestanda talar om hur många anrop till ett system som en server kan hantera samtidigt. Varje aktiv användare kräver en del av den totala prestanda som finns tillgänglig. Behovet på serverprestanda beror precis som bandbreddsuppkopplingen på hur många som använder systemet vid samma tidpunkt.
+
+Antalet samtidiga användare beror på en rad olika antaganden om systemet och användandet av systemet. Utifrån antagandena vill vi bestämma hur mycket prestanda och bandbredd som systemet maximalt kan kräva. De avgörande antagandena berör:
+
+*A.* Hur många platser en föreställning har i medeltal.
+
+*B.* Hur många föreställningar som släpps för biljettköp åt gången.
+
+*C.* Hur stor del av platserna som säljs per tidsenhet då efterfrågan är som störst.
+
+*D.* Hur många anrop (sidladdningar)det krävs från bokningsgränssnittet för användaren till servern under en bokning i medeltal (första inladdningen 
+utesluten).
+
+*E.* På vilken tid antalet anrop är fördelade vid en bokning (hur lång tid det tar att boka).
+
+*F.* Hur mycket trafik som överförs vid första inladdningen av bokningsgränssnittet för användaren.
+
+*G.* Hur mycket trafik som överförs vid ett anrop (första inladdningen utesluten) i medeltal.
+
+*H.* Hur många platser som bokas vid en bokning i medeltal.
+
+*Vi antar att:*
+
+*a.* att en föreställning inte har mer än 800 platser.
+
+*b.* att biljettsläpp inte görs för mer än 4 föreställningar i taget.
+
+*c.* att efterfrågan är maximalt 30% av platserna per timme.
+
+*d.* att bokningsgränssnittet för användaren inte behöver anropa servern mer än 10 gånger per bokning (första inladdningen ej inräknad).
+
+*e.* att en bokning tar 4 minuter och att bokningens anrop till servern är jämt fördelat över tiden. 
+
+*f.* att trafiken vid första inladdningen av bokningsgränssnittet för användaren är 100KiB.
+
+*g.* att trafiken för ett anrop (första inladdningen utesluten) är 30KiB stort i medeltal. 
+
+*h.* att varje bokning omfattar 2 platser i medeltal.
+
+Våra antaganden ger:
+0,046 (anrop/sekund) för varje bokning under den tid det tar att boka ((d+1)/(e*60)).
+3200 bokningsbara platser vid varje biljettsläpp (a*b).
+0,27 (platser/sekund) som hanteras då efterfrågan är maximal ((a*b*c)/(100*60*60)).
+0,14 (bokningar/sekund) som hanteras då efterfrågan är maximal ((a*b*c)/(100*60*60*h)).
+1,47 (anrop/sekund) till servern då efterfrågan är maximal ((a*b*c*(d+1))/(100*60*60*h)).
+0,42 (MiBit/sekund) i trafik då efterfrågan är maximal ((a*b*c*(d*g+f)*8)/(100*60*60*h*1024)).
+
+Utifrån antagandena så skall bandbreddsuppkopplingen minst vara 0,42 MiBit/sekund och webbservern måste klara av att hantera 1,47 anrop/sekund. Vad gäller bandbreddsuppkopplingen så motsvarar 0,42 MiBit/sekund en mindre del av en vanlig uppkoppling i hemmet. Det låga antalet 1,47 anrop/sekund mot bokningssystemet gör att prestanda från en vanlig persondator räcker till.
+
+Antagandena om användandet av systemet har diskuterats med Kårspexet. De antaganden som gjorts är väl tilltagna gentemot Kårspexets uppfattning av användandet. Antagandena är tilltagna på ett sådant sätt att kraven för bandbreddsuppkoppling och serverprestanda blir större. Med andra ord kommer Kårspexets användande av systemet ha lägre krav på den befintliga hårdvaran än med angivna antagandena ovan.
+h2. "Operational environment"
+
+_Genererat från revision 4 av "URDAllmän_beskrivningOperational_environment"._
+
+
+Biljettsystemet kommer använda flera externa system. Till att börja med kommer ett MVC-framework för webbapplikationer i ruby, Rails att användas. Det ger oss funktionalitet som gör webbutveckling smidig.  , databashantering, rendering av html och mycket hjälpfunktionalitet som underlättar webbutveckling.
+
+Vi kommer även att använda databasmotorn MySQL för datalagring. Databasen görs tillgänglig för systemet med hjälp av SQL. Dock kommer Rails att sköta mycket av den kommunikationen åt oss och i slutändan kommer databasen vara tillgänglig genom modeller i form av klasser i koden. 
+
+Systemet kommer dessutom vara beroende av Apache 2 med modulen passenger för att sköta inladdning av applikationen och all http-kommunikation i produktion. Interfacet mot Apache är i form av konfigurationsfiler på servern. 
+
+Om vi väljer att implementera kortbetalning i systemet kommer vi även att vara beroende av ett extern system för hantering av korttransaktioner. Hur interfacet mot det systemet ser ut vet vi inte i dagsläget, eftersom inga beslut har tagits angående vilket system som ska användas.
+
+h1. Specifika krav
+
+_Genererat från revision 2 av "URDSpecifika_krav"._
+
+|_.Kravnummer|1|
+|_.Krav|Loginsystem|
+|_.Beskrivning|För administration av bokningar och dylikt krävs det någon form av säkerhetssystem som hanterar användare och inloggningar. Användare identifierar sig via ett användarnamn med tillhörande lösenord.|
+|_.Motivering|Av säkerhetsskäl|
+|_.Behov|Standard|
+|_.Prioritet|High|
+|_.Källa|Kund|
+|_.Verifierbarhet|Förklara hur Karl ska kolla att (1) kravet finns i designen och (2) att mjukvaran implementerar kravet.|
+
+|_.Kravnummer|2|
+|_.Krav|Boka|
+|_.Beskrivning|Det ska gå att (som antingen kund eller administratör) genomföra en bokning med valfritt antal biljetter för en vald föreställning.|
+|_.Motivering|Huvudfunktion i systemet|
+|_.Behov|Standard|
+|_.Prioritet|High|
+|_.Källa|Kund|
+|_.Verifierbarhet|Boka en biljett och verifiera sedan att den skapats i administrationsgränssnittet.|
+
+|_.Kravnummer|3|
+|_.Krav|Bekräftelsemail|
+|_.Beskrivning|Efter att en kund genomfört en bokning ska en bekräftelse skickas via epost till den epostadress som kunden angett i bokningen. Denna bekräftelse ska inkludera nödvändig information om bokningen, såsom: betalningsinformation, bokningsnummer, aktuella datum och tider samt en fungerande länk för avbokning.|
+|_.Motivering|Det är viktigt att kunden får en bekräftelse av bokningen med aktuell information.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kund|
+|_.Verifierbarhet|Genomför en bokning och verifiera att ett korrekt bekräftelsemail har skickats ut till rätt epostadress.|
+
+|_.Kravnummer|4|
+|_.Krav|Möjlighet att boka studentbiljetter utöver ordinarie|
+|_.Beskrivning|Det ska vara möjligt att boka specialbiljetter (så kallade studentbiljetter) utöver de ordinarie. Denna typ av biljett har ett pris som skiljer ifrån det ordinarie.|
+|_.Motivering|Kårspexet vill att det ska gå att boka rabatterade biljetter|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kund|
+|_.Verifierbarhet|Genomför en bokning som inkluderar minst en studentbiljett och verifiera sedan att dessa syns i administrationsgränssnittet.|
+
+|_.Kravnummer|5|
+|_.Krav|Utplacering av platser för bokningar|
+|_.Beskrivning|I administrationsgränsnittet ska det gå att placera ut bokningar på sektions- och stolsnivå. I detta gränssnitt ska det gå att se vilka platser som är upptagna och vilka som finns tillgängliga för utplacering för den aktuella föreställningen.|
+|_.Motivering|Kårspexet behöver ha möjlighet att manuellt placera ut bokningar|
+|_.Behov|Standard|
+|_.Prioritet|High|
+|_.Källa|Kund|
+|_.Verifierbarhet|TODO|
+
+|_.Kravnummer|6|
+|_.Krav|Redigering av bokningar|
+|_.Beskrivning|Administratörer ska kunna redigera befintliga bokningar. Detta inkluderar att ändra betalningsstatus (hur mycket som betalats in), om biljetterna är uthämtade eller inte, etc.|
+|_.Motivering|Det måste gå att uppdatera bokningsstatus|
+|_.Behov|Standard|
+|_.Prioritet|High|
+|_.Källa|Kund|
+|_.Verifierbarhet|Gå in och välj att redigera en enskild bokning, verifiera att status går att ändra och att den sparas.|
+
+|_.Kravnummer|7|
+|_.Krav|Lägga till Teater|
+|_.Beskrivning|Det ska gå att bygga nya teatrar med varierande mängd platser och sektioner. |
+|_.Motivering|Då kårspexet kan byta teater mellan sina omgångar|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kund|
+|_.Verifierbarhet|Möjlighet att lägga till en ny teater utöver existerande. Det ska gå att boka en biljett på en föreställning som går på den nya teatern.|
+
+|_.Kravnummer|8|
+|_.Krav|Lägga till Omgång|
+|_.Beskrivning|Man ska kunna lägga till nya omgångar i systemet från administratörs interfacet. Annars kan man inte använda systemet på tänkt sätt. |
+|_.Motivering|Annars kan man inte lägga till en ny omgång|
+|_.Behov|Standard|
+|_.Prioritet|High|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Det ska gå att från administratörens interface lägga till en ny omgång. Denna ska sedan synas i databasen. |
+
+|_.Kravnummer|9|
+|_.Krav|Redigera Omgång|
+|_.Beskrivning|Man ska kunna ändra på priserna, synlighet, teater och beskrivning för en omgång.|
+|_.Motivering|Om något skulle bli fel vid uppläggning av en ny omgång.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Efter att man har lagt till en omgång i systemet ska man kunna ändra information om den|
+
+|_.Kravnummer|10|
+|_.Krav|Lägga till nya föreställningar|
+|_.Beskrivning|Man ska kunna lägga till nya föreställningar i systemet från administratöresvyn. |
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Man kan lägga till en nya föreställning via administratörsvyn.|
+
+|_.Kravnummer|11|
+|_.Krav|Redigera föreställningar|
+|_.Beskrivning|Man ska kunna redigera tillagda föreställningar från administratörs vyn. Annars kan man inte uppdaterar dem med ny information som är mera väsentlig. |
+|_.Motivering|Utan kravet kan man inte använda systemet på tänkt sätt|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Efter att man har lagt till en föreställning ska man kunna redigera den. |
+
+|_.Kravnummer|12|
+|_.Krav|Kontantbetalning från säljarvyn|
+|_.Beskrivning|En säljare ska kunna göra en kontantbetalning från säljarsystemet. |
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Man kan välja kontant betalning i systemet och sedan utför den.|
+
+|_.Kravnummer|13|
+|_.Krav|Möjlighet att navigera i systemen|
+|_.Beskrivning|Det ska finnas knappar och funktioner för att kunna navigera i de olika vyerna.|
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Man testar att knapparna inte är trasiga länkar och att alla finns med. |
+
+|_.Kravnummer|14|
+|_.Krav|Säljare ska kunna lämna ut biljetter|
+|_.Beskrivning|Säljare ska i sin vy kunna se vilka biljetter han ska lämna ut till besökaren.|
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Man kollar att systemet ger de korrekta biljetterna som svar. |
+
+|_.Kravnummer|15|
+|_.Krav|Interaktiv översiktsbild|
+|_.Beskrivning|Möjlighet för den som bokar att interagera med översiktsbilden. När man har muspekaren över en rad skall rätt sektion markeras i översiktsbilden och sektionstabellen.|
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Plus|
+|_.Prioritet|Normal|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Vid bokningssteget där man väljer sektioner skall det gå att interagera med översiktsbilden. |
+
+|_.Kravnummer|16|
+|_.Krav|Avbokning|
+|_.Beskrivning|En kund skall kunna avboka sin bokning. Det genom en länk i sitt bekräftelsemail.|
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|I bekräftelsemailet finns det en tydligt sektion med länken som gör avbokningen. Den skall fungera och ta bort bokningen från systemet om den är obetald. Förklara hur Karl ska kolla att (1) kravet finns i designen och (2) att mjukvaran implementerar kravet.|
+
+|_.Kravnummer|17|
+|_.Krav|Enklare statistik |
+|_.Beskrivning|Det skall vara möjligt att från administratörens och ekonomichefens gränssnitt kunna se enklare statistik från systemet. Detta inkluderar: totalt antal utgivna biljetter per föreställning, omgång och spelår, antal utgivna biljetter som är gratis/student/ordinarie per föreställning, omgång och spelår, antal bokade biljetter per föreställning, omgång och spelår. |
+|_.Motivering|Underlättar arbetet för administratör och ekonomichef inför framtida planerianering av nya föreställningar, omgångar och spex.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Kontrollera att man kan se den enklare statistiken från administratörens och ekonomichefens gränssnitt.|
+
+|_.Kravnummer|18|
+|_.Krav|Omfattande statistik|
+|_.Beskrivning|Det skall vara möjligt att från administratörens och ekonomichefens gränssning se mycket utförlig statistik från bokningssystemet. Detta inkluderar, men är ej begränsat till: enklare statistik inom vissa tidsintervall. För föreställning innebär det möjlighet att välja vilken start/sluttid bokning samt utlämning av biljetter skedde. Det skall även vara möjligt att sortera antalet bokningar/utlämningar per dag och efter eventuell rabattklass.|
+|_.Motivering|För bättre föreståelde i bokningen vilket underlättar framtida planering och arbete av nya föreställningar, omgångar och spex.|
+|_.Behov|Plus|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Vi verifierar att statistiken stämmer jämfört med testdata. Kontrollerar att det går att filtrera efter tid och eventuell rabattklass.|
+
+|_.Kravnummer|19|
+|_.Krav|Bokning Administratör|
+|_.Beskrivning|Administratören skall ha möjlighet att göra bokningar via administratörsinterfacet. Administratören har full tillgång till rabattklasserna, även gratis, och kan placera ut de valda platserna direkt samt sätta status som betald. En gratisbokning är detsamma som att registrera en gratisbiljett.|
+|_.Motivering|Kravet behövs för att kårspexet ska kunna ge bort gratisbiljetter och ha koll på att det är just gratisbiljetter.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Administratören kan göra bokningar, även registrera gratisbiljetter. Osv Förklara hur Karl ska kolla att (1) kravet finns i designen och (2) att mjukvaran implementerar kravet.|
+
+|_.Kravnummer|20|
+|_.Krav|Färgkodning|
+|_.Beskrivning|Den bild som ger kunden en översikt av platsfördelningen på den valda föreställningen ska ha en färgskala, som anger till vilken grad sektionerna är lediga. För att underlätta för färgblinda bör lämpliga färger väljas. Färgerna ändras dynamiskt allt eftersom fler bokningar görs.|
+|_.Motivering|Ger snabb överblick för kunden i början av bokningen.|
+|_.Behov|Plus|
+|_.Prioritet|Normal|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Kolla så att bilden har korrekt startfärger när det inte finns några bokningar i systemet. Kolla gradvis efter övergångar mellan färger, allt eftersom fler bokningar görs. |
+
+|_.Kravnummer|21|
+|_.Krav|Filtrerar bokningar|
+|_.Beskrivning|Man ska kunna filtrera samt sotera bokningar efter väsentlig data som man själv specificerar i vyn. |
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Man testar att systemet klarar detta.|
+
+|_.Kravnummer|22|
+|_.Krav|Kortköp|
+|_.Beskrivning|Möjlighet för kund att betala med kort vid bokning.|
+|_.Motivering|Varför behövs kravet? (Frivilligt fält)|
+|_.Behov|Deluxe|
+|_.Prioritet|Normal|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Förklara hur Karl ska kolla att (1) kravet finns i designen och (2) att mjukvaran implementerar kravet.|
+
+
+h2. Begränsande krav
+
+_Genererat från revision 26 av "URDSpecifika_kravKravbegränsning"._
+
+
+h3. Prestanda
+
+|_.Krav|serverbelastning|
+|_.Beskrivning|Systemet ska utan märkbara problem hantera minst tio typiska användare samtidigt.|
+|_.Motivering|Det kommer förekomma fall då flera använder systemet samtidigt.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt, men beror mycket på servern.|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Skarp testning av systemet på Kårspexets server med tio eller fler användare.|
+
+|_.Krav|svarstid|
+|_.Beskrivning|Systemet får inte ta för lång tid på sig att svara på användarens anrop. Vi kan dock inte ansvara för fördröjningar i nätverket mellan systemet och användaren. Olika operationer kan ha olika långa maximala svarstider. Vid alla operationer i alla gränssnitt som enbart gäller en enstaka bokning ska systemet svara på max 1 sekund.|
+|_.Motivering|Svarstiden är viktig för användarens upplevelse av systemet och vid väldigt långa svarstider försämras systemets användbarhet.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Systemet mäter tiden för operationen och inkluderar det i svaret (en webbsida).|
+
+h3. Tillförlitlighet
+
+|_.Krav|driftstabilitet|
+|_.Beskrivning|Medeltiden till fel i systemet som gör systemet oanvändbart ska vara mer än en vecka vid normal användning.|
+|_.Motivering|Krascher av systemet gör det otillgängligt och skapar mer arbete för de som driver systemet.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Grov uppskattning, halvstabilt.|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Svårt att mäta, systemet behöver köras under lång tid.|
+
+|_.Krav|datastabilitet|
+|_.Beskrivning|Systemet måste bete sig korrekt även vid en krasch, det betyder att dataförlust eller datakorruption inte får förekomma. Dataförlust sker om data som presenterats som sparade försvinner.|
+|_.Motivering|Bokningar bör inte försvinna etc.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Vi litar på att databasen är korrekt i detta avseende. Systemet ska inte presentera information som sparad innan den sparats i databasen, inspektera koden manuellt.|
+
+h3. Säkerhet
+
+|_.Krav|säkerhet|
+|_.Beskrivning|Alla gränssnitt, förutom teaterbesökarens, ska bara kunna användas om man loggat in med lösenord.|
+|_.Motivering|Bara kårspexets personal ska kunna använda dessa funktioner.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Försök komma åt gränssnitten, via deras webbadress(?), se att lösenord efterfrågas, se att bara det rätta lösenordet fungerar. mer?|
+
+h3. Miljö
+
+|_.Krav|rails|
+|_.Beskrivning|Ruby on Rails är ett ramverk för utveckling av webbapplikationer. Bokningssystemet ska huvudsakligen vara byggt med detta ramverk.|
+|_.Motivering|Gruppen tycker det verkar passande för projektet och vill arbeta i ramverket.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Undersökning av serverns konfiguration samt källkoden.|
+
+|_.Krav|webb|
+|_.Beskrivning|Kunder såväl som Kårspexets personal ska kunna använda bokningssystemet genom webbgränssnitt.|
+|_.Motivering|Smidigast eftersom det innebär maximal tillgänglighet.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Provkörning av systemet via webbläsare.|
+
+|_.Krav|webbläsare|
+|_.Beskrivning|Det ska gå smidigt att använda bokningssystemet i moderna versioner av dessa webbläsare: _Firefox_, _Internet Explorer_ och _Google Chrome_.|
+|_.Motivering|Dessa webbläsare är stora på marknaden just nu och bör stödas av vårt system.|
+|_.Behov|Standard (?)|
+|_.Prioritet|Låg|
+|_.Stabilitet|Halvstabilt, inte alltid helt lätt att anpassa en webbsida för flera olika webbläsare och versioner.|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Provkörning av systemet i dessa webbläsare.|
+
+h3. Användbarhet
+
+|_.Krav|bokningstid|
+|_.Beskrivning|En typisk kund ska kunna genomföra sin första bokning på mindre än fem minuter.|
+|_.Motivering|Det ska vara enkelt och smidigt att använda systemet.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt så länge inte designen ändrar sig radikalt.|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|En urvalsgrupp som inte tidigare använt systemet provbokar under tidsmätning.|
+
+|_.Krav|inlärningstid|
+|_.Beskrivning|En typisk KTH-student ska kunna sätta sig in i hur administrationsgränssnittet huvudsakligen fungerar på en dag.|
+|_.Motivering|Det ska gå smidigt för Kårspexets personal att använda systemet.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Halvstabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Undersökning av hur lång tid det tar för Kårspexets personal eller andra KTH-studenter att sätta sig in i systemet.|
+
+|_.Krav|introduktion|
+|_.Beskrivning|Vid leverans av produkt ska en introduktion till systemet ges vid ett tillfälle. Vi utlovar ingen vidare kundhjälp efter leverans.|
+|_.Motivering|Det är nödvändigt att ge instruktioner till Kårspexet, dock kan inte gratis hjälp utlovas efter leverans.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Kårspexet kan ombedas intyga att de fått instruktioner för systemet.|
+
+|_.Krav|förbättring|
+|_.Beskrivning|Kårspexets personal såväl som deras kunder ska ha ett bättre bokningssystem än det tidigare.|
+|_.Motivering|Om inte vårt bokningssystem är bättre än det befintliga har vi misslyckats med vårt uppdrag.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Kårspexets personal ombedes lämna en muntlig eller skriftlig jämförelse av systemen, med särskilt fokus på användbarhet och effektivitet.|
+
+h3. Externa system
+
+|_.Krav|mysql|
+|_.Beskrivning|Bokningssystemet ska använda databashanteraren MySQL.|
+|_.Motivering|Gruppen vill använda MySQL och Kårspexet har samtyckt.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Uppvisning av databas eller kontroll av källkod.|
+
+|_.Krav|kortbetalning|
+|_.Beskrivning|Bokningssystemet ska använda sig av något externt system för kortbetalning.|
+|_.Motivering|Vi kan inte ta på oss att hantera säkra kortbetalningar själva, ett externt system behövs. Genomförs i mån av tid.|
+|_.Behov|Plus|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Gruppen|
+|_.Verifierbarhet|Uppvisning av databas eller kontroll av källkod.|
+
+(Vad kallas de personer som driver/övervakar/startar om vid krasch ? Finns det sådana?)
+(Ska källan vara "gruppen" eller gruppmedlemmens namn, när källan finns i gruppen?)
+(Ska prioriteterna heta low, medium och high, eller ska vi ha svenska ord?)
+
+

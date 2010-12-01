@@ -1,0 +1,290 @@
+\documentclass[a4paper, twoside, 11pt, titlepage]{article}
+
+\usepackage{bds/bds}
+
+\usepackage[utf8]{inputenc} % -- använd denna "när det funkar", dvs på skolans nya datorer + linux, ibland på windows
+\usepackage[swedish,english]{babel}
+
+\project{Bokningssystem för Kårspexet}
+\author{
+	\small
+	\textbf{Tarandi, Andreas} -- taran@kth.se \\
+	Arvidsson, Kalle -- kallear@kth.se\\
+	Boström, Peter -- pbos@kth.se\\
+	Eklund, Erik -- eekl@kth.se\\
+	Gräsman, André -- grasman@kth.se\\
+	Göransson, Rasmus -- rasmusgo@kth.se\\
+	Hagsten, Per -- hagsten@kth.se\\
+	Hallberg, Victor -- victorha@kth.se\\
+	Modée, Anna Maria -- ammodee@kth.se\\
+	Nyberg, Daniel -- dnyb@kth.se\\
+	Stjernberg, Johan -- stjer@kth.se
+	}
+
+\version{0.1 -- First compiled document}
+
+\title{User Requirements Document (URD)}
+
+\begin{document}
+\maketitle
+
+\selectlanguage{english}
+\begin{abstract}
+	
+\end{abstract}
+\selectlanguage{swedish}
+
+\newpage
+
+\tableofcontents
+
+\clearpage
+\setcounter{page}{1}
+
+\startfooter
+
+\section{Ändringslogg}
+
+
+\section{Introduktion}
+
+
+\section{Syfte}
+
+
+\section{Mjukvarans omfattning}
+
+Produkten består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt och ett kraftfullt administrationsverktyg. Administrationsgränssnittet utgörs av tre delar; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+
+\section{Definitioner, akronymer och förkortningar}
+
+
+\section{Källor}
+
+
+\section{Dokumentöversikt}
+
+Provides a birds-eye view of what information is given
+
+in this report, and where in the report it can be found. Description can be focused towards
+
+different types of reader, e.g. end-user, technical, developer, specialist, domain expert,
+
+accountant, legal, management, customers customer etc.
+
+\section{Allmän beskrivning}
+
+
+\section{Produktperspektiv}
+
+Kårspexet vill ha ett nytt bokningssystem för sina föreställningar på grund av att de är missnöjda med sin nuvarande lösning. De vill ha ett nyare system som är väl dokumenterat och ha tillgång till koden så att de kan fortsätta utveckla systemet i framtiden efter vårt uppdrag är avklarat. Där till så kommer det bli enklare och billigare för uppdragsgivaren att administrera föreställningar och biljettförsäljning. De vill fokusera på marknadsförning och att anordna bra spex i stället för att lägga mer tid än nödvändigt på administration. 
+
+Vårt uppdrag är att skapa ett helt nytt bokningssystem efter deras önskemål. Vi kommer fokusera på att skapa ett visuellt tilltalande system för föreställningsbesökarna. Eftersom nuvarande system ser ganska tråkigt, föråldrat och komplicerat ut så kan vi tänka oss att många besökare “vänder i dörren” eftersom de blir irriterade på det nuvarande systemet. Där till kommer vi skapa databas vyer för vår uppdragsgivare som ska vara väldokumenterade och förenklade så sysslor mot bokningssystemet blir angenämare.
+
+Ett rimligt antagande vore att Kårspexet skulle öka sin biljettförsäljning och på så sätt öka sina intäkter om det fick ett nytt bokningssystem. Eftersom flera människor skulle tycka att systemet är trevligare och då ökar chanserna att de köper biljetter. Dessutom så skulle ett nytt bokningssystem med största säkerhet ge kårspexet ett bättre rykte bland studenterna vilket också ökar chansen att fler går på föreställningar. Detta kommer leda till att intäkterna ökar, vilket i sin tur leder till att Kårspexet kommer ha möjlighet att gör flera spex och på så sätt öka sina omsättningar.
+
+\section{``General Capabilities''}
+
+ \textbf{[ Victor: jag råkade skriva lite kravspec för uppkopplingen istället för dess begränsningar, du kanske har någon användning för detta?]} 
+
+\emph{Uppkopplingen mot internet är en av de faktorer som har potential att tydligt märkas av besökare om den är otillräcklig. Varje sidförfrågan kommer resultera i utgående data från servern i storlekar om uppskattningsvis 10-40 kb (dynamisk data, det vill säga ej inräknat bilder eller andra statiska objekt). Med tio simultanta bokningsprocesser som var och en uppdaterar sidan i intervaller om tre sekunder innebär detta att upp till cirka 130kb (eller ca en mbit) data kommer behöva skickas ut per sekund. Uppkopplingen bör alltså ha en uppladdningskapacitet på minst en mbit per sekund. Nedladdningskapaciteten bör även den vara likvärdig. Latensen (tiden det tar för data att nå fram till / skickas från servern) påverkar tiden det tar innan besökare mottar (och deras webbläsare renderar) sidan...}
+
+\section{Allmänna begränsningar}
+
+\emph{General constraints. Describes the main constraints that apply to the product, and why they exist.}
+
+	\subsection{Datamodell}
+
+	\emph{Describes the constraints on data in the form of a data model, which may be an object diagram, class diagram or data dictionary. (Note: a data model must be presented.)}
+
+	\subsection{Resurser}
+
+	\emph{Limitations on functionality due to limited project scope (time, personnel, money).}
+
+	>> Vi antar att vi har tre veckor reservad för implementering och testning.
+
+	>> Fem programmerare.
+
+	>> Två ovanstående innebär största begränsningar.
+
+	>> Fyra dedikerade testare.
+
+	>> Inga monetära resurser = vi är låsta till att använda gratis (open source?) programvara.
+
+	Vi kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera främst då vi är totalt fem programmerare. På tre veckor ska vi hinna implementera totalt fyra gränssnitt mot bokningssystemets användare. Gränssnitten kommer behöva testas men då vi har nästan lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. Det som kommer vara vårt största hinder under utvecklingen kommer vara administratörsgränssnittet då det är där de flesta funktionerna kommer finnas och även de mest avancerade.
+
+	Vi har inte någon budget för projektet och pengar inte heller kommer tillföras, detta gör att vi begränsas till att använda programvara som är gratis då vi inte själva är villiga att lägga ut pengar. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+	\subsection{Kundbehov}
+
+	\emph{Limited customer needs (ambition, money, skill level).}
+
+	\subsection{Tekniska begränsningar}
+
+	\emph{Also includes any technological and scientific constraints, e.g. performance, bandwidth, computational difficulty of problem solving, lack of efficient algorithms, etc.} 
+
+	>> Open source (se resurser).
+
+	>> Linux, Apache, Ruby, Rails.
+
+	>> Hårdvara (Kårspexets).
+
+	>> Inte några komplicerade algoritmer.
+
+	 \textbf{TODO: Begränsningar i apache/ruby/rails?} 
+
+	Vi är begränsade till att utnyttja mjukvara som är fri att använda, dels på grund av avsaknad av ekonomiska resurser, och dels för att vi valt att begränsa oss till detta redan från början.
+
+	Kårspexet står för den server som kommer att köra vår webbapplikation. Vi har ingen kontroll över dess hårdvara men har verifierat att operativsystemet som körs på den är kompatibelt med Apache, Ruby med Rails [1] samt MySQL. 
+
+	Applikationen kommer inte att inkludera avancerade algoritmer utan till störst del involverade mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i kablar på detta plan.
+
+	Systemet kommer enligt våra uppskattningar exponeras till upp till tio simultanta anslutningar. Rails under Apache kommer då att, under godtycklig tidpunkt, använda uppskattningsvis 250 mb systemminne [2]. CentOS anger 256 mb minne samt processorhastighet på minst 500 MHz som minimikrav för datorer som kör operativsystemet [3].  \textbf{LÄGG IN FAKTISK SPEC FÖR KÅRSPEXETS SERVER HÄR} 
+
+	[1]: \url{http://hasham2.blogspot.com/2008/07/install-phusion-passenger-on-cent-os-5.html}
+
+	[2]: \url{http://www.rubyenterpriseedition.com/comparisons.html}
+
+	[3]: \url{http://www.centos.org/docs/5/html/CDS/install/8.0/Installation\_Guide-Support-Platforms.html}
+
+\section{Användarbeskrivning}
+
+2.4 User characteristics. Describes who will use the software, expected background, 
+
+previous training and level of skill (may be several). Identify different job roles and 
+
+contexts of use (can be used to develop a use case analysis). Used to determine user 
+
+interface requirements, online/offline user support and product documentation.
+
+	\subsection{Anvisningar(per person)}
+
+	Skriv ca 1 stycke bakgrund om personen.
+
+	Skriv ca 1 stycke teknisk bakgrund/skill level 
+
+	Indentifiera och beskriv actors och stakeholders, ca 2-3 stycken.
+
+	stakeholder = hela kårspexet
+
+	actor = säljare, admin, ekonomichef som har kontakt med systemet
+
+	\subsection{Kund(Daniel)}
+
+
+	\subsection{Säljare(Daniel)}
+
+
+	\subsection{Admin(Anna Maria)}
+
+
+	\subsection{Ekonomichef(Anna Maria)}
+
+
+\section{Antaganden och beroenden}
+
+Bokningssystemet som utvecklas för Kårspexet är beroende av datorkraft från webbservrar där mjukvaran körs. Mjukvaran och systemet i sin helhet ställer krav på yttre faktorer för att systemet skall bli användbart. De yttre faktorerna är framför allt bandbreddsuppkoppling och serverprestanda.
+
+Bandbreddsuppkopplingen talar om i vilken hastighet webbservern kan kommunicera med omvärlden. Omvärlden som består av ett flertal användare kräver var och en, en viss del av den totala bandbredden då en användare är aktiv. Med andra ord beror behovet på bandbreddsuppkopplingen  på hur många som använder systemet samtidigt.
+
+Serverprestanda talar om hur många anrop till ett system som en servern kan hantera samtidigt. Varje aktiv användare kräver en del av den totala prestanda som finns tillgänglig. Behovet på serverprestanda beror precis som bandbreddsuppkopplingen på hur många som använder systemet vid samma tidpunkt.
+
+Antalet samtidiga användare beror på en rad olika antaganden om användandet av systemet. Utifrån antagandena vill vi bestämma hur mycket prestanda och bandbredd som systemet maximalt kan kräva. De avgörande antagandena berör:
+
+A.	Hur många platser en föreställning har i medeltal.
+
+B.	Hur många föreställningar som släpps för biljettköp åt gången.
+
+C.	Hur stor del av ett biljettsläpp som säljs per tidsenhet då efterfrågan är som störst.
+
+D.	Hur många anrop (sidladdningar) som krävs till systemet för att boka en biljett.
+
+E.	På vilken tid antalet anrop är fördelade vid en bokning (hur lång tid det tar att boka).
+
+F.	Hur mycket trafik som överförs vid ett anrop i medeltal.
+
+Vi antar: 
+
+a.	att en föreställning inte har mer än 800 platser.
+
+b.	att biljettsläpp inte görs för mer än 4 föreställningar i taget.
+
+c.	att efterfrågan är maximalt 30% av biljettsläppet per timme.
+
+d.	att antalet anrop till servern inte överstiger 10 för en bokning. \textbf{(Vad menas? Förtydliga!-Daniel)} 
+
+e.	att en bokning tar 2 minuter och att bokningens anrop till servern är jämt fördelat över tiden. \textbf{(Victor: 4 minuter känns mer rimligt iom ~4 steg, och användaren förväntas kolla igenom innan man bekräftar)} 
+
+f.	att trafiken för ett anrop är 100kb stort i medeltal. \textbf{(Victor: jag skulle säga 30kb, plus 100kb som cacheas och därmed bara behöver laddas ner en gång per besök, men kanske inte nödvändigt att inkludera?)} 
+
+Våra antaganden ger:
+
+>> 0,084 (anrop/sekund) för varje bokning under den tid det tar att boka (d/(e*60)).
+
+>> 3200 bokningsbara platser vid varje biljettsläpp (a*b).
+
+>> 0,27 (bokningar/sekund) då efterfrågan är maximal ((a*b*c)/(100*60*60)).
+
+>> 2,67 (anrop/sekund) till servern då efterfrågan är maximal ((a*b*c*d)/(100*60*60)).
+
+>> 2,09 (Mbits) i trafik då efterfrågan är maximal ((a*b*c*d*f*8)/(100*60*60)).
+
+Utifrån antagandena så skall bandbreddsuppkopplingen minst vara 2,09 Mbits och webbservern måste klara av att hantera 2,67 anrop per sekund. Vad gäller bandbreddsuppkopplingen så motsvarar den en vanlig bredbandsuppkoppling i hemmet. Det låga antalet 2,67 anrop per sekund mot bokningssystemet gör att prestanda från en vanlig persondator räcker.
+
+\section{``Operational environment''}
+
+
+\section{Specifika krav}
+
+3.1 Funktionalitetskrav ska hämtas från issues.
+
+\section{Begränsande krav}
+
+[byt namn till begränsningskrav?]
+
+	\subsection{mall för krav (ska översättas?)}
+
+	\begin{tabular} { | l | l | }
+		\hline
+		Identifier & Symbolic identifier using helpful abbreviation.  \\
+		\hline
+		Requirement Description & A structured description that includes symbolic references to related requirements to aid explanation.  \\
+		\hline
+		Justification & An optional justification (or motivation) of why this requirement is needed.  \\
+		\hline
+		Need & Use a scheme such as Standard/Economy or Deluxe/Standard/Economy.  \\
+		\hline
+		Priority & High priority means early delivery needed, low means late delivery acceptable.  \\
+		\hline
+		Stability & Unstable requirements that can change must be flagged.   \\
+		\hline
+		Source & Origin of requirement. Could be an individual group member, whole group or external.  \\
+		\hline
+		Verifiability & Explains how to verify requirement. Each requirement must be verifiable. It must be possible to: (1) check requirement is in the design, (2) test that the software does implement the requirement.  \\
+		\hline
+	\end{tabular}
+
+	\subsection{Riktiga krav}
+
+	\begin{tabular} { | l | l | }
+		\hline
+		Identifier & minnesanvändning  \\
+		\hline
+		Requirement Description & Systemets minnesanvänding under högsta belastning får inte överstiga kårspexets server.  \\
+		\hline
+		Justification & Om minnet inte räcker kan programmet inte utföra sin uppgift  \\
+		\hline
+		Need & Detta krav måste uppfyllas i alla versioner.  \\
+		\hline
+		Priority & 3(?)  \\
+		\hline
+		Stability & stabilt.  \\
+		\hline
+		Source & Johan Stjernberg, Kalle Arvidsson  \\
+		\hline
+		Verifiability & Kravet kan verifieras genom verklig använding på Kårspexets server, testkörning på Kårspexets server, testkörning på testserver, eller genom beräkningar(?) (Vi bör nog välja en metod). Testkörning kan ske manuellt eller automatiskt.  \\
+		\hline
+	\end{tabular}
+
+\end{document}
+

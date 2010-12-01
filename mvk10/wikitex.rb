@@ -1,23 +1,31 @@
 puts open('nyx-head.tex').read
 
 input = $stdin.read
-input.gsub!(/\r/, '')
+input.gsub!(/\r/, '') # removes \r from possible \r\n
 
 split = input.split(/(^h[1-4]\. .*)/)
 
 # Get rid of stray spaces and newline characters.
 level = 0
+
 split.each do |section|
   section.strip!
-  section.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
+  tmp = section.split /\n/
+  tmp.each do |line|
+    line.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
   # replace *format* _format_ and +format+ etc.
-  section.gsub!(/\"(.+?)\"/,  '``\1\'\'')
-  section.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
-  section.gsub!(/\+(.+?)\+/, '\underline{\1}')
-  section.gsub!(/_(.+?)_/, '\emph{\1}')
-  section.gsub!(/_/, '\_')
-  section.gsub!(/(^|\s)\*(.+?)\*($|\s)/, ' \textbf{\2} ')
-  section.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
+    line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
+    line.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
+    line.gsub!(/\+(.+?)\+/, '\underline{\1}')
+    line.gsub!(/(^|\s)_([^\|]+?)_(\s|$)/, '\1\emph{\2}\3')
+  #section.gsub!(/^_([^\|]+?)_$/, '\emph{\1}')
+    line.gsub!(/_/, '\_')
+    line.gsub!(/(^|\s)\*(.+?)\*($|\s)/, '\1\textbf{\2}\3')
+    line.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
+    line.gsub!(/(\d+\^\d+)/, '$\1$')
+  end
+  section[0..-1] = tmp.join "\n"
+  #section.gsub! /^(\s*$)+/m, "\n\n"
 end
 
 split.shift
@@ -77,15 +85,16 @@ while not split.empty?
   elsif section[1] == '4'
     print "\t" * 3, '\paragraph{', section[2], '}'
   else
-    print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 1), 'section{', section[2], '}'
+    if section[1] == '1'
+      puts '\clearpage'
+    end
+    print "\t", '\\', 'sub'*(section[1].to_i - 1), 'section{', section[2], '}'
+    puts
   end
   level = section[1].to_i - 1
   puts
   puts
   split[1].each do |line|
-    if line.strip == ''
-      next
-    end
     if line =~ /^\|([^|]*\|)+$/
       line.strip!
       line.slice!(0)
@@ -93,17 +102,30 @@ while not split.empty?
       line = (line+' ').split '|'
       if not in_table
         in_table = true
-	puts "\t" * level + '\begin{tabular} { |' + ' l |' * line.size + ' }'
+	puts "\t" * level + '\begin{tabular} { | p{3cm} | p{12.2cm} | }'
+	#puts "\t" * level + '\begin{tabular} { |' + ' l |' * line.size + ' }'
 	level += 1
 	puts "\t" * level + '\hline'
       end
-      line = (line.join ' & ') + " \\\\\n" + "\t" * level + "\\hline"
+      cols = []
+      line.each do |word|
+        if word[0..2] == '\_.'
+	  cols << '\textbf{' + word[3..-1] + '}'
+	else
+          cols << word
+	end
+      end
+      line = (cols.join ' & ') + " \\\\\n" + "\t" * level + "\\hline"
     else
       if in_table
         in_table = false
 	level -= 1
-	puts level * "\t" + '\end{tabular}'
+	puts "\t" * level + '\end{tabular}'
+	puts
       end
+    end
+    if line.strip == ''
+      next
     end
     print "\t" * level + line
     puts
@@ -112,6 +134,7 @@ while not split.empty?
     in_table = false
     level -= 1
     puts "\t" * level + '\end{tabular}'
+    puts
   end
   puts
   split.shift

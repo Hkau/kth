@@ -3,8 +3,13 @@ require 'cgi'
 
 doc = ARGV[0]
 def wikifetch(http, header, doc)
+  resp = http.get("/projects/karspexet/wiki/" + doc, header)
+  version = (/format=html&amp;version=(\d+)/.match(resp.body))[1]
+  #$stderr.puts version
   resp = http.get("/projects/karspexet/wiki/" + doc + "?format=txt", header)
-  resp.body.gsub!(/\{\{include\((.*)\)\}\}/) { |s|
+  out = resp.body
+  out.sub! /h[1-4]\..*$/, '\0' + "\n\n_Genererat från revision " + version + " av \"" + doc + "\"._\n"
+  out.gsub!(/\{\{include\((.*)\)\}\}/) { |s|
     inc = $1
     inc.gsub!(/\//, '')
     inc.gsub!(/ /, '_')
