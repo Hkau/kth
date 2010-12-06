@@ -5,7 +5,7 @@ csv = CSV.open('exportutf8.csv', 'r', ',')
 tags = csv.shift
 
 translation = {
-  '#' => 'Kravnummer',
+  '#' => '#',
   'Ämne' => 'Krav',
   'Beskrivning' => 'Beskrivning',
   'Rättfärdigande' => 'Motivering',
@@ -26,26 +26,25 @@ csv.each do |entry|
   end
 end
 
-posts.sort! {|a,b| a['Kravnummer'].to_i <=> b['Kravnummer'].to_i }
+posts.sort! {|a,b| a['#'].to_i <=> b['#'].to_i }
 
 rows = [
-  'Kravnummer',
-  'Krav',
+#  '#',
+#  'Krav',
   'Beskrivning',
   'Motivering',
   'Behov',
   'Prioritet',
-#  'Stabilitet',
+  'Stabilitet',
   'Källa',
   'Verifierbarhet',
 ]
 
 posts.each do |post|
+  puts '|_.' + 'Krav' + '|' + post['Krav'] + ' (_#' + post['#'] + '_)|'
   rows.each do |entry|
     puts '|_.' + entry + '|' + post[entry] + '|'
   end
   puts
-#  print post['Kravnummer'] + ' '
-#  puts post['Krav']
 end
 

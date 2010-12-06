@@ -1,0 +1,1476 @@
+\documentclass[a4paper, twoside, 11pt, titlepage]{article}
+
+\usepackage{bds/bds}
+
+\usepackage[utf8]{inputenc} % -- använd denna "när det funkar", dvs på skolans nya datorer + linux, ibland på windows
+\usepackage[swedish,english]{babel}
+
+\project{Bokningssystem för Kårspexet}
+\author{
+	\small
+	\textbf{Tarandi, Andreas} -- taran@kth.se \\
+	Arvidsson, Kalle -- kallear@kth.se\\
+	Boström, Peter -- pbos@kth.se\\
+	Eklund, Erik -- eekl@kth.se\\
+	Gräsman, André -- grasman@kth.se\\
+	Göransson, Rasmus -- rasmusgo@kth.se\\
+	Hagsten, Per -- hagsten@kth.se\\
+	Hallberg, Victor -- victorha@kth.se\\
+	Modée, Anna Maria -- ammodee@kth.se\\
+	Nyberg, Daniel -- dnyb@kth.se\\
+	Stjernberg, Johan -- stjer@kth.se
+	}
+
+\version{0.3}
+
+\title{User Requirements Document (URD)}
+
+\begin{document}
+\maketitle
+
+\selectlanguage{english}
+\begin{abstract}
+	This document aims to describe the user requirements for Kårspexets online booking system, developed by Nyx. It contains the systems capabilities, its constraints, assumptions, and dependencies, as well as its user characteristics, and operational enviroment. The document also features an extensive list of detailed requirements of the system, deduced from the preceding descriptions.
+\end{abstract}
+\selectlanguage{swedish}
+
+\newpage
+
+\tableofcontents
+
+\clearpage
+\setcounter{page}{1}
+
+\startfooter
+
+\clearpage
+	\section*{Ändringslogg}
+
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Version} & \textbf{Ändringar } \\
+	\hline
+	\textbf{0.1} & Första sammanställd version av dokumentet.  \\
+	\hline
+	\textbf{0.2} & Texter under bearbetning men i stort sätt färdigkomponerade. Texter i dokumentet numreras numera med sitt revisionsnummer i dokumenthanteringssystemet för spårbarhet. Kravdatabas innehåller kundens funktionalitetskrav, men beskrivande texter saknas till vissa av dem.   \\
+	\hline
+	\textbf{0.3} & Texter ska vara färdigskrivna. Version som skickas för granskning av URD:n. Revisionsnummer flyttade till egen punkt.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+	\section*{Dokumentversioner}
+
+
+Dokumentet har genererats från följande deldokument.
+
+\textbf{User\_Requirements\_Document} version 1.
+
+\textbf{URDabstract} version 3.
+
+\textbf{URDÄndringslogg} version 5.
+
+\textbf{URDIntroduktion} version 4.
+
+\textbf{URDIntroduktionSyfte} version 5.
+
+\textbf{URDIntroduktionMjukvarans\_omfattning} version 3.
+
+\textbf{URDIntroduktionDefinitioner\_akronymer\_och\_förkortningar} version 56.
+
+\textbf{URDIntroduktionKällor} version 12.
+
+\textbf{URDIntroduktionDokumentöversikt} version 5.
+
+\textbf{URDAllmän\_beskrivning} version 2.
+
+\textbf{URDAllmän\_beskrivningProduktperspektiv} version 24.
+
+\textbf{URDAllmän\_beskrivningGeneral\_Capabilities} version 7.
+
+\textbf{URDAllmän\_beskrivningAllmänna\_begränsningar} version 37.
+
+\textbf{URDAllmän\_beskrivningAnvändarbeskrivning} version 25.
+
+\textbf{URDAllmän\_beskrivningAntaganden\_och\_beroenden} version 21.
+
+\textbf{URDAllmän\_beskrivningOperational\_environment} version 7.
+
+\textbf{URDSpecifika\_krav} version 2.
+
+\textbf{URDSpecifika\_kravKravbegränsning} version 36.
+
+\clearpage
+	\section{Introduktion}
+
+
+
+	\subsection{Syfte}
+
+
+	Det här dokumentet innehåller en detaljerad sammanfattning av produktens krav och dess motiveringar inom vårat projekt. Dokumentets tänkta läsare är tekniskt datakunniga personer samt utvecklare.
+
+	\subsection{Mjukvarans omfattning}
+
+
+	Produkten består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt och ett kraftfullt administrationsverktyg. Administrationsgränssnittet utgörs av tre delar; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+
+	\subsection{Definitioner, akronymer och förkortningar}
+
+
+	\emph{*Behöver alla akronym referenser? Någon som vet? //André*} 
+
+	\textbf{Algoritm} \emph{Inom matematik och datorvetenskap är detta en begränsad uppsättning tydliga instruktioner för att utföra en uppgift.}
+
+	\textbf{Apache} \emph{Syftar i detta dokument på webbservern  Apache HTTP Server.}
+
+	\textbf{Apache HTTP Server} \emph{Världens mest använda webbserver. Är gratis att använda. [1.3.1]}
+
+	\textbf{Apache Software Foundation} \emph{Organisation som stödjer ett antal öppen-källkods-projekt, bland annat Apache HTTP Server. [1.3.2]}
+
+	\textbf{Applikation} \emph{I datasammanhang även kallat tillämpningsprogram. Ett dataprogram som fyller ett direkt syfte för användaren.}
+
+	\textbf{Bandbredd} \emph{I vardagligt tal en storhet för hur mycket information som kan överföras på en viss tid. Vanlig enhet är Mbit/sekund.}
+
+	\textbf{Bit} (Binary Digit) \emph{Den grundläggande enhet som datorer arbetar med. En bit kan anta ett utav två möjliga värden (ofta angivna som 0 eller 1).}
+
+	\textbf{Byte} \emph{En vanlig enhet för informationsmängd i datasammanhang. En byte är ett paket bestående av åtta bitar.}
+
+	\textbf{CentOS} \emph{Ett operativsystem baserat på Red Hat Enterprise Linux som är gratis att använda.}
+
+	\textbf{Databas} \emph{En databas är en samling information ordnad på ett sådant sätt att informationen i den effektivt går att hitta.}
+
+	\textbf{Epostklient} \emph{Även kallat Epostprogram. Datorprogram för att hantera/läsa/skicka epost.}
+
+	\textbf{Epostprogram} \emph{Se Epostklient.}
+
+	\textbf{FK} \emph{Foreign Key, främmande nyckel, ett värde i en databas som refererar till en rad i en annan tabell. (Används denna förkortning på enbart i vårt diagram?)}
+
+	\textbf{GHz} \emph{Enhet för antalet miljarder svängningar per sekund. ``G'' är binärt prefix för $10^9$. ``Hz'' är förkortning för Hertz.}
+
+	\textbf{Gränssnitt} \emph{Utformningen av kommunikationen mellan en mjukvarumodul och användare eller annan mjuk-/hårdvara.}
+
+	\textbf{HTML} (Hyper Text Markup Language) \emph{Ett språk och webbstandard som används för att beskriva strukturering av text, bilder och annan media på en webbsida.}
+
+	\textbf{HTTP} (HyperText Transfer Protocol) \emph{Ett standardiserat protokoll som definierar hur kommunikation över webben sker.}
+
+	\textbf{Hårdvara} \emph{Även kallat Maskinvara. Ett samlingsnamn för en dators fysiska komponenter.}
+
+	\textbf{Interface} \emph{Se gränssnitt.}
+
+	\textbf{kB} (kilobyte) \emph{Se kbyte.}
+
+	\textbf{kbyte} (kilobyte) \emph{Enhet för datamängd. ``k'' är prefix för $10^3$. För ``byte'', se Byte.}
+
+	\textbf{KiB} (kibibyte) \emph{Enhet för datamängd. ``Ki'' är ett binärt prefix för $2^10$. ``B'' är förkortning för Byte.}
+
+	\textbf{Klockfrekvens} \emph{Beteckning för den hastighet i vilken en processor arbetar i.}
+
+	\textbf{KTH} (Kungliga Tekniska Högskolan) \emph{Sveriges största tekniska universitet.}
+
+	\textbf{Latens} \emph{Även känt som svarstid, tidsfördröjning eller lagg. Tidsskillnaden mellan en begäran och respons på begäran.}
+
+	\textbf{Latency} \emph{Engelskt ord för Latens.}
+
+	\textbf{Linux} \emph{Unix-liknande operativsystem. Linux är fri mjukvara.}
+
+	\textbf{Logik} \emph{Vetenskapen om att dra korrekta slutsatser från givna påståenden.}
+
+	\textbf{Mb} (Megabyte) \emph{Se Mbyte.}
+
+	\textbf{Mbyte} (Megabyte) \emph{Enhet för datamängd. ``M'' är prefix för $10^6$.  För ``byte'', se Byte.}
+
+	\textbf{MHz} \emph{Enhet för antalet miljoner svängningar per sekund. ``M'' är binärt prefix för $10^6$. ``Hz'' är förkortning för Hertz.}
+
+	\textbf{MiB} (mebibyte) \emph{Enhet för datamängd. ``Mi'' är ett binärt prefix för $2^20$. ``B'' är förkortning för Byte.}
+
+	\textbf{MiBit/s} (mebibit per sekund) \emph{Enhet för datahastighet. ``Mi'' är ett binärt prefix för $2^20$. ``Bit'' är den minsta enheten för informationsmängder i datasammanhang.}
+
+	\textbf{Mjukvara} \emph{Även kallat programvara. En organiserad samling av data och maskininstruktioner.}
+
+	\textbf{Mjukvarubibliotek} \emph{En samling av redan existerande program eller delar av program som används för att utveckla mjukvara.}
+
+	\textbf{Modul}
+
+	\textbf{MVC} (Model-View-Controller) \emph{Ett koncept som bygger på att separera data (modeller), logik (kontroller) och användarinterface (vyer).}
+
+	\textbf{MVC framework} \emph{Mjukvarubibliotek designade efter MVC-konceptet.}
+
+	\textbf{MySQL} \emph{En typ av relationsdatabas baserad på SQL-standarden. Ett relationsdatabas hanteringssystem där flera användare kan arbeta med flera databaser.}
+
+	\textbf{Open Source} \emph{Engelskt låneord för öppen källkod.}
+
+	\textbf{Operativsystem} \emph{Ett datorprogram vars syfte är att underlätta användandet av en dator genom att vara länken mellan programvara och hårdvara.}
+
+	\textbf{Passenger} \emph{I Rails-sammanhang en modul som gör det möjligt att köra Ruby on Rails på webbservern Apache.}
+
+	\textbf{PHP} \emph{Ett programmeringsspråk som ofta används för att skapa webbapplikationer.}
+
+	\textbf{PK} \emph{Primary Key, primärnyckel, det fält (i en databas) som används för att identifiera en rad i en tabell. (Används denna förkortning enbart i diagrammet?)}
+
+	\textbf{Processor} \emph{Den komponent i en dator som genomför beräkningar och andra instruktioner.}
+
+	\textbf{Programmeringsspråk} \emph{Språk som människor använder för att skapa datorprogram.}
+
+	\textbf{Rails} \emph{I datorsammanhang vanlig förkortning för Ruby on Rails.}
+
+	\textbf{Red Hat Enterprise Linux} \emph{Variant av Linux.}
+
+	\textbf{Rendering} \emph{I datasammanhang (även känt som Rendrering) det program som framställer en bild/animering med hjälp av beräkningar från en beskrivning.}
+
+	\textbf{Ruby} \emph{Ett objektorienterat programmeringsspråk.}
+
+	\textbf{Ruby on Rails} \emph{Ett abstrakt mjukvarubibliotek med öppen källkod för utveckling av webbapplikationer.}
+
+	\textbf{Systemminne} \emph{Även kallat RAM (Random Access Memory), Arbetsminne eller primärminne. Används för att tillfälligt lagra data som datorn arbetar med.}
+
+	\textbf{Spex} \emph{Humoristisk studentamatörteaterföreställning, förkortning av spektakel.}
+
+	\textbf{SQL} (Structured Query Language) \emph{Ett språk designat för att interagera med databaser.}
+
+	\textbf{Unix} \emph{Ett operativsystem som ofta används i olika typer av servrar och arbetsstationer.}
+
+	\textbf{URL} (Uniform Resource Locator) \emph{Den formella benämningen av en webbadress. En text som beskriver var en viss resurs på internet finns, samt hur den går att komma åt.}
+
+	\textbf{Webb} \emph{Även känt som WWW (World Wide Web). Det system som används för att hämta, visa och manipulera delar på internet. WWW utgörs av standarderna URL, HTTP respektive HTML.}
+
+	\textbf{Webbapplikation} \emph{Samlingsnamn för mjukvara som användare kommer åt via en webbläsare.}
+
+	\textbf{Webbläsare} \emph{Ett program som hämtar, tolkar och återger webbsidor kodade exempelvis som HTML.}
+
+	\textbf{Webbserver} \emph{Program som körs på en server och distribuerar webbsidor och/eller andra filer som en webbläsare begär via HTTP-protokollet.}
+
+	\textbf{Webbsida} \emph{En fil, innehållandes exempelvis HTML, avsedd att visas av en webbläsare.}
+
+	\textbf{Öppen källkod} \emph{Innebär möjlighet att ändra i konstruktionen för ett system. I ett datorprogram som har öppen källkod kan den som vill göra ändringar i programmet och utveckla det vidare.}
+
+	\subsection{Källor}
+
+
+	Referenser till de källor som använts i URD är listade här under. En och samma källa kan refereras vid flera ställen i texten. En referens är på formatet [Sektion.Rubrik.Löpnummer]. Exempelvis är [2.5.1] den första (1) referensen för rubriken ``Antaganden och beroenden'' (5) under sektion ``Allmän beskrivning'' (2).
+
+	\textbf{victor:} \emph{borde kanske ange referensnumret till vänster om titeln för att göra det enkelt att direkt hitta en viss referens? dvs [1.3.1] Apache HTTP Server. Dessa rubriker bör för övrigt INTE vara latex-numrerade.}
+
+	\subsubsection{Apache HTTP Server}
+
+
+		\url{http://httpd.apache.org/}
+
+		Hänvisning till källan görs från referenserna: [1.3.1].
+
+	\subsubsection{Apache Software Foundation}
+
+
+		\url{http://www.apache.org/}
+
+		Hänvisning till källan görs från referenserna: [1.3.2].
+
+	\subsubsection{Installation av Passenger på CentOS 5}
+
+
+		\url{http://hasham2.blogspot.com/2008/07/install-phusion-passenger-on-cent-os-5.html}
+
+		Hänvisning till källan görs från referenserna: [2.3.1].
+
+	\subsubsection{Minimikrav för att installera och köra CentOS på en dator}
+
+
+		\url{http://www.centos.org/docs/5/html/CDS/install/8.0/Installation\_Guide-Support-Platforms.html}
+
+		Hänvisning till källan görs från referenserna: [2.3.3].
+
+	\subsubsection{Undersökning av prestanda för Rails}
+
+
+		\url{http://www.rubyenterpriseedition.com/comparisons.html}
+
+		Hänvisning till källan görs från referenserna: [2.3.2].
+
+	\subsubsection{Allmän kunskap av Människa-dator interaktion och användarvänlighet}
+
+
+		\emph{Användarcentrerad systemdesign-en process med fokus på en användare och användbarhet} Jan Gulliksen \& Bengt Göransson, Studentlitteratur 2002, Studentlitteratur AB, Lund, tryckt 2010
+
+		Hänvisning till källan görs från referenserna: [2.1.1]
+
+	\subsection{Dokumentöversikt}
+
+
+	Systemet som Nyx utvecklar åt Kårspexet ersätter ett gammalt system, detta behandlas sektion 2.1. Sektion 2.2 presenterar systemets användare kort, och går igenom användarscenarion för dessa. Projektets begränsningar gås igenom i sektion 2.3, medan systemets användare beskrivs i mer detalj i sektion 2.4. De antaganden som finns angående systemets drift hittas i sektion 2.5, medan de mer operationella kraven beskrivs i 2.6.
+
+	I sektion 3 specificeras alla features i tabellform.
+
+\clearpage
+	\section{Allmän beskrivning}
+
+
+
+	\subsection{Produktperspektiv}
+
+
+	Kårspexet vill ha ett nytt bokningssystem till sina föreställningar eftersom de är missnöjda med sin nuvarande lösning. De vill ha ett väldokumenterat system med tillgång till källkoden så de kan vidareutveckla systemet vid behov. Lösningen måste vara enkel så att Kårspexet slipper lägga mer tid än nödvändigt på administrationen, vilket ger dem mer tid att fokusera på andra aktiviteter som marknadsföring och anordna bra spex.
+
+	Vårt uppdrag är att skapa ett nytt bokningssystem efter Kårspexets önskemål. Vi skall fokusera på att skapa ett enkelt och visuellt tilltalande system för Kårspexet och deras kunder. Bokningssystemet som används idag ser något föråldrat och komplicerat ut och designen är ej anpassad till resten av hemsidan. Systemet körs på en extern server, som Kårspexet ej har tillgång till. Det system som vi kommer att konstruera skall ha olika vyer för kunder, administratörer och säljare på Kårspexets hemsida. Varje vy kommer att anpassas för sin målgrupp och dokumenteras därefter. På så sätt kommer interaktionen med hela systemet bli lättare och angenämare för alla användare.
+
+	Ett nytt bokningssystem kan hjälpa Kårspexet att höja sina intäkter genom en ökad biljettförsäljning. Icke-användarvänliga system kan få osäkra besökare att avstå från ett köp, där ett enkelt system kan locka till sig fler kunder [2.1.1]. Ett bra bokningssystem kan ge ett bättre intryck på studenter och andra besökare, vilket kan ge möjligheten att producera fler spex som leder till ytterligare intäkter.
+
+	\subsection{Allmän funktionalitet}
+
+
+	Bokningssystemet ska användas av fyra typer av användare: kund, säljare, ekonomichef och administratör. Dessa har olika roller som interagerar med varandra.
+
+	\subsubsection{Boka biljetter från hemsidan}
+
+
+		Kunder ska kunna boka biljetter från kårspexets hemsida. Efter att kunden har genomfört en bokning ska kunden få ett mail med betalningsuppgifter och bokningsnummer.
+
+	\subsubsection{Registrera betalningar}
+
+
+		Ekonomichefen ska kunna registrera betalningar för bokingar som kunder gjort.
+
+	\subsubsection{Administrera biljetter}
+
+
+		Efter att kunden har bokat och ekonomichefen registrerat kundens betalning placerar administratören ut vilka stolar kunden ska få sitta på under föreställningen. När placeringen är klar får kunden ett mail som uppmanar kunden att hämta ut sina biljetter.
+
+	\subsubsection{Lämna ut bokade biljetter}
+
+
+		När kunden kommer till säljaren ska denna verifiera att biljetterna är redo att hämtas samt registrera att biljetterna har hämtats. Gränssnittet för säljaren ska vara lätt att lära sig eftersom säljarna ofta byts ut.
+
+	\subsubsection{Sälja biljetter direkt}
+
+
+		Säljaren ska även kunna sälja biljetter kontant. Då är det säljaren som väljer vilka stolar som kunden får sitta på.
+
+	\subsubsection{Administrera mailutskick}
+
+
+		Administratören ska kunna ändra informationen i de automatiska utskicken som sker samt kunna göra nya utskick till valda kunder.
+
+	\subsubsection{Administrera föreställningar och teatrar}
+
+
+		När det vankas nya föreställningar är det administratören som matar in dem i systemet. Priser ska kunna ändras och om föreställningen är på en ny teater ska den kunna läggas till. Detta innebär att nya salongsskisser med nya sektioner och stolar ska kunna matas in. Administratören ska kunna välja vilka föreställningar det går att boka/köpa biljetter till.
+
+	\subsubsection{Administrera konton}
+
+
+		Administratören ska kunna ändra både sitt eget och andras lösenord. Säljarens lösenord ska kunna genereras automatiskt och vara giltigt en begränsad tid.
+
+	\subsubsection{Statistik}
+
+
+		Administratören och ekonomichefen ska kunna se statistik om antalet bokade och sålda biljetter för att kunna få inblick i verksamheten.
+
+	\subsection{Allmänna begränsningar}
+
+
+
+	\subsubsection{Datamodell}
+
+
+		Datamodellen finns bifogad som en bilaga.
+
+	\subsubsection{Resurser}
+
+
+		Vi kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera främst då vi totalt är fem programmerare. På ett fåtal veckor ska vi hinna implementera fyra gränssnitt mot bokningssystemets användare. Gränssnitten kommer behöva testas men då vi har nästan lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. Det som kommer vara vårt största hinder under utvecklingen är administratörsgränssnittet då det är där de flesta funktionerna kommer finnas och även de mest avancerade.
+
+		Vi har inte någon budget för projektet och vi kommer inte att tillföra egna pengar för att köpa in något, detta gör att vi begränsas till att använda programvara som är gratis. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+	\subsubsection{Kundbehov}
+
+
+		Nyx mål är att leverera ett fullständigt bokningssystem med alla de funktioner som Kårspexet har specificerat. På grund av systemets förväntade komplexitet och tidsramen vi har kommer kvaliteten i delar av slutprodukten vara begränsad.
+
+		Gränssnittet för besökare (slutkunder) respektive säljare ska designas på ett sätt som gör att det går att använda utan några speciella förkunskaper inom vårt system. Det ska alltså fungera på ett sätt som efterliknar liknande produkter. Detta begränsar oss i hur pass många funktioner och val vi kan låta användarna exponeras för på en och samma gång. Administrationsgränsnittet är inte begränsat på samma sätt då dess användare kommer utbildas i förväg.
+
+	\subsubsection{Tekniska begränsningar}
+
+
+		Kårspexet står för den server som kommer att köra vår webbapplikation. Vi har ingen kontroll över dess hårdvara men har verifierat att operativsystemet som körs på den är kompatibelt med Apache, Ruby med Rails [2.3.1] samt MySQL. 
+
+		Applikationen kommer inte att inkludera avancerade algoritmer utan till störst del involveras mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i kabelanslutningar.
+
+		Systemet kommer enligt våra uppskattningar exponeras för upp till tio simultana anslutningar. Rails under Apache kommer i detta fall att, under godtycklig tidpunkt, använda uppskattningsvis 250 mb systemminne [2.3.2]. CentOS anger 256 mb minne samt en klockfrekvens på minst 500 MHz som minimikrav för datorer som kör operativsystemet [2.3.3]. Med MySQL och Apache körandes samtidigt utöver dessa bör servern ha minst en gigabyte systemminne samt en processor med klockfrekvensen 1 GHz eller högre. Kårspexets server har en processor med klockfrekvensen 2,6 GHz samt 1 Gb systemminne, vilket alltså bör vara tillräckligt.
+
+	\subsection{Användarbeskrivning}
+
+
+	Produkten kommer att ha 4 olika användare: Kund, säljare, administratör och ekonomiansvarig.
+
+	\subsubsection{Kund}
+
+
+
+			\paragraph{Teknisk bakgrund för kund}
+
+			Kunder är uppdelad i två läger; de som pluggar på en teknisk högskola eller ett universitet, och släktingar eller bekanta till Kårspexets medlemmar som inte är associerade med en teknisk högskola eller ett universitet.
+
+			h5. Tekniska högskolestudenter
+
+			Använder datorer dagligen, antingen som del av sin utbildning och/eller för privat bruk. Van användare av emailklienter, och anpassar sig i behaglig takt till nya sidlayouter eller program. 
+
+			h5. Släktingar och bekanta
+
+			Den tekniska kunnigheten varierar stort inom denna grupp, från datorvana tonåringar till pensionärer som aldrig rört en dator. Kan använda emailklienter till viss mån, och tar lång tid på sig att anpassa sig till nya sidlayouter eller program.
+
+			\paragraph{Typscenario för kunden}
+
+			Kunden går in på Kårspexets hemsida, och trycker på boka biljett. Kunden behöver en snabb och genomförlig överblick av vilka föreställningar som finns, och hur många platser som finns i respektive sektioner. Kunden får snabbt återkoppling på sina val och går igenom flera steg av bokningen; val av föreställning, val av sektion, betalningsuppgifter, och bokningsbekräftelse. Kunden får sedan ett mail från Kårspexet om betalmedel, och betalar sin biljett. Kunden får sedan ett mail från Kårspexet om att hans/hennes biljett finns att hämta hos ombud.
+
+	\subsubsection{Säljare}
+
+
+
+			\paragraph{Teknisk bakgrund för säljare}
+
+			Säljare är medlemmer i Kårspexet, är därmed med stor sannolikhet kårmedlemmar vid en teknisk högskola. De är först och främst aktiva med kårspexets arrangemang, och säljare i andra hand. Det är därför viktigt att säljare snabbt lär sig använda bokningssystemet, då de inte ska kräva någon tidigare utbildning i systemet.
+
+			\paragraph{Typscenario för säljare}
+
+			Säljaren står i Kårhuset eller på utsatt plats, och loggar in på Kårspexets hemsida. Antingen så säljs biljetter på plats, med kunder som står i kö; eller så kommer en kund som bokad sin biljett på hemsidan och valt att betala kontant. I båda fallen så placerar säljaren ut en plats i den sektion kunden har valt, och tar emot betalning för bokningen. Säljaren ger även ut utplacerade biljetter som blivit betalda, till kunder som fått mail från Kårspexet om att deras biljett finns att hämta.
+
+	\subsubsection{Administratör och ekonomiansvarig}
+
+
+
+			\paragraph{Allmän teknisk bakgrund för administratören och ekonomiansvarige}
+
+			Både administratören och ekonomiansvarige är studenter på en teknisk högskola, i Kårspexets fall KTH. De är därmed vana att navigera personliga inloggningssidor, t.ex. Mina sidor, eller studera.nu. De är även vana användare av emailklienter. Deras tekniska bakgrund är uppdelad i två ganska jämna läger; de mindre tekniskt kunniga, och de med lite mer teknisk bakgrund. 
+
+			h5. Mindre teknisk kunnig
+
+			Organisatören kan ha en bakgrund i matematik, biologi, kemi, eller liknande ämne, där programmering inte är en väsentlig del av utbildningen. Organisatören kan hantera textredigerare väl, då han/hon är van att skriva rapporter. Det tar lite längre tid för den mindre tekniskt kunnige att använda nya program eller anpassa sig till nya sidlayouter.
+
+			h5. Mer teknisk kunnig
+
+			Organisatören kan ha en bakgrund i datalogi, teknisk fysik, eller liknande ämne, där programmering har varit del av utbildningen. Organisatören förstår objektorientering, och kanske html eller webbprogrammering. En sida söks igenom systematiskt, och organisatören lär sig snabbt nya sidlayouter eller program.
+
+			\paragraph{Typscenario för administratören}
+
+			Administratören loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 15 minuter till 2 timmar till förfogande att jobba med sina uppgifter. 
+
+			Gör ofta: placera ut betalda bokningar, planera föreställningar och ta hand om specialbokningar, t.ex. handikappsbokningar eller stora företagsbokningar. 
+
+			Gör mer sällan: lägga till en ny teater, lägga till en ny omgång, skicka massutskick till b.la. kundbokningar, kolla på statistik.
+
+			\paragraph{Typscenario för ekonomiansvarige}
+
+			Ekonomiansvarige loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 15 minuter till 2 timmar till förfogande att jobba med sina uppgifter.
+
+			Gör ofta: bockar av betalade bokningar, skickar påminnelser till obetalda bokningar, tar bort gamla bokningar.
+
+			Gör mer sällan: Kolla på utförlig statistik.
+
+	\subsection{Antaganden och beroenden}
+
+
+	Bokningssystemet som utvecklas för Kårspexet är beroende av datorkraft från webbservrar där mjukvaran körs. Mjukvaran och systemet i sin helhet ställer krav på yttre faktorer för att systemet skall bli användbart. De yttre faktorerna är framför allt bandbreddsuppkoppling och serverprestanda.
+
+	Bandbreddsuppkopplingen talar om i vilken hastighet webbservern kan kommunicera med omvärlden. Omvärlden består av ett flertal användare som var och en kräver en viss del av den totala bandbredden då en användare är aktiv. Med andra ord beror behovet av bandbreddsuppkoppling på hur många som använder systemet samtidigt.
+
+	Serverprestanda talar om hur många anrop till ett system som en server kan hantera samtidigt. Varje aktiv användare kräver en del av den totala prestanda som finns tillgänglig. Behovet på serverprestanda beror precis som bandbreddsuppkopplingen på hur många som använder systemet vid samma tidpunkt.
+
+	Antalet samtidiga användare beror på en rad olika antaganden om systemet och användandet av systemet. Utifrån antagandena vill vi bestämma hur mycket prestanda och bandbredd som systemet maximalt kan kräva. De avgörande antagandena berör:
+
+	\textbf{A.} Hur många platser en föreställning har i medeltal.
+
+	\textbf{B.} Hur många föreställningar som släpps för biljettköp åt gången.
+
+	\textbf{C.} Hur stor del av platserna som säljs per tidsenhet då efterfrågan är som störst.
+
+	\textbf{D.} Hur många anrop (sidladdningar)det krävs från bokningsgränssnittet för användaren till servern under en bokning i medeltal (första inladdningen 
+
+	utesluten).
+
+	\textbf{E.} På vilken tid antalet anrop är fördelade vid en bokning (hur lång tid det tar att boka).
+
+	\textbf{F.} Hur mycket trafik som överförs vid första inladdningen av bokningsgränssnittet för användaren.
+
+	\textbf{G.} Hur mycket trafik som överförs vid ett anrop (första inladdningen utesluten) i medeltal.
+
+	\textbf{H.} Hur många platser som bokas vid en bokning i medeltal.
+
+	\textbf{Vi antar att:}
+
+	\textbf{a.} att en föreställning inte har mer än 800 platser.
+
+	\textbf{b.} att biljettsläpp inte görs för mer än 4 föreställningar i taget.
+
+	\textbf{c.} att efterfrågan är maximalt 30% av platserna per timme.
+
+	\textbf{d.} att bokningsgränssnittet för användaren inte behöver anropa servern mer än 10 gånger per bokning (första inladdningen ej inräknad).
+
+	\textbf{e.} att en bokning tar 4 minuter och att bokningens anrop till servern är jämt fördelat över tiden. 
+
+	\textbf{f.} att trafiken vid första inladdningen av bokningsgränssnittet för användaren är 100KiB.
+
+	\textbf{g.} att trafiken för ett anrop (första inladdningen utesluten) är 30KiB stort i medeltal. 
+
+	\textbf{h.} att varje bokning omfattar 2 platser i medeltal.
+
+	Våra antaganden ger:
+
+	0,046 (anrop/sekund) för varje bokning under den tid det tar att boka ((d+1)/(e*60)).
+
+	3200 bokningsbara platser vid varje biljettsläpp (a*b).
+
+	0,27 (platser/sekund) som hanteras då efterfrågan är maximal ((a*b*c)/(100*60*60)).
+
+	0,14 (bokningar/sekund) som hanteras då efterfrågan är maximal ((a*b*c)/(100*60*60*h)).
+
+	1,47 (anrop/sekund) till servern då efterfrågan är maximal ((a*b*c*(d+1))/(100*60*60*h)).
+
+	0,42 (MiBit/sekund) i trafik då efterfrågan är maximal ((a*b*c*(d*g+f)*8)/(100*60*60*h*1024)).
+
+	Utifrån antagandena så skall bandbreddsuppkopplingen minst vara 0,42 MiBit/sekund och webbservern måste klara av att hantera 1,47 anrop/sekund. Vad gäller bandbreddsuppkopplingen så motsvarar 0,42 MiBit/sekund en mindre del av en vanlig uppkoppling i hemmet. Det låga antalet 1,47 anrop/sekund mot bokningssystemet gör att prestanda från en vanlig persondator räcker till.
+
+	Antagandena om användandet av systemet har diskuterats med Kårspexet. De antaganden som gjorts är väl tilltagna gentemot Kårspexets uppfattning av användandet. Antagandena är tilltagna på ett sådant sätt att kraven för bandbreddsuppkoppling och serverprestanda blir större. Med andra ord kommer Kårspexets användande av systemet ha lägre krav på den befintliga hårdvaran än med angivna antagandena ovan.
+
+	\subsection{Plattform}
+
+
+	Biljettsystemet kommer använda flera externa system. Till att börja med kommer ett MVC-framework för webbapplikationer i Ruby on Rails att användas. Det ger oss funktionalitet som gör webbutveckling smidig , databashantering, rendering av HTML och mycket hjälpfunktionalitet som underlättar webbutveckling.
+
+	Vi kommer även att använda databasmotorn MySQL för datalagring. Databasen görs tillgänglig för systemet med hjälp av SQL. Dock kommer Rails att sköta mycket av den kommunikationen åt oss och i slutändan kommer databasen vara tillgänglig genom modeller i form av klasser i koden. 
+
+	Systemet kommer dessutom vara beroende av Apache 2 med modulen Passenger för att sköta inladdningen av applikationen och all HTTP-kommunikation i produktion. Gränssnitt mot Apache är i form av konfigurationsfiler på servern. 
+
+	Om vi väljer att implementera kortbetalning i systemet kommer vi även att vara beroende av ett externt system för hantering av korttransaktioner. Hur gränssnitt mot det systemet ser ut vet vi inte i dagsläget, eftersom inga beslut har tagits angående vilket system som ska användas.
+
+\clearpage
+	\section{Specifika krav}
+
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 1  \\
+	\hline
+	\textbf{Krav} & Loginsystem  \\
+	\hline
+	\textbf{Beskrivning} & För att komma åt säljarnas, ekonomichefens och administratörens gränssnitt och funktioner måste användare identifiera sig via ett användarnamn med tillhörande lösenord. Det ska alltså finnas någon form av säkerhetssystem som hanterar användare och inloggningar.  \\
+	\hline
+	\textbf{Motivering} & För att uppfylla kravet säkerhet.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & High  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Försök komma åt gränssnitten, kontrollera att lösenord efterfrågas och att det rätta lösenordet ger tillgång till gränssnitten.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 2  \\
+	\hline
+	\textbf{Krav} & Boka  \\
+	\hline
+	\textbf{Beskrivning} & Det ska gå att som kund genomföra en bokning med valfritt antal biljetter för en vald föreställning. Detta görs i en flerstegsprocess där kunden först väljer föreställning, sedan vilka platser som ska bokas och slutligen anger sina kontaktuppgifter samt hur betalning ska ske. När bokningen är genomförd presenteras en sammanfattning av den för kunden.  \\
+	\hline
+	\textbf{Motivering} & Huvudsyftet med systemet.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & High  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Boka en biljett och verifiera sedan att den skapats i administrationsgränssnittet.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 3  \\
+	\hline
+	\textbf{Krav} & Bekräftelsemail  \\
+	\hline
+	\textbf{Beskrivning} & Efter att en kund genomfört en bokning ska en bekräftelse skickas via epost till den epostadress som kunden angett i bokningen. Denna bekräftelse ska inkludera nödvändig information om bokningen, såsom: betalningsinformation, bokningsnummer, aktuella datum och tider samt en fungerande länk för avbokning.  \\
+	\hline
+	\textbf{Motivering} & Det är viktigt att Kårspexet får en bekräftelse av bokningen med aktuell information.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Genomför en bokning och verifiera att ett korrekt bekräftelsemail har skickats ut till rätt epostadress.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 4  \\
+	\hline
+	\textbf{Krav} & Studentbiljetter  \\
+	\hline
+	\textbf{Beskrivning} & Vid en bokning skall det gå att boka studentbiljetter som är en typ av specialbiljett. Det som skiljer en studentbiljett från en ordinarie biljett är priset.  \\
+	\hline
+	\textbf{Motivering} & Kårspexet vill att det ska gå att boka rabatterade studentbiljetter.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Genomföra en bokning som inkluderar minst en studentbiljett och verifiera att studentbiljetten syns i administrationsgränssnittet.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 5  \\
+	\hline
+	\textbf{Krav} & Utplacering av platser för bokningar  \\
+	\hline
+	\textbf{Beskrivning} & I administrationsgränsnittet ska det gå att placera ut bokningar på stolsnivå. I detta gränssnitt ska det gå att se vilka platser som är upptagna och vilka som finns tillgängliga för utplacering för den aktuella föreställningen.  \\
+	\hline
+	\textbf{Motivering} & Kårspexet behöver ha möjlighet att manuellt placera ut bokningar.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & High  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Vi administratörsgränssnittet ska man kunna tilldela platser för en ännu oplacerad bokning.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 6  \\
+	\hline
+	\textbf{Krav} & Redigering av bokningar  \\
+	\hline
+	\textbf{Beskrivning} & Administratörer ska kunna redigera befintliga bokningar. Detta inkluderar att ändra betalningsstatus (hur mycket som betalats in), om biljetterna är uthämtade eller inte samt flera andra egenskaper hos bokningarna, dock inte nödvändigtvis alla.  \\
+	\hline
+	\textbf{Motivering} & Det måste gå att uppdatera bokningsstatus  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Gå in och välj att redigera en enskild bokning, verifiera att status går att ändra och att den sparas.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 7  \\
+	\hline
+	\textbf{Krav} & Lägga till Teater  \\
+	\hline
+	\textbf{Beskrivning} & Det ska gå att bygga nya teatrar med varierande mängd platser och sektioner. Platserna ska kunna placeras ut så att de överensstämmer med salongsskissen. I standardutförandet behöver det inte vara en smidig process.  \\
+	\hline
+	\textbf{Motivering} & Eftersom kårspexet kan komma att spela på nya teatrar behöver de kunna lägga till de i bokningssystemet.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & High  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Möjlighet att lägga till en ny teater utöver existerande. Det ska gå att boka en biljett på en föreställning som går på den nya teatern. Bokningen ska kunna tilldelas platser i teatern.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 8  \\
+	\hline
+	\textbf{Krav} & Lägga till Omgång  \\
+	\hline
+	\textbf{Beskrivning} & Man ska kunna lägga till nya omgångar i systemet från administratörs interfacet. Eftersom man annars inte kan visa samma föreställningar flera gånger utan att behöva skapa en ny föreställning för varje visning. Vilket skulle vara väldigt opraktiskt för kunden.   \\
+	\hline
+	\textbf{Motivering} & Kårspexet vill kunna skapa nya omgångar.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & High  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Det ska gå att från administratörens interface lägga till en ny omgång. Denna ska sedan synas i databasen.   \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 9  \\
+	\hline
+	\textbf{Krav} & Redigera Omgång  \\
+	\hline
+	\textbf{Beskrivning} & Det ska gå att ändra på samtliga egenskaper för en omgång via administratörsgränssnittet, dessa ändringar ska synas i de gränssnitt som berörs.  \\
+	\hline
+	\textbf{Motivering} & Om något skulle bli fel vid uppläggning av en ny omgång.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Efter att information har ändrats, ska man kunna se ändringen via bokningsssidan.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 10  \\
+	\hline
+	\textbf{Krav} & Lägg till föreställning  \\
+	\hline
+	\textbf{Beskrivning} & I bokningssystemets administratörsvy skall det gå att lägga till nya föreställningar som tillhör en omgång. En omgång är ett vist spex på en viss teater, en viss period. En föreställning är en av de bokbar tillfällena för en omgång.  \\
+	\hline
+	\textbf{Motivering} & Kårspexet gör nya omgångar med föreställningar varje år. Därför måste Kårspexet kunna lägga till föreställningar.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} &  Testa att lägga till en ny föreställning från administrationsvyn. Kontrollera att en föreställning kan visas och döljas i kundens och säljarens vy, genom att markera föreställningen som bokningsbar/inte bokningsbar.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 11  \\
+	\hline
+	\textbf{Krav} & Redigera föreställningar  \\
+	\hline
+	\textbf{Beskrivning} & Man ska kunna redigera tillagda föreställningar från administratörs vyn. Annars kan man inte uppdaterar dem med ny information som är mera väsentlig.   \\
+	\hline
+	\textbf{Motivering} & Utan kravet kan kunden inte använda systemet på tänkt sätt  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Efter att man har lagt till en föreställning ska man kunna redigera den.   \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 12  \\
+	\hline
+	\textbf{Krav} & Kontantbetalning från säljarvyn  \\
+	\hline
+	\textbf{Beskrivning} & En säljare ska ha möjlighet att ta emot kontant betalning av en kund, och därefter säkerställa en bokning, med placering av biljetten till en plats. Säljaren ska kunna bekräfta betalning och sedan ge ut biljetten till kunden. Det ska även gå för den kund som redan bokat att välja kontant betalning, och ta kontakt med en säljare för att betala sin biljett. Säljaren ska då kunna hitta den bokade biljetten, placera den, ta betalt, och sedan lämna ut den.  \\
+	\hline
+	\textbf{Motivering} & Kårspexet vill kunna stå på offentliga platser och sälja och lämna ut biljetter till kunder.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Kolla så att det går att göra en ny bokning via säljarens gränssnitt, och att den kan slutföras. Kolla så att säljaren kan hitta en obetald bokning, och bekräfta att betalningen är gjord.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 13  \\
+	\hline
+	\textbf{Krav} & Möjlighet att navigera i systemen  \\
+	\hline
+	\textbf{Beskrivning} & I varje vy (kund, säljare, ekonomichef, administatör), ska alla tillhörande funktioner kunna nås via länkar på webbsidorna.  \\
+	\hline
+	\textbf{Motivering} & Användaren måste kunna komma åt all funktionalitet.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Man testar att alla länkarna finns, och att de inte är trasiga.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 14  \\
+	\hline
+	\textbf{Krav} & Säljare ska kunna lämna ut biljetter  \\
+	\hline
+	\textbf{Beskrivning} & Säljare ska i sin vy kunna hitta en kund och se vilka biljetter han ska lämna ut till honom och därefter registrera dem som uthämtade.  \\
+	\hline
+	\textbf{Motivering} & Säljaren behöver ha ett interface för att lämna ut förköpta biljetter.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Man kollar att systemet ger de korrekta biljetterna som svar.   \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 15  \\
+	\hline
+	\textbf{Krav} & Interaktiv översiktsbild  \\
+	\hline
+	\textbf{Beskrivning} & Möjlighet för den som bokar att interagera med översiktsbilden. När man har muspekaren över en rad skall rätt sektion markeras i översiktsbilden och sektionstabellen.  \\
+	\hline
+	\textbf{Motivering} & Det skulle göra det lättare för besökare att förstå vilken sektion de ska boka platser till för att hamna på ett visst ställe i salongen.  \\
+	\hline
+	\textbf{Behov} & Plus  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Nyx  \\
+	\hline
+	\textbf{Verifierbarhet} & Vid bokningssteget där man väljer sektioner skall det gå att interagera med översiktsbilden.   \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 16  \\
+	\hline
+	\textbf{Krav} & Avbokning  \\
+	\hline
+	\textbf{Beskrivning} & En kund skall kunna avboka sin bokning. Det sker genom en länk i bekräftelsemailet för bokningen.  \\
+	\hline
+	\textbf{Motivering} & Användare ska kunna avboka biljetter de inte önskar betala eller hämta ut.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & I bekräftelsemailet finns det en länk till en sida där man kan ta bort sin bokning. Efter att man avbokat ska bokningen vara borta ur systemet.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 17  \\
+	\hline
+	\textbf{Krav} & Enklare statistik   \\
+	\hline
+	\textbf{Beskrivning} & Det skall vara möjligt att från administratörens och ekonomichefens gränssnitt kunna se enklare statistik från systemet. Detta inkluderar: totalt antal utgivna biljetter per föreställning, omgång och spelår, antal utgivna biljetter som är gratis/student/ordinarie per föreställning, omgång och spelår, antal bokade biljetter per föreställning, omgång och spelår.   \\
+	\hline
+	\textbf{Motivering} & Underlättar arbetet för administratör och ekonomichef inför framtida planerianering av nya föreställningar, omgångar och spex.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontrollera att man kan se den enklare statistiken från administratörens och ekonomichefens gränssnitt.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 18  \\
+	\hline
+	\textbf{Krav} & Omfattande statistik  \\
+	\hline
+	\textbf{Beskrivning} & Det skall vara möjligt att från administratörens och ekonomichefens gränssning se mycket utförlig statistik från bokningssystemet. Detta inkluderar, men är ej begränsat till: enklare statistik inom vissa tidsintervall. För föreställning innebär det möjlighet att välja vilken start/sluttid bokning samt utlämning av biljetter skedde. Det skall även vara möjligt att sortera antalet bokningar/utlämningar per dag och efter eventuell rabattklass.  \\
+	\hline
+	\textbf{Motivering} & För bättre föreståelse i bokningen vilket underlättar framtida planering och arbete av nya föreställningar, omgångar och spex.  \\
+	\hline
+	\textbf{Behov} & Plus  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Vi verifierar att statistiken stämmer jämfört med testdata. Kontrollerar att det går att filtrera efter tid och eventuell rabattklass.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 19  \\
+	\hline
+	\textbf{Krav} & Bokning Administratör  \\
+	\hline
+	\textbf{Beskrivning} & Administratören skall ha möjlighet att göra bokningar via administratörsinterfacet. Administratören har full tillgång till rabattklasserna, även gratis, och kan placera ut de valda platserna direkt samt sätta status som betald. En gratisbokning är detsamma som att registrera en gratisbiljett.  \\
+	\hline
+	\textbf{Motivering} & Kravet behövs för att kårspexet ska kunna ge bort gratisbiljetter och ha koll på att det är just gratisbiljetter.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Administratören kan göra bokningar, även registrera gratisbiljetter. Osv Förklara hur Karl ska kolla att (1) kravet finns i designen och (2) att mjukvaran implementerar kravet.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 20  \\
+	\hline
+	\textbf{Krav} & Färgkodning  \\
+	\hline
+	\textbf{Beskrivning} & Den bild som ger kunden en översikt av platsfördelningen på den valda föreställningen ska ha en färgskala, som anger till vilken grad sektionerna är lediga. För att underlätta för färgblinda bör lämpliga färger väljas. Färgerna ändras dynamiskt allt eftersom fler bokningar görs.  \\
+	\hline
+	\textbf{Motivering} & Ger snabb överblick för kunden i början av bokningen.  \\
+	\hline
+	\textbf{Behov} & Plus  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Nyx  \\
+	\hline
+	\textbf{Verifierbarhet} & Kolla så att bilden har korrekt startfärger när det inte finns några bokningar i systemet. Kolla gradvis efter övergångar mellan färger, allt eftersom fler bokningar görs.   \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 21  \\
+	\hline
+	\textbf{Krav} & Filtrera bokningar  \\
+	\hline
+	\textbf{Beskrivning} & Administratörsgränsnitten ska erbjuda möjligheten att filtrera bokningar efter betalnings- och placeringsstatus liksom bokningsnummer, föreställning samt kontaktpersonens namn.  \\
+	\hline
+	\textbf{Motivering} & För att underlätta administrationen av bokningar.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Lista bokningar och verifiera att det finns ett formulär i vilket man kan välja hur bokningarna ska filtreras. Välj att filtrera på något sätt och verifiera att bokningslistan uppdateras korrekt.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 22  \\
+	\hline
+	\textbf{Krav} & Kortköp  \\
+	\hline
+	\textbf{Beskrivning} & Möjlighet för kund att välja att betala med kort vid bokning.  \\
+	\hline
+	\textbf{Motivering} & Kårspexet vill ha kortbetalning som ett smidigt betalsätt för slutanvändaren.  \\
+	\hline
+	\textbf{Behov} & Deluxe  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Välja att betala med kort vid slutförande av en bokning.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 23  \\
+	\hline
+	\textbf{Krav} & Kontohantering  \\
+	\hline
+	\textbf{Beskrivning} & Administratörer ska kunna hantera de olika kontona och byta lösenord på dem. Hur mycket som kan göras här beror på hur kontona utformas.  \\
+	\hline
+	\textbf{Motivering} & Administratörer måste kunna hantera kontona.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontrollera att det går att gå in som administratör och redigera/skapa/hantera konton.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 24  \\
+	\hline
+	\textbf{Krav} & Grafisk statistik  \\
+	\hline
+	\textbf{Beskrivning} & Grafisk framställning av den statistik som finns tillgänglig.  \\
+	\hline
+	\textbf{Motivering} & En grafisk representation gör det enklare att få en överblick över statistiken.  \\
+	\hline
+	\textbf{Behov} & Deluxe  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontrollera att man från administratörens och ekonomichefens gränssnitt kan se den grafiska representationen av statistik.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 25  \\
+	\hline
+	\textbf{Krav} & Hantera utskick  \\
+	\hline
+	\textbf{Beskrivning} & Admin/Ekonomichef ska kunna hantera de massutskick av mail som görs av systemet.  \\
+	\hline
+	\textbf{Motivering} & Det är bra att kunna kontakta olika grupper av slutkunder, till exempel de som inte betalat sina biljetter.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontroll av modell och design. Man kan testa att göra mailutskick.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 26  \\
+	\hline
+	\textbf{Krav} & Sortera bokningar  \\
+	\hline
+	\textbf{Beskrivning} & Administrationsgränsnittets listning av bokningar ska gå att sortera efter någon av de kolumner som visas. För att sortera efter en viss kolumn ska det gå att klicka på kolumnrubriken.  \\
+	\hline
+	\textbf{Motivering} &   \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Nyx  \\
+	\hline
+	\textbf{Verifierbarhet} & Klicka på de olika kolumnrubrikerna i bokningslistan och verifiera att bokningarna sorteras i korrekt ordning.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 28  \\
+	\hline
+	\textbf{Krav} & Ändra betalningsstatus  \\
+	\hline
+	\textbf{Beskrivning} & Det skall vara möjligt att från Administratören och Ekonomichefens gränssnitt att ändra betalningsstatus för en bokning från obetald till betald eller tvärtom.  \\
+	\hline
+	\textbf{Motivering} & Det är viktigt för Kårspexet att de kan registrera inkomna betalningar.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Normal  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Från Administratörens och Ekonomichefens gränssnitt kontrolleras att en bokning kan ändra betalningsstatus.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 29  \\
+	\hline
+	\textbf{Krav} & Förhandsgranskning av utskick  \\
+	\hline
+	\textbf{Beskrivning} & Det ska gå att förhandsgranska utskick innan de genomförs. Innan utskicket görs ska en förhandsgranskning i form av ett av (eventuellt) flera utskick visas.  \\
+	\hline
+	\textbf{Motivering} & För att kunna kontrollera att utskick blir korrekta.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Nyx  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontrollera att inget utskick görs utan att en förhandsgranskning först visas.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 30  \\
+	\hline
+	\textbf{Krav} & Lösenordsgenerator  \\
+	\hline
+	\textbf{Beskrivning} & När administratören skapar nya lösenord för säljare ska det finnas möjlighet att generera slumpmässiga lösenord.  \\
+	\hline
+	\textbf{Motivering} & För att på ett enkelt sätt ändra säljarens lösenord till ett säkert lösenord.  \\
+	\hline
+	\textbf{Behov} & Deluxe  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Kårspexet  \\
+	\hline
+	\textbf{Verifierbarhet} & Det går att generera nytt lösenord när man administrerar säljarkontot.  \\
+	\hline
+\end{tabular}
+
+\begin{tabular} { | p{3cm} | p{12.2cm} | }
+	\hline
+	\textbf{Kravnummer} & 31  \\
+	\hline
+	\textbf{Krav} & Tidsmätning  \\
+	\hline
+	\textbf{Beskrivning} & För varje anrop till systemet, ska tiden det tar att svara mätas. Tiden ska skrivas till en logg.  \\
+	\hline
+	\textbf{Motivering} & För att verifiera att kravet om svarstid har uppfyllts.  \\
+	\hline
+	\textbf{Behov} & Standard  \\
+	\hline
+	\textbf{Prioritet} & Low  \\
+	\hline
+	\textbf{Källa} & Kalle Arvidsson, Johan Stjernberg  \\
+	\hline
+	\textbf{Verifierbarhet} & Kontrollera att tiden står i loggen.  \\
+	\hline
+\end{tabular}
+
+
+	\subsection{Begränsande krav}
+
+
+
+	\subsubsection{Prestanda}
+
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & serverbelastning  \\
+			\hline
+			\textbf{Beskrivning} & Systemet ska utan märkbara problem hantera minst tio typiska användare samtidigt. Hur väl kravet uppfylls beror mycket på serverns prestanda.  \\
+			\hline
+			\textbf{Motivering} & Det kommer förekomma fall då flera använder systemet samtidigt. Hänvisa till antagande i sektion 2, Allmäna begränsningar > tekniska begränsningar eller Antaganden och beroenden.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Johan Stjernberg, Kalle Arvidsson  \\
+			\hline
+			\textbf{Verifierbarhet} & Testkörning av systemet på Kårspexets server med tio eller fler användare.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & svarstid  \\
+			\hline
+			\textbf{Beskrivning} & Systemet får inte ta för lång tid på sig att svara på användarens anrop. Vi kan dock inte ansvara för fördröjningar i nätverket mellan systemet och användaren. Olika operationer kan ha olika långa maximala svarstider. Vid alla operationer i alla gränssnitt som enbart gäller en enstaka bokning ska systemet svara på max 1 sekund.  \\
+			\hline
+			\textbf{Motivering} & Svarstiden är viktig för användarens upplevelse av systemet och vid väldigt långa svarstider försämras systemets användbarhet.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Nyx  \\
+			\hline
+			\textbf{Verifierbarhet} & Tiderna mäts och skrivs till en logg. Kontrollera att tiderna är tillräckligt små.  \\
+			\hline
+		\end{tabular}
+
+
+	\subsubsection{Säkerhet}
+
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & säkerhet  \\
+			\hline
+			\textbf{Beskrivning} & De funktioner som hör till säljarna, ekonomichefen eller administratören, ska bara kunna användas om man angett ett lösenord.  \\
+			\hline
+			\textbf{Motivering} & Bara Kårspexets personal ska kunna använda dessa funktioner.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Kårspexet  \\
+			\hline
+			\textbf{Verifierbarhet} & Verifiera kravet Inloggningssystem  \\
+			\hline
+		\end{tabular}
+
+
+	\subsubsection{Miljö}
+
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & webb  \\
+			\hline
+			\textbf{Beskrivning} & Kunder såväl som Kårspexets personal ska kunna använda bokningssystemet genom webbgränssnitt.  \\
+			\hline
+			\textbf{Motivering} & Smidigast eftersom det innebär maximal tillgänglighet.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Kårspexet  \\
+			\hline
+			\textbf{Verifierbarhet} & Provkörning av systemet via webbläsare.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & rails  \\
+			\hline
+			\textbf{Beskrivning} & Ruby on Rails är ett ramverk för utveckling av webbapplikationer. Bokningssystemet ska huvudsakligen vara byggt med detta ramverk.  \\
+			\hline
+			\textbf{Motivering} & Gruppen tycker det verkar passande för projektet och vill arbeta i ramverket.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Nyx  \\
+			\hline
+			\textbf{Verifierbarhet} & Undersökning av serverns konfiguration samt källkoden.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & webbläsarkompatibilitet  \\
+			\hline
+			\textbf{Beskrivning} & Det ska gå använda bokningssystemets alla funktioner med följande webbläsare: \_Firefox 3\_, \_Internet Explorer 8\_, \_Google Chrome (version ?)\_, \_Safari 3\_, Opera (?). Inga inställningar ska behöva göras utifrån deras standard-konfigurationer(?).  \\
+			\hline
+			\textbf{Motivering} & Dessa webbläsare är stora på marknaden just nu och bör stödas av vårt system. Referera till statistik!  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Instabilt  \\
+			\hline
+			\textbf{Källa} & Nyx  \\
+			\hline
+			\textbf{Verifierbarhet} & Provkörning av systemet i dessa webbläsare.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & visuell webbläsarkompatibilitet  \\
+			\hline
+			\textbf{Beskrivning} & Det ska inte vara skillnad på hur systemets webbsidor ser ut i de webbläsare som nämndes i kravet webbläsarkompatibilitet. Mindre avvikelser får förekomma, till exempel i teckensnitt.  \\
+			\hline
+			\textbf{Motivering} & Om gränssnitten inte ser ut som de är tänkta att se ut, är de troligen svårare att använda. Se även motiveringen för webbläsarkompatibilitet.  \\
+			\hline
+			\textbf{Behov} & Plus  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Instabilt  \\
+			\hline
+			\textbf{Källa} & Nyx  \\
+			\hline
+			\textbf{Verifierbarhet} & Provkörning av systemet i de olika webbläsarna.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & Internet Explorer 7  \\
+			\hline
+			\textbf{Beskrivning} & Kravet webbläsarkompatibilitet uppfylls även för webbläsaren \_Internet Explorer 7\_.  \\
+			\hline
+			\textbf{Motivering} &  \emph{Internet Explorer 7} är en webbläsare som används, men som skiljer sig från de andra webbläsarna så att extra arbete krävs för att sidorna ska visas korrekt. Därför finns detta krav inte i Standard.  \\
+			\hline
+			\textbf{Behov} & Plus  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Instabilt  \\
+			\hline
+			\textbf{Källa} & Victor Hallgren(?)  \\
+			\hline
+			\textbf{Verifierbarhet} & Provkörning av systemet med \_Internet Explorer 7\_.  \\
+			\hline
+		\end{tabular}
+
+
+	\subsubsection{Användbarhet}
+
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & bokningstid  \\
+			\hline
+			\textbf{Beskrivning} & En typisk kund ska kunna genomföra sin första bokning på mindre än fem minuter.  \\
+			\hline
+			\textbf{Motivering} & Det ska vara enkelt och smidigt att använda systemet.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Johan Stjernberg, Kalle Arvidsson  \\
+			\hline
+			\textbf{Verifierbarhet} & En urvalsgrupp som inte tidigare använt systemet provbokar under tidsmätning.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & inlärningstid  \\
+			\hline
+			\textbf{Beskrivning} & En typisk KTH-student ska, på en dag, kunna sätta sig in i administrationsgränssnittets huvudsakliga funktioner.  \\
+			\hline
+			\textbf{Motivering} & Det ska gå smidigt för Kårspexets personal att använda systemet.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Medel  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Johan Stjernberg, Kalle Arvidsson  \\
+			\hline
+			\textbf{Verifierbarhet} & Undersökning av hur lång tid det tar för Kårspexets personal eller andra KTH-studenter att sätta sig in i systemet.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & introduktion  \\
+			\hline
+			\textbf{Beskrivning} & Vid leverans av produkt ska en introduktion till systemet ges vid ett tillfälle. Vi utlovar ingen vidare kundhjälp efter leverans.  \\
+			\hline
+			\textbf{Motivering} & Det är nödvändigt att ge instruktioner till Kårspexet, dock kan inte gratis hjälp utlovas efter leverans.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Låg  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Johan Stjernberg, Kalle Arvidsson  \\
+			\hline
+			\textbf{Verifierbarhet} & Kårspexet kan ombedas intyga att de fått instruktioner för systemet.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & förbättring  \\
+			\hline
+			\textbf{Beskrivning} & Kårspexets personal såväl som deras kunder ska ha ett bättre bokningssystem än det tidigare.  \\
+			\hline
+			\textbf{Motivering} & Om inte vårt bokningssystem är bättre än det befintliga har vi misslyckats med vårt uppdrag.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Kårspexet  \\
+			\hline
+			\textbf{Verifierbarhet} & Kårspexets personal ombedes lämna en muntlig eller skriftlig jämförelse av systemen, med särskilt fokus på användbarhet och effektivitet.  \\
+			\hline
+		\end{tabular}
+
+
+	\subsubsection{Externa system}
+
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & mysql  \\
+			\hline
+			\textbf{Beskrivning} & Bokningssystemet ska använda databashanteraren MySQL.  \\
+			\hline
+			\textbf{Motivering} & Gruppen vill använda MySQL och Kårspexet har samtyckt.  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Nyx, Kårspexet(?)  \\
+			\hline
+			\textbf{Verifierbarhet} & Uppvisning av databas eller kontroll av källkod.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & apache  \\
+			\hline
+			\textbf{Beskrivning} & Bokningssystemet ska använda webbservern Apache.  \\
+			\hline
+			\textbf{Motivering} & Kårspexets webbplats använder Apache (?).  \\
+			\hline
+			\textbf{Behov} & Standard  \\
+			\hline
+			\textbf{Prioritet} & Hög  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Kårspexet(?)  \\
+			\hline
+			\textbf{Verifierbarhet} & Visa att Apache körs på servern.  \\
+			\hline
+		\end{tabular}
+
+		\begin{tabular} { | p{3cm} | p{12.2cm} | }
+			\hline
+			\textbf{Krav} & kortbetalningssystem  \\
+			\hline
+			\textbf{Beskrivning} & Bokningssystemet ska använda sig av ett externt system för kortbetalning.  \\
+			\hline
+			\textbf{Motivering} & Vi kan inte ta på oss att hantera säkra kortbetalningar själva, ett externt system behövs.  \\
+			\hline
+			\textbf{Behov} & Deluxe  \\
+			\hline
+			\textbf{Prioritet} & Medel  \\
+			\hline
+			\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\textbf{Källa} & Nyx, Kårspexet(?)  \\
+			\hline
+			\textbf{Verifierbarhet} & Om kortbetalning fungerar används ett externt system. För verifiering av att kortbetalning fungerar, se kravet kortbetalning(?).  \\
+			\hline
+		\end{tabular}
+
+
+\end{document}
+

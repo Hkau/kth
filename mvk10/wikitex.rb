@@ -8,8 +8,11 @@ split = input.split(/(^h[1-4]\. .*)/)
 # Get rid of stray spaces and newline characters.
 level = 0
 
+hidden_sect = ['Ändringslogg', 'Dokumentversioner']
+
 split.each do |section|
   section.strip!
+  section.gsub! /&/, '\\\&'
   tmp = section.split /\n/
   tmp.each do |line|
     line.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
@@ -17,10 +20,14 @@ split.each do |section|
     line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
     line.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
     line.gsub!(/\+(.+?)\+/, '\underline{\1}')
-    line.gsub!(/(^|\s)_([^\|]+?)_(\s|$)/, '\1\emph{\2}\3')
+    line.gsub!(/(^|\W)(\*_|_\*)([^\|]+?)(\*_|_\*)(\W|$)/, '\1\textbf{\emph{\3}}\5')
+    line.gsub!(/(^|\W)_([^\|]+?)_(\W|$)/, '\1\emph{\2}\3')
+    line.gsub!(/(^|\W)\*(.+?)\*(\W|$)/, '\1\textbf{\2}\3')
   #section.gsub!(/^_([^\|]+?)_$/, '\emph{\1}')
     line.gsub!(/_/, '\_')
-    line.gsub!(/(^|\s)\*(.+?)\*($|\s)/, '\1\textbf{\2}\3')
+    line.gsub!(/(\\url\{[^\}]*)\\_/, '\1_') # \_ => _ inside urls.
+    line.gsub!(/#/, '\#')
+    line.gsub!(/(\\url\{[^\}]*)\\#/, '\1#') # \# => # inside urls.
     line.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
     line.gsub!(/(\d+\^\d+)/, '$\1$')
   end
@@ -88,7 +95,7 @@ while not split.empty?
     if section[1] == '1'
       puts '\clearpage'
     end
-    print "\t", '\\', 'sub'*(section[1].to_i - 1), 'section{', section[2], '}'
+    print "\t" * (section[1].to_i - 1), '\\', 'sub'*(section[1].to_i - 1), 'section', hidden_sect.index(section[2]) != nil ? '*' : '', '{', section[2], '}'
     puts
   end
   level = section[1].to_i - 1
@@ -102,7 +109,7 @@ while not split.empty?
       line = (line+' ').split '|'
       if not in_table
         in_table = true
-	puts "\t" * level + '\begin{tabular} { | p{3cm} | p{12.2cm} | }'
+	puts "\t" * level + '\begin{tabular} { p{2.6cm} p{12.5cm} }'
 	#puts "\t" * level + '\begin{tabular} { |' + ' l |' * line.size + ' }'
 	level += 1
 	puts "\t" * level + '\hline'
@@ -110,7 +117,7 @@ while not split.empty?
       cols = []
       line.each do |word|
         if word[0..2] == '\_.'
-	  cols << '\textbf{' + word[3..-1] + '}'
+	  cols << '\sffamily\textbf{' + word[3..-1] + '}'
 	else
           cols << word
 	end
@@ -121,6 +128,7 @@ while not split.empty?
         in_table = false
 	level -= 1
 	puts "\t" * level + '\end{tabular}'
+	puts "\t" * level + '\vspace{6mm}'
 	puts
       end
     end
