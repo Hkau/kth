@@ -1,0 +1,52 @@
+Hej!
+
+Jag har kollat igenom ditt spel och lämnat lite feedback (på engelska).Du måste komplettera med ett mål med spelet (så att tidsgränsen har två utkomster, både att spelet tar slut för att gränsen gör det, men även tidsgränsen går att klara sig undan). Du måste även komplettera med att en nyckel till ett låst rum på något sätt sparas undan så att den inte fås och används direkt samtidigt.
+
+Alltså: Mål i spelet + nyckel som sparas och inte används automatiskt direkt.
+
+Hur du väljer att lösa dessa är upp till dig. Resten ser bra ut!
+
+- Peter
+
+All handled commands should return false inside their if/else-if block (go, chargebeamer and firebeamer doesn't now).
+
+7.42 (time limit):
+
+ - This line: if(tryToGo(command) && ++currentTime >= TIME_LIMIT) {
+   Is unneccessarily complex. Just put ++currentTime and the check
+   inside the first if block. (Make an additional level, for
+   readability).
+
+   I know you're capable of reading and understanding it, but in cases
+   where you have to share code or read someone else's, you need to
+   practice readability. Putting this inside a different if block will
+   help. It'd also be good if you had an else-case returning false, so
+   you can easily spot both cases' outcome.
+
+ - Although your game implements a time limit, the assignment specifies,
+   albeit a bit vague, that there should be some certain task that can
+   be completed before this time limit runs out in order to not lose the
+   game.
+
+7.43 (trapdoor):
+
+ - Note that the message "You are stuck here forever" doesn't apply if
+   you've previously charged the beamer.
+
+7.44 (beamer):
+
+ - Looks fine. Swift/easy solution.
+
+ - Could've been a "beamer item", if you chose to implement items. Then
+   each item could be charged with an own location.
+
+7.45 (locked door):
+
+ - This is not what the book describes a locked door to be. This is more
+   of a 'quiz door' or something along those lines. It's important,
+   because finding a 'key' and storing it, so that it can be used later,
+   is more complex and therefore a good exercise.
+
+ - The unlockExit() function and Door class are a good design. :)
+
+ - (These are not differential equations.)
