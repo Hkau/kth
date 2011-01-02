@@ -1,0 +1,69 @@
+Hej Emil!
+
+Jag måste verkligen börja med att säga: Shit. Uppdelningen,
+omkonstruktionen och moduleringen är jättefin. Verkligen! Bra
+återanvändning av flera items av samma typ. Väldigt, väldigt bra
+designat! Bra jobbat!
+
+Jag har lämnat lite feedback, men i det här fallet är den mer på random
+saker i spelet än strukturmessigt.
+
+Du ska vara inrapporterad i rapp. Kolla så att det stämmer!
+
+- Peter
+
+Notes:
+
+Hans & Greta is called Hansel & Gretel in Engelska. :)
+
+This game is unfair. :(
+
+You should have a short-name for the items, so that you can write either
+"take Chocolate-key" or "take key". Maybe also a "take all" command.
+
+The "go" command could be extended to show the exits, in case you miss
+them the first time they're printed out or do things and have to scroll
+back. "go where? This room has exits to the north, west, east and
+south". Same for "take", which could show what's in the room.
+
+These suicide items are unfair. How was I supposed to know you hang
+yourself with that rope? :(
+
+You die too fast. I couldn't even check out the south side before dying.
+
+It was satisfying to beat though.
+
+"You are in win room." is an awesome finishing phrase. The game doesn't
+end when you enter win room. This is a structural limitation by the
+original design. You could have a true-false function inside Room that
+lets the win room signal back "when a player enters here, you win." The
+"go" command could then signal back that the game should finish and the
+game should quit.
+
+"Exits: none" sounds like there's a "none" exit, I was actually typing
+"go none" after entering the win room to see if there was a secret
+ending to this.
+
+7.42 (time limit):
+
+ - Nice move-limit interpretation and implementation. I like that it's
+   not a global limit, but rather tied to the player.
+
+7.43 (trapdoor):
+
+ - Great solution to having a special string for enter messages here.
+   "You can hear the cave behind you collapse."
+
+ - Why would you use the Toffee-pickaxe on your own head? I was hoping
+   you could break your way out of the gingerbread house. :<
+
+7.45 (locked door):
+
+- VERY clean solution with having a key item for the door. Awesome.
+
+7.47 (modular command system):
+
+ - Very ambitious and modular command system.
+
+ - Only non-modular thing is that the commands still only take one word.
+
