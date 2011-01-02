@@ -1,0 +1,59 @@
+Tack för uppdelningen av alla filer i varsitt häfte. Johan har
+gjort grymt bra kommentarer, ta till dig av dem och tänk på dem.
+Jag skriver lite kommentarer som kanske är bra feedback eller går
+att tänka på i framtiden. Det är utanför uppgiftens utsträckning
+men kanske intressant.
+
+Spelet borde stänga av när man vinner, eller så borde man flyttas
+till dödsstjärnan när man väntat. Stod kvar i brun efter att ha
+vunnit samtidigt som jag demonstrerade. :)
+
+Rättvist att behöva veta vem Kefka är. Final what now? :(
+
+Mindless nagging:
+ - Variable names are often not self-explanatory. Quest timeAfter4,
+   for one, is hard to imagine what that is. This is hard to avoid,
+   but useful if done right.
+ - Try to write code while thinking that someone else has to read
+   it. This helps if you ever have to look back at previously
+   written code, say if something doesn't work as it should.
+
+Quest:
+ - Maybe the quests should inherit from Quest and be TimeQuest etc.
+   They could each implement tryToFinish() and not be a huge mashup
+   of several classes, while each instance only use the properties
+   of one these 'classes'.
+
+7.42 (time limit):
+ - The "time" variable usage is not perfectly clear. Twelfth of an
+   hour? This could be called "ticks" or something. Also maybe not
+   part of Game. How many ticks per hour doesn't have to be hard
+   coded as well.
+ - Creative solution as to why there would be a time limit at all,
+   good.
+ 
+7.43 (trap door):
+ - Not entirely obvious that you were going to enter that fridge. I
+   mean, it's ok if it shuts on you, but it'd be more fair if you
+   knew what going in meant.
+ - Might also say something like "the door slams shut".
+
+7.48 (characters):
+ - More than enough characters, really nice.
+ - Nice that the characters have actions etc. and not "just" static
+   talking.
+ - Some characters have a few bugs and might say some things twice,
+   and also be inconsequent "come back after 4. let's go".
+ 
+7.49 (moving characters):
+ - Johan said you implemented this, but I couldn't run in to any of
+   them that moved. They disappear, but they don't walk around, from
+   what I can tell.
+
+(This contains more than enough to pass, without moving characters.)
+
+Kul spel, behövde bråka lite för att få igång det. (å,ä,ö osv). Godkänt
+och inmatat i rapp. Dubbelkolla så att det blev rätt.
+
+- Peter
+

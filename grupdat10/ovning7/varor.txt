@@ -1,0 +1,16 @@
+% Format:
+% kod (motsvarar vad som "blippas" in av kassören)
+% namn
+% pris antal
+=============================================
+100
+CHIPS
+14.90 353
+
+135
+STÖVLAR
+159 234
+
+280
+VOLVO
+107000 4

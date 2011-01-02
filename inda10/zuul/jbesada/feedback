@@ -1,0 +1,42 @@
+Hej Joel!
+
+Bra spel, det är lagom stort för tidsgränsen i spelet. Här kommer
+lite kommentarer på implementationerna av kraven. Det är ingenting
+som bör åtgärdas, utan det är bara lite feedback och kan vara nyttigt
+att tänka på. Kommentarer på Hannes spel ser bra ut.
+
+7.42 (time limit):
+ - nice grammar feat (minute/minutes)
+
+7.43 (trapdoor/one-way entrance):
+ - An instanceof solution is usually considered bad, as everything
+   has to be handled from outside the class itself. In this case the
+   'god class' Game. A god class is a large class which has the task
+   of controlling or doing pretty much everything.
+ - It would be better if rooms could handle some of this
+   functionality by themselves. In this case there'd be a problem if
+   you wanted to have a locked TrapRoom, for instance.
+
+7.45 (locked door):
+ - Note that any keys named 'key' will unlock all LockedRoom, right?
+   Therefore you need a new LockedRoom class for each door unless you
+   want this behaviour.
+ - getLocked() is not as 'expressive' as being able to type
+   if(nextRoom.isLocked()) which is easier to read and explains more
+   of what you're trying to do.
+ - Making the locked room a win condition by itself is less flexible
+   than having a specific room instance being a win condition. This
+   needs to be avoided to be extensible enough to have more than one
+   locked room. As this however is implemented in the Game class, it's
+   less of an issue, because the Game class decides the goal.
+
+7.46 (transport, random room):
+ - Nice solution, this is very clean.
+ - A suggestion for this (which would require way more refactoring) is
+   that each room has a command that's being run when you enter a room.
+   This would mean that you never, ever stay inside the transport room
+   because it instantly moves you.
+
+Du är godkänd och resultatet ska vara inrapporterat i rapp. Dubbelkolla!
+
+- Peter

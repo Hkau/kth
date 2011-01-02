@@ -3,12 +3,12 @@ puts open('nyx-head.tex').read
 input = $stdin.read
 input.gsub!(/\r/, '') # removes \r from possible \r\n
 
-split = input.split(/(^h[1-4]\. .*)/)
+split = input.split(/(^h[1-5]\. .*)/)
 
 # Get rid of stray spaces and newline characters.
 level = 0
 
-hidden_sect = ['Ändringslogg', 'Dokumentversioner']
+hidden_sect = ['Ändringslogg', 'Dokumentversioner', 'Gruppmedlemmar']
 
 split.each do |section|
   section.strip!
@@ -27,9 +27,10 @@ split.each do |section|
     line.gsub!(/_/, '\_')
     line.gsub!(/(\\url\{[^\}]*)\\_/, '\1_') # \_ => _ inside urls.
     line.gsub!(/#/, '\#')
+    line.gsub!(/%/, '\%')
     line.gsub!(/(\\url\{[^\}]*)\\#/, '\1#') # \# => # inside urls.
     line.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
-    line.gsub!(/(\d+\^\d+)/, '$\1$')
+    line.gsub!(/(\d+)\^(\d+)/, '$\1^{\2}$')
   end
   section[0..-1] = tmp.join "\n"
   #section.gsub! /^(\s*$)+/m, "\n\n"
@@ -47,6 +48,11 @@ puts '\begin{document}'
 while true do
   if split[0] =~ /^h1. abstract\s*$/i
     puts '\maketitle'
+    puts
+    puts '\clearpage'
+    puts '\thispagestyle{empty}'
+    puts '\mbox{}'
+    puts '\newpage'
     puts
     puts '\selectlanguage{english}'
     puts '\begin{abstract}'
@@ -79,7 +85,7 @@ in_table = false
 # eat the rest, nom nom :3
 while not split.empty?
   #puts split[0]
-  section = split[0].match /^h([1-4])\.\s+(.*)\s*$/
+  section = split[0].match /^h([1-5])\.\s+(.*)\s*$/
   if "appendix".casecmp(section[2]) == 0
     puts '\clearpage'
     puts "\t\\appendix"
@@ -90,7 +96,9 @@ while not split.empty?
 #  elsif section[1] == '1'
 #    puts '\chapter{',section[2],'}'
   elsif section[1] == '4'
-    print "\t" * 3, '\paragraph{', section[2], '}'
+    print "\t" * 3, '\paragraph{', section[2], '}\\'
+  elsif section[1] == '5'
+    print "\t" * 3, '\subparagraph{\emph{', section[2], '}}\\'
   else
     if section[1] == '1'
       puts '\clearpage'
