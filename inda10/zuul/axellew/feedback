@@ -1,0 +1,68 @@
+Hej!
+
+Jag har (äntligen) spelat igenom det, du har nog den mest ambitiösa implementationen hittills. Det ser ut som att du har haft roligt när du har skrivit, kul! :)
+
+Det ser jättebra ut, all feedback är därför förslag och inte alls first impression, det ser bra uttänkt ut, även om feedbacken ibland låter torr.
+
+Du är godkänd, dubbelkolla så att det är inrapporterat i rapp.
+
+- Peter
+
+Notes:
+
+Jag testade aldrig några andra script än run.sh, men du borde använda en Makefile förslagsvis.
+
+'./org/' är samma som att skriva 'org/' btw.
+
+Konsollen borde stänga ner när spelet tar slut, uppmana till nedstängning eller säga något i stil med "starta om för att spela igen". Fast jag har en fönsterhanterare utan lister, så krysset kanske egentligen är lätt-tillgängligt..
+
+Men bättre vore det om man kunde starta om i spelet, eller att det startade om sig själv direkt. :)
+
+Kommandon som inte alltid finns (prata), är hett.
+
+Kommandon borde vara case-insensitive och Gå borde funka likväl som gå.
+
+Att konsollen lagrar historik är jätteskönt. Det är jättelätt att skriva fel.
+
+Det står "och du ser borgen bakom dig" oavsett vilket håll man kommer in på bron från.
+
+Sista skärmen borde inte säga "Utgångar: söder".
+
+Hahahahaha, Wikipedia-sökningen är så jävla het. :D
+
+7.43 (trapdoor):
+
+ - Tack för skylten som varnade för den. Jag missade skylten första
+   gången dock. :)
+
+7.45 (locked door):
+
+ - Vissa av dörrarna kanske egentligen borde låsas upp av att man
+   pratar med personen som ska få tillbaka saker. T.ex. att man ger
+   sigillet till Umusa, inte att man använder kommandot låsupp för att
+   få komma in.
+
+ - Stenen som används för att låsa upp dörren borde användas direkt,
+   eller ge kommandot "använd sten av delen", låsupp är tyvärr inte
+   världens coolaste kommando.
+
+(7.46 (transport room)):
+
+ - Teleporterar till starten, inte random. Men förklarar hur, så..
+
+7.47 (modular command system):
+
+ - Fint modulärt system! :)
+
+ - Synonymer hade varit fint (tala & prata t.ex.)
+
+7.48 (characters):
+
+ - Du hade kunnat göra så att prata-kommandot (och andra) tar ett extra
+   ord, så att man skriver "prata med", och sedan kan kommandot själv
+   skippa de 4 första bokstäverna om man skrivit "med Katt", och om man
+   inte gjort det så kan den skriva "du kan försöka prata med något.."
+
+7.49 (moving characters):
+
+ - Naaaw, gullig katt. :)

@@ -1,0 +1,133 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphics}
+\usepackage{fancyhdr}
+\usepackage{listingsutf8}
+\usepackage{verbatim}
+%\usepackage[cm]{fullpage}
+\usepackage[a4paper,top=2cm, bottom=3cm]{geometry}
+\lstset{
+	language=Java,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=8pt,
+	basicstyle=\ttfamily\footnotesize,
+	commentstyle=\small,
+	keywordstyle=\bfseries,
+	stringstyle=\ttfamily,
+	showstringspaces=false,
+	breaklines=true,
+	inputencoding=utf8/latin1,
+	tabsize=4,
+	frame=none,
+	title=\lstname
+}
+\setcounter{secnumdepth}{0}
+%\pagestyle{empty}
+\setlength{\parindent}{0px}
+\setlength{\parskip}{2ex}
+\pagestyle{fancy}
+
+\fancyhead{} % clear all header fields
+%\fancyhead[RO,RE]{\bfseries Axel Lewenhaupt}
+%\fancyhead[LO,LE]{\bfseries Inda uppgift 8}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{Inda8}
+\author{Axel Lewenhaupt\\axellew@kth.se}
+
+\begin{document}
+\section{Kommentarer World of Zuul}
+Jag tycker du har gjort ett bra jobb med spelet. Det var lätt att se vilka kommandon fanns och vart man kunde gå. Även bra med felmeddelanden och liknande.
+
+Det finns detaljer som kanske borde ändras. Jag ger förslag och varför man skulle kunna skriva på ett annan sätt men inget av dem är ett måste utom möjligen sättet du ser ifall personen är i rätt rum. Mer om det finns i nästa stycke.
+
+\subsection{Hårdkodade jämförelser}
+För till fället ser du ifall personen är i ett visst rum genom att använda den $description$ som rummet har. Det kan bli jobbigt ifall man ändrar på beskrivningen på ett rum för då kommer resten av koden helt plötsligt tycka att det är ett helt annan rum. Exempel på kod från ditt spel:
+\begin{lstlisting}
+currentRoom.getShortDescription().equals("in the town's harbor")
+\end{lstlisting}
+Mitt förslag är att jämföra $currentRoom$ med $harbor$ istället, så att den kollar ifall det är samma rum snarare än att kolla ifall beskrivningen är samma. För att det ska fungera måste du göra så att man kan komma åt rummen. För tillfället är de lokala variabler i $createRoomsAndItems()$ men du skulle kunna flytta ut dem och ha dem som instancevariabler istället:
+\begin{lstlisting}
+public class Game {
+    private Room townSquare, giftShop, fleastinkHotel, room605, darkAlley, harbor, submarine, pub, abandonedFactory, sewers, airport;
+    ...
+\end{lstlisting}
+och sedan ett exempel på en jämförelse:
+\begin{lstlisting}
+currentRoom.equals(harbor)
+\end{lstlisting}
+
+Det finns liknande problem med föremål och vädersträck. Genom att använda text som sätt att hämta ut föremål eller "dörrar" till andra rum kommer inte kompilator att upptäcka fel. För att lösa det kan man använda sig av $enums$ eller konstanter. Ifall du då råkar skriva $NOTRH$ istället för $NORTH$ kommer kompilatorn ge ett felmeddelande och du slipper spela igenom hela spelet bara för att hitta felet. Det kan vara lite överkurs så det kan skippas. Jag ger ändå ett exempel på hur det skulle kunna se ut:
+\begin{lstlisting}
+public class Game {
+    private static enum Directions {
+        NORTH("north"), SOUTH("south"), WEST("west"), EAST("east");
+        Directions(String value) {
+            this.value = value;
+        }
+        private String value;
+        public String getValue() {
+            return value;
+        }
+    }
+    ...
+    private void createRoomsAndItems() {
+    	townSquare.setExit(Directions.NORTH.getValue(), fleastinkHotel);
+    }
+    ...
+}
+\end{lstlisting}
+eller med hjälp av konstanter:
+\begin{lstlisting}
+public class Game {
+    private final static String NORTH = "north";
+    private final static String SOUTH = "south";
+    ...
+    private void createRoomsAndItems() {
+    	townSquare.setExit(NORTH, fleastinkHotel);
+    }
+    ...
+}
+\end{lstlisting}
+\subsection{Kommentarer}
+Du har kommentarer på både svenska och engelska. På de flesta ställerna är det för att hjälpa mig att förstå var du har ändrat men i t. ex: $Player$ står en del på svenska och del på engelska eller så har du helt hoppat över att skriva en riktigt kommentar.
+
+Du har hoppat över att beskriva in och utdata på några funktioner. Det kan vara överflödigt att ha på en del eftersom variabelnamnen är rätt självförklarande. 
+
+Det finns egentligen inte så stor anledning att skriva långa dokumentationskommentarer på privata metoder. De kommer aldrig att synas i dokumentationen och ska därför bara förklara ifall något skulle vara svårt att förstå i metoden. Det här är bara ett tips ifall man tycker det är tråkigt att skriva kommentarer och tycker egentligen inte att du ska ändra något i koden.
+\subsection{Klamrar}
+På många ställen i koden står det:
+\begin{lstlisting}
+if (condition) {
+    //Do something
+}
+else if (condition) {
+    ...
+\end{lstlisting}
+Det vanligaste sättet är att flytta upp $else$ $if$ till raden åvan så det blir:
+\begin{lstlisting}
+if (condition) {
+    //Do something
+} else if (condition) {
+    ...
+\end{lstlisting}
+och på klasser och metod namn:
+\begin{lstlisting}
+public class Game 
+{
+    ...
+//Borde vara
+public class Game {
+    ...
+\end{lstlisting}
+Hela det här stycket är också bara tips. Ingen av sättet är rätt eller fel men man bör vara konsekvent med hur man gör det. Bluej krånglar också till det genom att lägga till klamrar på fel sätt.
+\end{document}

@@ -1,0 +1,283 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.x2d.zuul;<a name="line.1"></a>
+<FONT color="green">002</FONT>    import java.util.Set;<a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.util.HashMap;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.util.Iterator;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import java.util.*;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import java.io.*;<a name="line.6"></a>
+<FONT color="green">007</FONT>    /**<a name="line.7"></a>
+<FONT color="green">008</FONT>     * Class Room - a room in an adventure game.<a name="line.8"></a>
+<FONT color="green">009</FONT>     *<a name="line.9"></a>
+<FONT color="green">010</FONT>     * A "Room" represents one location in the scenery of the game.  It is <a name="line.10"></a>
+<FONT color="green">011</FONT>     * connected to other rooms via doors.  For each existing exit, the room <a name="line.11"></a>
+<FONT color="green">012</FONT>     * stores a reference to the door.<a name="line.12"></a>
+<FONT color="green">013</FONT>     * <a name="line.13"></a>
+<FONT color="green">014</FONT>     * The room also has items and doors which the player can interact with.<a name="line.14"></a>
+<FONT color="green">015</FONT>     */<a name="line.15"></a>
+<FONT color="green">016</FONT>    public class Room implements Serializable {<a name="line.16"></a>
+<FONT color="green">017</FONT>        private String description;<a name="line.17"></a>
+<FONT color="green">018</FONT>        private HashSet&lt;Items&gt; items = new HashSet&lt;Items&gt;(2);<a name="line.18"></a>
+<FONT color="green">019</FONT>        private HashMap&lt;String, Door&gt; exits;        // stores exits of this room.<a name="line.19"></a>
+<FONT color="green">020</FONT>        private HashMap&lt;String, Character&gt; characters;<a name="line.20"></a>
+<FONT color="green">021</FONT>    <a name="line.21"></a>
+<FONT color="green">022</FONT>        /**<a name="line.22"></a>
+<FONT color="green">023</FONT>         * Create a room described "description". Initially, it has<a name="line.23"></a>
+<FONT color="green">024</FONT>         * no exits. "description" is something like "a kitchen" or<a name="line.24"></a>
+<FONT color="green">025</FONT>         * "an open court yard".<a name="line.25"></a>
+<FONT color="green">026</FONT>         * @param description The room's description.<a name="line.26"></a>
+<FONT color="green">027</FONT>         */<a name="line.27"></a>
+<FONT color="green">028</FONT>        public Room(String description) {<a name="line.28"></a>
+<FONT color="green">029</FONT>            this.description = description;<a name="line.29"></a>
+<FONT color="green">030</FONT>            exits = new HashMap&lt;String, Door&gt;();<a name="line.30"></a>
+<FONT color="green">031</FONT>            characters = new HashMap&lt;String, Character&gt;();<a name="line.31"></a>
+<FONT color="green">032</FONT>        }<a name="line.32"></a>
+<FONT color="green">033</FONT>    <a name="line.33"></a>
+<FONT color="green">034</FONT>        /**<a name="line.34"></a>
+<FONT color="green">035</FONT>         * Define an exit from this room. If neighbor is not null then<a name="line.35"></a>
+<FONT color="green">036</FONT>         * it will add the door to that room too.<a name="line.36"></a>
+<FONT color="green">037</FONT>         * @param direction The direction of the exit.<a name="line.37"></a>
+<FONT color="green">038</FONT>         * @param neighbor  The room to which the exit leads.<a name="line.38"></a>
+<FONT color="green">039</FONT>         */<a name="line.39"></a>
+<FONT color="green">040</FONT>        public void setEntrance(String direction, Room neighbor, Door door) {<a name="line.40"></a>
+<FONT color="green">041</FONT>            ArrayList&lt;String&gt; directions = new ArrayList&lt;String&gt;(4);<a name="line.41"></a>
+<FONT color="green">042</FONT>            directions.add(Game.Directions.NORTH.getValue());<a name="line.42"></a>
+<FONT color="green">043</FONT>            directions.add(Game.Directions.EAST.getValue());<a name="line.43"></a>
+<FONT color="green">044</FONT>            directions.add(Game.Directions.SOUTH.getValue());<a name="line.44"></a>
+<FONT color="green">045</FONT>            directions.add(Game.Directions.WEST.getValue());<a name="line.45"></a>
+<FONT color="green">046</FONT>            door.setRoom1(this);<a name="line.46"></a>
+<FONT color="green">047</FONT>            exits.put(direction, door);<a name="line.47"></a>
+<FONT color="green">048</FONT>            if (neighbor!=null) {<a name="line.48"></a>
+<FONT color="green">049</FONT>                //Gets the other side's exit direction, so south return north and so on<a name="line.49"></a>
+<FONT color="green">050</FONT>                String oppositeDirection = directions.get((directions.indexOf(direction)+2)%4);<a name="line.50"></a>
+<FONT color="green">051</FONT>                neighbor.setExit(oppositeDirection, door);<a name="line.51"></a>
+<FONT color="green">052</FONT>            }<a name="line.52"></a>
+<FONT color="green">053</FONT>        }<a name="line.53"></a>
+<FONT color="green">054</FONT>        <a name="line.54"></a>
+<FONT color="green">055</FONT>        /**<a name="line.55"></a>
+<FONT color="green">056</FONT>         * Define an exit from this room. The difference from setEntrance is that this<a name="line.56"></a>
+<FONT color="green">057</FONT>         * only sets a door to an direction and does not care where the door goes.<a name="line.57"></a>
+<FONT color="green">058</FONT>         * @param direction The direction of the exit.<a name="line.58"></a>
+<FONT color="green">059</FONT>         * @param door The door that should be in that direction.<a name="line.59"></a>
+<FONT color="green">060</FONT>         */<a name="line.60"></a>
+<FONT color="green">061</FONT>        public void setExit(String direction, Door door) {<a name="line.61"></a>
+<FONT color="green">062</FONT>            if (door!=null) {<a name="line.62"></a>
+<FONT color="green">063</FONT>                door.setRoom2(this);<a name="line.63"></a>
+<FONT color="green">064</FONT>                exits.put(direction, door);<a name="line.64"></a>
+<FONT color="green">065</FONT>            } else {<a name="line.65"></a>
+<FONT color="green">066</FONT>                exits.remove(direction);<a name="line.66"></a>
+<FONT color="green">067</FONT>            }<a name="line.67"></a>
+<FONT color="green">068</FONT>            <a name="line.68"></a>
+<FONT color="green">069</FONT>        }<a name="line.69"></a>
+<FONT color="green">070</FONT>    <a name="line.70"></a>
+<FONT color="green">071</FONT>        /**<a name="line.71"></a>
+<FONT color="green">072</FONT>         * @return The short description of the room<a name="line.72"></a>
+<FONT color="green">073</FONT>         * (the one that was defined in the constructor).<a name="line.73"></a>
+<FONT color="green">074</FONT>         */<a name="line.74"></a>
+<FONT color="green">075</FONT>        public String getShortDescription() {<a name="line.75"></a>
+<FONT color="green">076</FONT>            return description;<a name="line.76"></a>
+<FONT color="green">077</FONT>        }<a name="line.77"></a>
+<FONT color="green">078</FONT>    <a name="line.78"></a>
+<FONT color="green">079</FONT>        /**<a name="line.79"></a>
+<FONT color="green">080</FONT>         * Return a description of the room<a name="line.80"></a>
+<FONT color="green">081</FONT>         * @return A long description of this room<a name="line.81"></a>
+<FONT color="green">082</FONT>         */<a name="line.82"></a>
+<FONT color="green">083</FONT>        public String getLongDescription() {<a name="line.83"></a>
+<FONT color="green">084</FONT>            StringBuilder tmpString = new StringBuilder();<a name="line.84"></a>
+<FONT color="green">085</FONT>            tmpString.append(description).append("\n");<a name="line.85"></a>
+<FONT color="green">086</FONT>            Collection&lt;Items&gt; items = getItems();<a name="line.86"></a>
+<FONT color="green">087</FONT>            if (items.size() != 0) {<a name="line.87"></a>
+<FONT color="green">088</FONT>                tmpString.append(String.format("Det finns %d föremål i rummet:\n", items.size()));<a name="line.88"></a>
+<FONT color="green">089</FONT>                for (Items item : getItems()) {<a name="line.89"></a>
+<FONT color="green">090</FONT>                    Item itemObject = item.getItem();<a name="line.90"></a>
+<FONT color="green">091</FONT>                    tmpString.append(" - ").append(itemObject.getName()).append(": ");<a name="line.91"></a>
+<FONT color="green">092</FONT>                    tmpString.append(itemObject.getDescription()).append("\n");<a name="line.92"></a>
+<FONT color="green">093</FONT>                }<a name="line.93"></a>
+<FONT color="green">094</FONT>            }<a name="line.94"></a>
+<FONT color="green">095</FONT>            Collection&lt;Character&gt; characters = getCharacters();<a name="line.95"></a>
+<FONT color="green">096</FONT>            if (characters.size() != 0) {<a name="line.96"></a>
+<FONT color="green">097</FONT>                tmpString.append(String.format("There finns %d person%s/djur i rummet:\n", characters.size(), (characters.size()==1)?"":"er"));<a name="line.97"></a>
+<FONT color="green">098</FONT>                for (Character character : characters) {<a name="line.98"></a>
+<FONT color="green">099</FONT>                    tmpString.append(" - ").append(character.getName());<a name="line.99"></a>
+<FONT color="green">100</FONT>                    if (character.isFirstTime()) {<a name="line.100"></a>
+<FONT color="green">101</FONT>                        tmpString.append(" säger: ").append(character.getFirstTimeText());<a name="line.101"></a>
+<FONT color="green">102</FONT>                        character.setFirstTime(false);<a name="line.102"></a>
+<FONT color="green">103</FONT>                    }<a name="line.103"></a>
+<FONT color="green">104</FONT>                    tmpString.append("\n");<a name="line.104"></a>
+<FONT color="green">105</FONT>                }<a name="line.105"></a>
+<FONT color="green">106</FONT>            }<a name="line.106"></a>
+<FONT color="green">107</FONT>            tmpString.append(getExitString());<a name="line.107"></a>
+<FONT color="green">108</FONT>            return tmpString.toString();<a name="line.108"></a>
+<FONT color="green">109</FONT>        }<a name="line.109"></a>
+<FONT color="green">110</FONT>    <a name="line.110"></a>
+<FONT color="green">111</FONT>        /**<a name="line.111"></a>
+<FONT color="green">112</FONT>         * Return a string describing the room's exits, for example<a name="line.112"></a>
+<FONT color="green">113</FONT>         * "Exits: north west".<a name="line.113"></a>
+<FONT color="green">114</FONT>         * @return Details of the room's exits.<a name="line.114"></a>
+<FONT color="green">115</FONT>         */<a name="line.115"></a>
+<FONT color="green">116</FONT>        private String getExitString() {<a name="line.116"></a>
+<FONT color="green">117</FONT>            StringBuilder returnString = new StringBuilder("Utgångar:");<a name="line.117"></a>
+<FONT color="green">118</FONT>            Set&lt;String&gt; keys = exits.keySet();<a name="line.118"></a>
+<FONT color="green">119</FONT>            if (keys.size()!=0) {<a name="line.119"></a>
+<FONT color="green">120</FONT>                for(String exit : keys) {<a name="line.120"></a>
+<FONT color="green">121</FONT>                    returnString.append(" ").append(exit);<a name="line.121"></a>
+<FONT color="green">122</FONT>                }<a name="line.122"></a>
+<FONT color="green">123</FONT>            } else {<a name="line.123"></a>
+<FONT color="green">124</FONT>                returnString.append(" inga");<a name="line.124"></a>
+<FONT color="green">125</FONT>            }<a name="line.125"></a>
+<FONT color="green">126</FONT>            return returnString.toString();<a name="line.126"></a>
+<FONT color="green">127</FONT>        }<a name="line.127"></a>
+<FONT color="green">128</FONT>        <a name="line.128"></a>
+<FONT color="green">129</FONT>        /**<a name="line.129"></a>
+<FONT color="green">130</FONT>         * Gets a door from this room by direction.<a name="line.130"></a>
+<FONT color="green">131</FONT>         *<a name="line.131"></a>
+<FONT color="green">132</FONT>         * @param direction The direction.<a name="line.132"></a>
+<FONT color="green">133</FONT>         * @return the door or null if it doesn't exist<a name="line.133"></a>
+<FONT color="green">134</FONT>         */<a name="line.134"></a>
+<FONT color="green">135</FONT>        public Door getDoor(String direction) {<a name="line.135"></a>
+<FONT color="green">136</FONT>            return exits.get(direction);<a name="line.136"></a>
+<FONT color="green">137</FONT>        }<a name="line.137"></a>
+<FONT color="green">138</FONT>        <a name="line.138"></a>
+<FONT color="green">139</FONT>        /**<a name="line.139"></a>
+<FONT color="green">140</FONT>         * Adds an item to this room.<a name="line.140"></a>
+<FONT color="green">141</FONT>         * @param item The item<a name="line.141"></a>
+<FONT color="green">142</FONT>         */<a name="line.142"></a>
+<FONT color="green">143</FONT>        public void addItem(Items item) {<a name="line.143"></a>
+<FONT color="green">144</FONT>            items.add(item);<a name="line.144"></a>
+<FONT color="green">145</FONT>        }<a name="line.145"></a>
+<FONT color="green">146</FONT>        <a name="line.146"></a>
+<FONT color="green">147</FONT>        /**<a name="line.147"></a>
+<FONT color="green">148</FONT>         * Removes an item from this room.<a name="line.148"></a>
+<FONT color="green">149</FONT>         * @param item The item<a name="line.149"></a>
+<FONT color="green">150</FONT>         */<a name="line.150"></a>
+<FONT color="green">151</FONT>        public void removeItem(Items item) {<a name="line.151"></a>
+<FONT color="green">152</FONT>            items.remove(item);<a name="line.152"></a>
+<FONT color="green">153</FONT>        }<a name="line.153"></a>
+<FONT color="green">154</FONT>        <a name="line.154"></a>
+<FONT color="green">155</FONT>        /**<a name="line.155"></a>
+<FONT color="green">156</FONT>         * Gets an item by its name<a name="line.156"></a>
+<FONT color="green">157</FONT>         * @return The item.<a name="line.157"></a>
+<FONT color="green">158</FONT>         */<a name="line.158"></a>
+<FONT color="green">159</FONT>        public boolean hasItem(Items item) {<a name="line.159"></a>
+<FONT color="green">160</FONT>            return items.contains(item);<a name="line.160"></a>
+<FONT color="green">161</FONT>        }<a name="line.161"></a>
+<FONT color="green">162</FONT>        <a name="line.162"></a>
+<FONT color="green">163</FONT>        /**<a name="line.163"></a>
+<FONT color="green">164</FONT>         * Gets an collection with all the items in this room<a name="line.164"></a>
+<FONT color="green">165</FONT>         *<a name="line.165"></a>
+<FONT color="green">166</FONT>         * @return All the items in this room<a name="line.166"></a>
+<FONT color="green">167</FONT>         */<a name="line.167"></a>
+<FONT color="green">168</FONT>        public Collection&lt;Items&gt; getItems() {<a name="line.168"></a>
+<FONT color="green">169</FONT>            return items;<a name="line.169"></a>
+<FONT color="green">170</FONT>        }<a name="line.170"></a>
+<FONT color="green">171</FONT>        <a name="line.171"></a>
+<FONT color="green">172</FONT>        /**<a name="line.172"></a>
+<FONT color="green">173</FONT>         * Gets all the directions where there are doors.<a name="line.173"></a>
+<FONT color="green">174</FONT>         * <a name="line.174"></a>
+<FONT color="green">175</FONT>         * @return The directions.<a name="line.175"></a>
+<FONT color="green">176</FONT>         */<a name="line.176"></a>
+<FONT color="green">177</FONT>        public String[] getExits() {<a name="line.177"></a>
+<FONT color="green">178</FONT>            return exits.keySet().toArray(new String[0]);<a name="line.178"></a>
+<FONT color="green">179</FONT>        }<a name="line.179"></a>
+<FONT color="green">180</FONT>        <a name="line.180"></a>
+<FONT color="green">181</FONT>        /**<a name="line.181"></a>
+<FONT color="green">182</FONT>         * Adds a character to this room.<a name="line.182"></a>
+<FONT color="green">183</FONT>         *<a name="line.183"></a>
+<FONT color="green">184</FONT>         * @param c The character<a name="line.184"></a>
+<FONT color="green">185</FONT>         */<a name="line.185"></a>
+<FONT color="green">186</FONT>        public void addCharacter(Character c) {<a name="line.186"></a>
+<FONT color="green">187</FONT>            characters.put(c.getName(), c);<a name="line.187"></a>
+<FONT color="green">188</FONT>            c.setCurrentRoom(this);<a name="line.188"></a>
+<FONT color="green">189</FONT>        }<a name="line.189"></a>
+<FONT color="green">190</FONT>        <a name="line.190"></a>
+<FONT color="green">191</FONT>        /**<a name="line.191"></a>
+<FONT color="green">192</FONT>         * Removes a character from this room.<a name="line.192"></a>
+<FONT color="green">193</FONT>         *<a name="line.193"></a>
+<FONT color="green">194</FONT>         * @param c The character<a name="line.194"></a>
+<FONT color="green">195</FONT>         */<a name="line.195"></a>
+<FONT color="green">196</FONT>        public void removeCharacter(Character c) {<a name="line.196"></a>
+<FONT color="green">197</FONT>            characters.remove(c.getName());<a name="line.197"></a>
+<FONT color="green">198</FONT>        }<a name="line.198"></a>
+<FONT color="green">199</FONT>        <a name="line.199"></a>
+<FONT color="green">200</FONT>        /**<a name="line.200"></a>
+<FONT color="green">201</FONT>         * Gets a character by his/her name<a name="line.201"></a>
+<FONT color="green">202</FONT>         * @return The item.<a name="line.202"></a>
+<FONT color="green">203</FONT>         */<a name="line.203"></a>
+<FONT color="green">204</FONT>        public Character getCharacter(String name) {<a name="line.204"></a>
+<FONT color="green">205</FONT>            return characters.get(java.lang.Character.toUpperCase(name.charAt(0))+name.substring(1));<a name="line.205"></a>
+<FONT color="green">206</FONT>        }<a name="line.206"></a>
+<FONT color="green">207</FONT>        <a name="line.207"></a>
+<FONT color="green">208</FONT>        /**<a name="line.208"></a>
+<FONT color="green">209</FONT>         * Gets an collection with all the characters in this room<a name="line.209"></a>
+<FONT color="green">210</FONT>         *<a name="line.210"></a>
+<FONT color="green">211</FONT>         * @return All the characters in this room<a name="line.211"></a>
+<FONT color="green">212</FONT>         */<a name="line.212"></a>
+<FONT color="green">213</FONT>        public Collection&lt;Character&gt; getCharacters() {<a name="line.213"></a>
+<FONT color="green">214</FONT>            return characters.values();<a name="line.214"></a>
+<FONT color="green">215</FONT>        }<a name="line.215"></a>
+<FONT color="green">216</FONT>    }<a name="line.216"></a>
+<FONT color="green">217</FONT>    <a name="line.217"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

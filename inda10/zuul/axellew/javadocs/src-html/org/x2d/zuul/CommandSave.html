@@ -1,0 +1,112 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package org.x2d.zuul;<a name="line.1"></a>
+<FONT color="green">002</FONT>    import java.io.*;<a name="line.2"></a>
+<FONT color="green">003</FONT>    /**<a name="line.3"></a>
+<FONT color="green">004</FONT>     * Command word save. Saves the current game.<a name="line.4"></a>
+<FONT color="green">005</FONT>     */<a name="line.5"></a>
+<FONT color="green">006</FONT>    public class CommandSave extends CommandWord {<a name="line.6"></a>
+<FONT color="green">007</FONT>        private File saveGameDir;<a name="line.7"></a>
+<FONT color="green">008</FONT>        /**<a name="line.8"></a>
+<FONT color="green">009</FONT>         * Constructor.<a name="line.9"></a>
+<FONT color="green">010</FONT>         * @param saveDir Sets the dir where save games should be saved.<a name="line.10"></a>
+<FONT color="green">011</FONT>         */<a name="line.11"></a>
+<FONT color="green">012</FONT>        public CommandSave(String commandName, File saveDir) {<a name="line.12"></a>
+<FONT color="green">013</FONT>            super(commandName);<a name="line.13"></a>
+<FONT color="green">014</FONT>            saveGameDir = saveDir;<a name="line.14"></a>
+<FONT color="green">015</FONT>        }<a name="line.15"></a>
+<FONT color="green">016</FONT>        public CommandSave(String commandName) {<a name="line.16"></a>
+<FONT color="green">017</FONT>            this(commandName, new File("saves/"));<a name="line.17"></a>
+<FONT color="green">018</FONT>        }<a name="line.18"></a>
+<FONT color="green">019</FONT>        <a name="line.19"></a>
+<FONT color="green">020</FONT>        @Override<a name="line.20"></a>
+<FONT color="green">021</FONT>        public String[] getTargets(Game game) {<a name="line.21"></a>
+<FONT color="green">022</FONT>            return new String[]{"Ett namn du vill använda för att spara ditt spel."};<a name="line.22"></a>
+<FONT color="green">023</FONT>        }<a name="line.23"></a>
+<FONT color="green">024</FONT>        <a name="line.24"></a>
+<FONT color="green">025</FONT>        /**<a name="line.25"></a>
+<FONT color="green">026</FONT>         * @param target The name of the file which the current game should be saved to.<a name="line.26"></a>
+<FONT color="green">027</FONT>         */<a name="line.27"></a>
+<FONT color="green">028</FONT>        @Override<a name="line.28"></a>
+<FONT color="green">029</FONT>        public void executeCommand(Game game, String target) {<a name="line.29"></a>
+<FONT color="green">030</FONT>            target = target.replaceAll("([^\\w])", ""); //Makes sure only [a-ö,0-9] are used.<a name="line.30"></a>
+<FONT color="green">031</FONT>            if (target==null || target == "") {<a name="line.31"></a>
+<FONT color="green">032</FONT>                System.out.println("Du måste välja ett namn på filen du vill spara.");<a name="line.32"></a>
+<FONT color="green">033</FONT>                return;<a name="line.33"></a>
+<FONT color="green">034</FONT>            }<a name="line.34"></a>
+<FONT color="green">035</FONT>            //If the save game folder does not exist create the needed folders.<a name="line.35"></a>
+<FONT color="green">036</FONT>            if (!saveGameDir.exists()) {<a name="line.36"></a>
+<FONT color="green">037</FONT>                    saveGameDir.mkdirs();<a name="line.37"></a>
+<FONT color="green">038</FONT>            }<a name="line.38"></a>
+<FONT color="green">039</FONT>            game.saveGame(new File(saveGameDir, target+SaveGameFilter.SAVE_GAME_EXTENSION));<a name="line.39"></a>
+<FONT color="green">040</FONT>            System.out.println(String.format("Ditt spel har blivit sparat som '%s'.", target));<a name="line.40"></a>
+<FONT color="green">041</FONT>        }<a name="line.41"></a>
+<FONT color="green">042</FONT>        @Override<a name="line.42"></a>
+<FONT color="green">043</FONT>        public boolean mustHaveTarget() {<a name="line.43"></a>
+<FONT color="green">044</FONT>            return true;<a name="line.44"></a>
+<FONT color="green">045</FONT>        }<a name="line.45"></a>
+<FONT color="green">046</FONT>    }<a name="line.46"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

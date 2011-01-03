@@ -1,0 +1,195 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphics}
+\usepackage{fancyhdr}
+\usepackage{listingsutf8}
+\usepackage{verbatim}
+%\usepackage[cm]{fullpage}
+\usepackage[a4paper,top=1cm, bottom=3cm]{geometry}
+\lstset{
+	language=Java,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=8pt,
+	basicstyle=\ttfamily\footnotesize,
+	commentstyle=\small,
+	keywordstyle=\bfseries,
+	stringstyle=\ttfamily,
+	showstringspaces=false,
+	breaklines=true,
+	inputencoding=utf8/latin1,
+	tabsize=4,
+	frame=none,
+	title=\lstname
+}
+\setcounter{secnumdepth}{0}
+%\pagestyle{empty}
+\setlength{\parindent}{0px}
+\setlength{\parskip}{2ex}
+\pagestyle{fancy}
+
+\fancyhead{} % clear all header fields
+%\fancyhead[RO,RE]{\bfseries Axel Lewenhaupt}
+%\fancyhead[LO,LE]{\bfseries Inda uppgift 8}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{Inda8}
+\author{Axel Lewenhaupt\\axellew@kth.se}
+
+\begin{document}
+\section*{}
+\section*{DD1341 Introduktion till datalogi 2010/2011}
+
+\vspace{10mm}
+
+\subsection*{Uppgift nummer: ......}
+
+\vspace{3mm}
+
+\subsection*{Namn: ...........................................................................}
+
+\vspace{3mm}
+
+\subsection*{Grupp nummer: ......}
+
+\vspace{3mm}
+
+\subsection*{Övningsledare: ..............................................................}
+
+
+\vspace{10mm}
+
+\begin{tabular}{l}
+ \hspace{140mm} \\
+\hline \hline
+\end{tabular}
+
+\vspace{5mm}
+
+\subsection*{Betyg: ..... \hspace{2mm}  Datum: .............. \hspace{2mm} Rättad av: ........................................}
+\pagebreak
+\tableofcontents
+\pagebreak
+\section{World of Zuul}
+\subsection{Karaktärer 7.48 och 7.49}
+Karaktärer finns implementerade i Character-klassen på sida \pageref{character}. För att prata med dem används
+CommandTalk-klassen på sida \pageref{commandtalk}. Det finns en inställning på karaktärerna som säger ifall de
+ska runt slumpvist i spelet och den finns i Game-klassen på sida \pageref{game} rad 215.
+\subsection{Modulär kod 7.47}
+Varje kommando har en egen klass där man åsidosätter executeCommand-metoden
+för att låta den utföra kommandot. Så för att lägga till ett nytt kommando skapar man en ny klass som ärver CommandWord
+och sen lägger man till klassen i parsern så den vet om att det nya kommandot finns.
+Varje karaktär har också en egen klass och ifall karaktären ska göra 
+mer advancerade saker kan de åsidosätta en del av de metoder som finns. Den nya metoden kommer då att köras istället för
+orginalmethoden och gör att karaktären fungerar som man själv vill. Samma sak gäller för föremål.
+\subsection{Trapdoor 7.43}
+För att skapa en fälla finns det en en dörr som går till ett rum där det sedan inte finns någon utgång tillbaka ifrån. Fällan skapas i 
+Game-klassen på sida \pageref{game} rad 97.
+\subsection{Teleport 7.46}
+Man kan teleportera sig tillbaka till det första rummet genom att använda föremålet "helig sten" som finns i Items-enumen
+på sidan \pageref{items} rad 28. Det skulle vara lätt att låta den slumpa vilket rum man skulle hamna i genom att hämta ut ett slumpvist
+rum från kartan istället. Men för att underlätta i spelet kommer man alltid till första rummet igen så man kan ta sig ut.
+\subsection{Teleport 7.45}
+Det finns låsta dörrar. De kan låsas upp genom att hitta rätt föremål och sedan använda CommandUnlock (sida \pageref{commandunlock}) på dörren.
+\subsection{Övriga roliga saker}
+Det går att spara och ladda spel. Finns i slutet av Game-klassen på sida \pageref{game} rad 300 och 318.
+
+Jag gjorde min egen terminal med swingkomponenter, vilken använder sig av $System.in$ och $System.out$ som sedan länkas
+till en textarea och en textfield. Den har historik för kommandon för att underlätta spelandet det finns i klassen Console 
+på sida \pageref{console} och i klassen ConsoleGUI på sida pageref{consolegui}.
+
+Skriver man 'hjälp' på något kommando som inte finns hämtar den ut en beskrivning från wikipedia. Så skriver man 'hjälp dörr' hämtar den ut vad som står om dörrar på wikipedia. Det finns i CommandHelp-klassen på sida \pageref{commandhelp} rad 59.
+\pagebreak
+\section{Källkod}
+\subsection{Beggar}
+\lstset{label=beggar}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Beggar.java}
+\subsection{Cat}
+\lstset{label=cat}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Cat.java}
+\subsection{Character}
+\lstset{label=character}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Character.java}
+
+\subsection{CommandGo}
+\lstset{label=commandgo}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandGo.java}
+\subsection{CommandHelp}
+\lstset{label=commandhelp}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandHelp.java}
+\subsection{CommandList}
+\lstset{label=commandlist}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandList.java}
+\subsection{CommandLoad}
+\lstset{label=commandload}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandLoad.java}
+\subsection{CommandRead}
+\lstset{label=commandread}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandRead.java}
+\subsection{CommandSave}
+\lstset{label=commandsave}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandSave.java}
+\subsection{CommandTake}
+\lstset{label=commandtake}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandTake.java}
+\subsection{CommandTalk}
+\lstset{label=commandtalk}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandTalk.java}
+\subsection{CommandUnlock}
+\lstset{label=commandunlock}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandUnlock.java}
+\subsection{CommandUse}
+\lstset{label=commanduse}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandUse.java}
+\subsection{CommandWord}
+\lstset{label=commandword}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/CommandWord.java}
+\subsection{Door}
+\lstset{label=door}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Door.java}
+\subsection{Game}
+\lstset{label=game}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Game.java}
+\subsection{Item}
+\lstset{label=item}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Item.java}
+\subsection{Items}
+\lstset{label=items}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Items.java}
+\subsection{Parser}
+\lstset{label=parser}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Parser.java}
+\subsection{Player}
+\lstset{label=player}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Player.java}
+\subsection{Priest}
+\lstset{label=priest}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Priest.java}
+\subsection{Room}
+\lstset{label=room}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/Room.java}
+\subsection{SaveGameFilter}
+\lstset{label=savegamefilter}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/SaveGameFilter.java}
+\subsection{SimpleItem}
+\lstset{label=simpleitem}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/SimpleItem.java}
+\subsection{TempleGuard}
+\lstset{label=templeguard}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/zuul/TempleGuard.java}
+\subsection{Console}
+\lstset{label=console}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/console/Console.java}
+\subsection{ConsoleGUI}
+\lstset{label=consolegui}
+\lstinputlisting[language=Java]{/home/axel/Projekt/Skola/Inda/zuul/org/x2d/console/ConsoleGUI.java}
+
+\end{document}
