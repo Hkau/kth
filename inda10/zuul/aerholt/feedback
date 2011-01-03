@@ -1,0 +1,60 @@
+Hej!
+
+Jag kunde bara se att du implementerar 3 saker. Jag kan även ha missat något, men det är lungt eftersom du har gjort så mycket annat som är minst lika komplicerat. Tänk dock på att alltid följa uppgiftens specifikation, många lärare är mindre flexibla. Jag har lämnat feedback på spelet som kom upp när jag gick igenom det.
+
+Det tyngsta är att din felhantering när det gäller kommandoinmatning antar att den får rätt paramterar. Dvs, det saknas felhantering för om vissa ord saknar en andra parameter osv.
+
+Hursom så är du godkänd, dubbelkolla att det är inrappat i rapp.
+
+- Peter
+
+
+Notes:
+
+Nice player class w/ names.
+
+command words 1, 2 and 3 do nothing without saying anything. (except for in that place.)
+
+Use without second parameter gets a NullPointerException (check for Command.hasSecondWord()) before using it, or check for "null" within the use() function.
+
+use command without valid parameters doesn't give anything helpful back.
+
+  Lemminator@hallway : 46 hp> take rock
+  You now carry an item named rock.
+  Lemminator@hallway : 46 hp> use rock
+  Lemminator@hallway : 46 hp> use me
+  Lemminator@hallway : 46 hp> use what?
+  Lemminator@hallway : 46 hp> use what is this i don't even
+
+use only works with a key? This is not apparent.
+
+Hahaha, having to pick up rock, paper and scissors? This is fucking brilliant.
+
+The last screen should preferably not print exits.
+
+Lots and lots of rubbish sounds like you'd be able to pick up more than just a key.
+
+Nice class separation.
+
+"look left" works like "look".
+
+7.42 (time limit):
+
+ - I guess your hp limit works like a more flexible version of time limit.
+   I love it! :)
+
+ - This could be modified to have some rooms more dangerous than
+   others, and traps that lowers health.
+
+7.43 (trapdoor):
+
+ - Works fine! Nice that it's a one-time trapdoor.
+ - A truck runs you over feels kind of unfair..
+
+ - 
+
+7.45 (locked door):
+
+ - This is very hard-coded.
+
+
