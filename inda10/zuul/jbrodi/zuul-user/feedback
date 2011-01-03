@@ -1,0 +1,49 @@
+Hej!
+
+Bra jobbat, fin implementation. Har skrivit lite kommentarer, dvs. saker jag kom att tänka på när jag kollade igenom projektet. Det som hade kunnat göras är att försöka få ut ytterligare specialfall ut Game, men en hel del blir mer komplicerat då.
+
+Väldigt, väldigt bra feedback på Matildas projekt. :)
+
+Du är godkänd, inrappat i rapp, dubbelkolla så det stämmer.
+
+- Peter
+
+
+Notes:
+
+Would be good if it didn't show commands that can't be used yet.
+
+How do I talk to people?!
+
+'look' command, that's good.
+
+Case insensitivity would be nice (use coins and use Coins being the same).
+
+I feel like I've done the same thing over and over again and exhausted all my options. Can I win this?
+
+Some behaviour could be moved out from Game, for instance that rooms decide themselves what happens when a player enters them.
+
+7.42 (time limit):
+
+ - Nice that the time limit doesn't decrease for every command (help
+   etc. as well), some implementations do.
+
+ - Could've had a more story-esque finish message.
+
+7.44 (beamer): 
+
+ - Port is not an obvious name for "teleport", or I'm slow.
+
+ - Implemented as a beamer item, good.
+
+7.46 (transportation room):
+
+ - Nice clean implementation. :)
+
+7.48 (characters):
+
+ - Even though these characters seem more complex than the ones
+   described inside the book, they're specified to be able to talk.
+   From what I can tell these can not talk.
+
+
