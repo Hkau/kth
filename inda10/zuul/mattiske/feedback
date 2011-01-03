@@ -1,0 +1,92 @@
+Hej! :D
+
+Jag har inte riktigt klarat av spelet, men du får en del feedback ändå. Spelet förlorar lite på att det är slumpgenererat, men vinner lite på att det är slumpgenererat. Jag föredrar story, men det är en bra övning. Fint. :)
+
+Du måste komplettera så att ditt transporter room tar en till ett slumpmessigt utvalt rum. Att teleportera till origin är säkrare, då det alltid finns ett rum där, därför får du ut mindre av övningen genom att inte göra teleporter-rummet random.
+
+Ifall jag har missat något rum som gör det (sökt igenom koden för alla ställen som finns och använder teleport-funktionen), säg till var den finns så slipper du skriva om den.
+
+Fixa kompletteringen före skolan börjar, maila om du har några frågor.
+
+- Peter
+
+Notes:
+
+You're probably the only one who is using a cordinate system. :)
+
+Inconsequent usage of Swedish/English variable names. "tittriktning = direction;"
+
+... getTittriktning() explains the problem with using swedish variable names.
+
+Did the bookshelf just disappear after saying "You can't pick that item up"?
+
+.. and altar?
+
+  > examine room
+  You are in a chapel. There are lines of benches and an altar in the
+  front
+  Items: 
+     - bench
+   There are doors right, back,
+  > pick up bench
+  You can't pick that item up
+  > examine room
+  You are in a chapel. There are lines of benches and an altar in the
+  front
+  Items: 
+   There are doors right, back,
+
+.. and bench?
+
+Good search command.
+
+With everything labeled the same, it's hard to find your way. You enter a new room?
+
+The blood time limit is scary.
+
+Also, especially when it counts for EVERY command.
+
+Though as it's hard to orient in the game, and you die quickly, it's hard to believe that there's a high possibility of you surviving that wound.
+
+It's hard to keep track of this game at 5:30 AM. I'm sorry, I wasn't able to finish it.
+
+The Item class shouldn't contain all items' properties. This is poor design. Items should extend from the base Item class.
+
+description.equals("Almost clean teddybear. You had it when you were a kid") - This is a hard-coded value, and should be a variable instead.
+
+7.42 (time limit):
+
+ - CutWrist as a class name for time limit doesn't really help you
+   understand what the class is supposed to do before reading it.
+
+ - Works fine. Good to implement the time limit in a different class.
+
+ - CutWrist.get()? I have no idea what this would do wihthout looking
+   at the implementation. Maybe name this one start()?
+
+ - Great that you get reminded of the time (blood?) limit.
+
+7.43 (trapdoor/one-way door):
+
+ - Haha, cool that no door specifically is a trap door.
+
+ - Weird code like: ((5-tittriktning)% 4 + 3)%4) should be replaced
+   with a function for readability purposes. To contain the "magic".
+
+   Say getDoor(tittrittning, direction), or something. I dunno.
+
+7.45 (locked door):
+
+ - Your keys are unfair. 20% chance of keys opening doors? What if
+   they all fail? Game over? :(
+
+ - Nice that you can unlock a previously locked door! :)
+
+7.46 (transport room):
+
+ - Technically, this is not a room.
+
+ - Doesn't transport to a random room (which would be substantially
+   harder in this implementation).
+
+
