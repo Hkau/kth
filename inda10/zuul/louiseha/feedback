@@ -1,0 +1,82 @@
+Hej!
+
+Jag har spelat en bit av spelet och kommenterat under tiden, det står på engelska, hoppas att det går bra ändå. Feedbacken gäller mest saker som kan förbättras så det är därför det kanske låter lite gnälligt.
+
+Jag hade svårt att hitta vilka uppgifter du gjort (hittade bara 7.45 och 7.48), men eftersom du har utökat spelet åt andra håll som är i samma svårighetsgrad (typ inventory med vikt bla. som inte stod i boken) så går det bra ändå. Var försiktig med att inte följa uppgiftsspecifikationerna i framtiden, i många fall är lärare betydligt hårdare med detta. Skriv gärna i början av inlämningen exakt vilka uppgifter du gjort och var de är implementerade, så att det lättare går att se att du utfört uppgiften.
+
+Många av kommentarerna handlar om att bryta saker loss från klasser där de inte riktigt naturligt hör hemma. Det är inte viktigt att du fixar till dem, men det är viktigt att du förstår poängen med bryta upp ett program i mindre klasser som gör små enskilda saker.
+
+Ifall spelet skulle göras betydligt mer komplicerat eller större så skulle Game-klassen behöva växa ännu mer och bli ännu mer svåröverskådlig. Säg verkligen till ifall jag är otydlig här eller om du har några frågor kring detta. Att ha flexibla moduler gör att ett program är mer lättöverskådligt och ofta att det är enklare att ändra och byta ut vissa delar av funktionaliteten.
+
+Hursom: Du är godkänd, dubbelkolla i rapp att det är inrapporterat.
+
+- Peter
+
+
+Notes:
+
+Commands would better be as case insensitive so that "Go" works just as well as "go". Especially for the command "help".
+
+Drop should have different error texts depending on why they were caused.
+
+Carry could've been called (or synonymous with) 'pick up' or 'take'.
+
+Could've been good if any of the commands available could display all exits in the current room: (I managed to get lost and couldn't scroll back
+to see which exits I could take.)
+
+"Go" => "Go where? There are no exits available."
+"Go" => "Go where? There are exits 'north', 'west' and 'south'."
+
+Game's goRoom() shouldn't have to know about the specific rooms' specific properties. This could've been handled by the room classes themselves. This of course means that the rooms need to be able to access the player inventory etc.
+
+addToBackpack(Items item) could be a boolean function, returning false if the item was too heavy to be put there. This prevents the class Inventory from being used incorrectly.
+
+The .getName() design in System.out.println("You are carrying the "+amulet.getName()+" and are free to pass."); is very good. In case you decide to change name for the amulet, this part does not generate bugs and gets "updated" as well.
+
+7.45 (locked door):
+
+ - Works fine, but the key implementation is very hard coded. Each new locked
+   room requires a special case in the Game class.
+
+   This could be fixed with a Door class requiring a certain Inventory item to
+   be unlocked. This way you could create an exit with a Door(key), and if key
+   is 'null' the door starts unlocked.
+
+ - Good that you don't have one key to unlock all doors (boolean for key).
+
+7.48 (characters):
+
+ - The TalkTo command could handle " " as "_" so that
+   "TalkTo Bookstore Owner" could work.
+
+ - The yes/no dialog could have a different "> " token, like ">> "
+   to show that the player is in another dialog than the usual one.
+
+ - The unicorns and instructions shouldn't be the same class. NPC could
+   contain a TalkTo() function, so that all child classes (unicorn and
+   bookstore owner) could define their own behaviour. This prevents the
+   NPC from being a class which "does more than it's supposed to".
+
+ - It's weird that getYesOrNo is placed inside Parser, with the TalkTo()
+   designed, or maybe a TalkTo(Game game) function or similar, the
+   bookstore owner class itself could've implemented this behaviour.
+
+   Instead you get get constants like "Jewel" inside Parser, to which the
+   Parser class has no obvious relation.
+
+   The parser could have a yes/no dialog, but it shouldn't do anything
+   else than getting a true/false value from the player.
+
+ - These NPC characters should be added to the rooms themselves and not be
+   hard coded inside the Game class. 
+
+7.49 (moving characters) ?
+
+ - In case this was meant to be implemented, I can't really tell, a lot of this
+   task is left out by having pink/blue always follow you and not walking
+   around the field in random directions.
+
+   Implementing this "properly" means that all walking npc characters should
+   have some sort of "move" function and the go command or game object should
+   call that every time an exit is successful.
+
