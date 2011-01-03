@@ -1,0 +1,62 @@
+Hej!
+
+Zuul ser bra ut, som Mattis sa så är det tråkigaste att det inte finns så mycket att spela. Har kommenterat på det jag kom på när jag spelade det samt kollade på koden.
+
+Hur går det med alla uppgifter som du gör över jullovet? Deadline är, eftersom vi sa att det skulle göras under jullovet, första lektionen efter lovet. Bara så att vi är överrens. Se till att kommentera väl och förklara varför de olika svaren som du skrivit blev som de blev, så att det går att se att du förstått uppgiften.
+
+Hursom: Du är godkänd och är inrapporterad i rapp, dubbelkolla så att det blev rätt.
+
+- Peter
+
+Notes:
+
+Sure you are tired, but speak some sense why don't you? -- This was funny at 8 AM. :)
+
+This game isn't large enough to start /needing/ separate classes for most things, but usually you want a hierarchy that allows most of the content and special features to be modular and moved away from the Game class.
+
+7.42 (time limit):
+
+ - The game doesn't even say there's a time limit. Before you lose.
+
+ - Constants like amountOfMovesAllowed are often placed as static variables
+   inside the class, not as local variables inside any method.
+
+ - It's not really fair that this counter increases when doing commands like
+   'help'. This could've been added as a method (boolean passesTime())
+   inside the Command class.
+
+7.43 (trapdoor):
+
+ - The room that you're trapped types "Exits:" even though there are no
+   exits. This feels a bit tacked on. Just making it say "There are no exits
+   from here" when there are no exits makes it feel less unfinished.
+
+ - There could've been some kind of warning, going west from the pub isn't
+   really saying that there's some strange back door which you have no idea
+   to where it leads.
+
+ - It could also say cool stuff like "good thing I remembered to charge my
+   beamer" or "if only I had charged my beamer before going here..."
+   depending on if your beamer was charged or not before.
+
+7.44 (beamer):
+
+ - beamerRoom() could be called goBeamerRoom() instead. beamerRoom() almost
+   sounds like a constructor.
+
+ - The charge command should give some kind of response.
+
+   > charge
+   > 
+
+   Looks a bit empty, doesn't feel like the command is working.
+
+7.46 (transport room):
+
+ - Clean solution, very good.
+
+ - Same as other rooms, if this was larger, this functionality would best
+   be moved outside the Game class, and into a TransportRoom subclass of
+   Room so that it could take care of itself.
+
+
