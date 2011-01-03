@@ -1,0 +1,51 @@
+Hej!
+
+Jag har kollat igenom spelet och du får lite feedback iaf. Spelade också igenom det så långt som jag tror att det blivit gjort. Det enda som saknas är ett slut på spelet (det är naturligt att det ligger där och är vagt specifierat i time limit, 7.42).
+
+Fixa detta slut hur du vill, det borde inte ta allt för lång tid. Man kan låta det ske direkt när personen går in i flygplatsen, t.ex. Sedan är du godkänd.
+
+- Peter
+
+
+Notes:
+
+If you placed all rooms outside the createRoomsAndItems method you could've used them as variables later on:
+
+  if(currentRoom.getShortDescription().equals("in town square") ...
+could then have been changed to
+  if(currentRoom == square...
+which is way simpler, but also helps refer directly to the room and not its description, which may change later. This would give a bug that's fairly hard to track down.
+
+This game is perfectly sized, it's not too hard to keep in your head, and it's not limited to three rooms. I love the beamer puzzle.
+
+I've been everywhere with every item, how do I win? D:
+
+7.42 (time limit):
+
+ - Works fine as a command limits. Note that all commands count, so
+   non- move commands such as "help" counts towards this limit as
+   well, which may be considered unfair.
+
+ - The task, albeit a bit vaguely, describes a time system where the
+   loss can be avoided by reaching some goal. Implement this and your
+   time-limit task will be complete. It's only natural for the game to
+   have a finish. Figure out a place where to make the game finish
+   (suggesting the airport) and add that ending to the game.
+
+7.43 (trapdoor):
+
+ - This is probably the easiest way to do it.
+
+ - It looks "cheap" when the "Exits:" are shown without any exits
+   available. Replacing this text with "There are no exits." would work
+   well, without having to add a "special case" for the trapdoor.
+
+7.44 (beamer):
+
+ - You're probably the first one who's turned the beamer into a device
+   that is part of any gameplay. (ticket)
+
+7.45 (locked door):
+
+ - Nice creative locks that didn't have to be locks. Guard can be lock
+   as well.
