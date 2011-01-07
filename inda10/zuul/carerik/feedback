@@ -1,0 +1,48 @@
+Hej!
+
+Spelet ser bra ut, jag har skrivit ner lite anteckningar under tiden jag spelade igenom det.
+
+Du ska vara godkänd i rapp, dubbelkolla så att det stämmer.
+
+- Peter
+
+
+Notes:
+
+A lot of prison cells, without any kind of warning before going in there.
+
+Gameplay wise it'd be a lot better if you had to do something before finding the key, this way it's too straightforward to feel like a challenge.
+
+When finishing the game, either have it exit directly or let the player walk around in the house. It feels unfinished to have the game instruct you to type quit yourself.
+
+7.42 (time limit):
+
+ - Simple enough, straight clean solution.
+
+7.42 (trapdoor):
+
+ - Kind of unfair placement, without warning, but works fine.
+
+7.44 (beamer):
+
+ - Cool to have this as an item, like others.
+
+7.45 (locked door):
+
+ - It's not really a "locked door", but rather a locked room. Works
+   fine in this context, but is limiting.
+
+7.46 (transport room):
+
+ - Nice solution.
+
+ - The getRandomRoom function shouldn't have to be a part of the Room
+   class, as what it essentially does is pick a random element from an
+   array, which could be a part of the Game class which uses it. The
+   Room class won't use it.
+
+7.48 (characters):
+
+ - Unused. Seems like a valid start, though unintuitive to have 1, 2, 3
+   as parameters for "talk".
+
