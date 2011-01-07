@@ -1,0 +1,51 @@
+Hej!
+
+Intressant utökning av spelet. Jag har spelat igenom det och skrivit lite anteckningar. En del av funktionaliteten är antingen helt trasig eller behöver poleras lite. Jag har skrivit dessa under kompletteringar, se till att fixa dem så fort som möjligt, helst före första lektionen. Resten av anteckningarna är inga uppgifter utan bara tankar kring spelet.
+
+test.gif var f.ö. fin.
+
+Kompletteringar:
+
+Gör så att den alltid visar exits rätt, och även skriver ut dem under spelets gång. Fixa till det så att den inte skriver ut riktningar om man inte kan gå dit (vatten eller utanför kartan). Spelet börjar med att ange riktningar som man inte kan gå i.
+
+Fixa så att beamern fungerar.
+
+Characters i uppgiften anger entities som man t.ex. kan prata och interagera med. Fairies tycker inte jag utgör tillräckligt för att fylla både uppgift 7.48 och 7.49. Implementera ännu en av uppgifterna eller utöka fairies så att de går att prata med. Jag skulle rekommendera en låst tile som man behöver hitta en nyckel till. Typ ett segment som ser ut:
+
+WLW
+WGW
+WWW
+
+Där "L" är en låst tile. För att få en instängd yta, eller något.
+
+- Peter
+
+
+Notes:
+
+This game should tell its goals without having you check the help screen.
+
+It's weird that you can pass a fairy without picking it up (in case you stand adjacent and both move in opposite directions.
+
+7.42 (time limit):
+
+ - The help screen should show the number of moves left, not the time
+   limit.
+
+ - Works fine though.
+
+7.44 (beamer):
+
+ - This doesn't work. After using the beamer, 'You have used your beamer!',
+   you're not teleported back to where you placed the beamer. The beamer
+   can be 'placed' again.
+
+7.48 (characters):
+
+ - You should be able to interact with characters, not just catch them.
+
+7.49 (moving characters):
+
+ - These move fine, good that you check so that they can't move out of
+   bounds.
+
