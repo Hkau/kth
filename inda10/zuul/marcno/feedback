@@ -1,0 +1,35 @@
+Hej!
+
+Jag kan bara se att du har gjort 3 av uppgifterna. Ifall jag har missat någon, säg gärna vilken och var du har lagt den. Annars, komplettera med en annan av uppgifterna. Spelet är annars bra uppdelat klassmässigt, och ser bra ut. Det vore schysst att man får veta om man har förlorat, samt vore bra ifall det fanns ett mål i spelet, men annars ser det bra ut.
+
+Så, i kort: Komplettera med en till uppgift eller säg var den finns ifall jag har missat den. Time limit är relativt enkel, ifall du har svårt att bestämma någon.
+
+- Peter
+
+
+Notes:
+
+Map-class, is awesome.
+
+Nice that you have a main class "Zuul": > java Zuul
+
+Most commands could be renamed to "take" instead of keypick, etc. to be more intuitive.
+
+7.43 (trapdoor):
+
+ - Would've been nice if you could know which loks 
+
+7.44 (beamer):
+
+ - Good to tie the beamer to a player.
+
+ - "loaded" should maybe be called "stored".
+
+7.45 (locked door):
+
+ - Key bag, nice.
+
+ - Locks hashmap is good. Makes doors locked and not entire room.
+
+ - Should say something when you manage to unlock doors.
+
