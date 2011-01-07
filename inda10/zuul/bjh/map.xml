@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF8"?>
+<root>
+	<import>default.xml</import>
+	<import>items.xml</import>
+	<onStart>
+		<run>
+			<println>All of a sudden you realize this ordinary life is not for you. You want to see the queen.</println>
+			<enter>forest</enter>
+		</run>
+	</onStart>
+	
+	<addRoom key="forest">
+		<description>When you realize this, you are taking a walk in the forest with your friends.</description>
+	</addRoom>
+	<add what="command" in="room" named="forest" key="continue walking">
+		<enter>forest2</enter>
+	</add>
+	
+	<addRoom key="forest2">
+		<description>You can't keep this up much longer. YOU NEED TO SEE THE QUEEN!</description>
+	</addRoom>
+	<add what="command" in="room" named="forest2" key="continue walking">
+		<println>Sorry, but you have no say in this, you leave them anyway.</println>
+		<enter>alone</enter>
+	</add>
+	<add what="command" in="room" named="forest2" key="leave friends">
+		<println>You make an excuse and run off into the forest.</println>
+		<enter>alone</enter>
+	</add>
+	
+	<addRoom key="alone">
+		<description>After running for a few meters you get really tired and hungry.</description>
+	</addRoom>
+	<add what="command" in="room" named="alone" key="continue">
+		<enter>grass</enter>
+	</add>
+	
+	<addRoom key="grass">
+		<description>There's an really large grasshopper sitting in your path, you ask it if you may pass, but the answer is no.</description>
+	</addRoom>
+	<add what="command" in="room" named="grass" key="stomp on it">
+		<println>There's no way I could do that!</println>
+	</add>
+	<add what="command" in="room" named="grass" key="take left">
+		<enter>room with beamer</enter>
+	</add>
+	<add what="command" in="room" named="grass" key="inspect grasshopper">
+		<remove what="command" in="room" named="grass" key="inspect grasshopper" />
+		<println>It's a fine grasshopper, smoking his pipe.</println>
+		<add what="command" in="room" named="grass" key="talk">
+			<remove what="command" in="room" named="grass" key="talk" />
+			<remove what="command" in="room" named="grass" key="stomp on it" />
+			<println>You: I really need to go see the queen, where can I find her?</println>
+			<println>Grasshopper: Won't tell you.</println>
+			<println>You come to the conclusion that you might aswell chat with him for a bit.</println>
+			<println>----minutes later---</println>
+			<println>The grasshopper replies: Glad you asked. To tell the truth I'm out of tobacco, maybe you could get some for me? I'll give you this key to the palace in return.</println>
+			<add what="command" in="room" named="grass" key="give him some tobacco">
+				<remove what="command" in="room" named="grass" key="give him some tobacco" />
+				<println>You: Sure, here you are.</println>
+				<println>Grasshopper: Thank you. Here's your key.</println>
+				<add what="item" in="player" key="palace key" />
+				<add what="command" in="room" named="grass" key="proceed to the palace">
+					<enter>palace entrance</enter>
+				</add>
+				<print><getCommandList /></print>
+			</add>
+			<print><getCommandList /></print>
+		</add>
+		<print><getCommandList /></print>
+	</add>
+	
+	<addRoom key="room with beamer">
+		<description>It's a room with a beamer in it...</description>
+	</addRoom>
+	<add what="item" in="room" named="room with beamer" key="beamer" />
+	<add what="command" in="room" named="room with beamer" key="go back">
+		<enter>grass</enter>
+	</add>
+	
+	<addRoom key="palace entrance">
+		<description>A great palace stands before you.</description>
+	</addRoom>
+	<add what="command" in="room" named="palace entrance" key="go back">
+		<enter>grass</enter>
+	</add>
+	
+	<addRoom key="palace">
+		<description>A great palace stands before you.</description>
+		<onEnter>
+			<println>Du kryper ner i din kära myrstack och träffar till slut drottningen.</println>
+		</onEnter>
+	</addRoom>
+</root>

@@ -1,0 +1,43 @@
+Hej!
+
+Fy fan vilken cool lösning du har gjort! Jättebra generaliserad kod, snyggt att allt content ligger i xml-filerna samt att du tar kommandon för att köra olika maps.
+
+Jag är osäker på om du implementerar fyra saker, jag hittar bara tre av dem. Det är ok, eftersom du överambitiöst använt XML-parsern. Ifall det inte är jag som missat dem så är det viktigt att du kollar uppgiften så att du får med enligt spec, så att du inte blir underkänd i framtiden.
+
+Grymt cool lösning, du ska vara godkänd i rapp, dubbelkolla att det stämmer!
+
+- Peter
+
+
+Notes:
+
+XMLParser!? This is really cool! :)
+
+" ->" isn't enough of a response message for an errorous command.
+
+The last message is in swedish?
+
+The game should quit after you meet the queen. If not, you can beam back, which doesn't make sense story wise.
+
+Your XML 'scripting language' is really, really impressive.
+
+When using 'pickup' and the item doesn't exist, it throws an error in stderr instead of giving the player some response like "there's no such item".
+
+7.44 (beamer):
+
+ - Impressive that you managed to fix this item without having a special
+   case for the beamer inside your code.
+
+7.45 (locked door):
+
+ - You had a lot of conditional doors, nice.
+
+7.48 (characters):
+
+ - Cool cricket. When going back to him however (I don't know if this is
+   because I used the beamer) it says: There's an really large grasshopper
+   sitting in your path, you ask it if you may pass, but the answer is no.
+
+   This happens even though I've passed him before. And may still.
+
+

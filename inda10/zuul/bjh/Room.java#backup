@@ -1,0 +1,93 @@
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Room {
+    private HashMap<String, Room> neighbors = new HashMap<String, Room>();
+    private int gridX;
+    private int gridY;
+    private Map map;
+    private String description;
+
+    public Room(int gridX, int gridY, Map map) {
+        this.gridX = gridX;
+        this.gridY = gridY;
+        this.map = map;
+        this.description = "lol";
+    }
+    public int getX() {
+        return gridX;
+    }
+    public int getY() {
+        return gridY;
+    }
+    public int getColorAtRelativeCoordinate(int x, int y) {
+        x = (4*gridX+x)%map.getPicture().getWidth();
+        y = (4*gridY+y)%map.getPicture().getHeight();
+        return map.getPicture().getRGB(x, y)&0xFFFFFF;
+    }
+    public int getColor() {
+        return getColorAtRelativeCoordinate(2,2);
+    }
+    private void addNeighbors() {
+        if (getColorAtRelativeCoordinate(2,0) != 0x000000) {
+            Room room = Room.getRoom( gridX   , gridY-1 , map);
+            if (room != null)
+                neighbors.put("north", room);
+        }
+        if (getColorAtRelativeCoordinate(4,2) != 0x000000) {
+            Room room = Room.getRoom( gridX+1 , gridY   , map);
+            if (room != null)
+                neighbors.put("east", room);
+        }
+        if (getColorAtRelativeCoordinate(2,4) != 0x000000) {
+            Room room = Room.getRoom( gridX   , gridY+1 , map);
+            if (room != null)
+                neighbors.put("south", room);
+        }
+        if (getColorAtRelativeCoordinate(0,2) != 0x000000) {
+            Room room = Room.getRoom( gridX-1 , gridY   , map);
+            if (room != null)
+                neighbors.put("west", room);
+        }
+    }
+    public void printNeighbors() {
+        /*for (HashMap neighbor : neighbors)
+            ;*/
+    }
+    public String getDescription() {
+        return description;
+    }
+    public static Room getStartingRoom(Map map) {
+        ArrayList<Room> rooms = map.getAllRooms();
+        for (Room room : rooms) {
+            //System.out.println(Integer.toHexString(room.getColorAtRelativeCoordinate(2,2)));
+            if (room.getColorAtRelativeCoordinate(2,2) == 0xFF0000)
+                return room;
+        }
+        System.err.println("No spawn point specified in map file.");
+        //throw new RuntimeException();
+        return null;
+    }
+    public Map getMap() {
+        return map;
+    }
+    public static void createLinks(Map map) {
+        ArrayList<Room> rooms = map.getAllRooms();
+        for (Room room : rooms)
+            room.addNeighbors();
+    }
+    public static Room getRoom(int x, int y, Map map) {
+        ArrayList<Room> rooms = map.getAllRooms();
+        for (Room room : rooms) {
+            BufferedImage roomMap = room.getMap().getPicture();
+            int w = roomMap.getWidth()/4;
+            int h = roomMap.getHeight()/4;
+            x = (x%w+w)%w;
+            y = (y%h+h)%h;
+            if (room.getX() == x && room.getY() == y)
+                return room;
+        }
+        return null;
+    }
+}

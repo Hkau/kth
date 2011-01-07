@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF8"?>
+<root>
+	<add what="command" in="global" key="quit">
+		<print>See you around.</print>
+		<quit></quit>
+	</add>
+	
+	<add what="command" in="global" key="help">
+		<println><getCurrentRoomDescription /></println>
+		<print><getCommandList /></print>
+		<print><getCurrentRoomItemList>---</getCurrentRoomItemList></print>
+		<println>You can also type 'pickup &lt;item&gt;'</println>
+	</add>
+	
+	<onPrompt>
+		<print>&gt;</print>
+		<return><prompt /></return>
+	</onPrompt>
+	
+	<onUnknownCommand>
+		<print>-</print><!--<println>huh?</println>-->
+	</onUnknownCommand>
+	
+	<defaultOnEnterRoom>
+		<println><getCurrentRoomDescription /></println>
+		<print><getCommandList /></print>
+		<print><getCurrentRoomItemList>---</getCurrentRoomItemList></print>
+	</defaultOnEnterRoom>
+	
+	<defaultOnExitRoom>
+		<!--<println>left</println>-->
+	</defaultOnExitRoom>
+</root>

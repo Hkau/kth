@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF8"?>
+<root>
+	<newItem key="beamer" equippable="false">
+		<description>It's an awesome beamer</description>
+		<onPickup>
+			<add what="command" in="item" named="beamer" key="activate beamer">
+				<println>You activate the beamer, the next time you fire it, it will transport you back to this room.</println>
+				<set what="variable" in="item" named="beamer" key="room">
+					<getCurrentRoomKey />
+				</set>
+				<add what="command" in="item" named="beamer" key="fire beamer">
+					<remove what="command" in="item" named="beamer" key="fire beamer" />
+					<println>The beamer starts to hum.</println>
+					<enter>
+						<get what="variable" in="item" named="beamer" key="room" />
+					</enter>
+				</add>
+			</add>
+		</onPickup>
+	</newItem>
+	
+	<newItem key="palace key" equippable="false">
+		<description>Key</description>
+		<onPickup>
+			<add what="command" in="item" named="palace key" key="use key">
+				<if>
+					<condition>
+						<operand1>palace entrance</operand1>
+						<operand2><getCurrentRoomKey /></operand2>
+						<operator>==</operator>
+					</condition>
+					<then>
+						<remove what="command" in="item" named="palace key" key="use key" />
+						<add what="command" in="room" named="palace entrance" key="enter palace">
+							<enter>palace</enter>
+						</add>
+						<println>You may now enter the palace</println>
+						<print><getCommandList /></print>
+					</then>
+					<else><println>Not very effective...</println></else>
+				</if>
+			</add>
+		</onPickup>
+	</newItem>
+</root>
