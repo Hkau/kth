@@ -1,0 +1,37 @@
+Hej!
+
+Det ser till stor del bra ut. Har skrivit ner lite anteckningar från när jag spelade igenom spelet.
+
+Du måste fixa så att man kan prata med bartendern, på nåt sätt. Fixa ett 'talk'-kommando på enklaste sätt, nu är karaktären "bara" en String som inte går att interagera med alls. Fixa till det så är du godkänd.
+
+- Peter
+
+
+Notes:
+
+Room of Death, not fair, without warning.
+
+7.42 (time limit):
+
+ - This time limit is completely unannounced and doesn't give any message.
+
+7.43 (trapdoor):
+
+ - Good that this doesn't have to be a deathtrap, just because it's a trap door.
+
+7.44 (beamer):
+
+ - Using the beamer isn't really intuitive (Do what with the beamer?) This
+   should list options as well.
+
+ - When using the beamer, both to save and to use, this should 
+
+7.48 (characters):
+
+ - The task specifies that you should be able to somehow interact with a
+   character. Now he's "just a string".
+
+ - It doesn't have to be much, "talk Bartender", and having him reply
+   "I don't want to talk to you! :(" is enough.
+
+
