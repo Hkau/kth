@@ -45,7 +45,7 @@ public class Game
         // create the rooms
         outside = new Room("You're outside the main entrance of the university");
         theatre = new Room("You're in a lecture theatre");
-        pub = new Room("You're in the campus pub");
+        pub = new Room("You're in the campus pub. You see a Bartender");
         lab = new Room("You're in a computing lab");
         office = new Room("You're in the computing admin office");
         storage = new Room("You're the door deadlocked when you entered the storageroom");
@@ -85,7 +85,7 @@ public class Game
      */
     
     private void createCharacter(){
-        chars.add(new Character(pub, "Bartender: Looks like you've had a tough time..."));
+        chars.add(new Character("Bartender", pub, "Bartender: Looks like you've had a tough time..."));
     }
     /**
      *  Main play routine.  Loops until end of play.
@@ -152,6 +152,9 @@ public class Game
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
         }
+        else if (commandWord == CommandWord.TALK) {
+            talk(command);
+        }
         // else command not recognised.
         return wantToQuit;
     }
@@ -182,7 +185,7 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know what to do...
-            System.out.println("Do what with the beamer?");
+            System.out.println("Do what with the beamer? use or save?");
             return;
         }
         String secondWord = command.getSecondWord();
@@ -198,6 +201,17 @@ public class Game
             System.out.println("Do what with the beamer?");
         }
     }
+    
+    private void talk (Command command){
+        String secondWord = command.getSecondWord();
+            for(Character characters : chars){
+                if (characters.room() == currentRoom){
+                    if (secondWord.equals(characters.GetName())){
+                    System.out.println(characters.talk());
+                }
+                }
+            }
+        }
     private void goRoom(Command command) 
     {
         int i;
@@ -215,17 +229,14 @@ public class Game
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
-        else {
-            for(Character characters : chars){
-                if (characters.room() == nextRoom){
-                    System.out.println(characters.talk());
-                }
-            }
+
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
-            time = time +1; //time limit, begränsas av antalet steg. 7.42
+            time = time +1; //time limit, begränsas av antalet steg. 7.42'
         }
-    }
+    
+        
+    
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
