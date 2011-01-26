@@ -1,0 +1,49 @@
+% Framsida för dokument
+% Andreas Tarandi, taran@kth.se
+% Version 0.1, 2009-11-13
+\NeedsTeXFormat{LaTeX2e}[1998/12/01]
+\ProvidesPackage{firstpage}[2010/10/04 v0.1 firstpage]
+\usepackage{graphicx}
+\def\logo#1{\gdef\@logo{#1}}
+\def\logotext#1{\gdef\@logotext{#1}}
+\gdef\@titlepos{-68}
+\gdef\pagecmd{\clearpage\cleardoublepage}
+%\compactmode för att få rubriken på samma sida som texten
+\def\compactmode{\gdef\@titlepos{-45}\gdef\pagecmd{\vspace{200pt}}}
+\def\@logo{\@latex@warning{No logo given}}
+\def\@logotext{}
+\def\titleextra{}
+%\newcommand{\addauthor}[2]{\def\tmp{\authorbox #1\\#2\\\vspace{1pt}} }
+\renewcommand{\maketitle}{
+  \setlength{\unitlength}{1mm}
+  \thispagestyle{empty}
+  \vglue-\headheight\vglue-\headsep\vglue-\topmargin\vglue-1in
+  \hglue-\oddsidemargin\hglue-1in\hglue-\parindent
+  \begin{picture}(0,0)
+    \put(30,-30){\makebox[0pt][l]{
+      \vbox{
+        \hbox{
+		  \includegraphics[width=80px]{\@logo}
+		  }}
+		  }}
+    \put(47,-26){\makebox[0pt]{\parbox[t]{\textwidth}{
+		\begin{center}
+			\@logotext
+		\end{center}
+	 }}}
+    \put(0,\@titlepos){\makebox[598pt]{\parbox[t]{\textwidth}{ %105
+      \begin{center}
+        {\LARGE \@title } 
+	\vspace{4pt}\\
+	{ \large\textit{\@date}} \\
+	\vspace{8pt}
+	{\@author}
+      \end{center}}}}
+    \put(105,-80){\makebox[0pt]{\parbox[t]{\textwidth}{
+      \begin{center}
+			{\titleextra}
+      \end{center}}}}
+  \end{picture}\par
+  \setcounter{page}{1}
+\pagecmd
+}

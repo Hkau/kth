@@ -1,0 +1,76 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel} 
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[L]{Projektspecifikation}
+\fancyhead[R]{pbos@kth.se -- ammodee@kth.se}
+\fancyfoot[C]{DD143X}
+\fancyfoot[R] {\thepage}
+
+\usepackage{firstpage}
+\title{Kandidatexamensarbetesprojektspecifikation}
+\author{Peter Boström -- \emph{pbos@kth.se}\\Anna Maria Modée -- \emph{ammodee@kth.se}}
+\compactmode
+\pagestyle{empty}
+\logo{kth.png}
+
+\begin{document}
+\maketitle
+ \pagestyle{fancyplain}
+
+\section*{Introduktion}
+
+Vi ämnar att implementera samt studera ett självlärande system som spelar Tetris i syfte att lära sig spela Tetris bättre. För oss är självlärande system och aritficiell intelligens två intressanta områden som vi vill få en djupare förståelse för.
+
+\section*{Problemformulering}
+
+Syftet med projektet är att undersöka hur en självlärande algoritm kommer fram till resultat samt drar slutsatser. Vi vill kunna dra slutsatser kring hur bra ett sådant system kan bli utan yttre stimulans genom t.ex. övervakade testkörningar. Poängen är att datorn på egen väg genom väldigt många spelomgångar ska komma fram till egna strategier.
+
+Våra förhoppningar, utöver att se hur bra systemet kan bli, är att identifiera tillstånd där systemet drar viktiga slutsatser. Detta bland annat genom att analysera en inlärningskurva samt identifiera de viktiga förändringarna när systemet plötsligt blir markant bättre.
+
+Detta projekt skiljer sig markant från tvåspelarförslaget i och med att systemet försöker samla poäng snarare än att vinna över en motspelare. Systemet antas inte uppnå en tillräcklig strategi för att "vinna" över tetris, utan förväntas förr eller senare att förlora.
+
+\section*{Tillvägagångssätt}
+
+Vi har försökt dela upp projektet i ett antal olika delar. Dessa kommer vi att arbeta parallellt med under projektets gång. Att samla in kunskap blir viktigare i början men krävs även för att dra slutsatser när vi analyserar det insamlade materialet.
+
+\subsection*{Samla in kunskap}
+
+
+
+\subsection*{Implementera}
+
+Det som behöver implementeras är en version av tetris, ett fungerande interface mellan spelet och det lärande systemet samt det lärande systemet självt. För att systemet ska kunna lära sig själv så krävs ett belöningssystem, vilket i vårt fall är poäng för rundan.
+
+För att undvika att systemet enbart blir specialist på vår implementation av tetris kan det hända att vi använder oss av varianter av spelet med olika sannorlikheter på t.ex. klossar och fallhastighet.
+
+Många resultat samt det lärande systemets tillstånd kommer behöva sparas för att kunna analyseras senare och för att återuppta körning.
+
+\subsection*{Köra}
+
+\subsection*{Analysera}
+
+För att illustrera hur spelaren har lärt sig igenom tidernas gång vill vi bland annat rita upp grafer över systemets prestanda över antalet spelade rundor. Utifrån denna graf vill vi leta efter rundor där systemet har dragit nya gynnsamma slutsatser och identifiera vilka dessa är. För att kunna identifiera dessa blir det viktigt att vi kan visualisera, dvs. spela upp, inspelade omgångar.
+
+\section*{Referenser}
+
+\begin{itemize}
+\item R. Sutton and R. Barto. Reinforcement learning. The MIT Press, 1998.
+
+\item Stephen Marsland: Machine Learning, an Algorithmic Perspective. \\ Chapman \& Hall; 1st edition (April 1, 2009)
+\end{itemize}
+
+\section*{Tidsplan}
+
+Trust me, I'm working on it.
+
+\end{document}
+
