@@ -4,13 +4,14 @@ csv = CSV.open('exportutf8.csv', 'r', ',')
 
 tags = csv.shift
 
+#,Status,Project,Tracker,Priority,Subject,Assigned to,Category,Target version,Author,Start,Due date,% Done,Estimated time,Parent task,Created,Updated,Kravversion,Kravkälla,Verifiering av kravet,Stabilitet,Rättfärdigande,Description
 translation = {
   '#' => '#',
-  'Ämne' => 'Krav',
-  'Beskrivning' => 'Beskrivning',
+  'Subject' => 'Krav',
+  'Description' => 'Beskrivning',
   'Rättfärdigande' => 'Motivering',
   'Kravversion' => 'Behov',
-  'Prioritet' => 'Prioritet',
+  'Priority' => 'Prioritet',
 #  'Kravet kan komma att ändras' => 'Stabilitet',
   'Kravkälla' => 'Källa',
   'Verifiering av kravet' => 'Verifierbarhet',
@@ -33,15 +34,15 @@ end
 postcat = {}
 
 posts.each do |post|
-  if postcat[post['Kategori']] == nil
-    postcat[post['Kategori']] = []
+  if postcat[post['Category']] == nil
+    postcat[post['Category']] = []
   end
-  postcat[post['Kategori']] << post
+  postcat[post['Category']] << post
 end
 
 postcat.each do |cat, posts|
   posts.sort! {|a,b|
-    a['Krav'] <=> b['Krav']
+    a['#'] <=> b['#']
   }
 end
 
@@ -64,16 +65,20 @@ rows = [
   'Verifierbarhet',
 ]
 
+i = 1
 tags.each do |cat|
   posts = postcat[cat]
   puts 'h3. ' + cat
   puts
+  j = 1
   posts.each do |post|
-    puts '|_.' + 'Krav' + '|' + post['Krav'].strip + ' (_#' + post['#'] + '_)|'
+    puts '|_.' + 'Krav' + '|_.UR' +i.to_s + '.' + j.to_s + ' ' + post['Krav'].strip + ' |'
     rows.each do |entry|
       puts '|_.' + entry + '|' + post[entry] + '|'
     end
     puts
+    j += 1
   end
+  i += 1
 end
 

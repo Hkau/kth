@@ -5,6 +5,8 @@ doc = ARGV[0]
 
 $docv = []
 
+ver = open('versions.txt', 'w')
+
 def wikifetch(http, header, doc)
   resp = http.get("/projects/karspexet/wiki/" + doc, header)
   version = (/format=html&amp;version=(\d+)/.match(resp.body))[1]
@@ -37,14 +39,11 @@ Net::HTTP.start("redmine.torandi.com") { |http|
   header = {'Cookie'=>cookie}
   $docv << [doc]
   wikidoc = wikifetch http, header, doc
-  puts 'h1. Dokumentversioner'
-  puts
-  puts 'Dokumentet har genererats från följande deldokument.'
-  puts
+  ver << "h1. Dokumentversioner\n\n"
+  ver << "Dokumentet har genererats från följande deldokument.\n\n"
   $docv.shift
   $docv.each do |elem|
-    puts '*' + elem[0] + '* version: _' + elem[1] + '_.'
-    puts
+    ver << '*' + elem[0] + '* version: _' + elem[1] + '_.' + "\n\n"
   end
   wikidoc.gsub!(/\r/, '')
   puts wikidoc

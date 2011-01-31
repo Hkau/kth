@@ -2,6 +2,22 @@ puts open('nyx-head.tex').read
 
 input = $stdin.read
 input.gsub!(/\r/, '') # removes \r from possible \r\n
+input.gsub!(/\$TOC\$/, '\clearpage \tableofcontents \clearpage')
+input.gsub!(/\$VERSIONS\$/) {|match| open('versions.txt').read }
+input.gsub!(/\$ISSUES\$/) {|match| open('issues.txt').read }
+input.gsub!(/!(\S+)!/, '\includegraphics[width=\textwidth]{\1}')
+
+num = input[/[0-9]\.[0-9]/].to_f
+
+if num < 1.0
+  version = ''
+elsif num == 1.0
+  version = ' -- \emph{Final Draft}'
+else
+  version = ' -- \emph{Revised}'
+end
+
+puts '\version{' + num.to_s + version + '}'
 
 split = input.split(/(^h[1-5]\. .*)/)
 
@@ -63,9 +79,9 @@ while true do
     puts
     puts '\newpage'
     puts
-    puts '\tableofcontents'
-    puts
-    puts '\clearpage'
+#    puts '\tableofcontents'
+#    puts
+#    puts '\clearpage'
     puts '\setcounter{page}{1}'
     puts
     puts '\startfooter'
