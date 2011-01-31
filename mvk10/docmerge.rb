@@ -7,7 +7,24 @@ $docv = []
 
 ver = open('versions.txt', 'w')
 
+def fetchfiles(http, header, doc)
+  resp = http.get("/projects/karspexet/wiki/" + doc, header)
+  resp.body.gsub!(/"(\/attachments\/\d+\/(\S+))"/){ |s|
+    doc = $1
+    name = CGI.unescape($2)
+    name.gsub!('å', 'aa')
+    name.gsub!('ä', 'ae')
+    name.gsub!('ö', 'oe')
+    $stderr.puts doc + ': ' + name
+    f = open(name, 'w')
+    f << http.get(doc, header).body
+    f.close()
+    ''
+  }
+end
+
 def wikifetch(http, header, doc)
+  fetchfiles(http, header, doc)
   resp = http.get("/projects/karspexet/wiki/" + doc, header)
   version = (/format=html&amp;version=(\d+)/.match(resp.body))[1]
   $docv[-1] << version
@@ -42,6 +59,9 @@ Net::HTTP.start("redmine.torandi.com") { |http|
   ver << "h1. Dokumentversioner\n\n"
   ver << "Dokumentet har genererats från följande deldokument.\n\n"
   $docv.shift
+  $docv.sort!{ |x, y|
+    x[0].casecmp(y[0])
+  }
   $docv.each do |elem|
     ver << '*' + elem[0] + '* version: _' + elem[1] + '_.' + "\n\n"
   end

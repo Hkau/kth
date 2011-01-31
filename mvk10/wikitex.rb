@@ -5,7 +5,14 @@ input.gsub!(/\r/, '') # removes \r from possible \r\n
 input.gsub!(/\$TOC\$/, '\clearpage \tableofcontents \clearpage')
 input.gsub!(/\$VERSIONS\$/) {|match| open('versions.txt').read }
 input.gsub!(/\$ISSUES\$/) {|match| open('issues.txt').read }
-input.gsub!(/!(\S+)!/, '\includegraphics[width=\textwidth]{\1}')
+input.gsub!(/!(\S+)!/){ |s|
+  name = $1
+  name.gsub!('å', 'aa')
+  name.gsub!('ä', 'ae')
+  name.gsub!('ö', 'oe')
+
+  '\includegraphics[width=\textwidth]{' + name + '}'
+}
 
 num = input[/[0-9]\.[0-9]/].to_f
 
@@ -41,10 +48,14 @@ split.each do |section|
     line.gsub!(/(^|\W)\*(.+?)\*(\W|$)/, '\1\textbf{\2}\3')
   #section.gsub!(/^_([^\|]+?)_$/, '\emph{\1}')
     line.gsub!(/_/, '\_')
-    line.gsub!(/(\\url\{[^\}]*)\\_/, '\1_') # \_ => _ inside urls.
     line.gsub!(/#/, '\#')
     line.gsub!(/%/, '\%')
-    line.gsub!(/(\\url\{[^\}]*)\\#/, '\1#') # \# => # inside urls.
+    line.gsub!(/\\url\{([^\}]*)}/) { |s|
+      url = $1
+      url.gsub!('\_', '_') # \_ => _ inside urls.
+      url.gsub!('\#', '_') # \# => # inside urls.
+      '\url{' + url + '}'
+    }
     line.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
     line.gsub!(/(\d+)\^(\d+)/, '$\1^{\2}$')
   end
