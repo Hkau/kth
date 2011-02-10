@@ -16,7 +16,7 @@
 \fancyfoot[R] {\thepage}
 
 \usepackage{firstpage}
-\title{Kandidatexamensarbetesprojektspecifikation}
+\title{Kandidatexamensarbetesprojektspecifikation\\\vspace{4pt}\normalsize Q-learning applicerad på brädspelet Blokus}
 \author{Peter Boström -- \emph{pbos@kth.se}\\Anna Maria Modée -- \emph{ammodee@kth.se}}
 \compactmode
 \pagestyle{empty}
@@ -28,15 +28,13 @@
 
 \section*{Introduktion}
 
-Vi ämnar att implementera samt studera ett självlärande system som spelar Tetris i syfte att lära sig spela Tetris bättre. För oss är självlärande system och aritficiell intelligens två intressanta områden som vi vill få en djupare förståelse för.
+Vi ämnar att implementera samt studera ett självlärande system som spelar Blokus mot sig själv i syfte att lära sig hur Blokus bör spelas bättre. För oss är självlärande system och aritficiell intelligens två intressanta områden som vi vill få en djupare förståelse för.
 
 \section*{Problemformulering}
 
-Syftet med projektet är att undersöka hur en självlärande algoritm kommer fram till resultat samt drar slutsatser. Vi vill kunna dra slutsatser kring hur bra ett sådant system kan bli utan yttre stimulans genom t.ex. övervakade testkörningar. Poängen är att datorn på egen väg genom väldigt många spelomgångar ska komma fram till egna strategier.
+Syftet med projektet är att undersöka hur en självlärande algoritm kommer fram till resultat samt drar slutsatser. Vi vill undersöka hur bra ett sådant system kan bli utan yttre stimulans genom till exempel övervakade testkörningar. Poängen är att programmet på egen väg genom väldigt många spelomgångar ska komma fram till egna strategier.
 
-Våra förhoppningar, utöver att se hur bra systemet kan bli, är att identifiera tillstånd där systemet drar viktiga slutsatser. Detta bland annat genom att analysera en inlärningskurva samt identifiera de viktiga förändringarna när systemet plötsligt blir markant bättre.
-
-Detta projekt skiljer sig markant från tvåspelarförslaget i och med att systemet försöker samla poäng snarare än att vinna över en motspelare. Systemet antas inte uppnå en tillräcklig strategi för att "vinna" över tetris, utan förväntas förr eller senare att förlora.
+Våra förhoppningar, utöver att se hur bra programmet kan bli, är att identifiera tillstånd där den artificiella intelligensen drar viktiga slutsatser. Detta bland annat genom att analysera en inlärningskurva samt identifiera de viktiga förändringarna när ai:n plötsligt blir markant bättre. Vi vill också kunna dra slutsatser kring hur belöningssystemet påverkar inlärningen.
 
 \section*{Tillvägagångssätt}
 
@@ -44,21 +42,27 @@ Vi har försökt dela upp projektet i ett antal olika delar. Dessa kommer vi att
 
 \subsection*{Samla in kunskap}
 
-
+Till att börja med kommer vi att införskaffa brädspelet för att enklare kunna visualisera och förstå reglerna. Vi måste fördjupa våra kunskaper inom Q-learning och reinforcement learning genom att läsa litteratur i ämnet samt genomföra laborationen om reinforcement learning i kursen maskininlärning. Till sist ska vi undersöka angränsande kantidatarbeten för att få en bättre bild av analyser och slutsatser dragna från självlärande modeller.
 
 \subsection*{Implementera}
 
-Det som behöver implementeras är en version av tetris, ett fungerande interface mellan spelet och det lärande systemet samt det lärande systemet självt. För att systemet ska kunna lära sig själv så krävs ett belöningssystem, vilket i vårt fall är poäng för rundan.
-
-För att undvika att systemet enbart blir specialist på vår implementation av tetris kan det hända att vi använder oss av varianter av spelet med olika sannorlikheter på t.ex. klossar och fallhastighet.
+Vi ämnar att implementera en version av Blokus, ett fungerande interface mellan spelet och den artificiella intelligensen samt själva ai:n. För att systemet ska kunna lära sig själv så krävs ett belöningssystem. Ett av de belöningssystem vi tänkt prova är poäng för antalet täckta rutor samt en rejäl bonus för om ai:n vinner.
 
 Många resultat samt det lärande systemets tillstånd kommer behöva sparas för att kunna analyseras senare och för att återuppta körning.
 
 \subsection*{Köra}
 
+Programmet ska spela mot sig själv väldigt, väldigt många gånger. Kunskapen, förutom reglerna, ska härstamma från algoritmens förmåga att dra slutsatser.
+
 \subsection*{Analysera}
 
-För att illustrera hur spelaren har lärt sig igenom tidernas gång vill vi bland annat rita upp grafer över systemets prestanda över antalet spelade rundor. Utifrån denna graf vill vi leta efter rundor där systemet har dragit nya gynnsamma slutsatser och identifiera vilka dessa är. För att kunna identifiera dessa blir det viktigt att vi kan visualisera, dvs. spela upp, inspelade omgångar.
+För att illustrera hur spelaren har lärt sig igenom tidernas gång vill vi bland annat rita upp grafer över artificiella intelligensens prestanda över antalet spelade rundor. Utifrån denna graf vill vi leta upp rundor där programmet har dragit nya gynnsamma slutsatser och försöka identifiera vilka dessa är. För att kunna identifiera dessa blir det viktigt att vi kan visualisera tidigare omgångar.
+
+Vi vill även se hur belöningssystemet påverkar ai:ns inlärningskurva samt ``slutgiltig'' prestanda för ai:n.
+
+\subsection*{Rapportskrivning}
+
+Parallellt med alla ovanstående punkter ska vi samla in information till, och skriva rapporten.
 
 \section*{Referenser}
 
@@ -68,9 +72,16 @@ För att illustrera hur spelaren har lärt sig igenom tidernas gång vill vi bla
 \item Stephen Marsland: Machine Learning, an Algorithmic Perspective. \\ Chapman \& Hall; 1st edition (April 1, 2009)
 \end{itemize}
 
+\newpage
 \section*{Tidsplan}
 
-Trust me, I'm working on it.
+Det vi förväntar ta tid är kunskapsinsamling, implementation, analys samt rapportskrivning.
+
+I februari samlar vi in den nödvändiga kunskapen och information från tidigare forskning samt påbörjar den egna implementationen och rapportskrivningen.
+
+I mitten av mars slutförs implementationen och körningar påbörjas. Under tiden analyserar vi körningar och skriver på rapporten. Under denna fas justeras belöningssystemet för att se hur belöningssystemet påverkar ai:ns inlärningskurva.
+
+I april ska sista analyserna göras och rapporten skrivas klart.
 
 \end{document}
 

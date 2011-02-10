@@ -11,7 +11,7 @@ input.gsub!(/!(\S+)!/){ |s|
   name.gsub!('ä', 'ae')
   name.gsub!('ö', 'oe')
 
-  '\includegraphics[width=\textwidth]{' + name + '}'
+  '\begin{figure}[ht] \centering \includegraphics[width=0.8\textwidth]{' + name + '} \end{figure} \FloatBarrier'
 }
 
 num = input[/[0-9]\.[0-9]/].to_f
@@ -30,6 +30,8 @@ split = input.split(/(^h[1-5]\. .*)/)
 
 # Get rid of stray spaces and newline characters.
 level = 0
+defaultformat = 'p{2.6cm} p{12.5cm}'
+tableformat = defaultformat
 
 hidden_sect = ['Ändringslogg', 'Dokumentversioner', 'Gruppmedlemmar']
 
@@ -42,7 +44,7 @@ split.each do |section|
   # replace *format* _format_ and +format+ etc.
     line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
     line.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
-    line.gsub!(/\+(.+?)\+/, '\underline{\1}')
+#    line.gsub!(/\+(^_+?)\+/, '\underline{\1}')
     line.gsub!(/(^|\W)(\*_|_\*)([^\|]+?)(\*_|_\*)(\W|$)/, '\1\textbf{\emph{\3}}\5')
     line.gsub!(/(^|\W)_([^\|]+?)_(\W|$)/, '\1\emph{\2}\3')
     line.gsub!(/(^|\W)\*(.+?)\*(\W|$)/, '\1\textbf{\2}\3')
@@ -144,7 +146,7 @@ while not split.empty?
       line = (line+' ').split '|'
       if not in_table
         in_table = true
-	puts "\t" * level + '\begin{tabular} { p{2.6cm} p{12.5cm} }'
+	puts "\t" * level + '\begin {table} [ht] \begin{tabular} { ' + tableformat + ' }'
 	#puts "\t" * level + '\begin{tabular} { |' + ' l |' * line.size + ' }'
 	level += 1
 	puts "\t" * level + '\hline'
@@ -162,11 +164,19 @@ while not split.empty?
       if in_table
         in_table = false
 	level -= 1
-	puts "\t" * level + '\end{tabular}'
+	puts "\t" * level + '\end{tabular} \end{table} \FloatBarrier'
 	puts "\t" * level + '\vspace{6mm}'
 	puts
       end
     end
+    line.gsub!(/\$TABLEFORMAT:(.*)\$/) { |match|
+      if $1 == 'DEFAULT'
+        tableformat = format
+      else
+        tableformat = $1
+      end
+      ''
+    }
     if line.strip == ''
       next
     end
@@ -176,7 +186,7 @@ while not split.empty?
   if in_table
     in_table = false
     level -= 1
-    puts "\t" * level + '\end{tabular}'
+    puts "\t" * level + '\end{tabular} \end{table} \FloatBarrier'
     puts
   end
   puts

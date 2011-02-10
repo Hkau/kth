@@ -1,0 +1,2302 @@
+\documentclass[a4paper, twoside, 11pt, titlepage]{article}
+
+\usepackage{bds/bds}
+
+\usepackage[utf8]{inputenc} % -- använd denna "när det funkar", dvs på skolans nya datorer + linux, ibland på windows
+\usepackage[swedish,english]{babel}
+
+\project{Bokningssystem för Kårspexet}
+\author{
+	\small
+	Arvidsson, Kalle -- kallear@kth.se\\
+	Boström, Peter -- pbos@kth.se\\
+	Eklund, Erik -- eekl@kth.se\\
+	Gräsman, André -- grasman@kth.se\\
+	Göransson, Rasmus -- rasmusgo@kth.se\\
+	Hagsten, Per -- hagsten@kth.se\\
+	Hallberg, Victor -- victorha@kth.se\\
+	Modée, Anna Maria -- ammodee@kth.se\\
+	Nyberg, Daniel -- dnyb@kth.se\\
+	Stjernberg, Johan -- stjer@kth.se\\
+	Tarandi, Andreas -- taran@kth.se
+	}
+
+\version{0.4}
+\title{Software Requirements Document (SRD)}
+
+\begin{document}
+\maketitle
+
+\clearpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+\selectlanguage{english}
+\begin{abstract}
+	This document describes the requirements of Nyx's software for the client Kårspexet. The main purpose of this document is to facilitate the requirements for Nyx's developers, by interpreting and expanding on the user requirements document (URD) for the same project. The document details the software's functionality and goes more in depth with how that is to be implemented in the product.
+\end{abstract}
+\selectlanguage{swedish}
+
+\newpage
+
+\setcounter{page}{1}
+
+\startfooter
+
+\clearpage
+\section*{Ändringslogg}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Version} & \sffamily\textbf{Ändringar } \\
+	\hline
+	\sffamily\textbf{0.4} & Vissa kravförändringar. Citat från PSS-standarden borttagna.  \\
+	\hline
+	\sffamily\textbf{0.3} & Ny version inför granskning.  \\
+	\hline
+	\sffamily\textbf{0.2} & Prototypbilder inkluderade i dokumentet.  \\
+	\hline
+	\sffamily\textbf{0.1} & Första sammanställd version av dokumentet.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section*{Dokumentversioner}
+
+
+Dokumentet har genererats från följande deldokument.
+
+\textbf{Gruppmedlemmar} version: \emph{3}.
+
+\textbf{SRD/Ändringslogg} version: \emph{7}.
+
+\textbf{SRD/abstract} version: \emph{3}.
+
+\textbf{SRD/Allmän beskrivning} version: \emph{3}.
+
+\textbf{SRD/Allmän beskrivning/Funktion och syfte} version: \emph{6}.
+
+\textbf{SRD/Allmän beskrivning/Generella begränsningar} version: \emph{24}.
+
+\textbf{SRD/Allmän beskrivning/Miljömässiga betänkanden} version: \emph{10}.
+
+\textbf{SRD/Allmän beskrivning/Modellbeskrivning} version: \emph{10}.
+
+\textbf{SRD/Allmän beskrivning/Relation till aktuella projekt} version: \emph{9}.
+
+\textbf{SRD/Allmän beskrivning/Relation till andra system} version: \emph{18}.
+
+\textbf{SRD/Allmän beskrivning/Relation till tidigare och kommande projekt} version: \emph{10}.
+
+\textbf{SRD/appendix} version: \emph{1}.
+
+\textbf{SRD/Introduktion} version: \emph{2}.
+
+\textbf{SRD/Introduktion/Definitioner akronymer och förkortningar} version: \emph{46}.
+
+\textbf{SRD/Introduktion/Dokumentöversikt} version: \emph{6}.
+
+\textbf{SRD/Introduktion/Källor} version: \emph{8}.
+
+\textbf{SRD/Introduktion/Mjukvarans omfattning} version: \emph{5}.
+
+\textbf{SRD/Introduktion/Syfte} version: \emph{6}.
+
+\textbf{SRD/Spårningsmatris mellan användarkrav och mjukvarukrav} version: \emph{6}.
+
+\textbf{SRD/Specifika krav} version: \emph{9}.
+
+\textbf{SRD/Specifika krav/Dokumentationskrav} version: \emph{27}.
+
+\textbf{SRD/Specifika krav/Funktionalitetskrav} version: \emph{120}.
+
+\textbf{SRD/Specifika krav/Gränssnittskrav} version: \emph{44}.
+
+\textbf{SRD/Specifika krav/Körbarhetskrav} version: \emph{8}.
+
+\textbf{SRD/Specifika krav/Kvalitetskrav} version: \emph{36}.
+
+\textbf{SRD/Specifika krav/Portabilitetskrav} version: \emph{11}.
+
+\textbf{SRD/Specifika krav/Prestandakrav} version: \emph{30}.
+
+\textbf{SRD/Specifika krav/Resurskrav} version: \emph{11}.
+
+\textbf{SRD/Specifika krav/Säkerhetskrav} version: \emph{18}.
+
+\textbf{SRD/Specifika krav/Test av användaracceptans} version: \emph{13}.
+
+\textbf{SRD/Specifika krav/Tillförlitlighetskrav} version: \emph{12}.
+
+\textbf{SRD/Specifika krav/Trygghetskrav} version: \emph{12}.
+
+\textbf{SRD/Specifika krav/Underhållskrav} version: \emph{8}.
+
+\textbf{SRD/Specifika krav/Verifikationskrav} version: \emph{17}.
+
+\clearpage
+\section*{Gruppmedlemmar}
+
+
+Projektgruppen \textbf{Nyx} består av följande medlemmar.
+
+\textbf{Kalle Arvidsson} -- 890601-2490, kallear@kth.se
+
+\textbf{Peter Boström} -- 890224-0814, pbos@kth.se
+
+\textbf{Erik Eklund} -- 880816-0454, eekl@kth.se 
+
+\textbf{André Gräsman} -- 890430-3214, grasman@kth.se 
+
+\textbf{Rasmus Göransson} -- 850908-8517, rasmusgo@kth.se 
+
+\textbf{Per Hagsten} -- 870529-0115, hagsten@kth.se
+
+\textbf{Victor Hallberg} -- 890121-0057, victorha@kth.se
+
+\textbf{Anna Maria Modée} -- 871120-0363, ammodee@kth.se 
+
+\textbf{Daniel Nyberg} -- 900104-4495, dnyb@kth.se 
+
+\textbf{Johan Stjernberg} -- 890315-0533, stjer@kth.se
+
+\textbf{Andreas Tarandi} -- 890416-0317, taran@kth.se
+
+\clearpage \tableofcontents \clearpage
+
+\clearpage
+\section{Introduktion}
+
+
+
+\clearpage
+\section{Syfte}
+
+
+Detta dokuments syfte är att ge projektets utvecklare en överblick av produktens omfattning och mer detaljerad genomgång av dess funktionalitet.
+
+Mjukvarans omfattning [1.2] bör först läsas igenom, tillsammans med förklaringar av tekniska begreppen[1.3]. Först efter detta bör de mer tekniskt detaljerade sektion 2 och sektion 3 gås igenom.
+
+\clearpage
+\section{Mjukvarans omfattning}
+
+
+Produkten som Nyx utvecklar består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt för besökare och administrationsverktyg för Kårspexets personal. Administrationsverktygen består av tre gränssnitt; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+
+\clearpage
+\section{Definitioner akronymer och förkortningar}
+
+
+\textbf{Alla akronym från URD är medtagna. Om du använder något av akronymen, var snäll och ta bort bindesträcket `` - '' framför akronymet så man vet att det används i SRD.}
+
+	\subsection{Termer specifika för Kårspexet och detta projekt}
+
+
+	\textbf{Omgång}
+
+	\subsection{Tekniska begrepp (?)}
+
+
+	\textbf{Active record} \emph{Teknik för att kommunicera med databaser i objekt-orienterade språk. Objekten i databasen kopplas till objekt i programmet.}
+
+	\textbf{Algoritm} \emph{Inom matematik och datorvetenskap är detta en begränsad uppsättning tydliga instruktioner för att utföra en uppgift.}
+
+	\textbf{Apache} \emph{Syftar i detta dokument på webbservern Apache HTTP Server.}
+
+	\textbf{Apache HTTP Server} \emph{Världens mest använda webbserver. Är gratis att använda. [1.3.1]}
+
+	- \textbf{Applikation} \emph{I datasammanhang även kallat tillämpningsprogram. Ett dataprogram som fyller ett direkt syfte för användaren.}
+
+	\textbf{Arbetsminne} \emph{Även kallat primärminne. En fysisk komponent i en dator. Används för att lagra program och data då programmet körs.}
+
+	\textbf{Bandbredd} \emph{I vardagligt tal en storhet för hur mycket information som kan överföras på en viss tid. Vanlig enhet är Mbit/sekund.}
+
+	\textbf{Bit} (Binary Digit) \emph{Den grundläggande enhet som datorer arbetar med. En bit kan anta ett utav två möjliga värden (ofta angivna som 0 eller 1).}
+
+	\textbf{Byte} \emph{En vanlig enhet för informationsmängd i datasammanhang. En byte är ett paket bestående av åtta bitar.}
+
+	\textbf{CentOS} \emph{Ett operativsystem baserat på Red Hat Enterprise Linux som är gratis att använda. [1.3.2]}
+
+	\textbf{Databas} \emph{En databas är en samling information ordnad på ett sådant sätt att informationen i den effektivt går att hitta.}
+
+	\textbf{Firefox} (Mozilla Firefox) \emph{En webbläsare som går att köra på de populäraste operativsystemen.}
+
+	\textbf{Foreign key} \emph{Inom relationsdatabaser en begränsning som kräver att information på ett ställe finns definierat tidigare på ett annat ställe (kolumner i tabeller).}
+
+	- \textbf{Mail} \emph{Elektroniskt brev (engelska: email).}
+
+	- \textbf{Mailklient} \emph{Datorprogram för att hantera/läsa/skicka mail.}
+
+	\textbf{GHz} \emph{Enhet för antalet miljarder svängningar per sekund. ``G'' är binärt prefix för $10^{9}$. ``Hz'' är förkortning för Hertz.}
+
+	\textbf{Gränssnitt} \emph{Utformningen av kommunikationen mellan en mjukvarumodul och användare eller annan mjuk-/hårdvara.}
+
+	\textbf{GUI} (Graphical User Interface) \emph{Se gränssnitt.}
+
+	\textbf{HTML} (Hyper Text Markup Language) \emph{Ett språk och webbstandard som används för att beskriva strukturering av text, bilder och annan media på en webbsida.}
+
+	\textbf{HTTP} (HyperText Transfer Protocol) \emph{Ett standardiserat protokoll som definierar hur kommunikation över webben sker.}
+
+	\textbf{HTTPS} (HTTP Secure) \emph{En kombination av HTTP och SSL/TLS med syftet att förhindra avlyssning av HTTP-trafiken}
+
+	\textbf{Hårdvara} \emph{Även kallat Maskinvara. Ett samlingsnamn för en dators fysiska komponenter.}
+
+	- \textbf{Interface} \emph{Se gränssnitt.}
+
+	\textbf{Internet Explorer} \emph{En webbläsare utvecklad av Microsoft för operativsystemet Windows.}
+
+	\textbf{InvalidAuthenticyToken} \emph{Ett fel som kan uppstå i rails om användaren backar på sidor innehållande formulär. Uppstår på grund av Rails skydd mot XSS.}
+
+	\textbf{kB} (kilobyte) \emph{Se kbyte.}
+
+	\textbf{kbyte} (kilobyte) \emph{Enhet för datamängd. ``k'' är prefix för $10^{3}$. För ``byte'', se Byte.}
+
+	\textbf{KiB} (kibibyte) \emph{Enhet för datamängd. ``Ki'' är ett binärt prefix för $2^{10}$. ``B'' är förkortning för Byte.}
+
+	- \textbf{Klockfrekvens} \emph{Beteckning för den hastighet i vilken en processor arbetar i.}
+
+	- \textbf{KTH} (Kungliga Tekniska Högskolan) \emph{Sveriges största tekniska universitet.}
+
+	- \textbf{Latens} \emph{Även känt som svarstid, tidsfördröjning eller lagg. Tidsskillnaden mellan en begäran och respons på begäran.}
+
+	- \textbf{Latency} \emph{Engelskt ord för Latens.}
+
+	\textbf{Linux} \emph{Unix-liknande operativsystem. Linux är fri mjukvara.}
+
+	- \textbf{Logik} \emph{Vetenskapen om att dra korrekta slutsatser från givna påståenden.}
+
+	\textbf{Mb} (Megabyte) \emph{Se Mbyte.}
+
+	\textbf{Mbyte} (Megabyte) \emph{Enhet för datamängd. ``M'' är prefix för $10^{6}$. För ``byte'', se Byte.}
+
+	- \textbf{MHz} \emph{Enhet för antalet miljoner svängningar per sekund. ``M'' är binärt prefix för $10^{6}$. ``Hz'' är förkortning för Hertz.}
+
+	\textbf{MiB} (mebibyte) \emph{Enhet för datamängd. ``Mi'' är ett binärt prefix för $2^{20}$. ``B'' är förkortning för Byte.}
+
+	\textbf{MiBit/s} (mebibit per sekund) \emph{Enhet för datahastighet. ``Mi'' är ett binärt prefix för $2^{20}$. ``Bit'' är den minsta enheten för informationsmängder i datasammanhang.}
+
+	\textbf{Mjukvara} \emph{Även kallat programvara. En organiserad samling av data och maskininstruktioner.}
+
+	- \textbf{Mjukvarubibliotek} \emph{En samling av redan existerande program eller delar av program som används för att utveckla mjukvara.}
+
+	- \textbf{Modul} \emph{Term för komponenter eller funktioner som går att separera från resten av systemet och som inte nödvändigtvis krävs för att systemet ska fungera som helhet.}
+
+	- \textbf{MVC} (Model-View-Controller) \emph{Se Model-View-Controller.}
+
+	\textbf{Model-View-Controller} \emph{Ett koncept som bygger på att separera data (modeller), logik (kontroller) och användarinterface (vyer).}
+
+	- \textbf{MVC ramverk} \emph{Mjukvarubibliotek designade efter MVC-konceptet.}
+
+	\textbf{MySQL} \emph{En typ av relationsdatabas baserad på SQL-standarden. Ett relationsdatabas hanteringssystem där flera användare kan arbeta med flera databaser.}
+
+	\textbf{N/A} (Not Applicable) \emph{Inte applicerbart. Används bland annat i tabeller där alla fält förväntas fyllas i men fältet saknar applicerbart värde.}
+
+	- \textbf{Open Source} \emph{Engelskt låneord för öppen källkod.}
+
+	- \textbf{Operativsystem} \emph{Ett datorprogram vars syfte är att underlätta användandet av en dator genom att vara länken mellan programvara och hårdvara.}
+
+	\textbf{Passenger} \emph{I Rails-sammanhang en modul som gör det möjligt att köra Ruby on Rails på webbservern Apache.}
+
+	- \textbf{PHP} \emph{Ett programmeringsspråk som ofta används för att skapa webbapplikationer.}
+
+	\textbf{Processor} \emph{Den komponent i en dator som utför beräkningar efter instruktioner.}
+
+	- \textbf{Programmeringsspråk} \emph{Språk som människor använder för att skapa datorprogram.}
+
+	\textbf{Rails} \emph{I datorsammanhang vanlig förkortning för Ruby on Rails.}
+
+	\textbf{RDoc} (Ruby Doc) \emph{Verktyg för att generera dokumentation för Ruby-källkod i HTML-format.}
+
+	- \textbf{Red Hat Enterprise Linux} \emph{Variant av Linux.}
+
+	- \textbf{Rendering} \emph{I datasammanhang (även känt som Rendrering) det program som framställer en bild/animering med hjälp av beräkningar från en beskrivning.}
+
+	\textbf{Ruby} \emph{Ett objektorienterat programmeringsspråk.}
+
+	\textbf{Ruby on Rails} \emph{Ett abstrakt mjukvarubibliotek med öppen källkod för utveckling av webbapplikationer.}
+
+	\textbf{Sjöslaget} \emph{Årligen återkommande studentfest på Finlandsfärja.}
+
+	- \textbf{Systemminne} \emph{Även kallat RAM (Random Access Memory), arbetsminne eller primärminne. Används för att tillfälligt lagra data som datorn arbetar med.}
+
+	- \textbf{Spex} (Spektakel) \emph{Humoristisk studentamatörteaterföreställning.}
+
+	\textbf{SQL} (Structured Query Language) \emph{Ett språk designat för att interagera med databaser.}
+
+	\textbf{SQL-injection} \emph{En metod för att förändra eller komma åt data i en databas genom att ange strängar i användarinterfacet som förändrar betydelsen av en SQL-fråga.}
+
+	\textbf{SHA-1} \emph{En hashfunktion.}
+
+	\textbf{SSL/TLS} (Secure Socket Layer/Transport Layer Security) \emph{Ett kryptografiskt protokoll för att sätta upp säkra kommunikationskanaler över internet.}
+
+	\textbf{Testkod} \emph{Kod som används för att testa funktioner i programmet så att det returnerar förväntat svar för att försäkra sig om att mjukvaran fungerar på ett tillfredsställande sätt.}
+
+	\textbf{Tutorial} \emph{En metod för att överföra kunskap som ofta används vid inlärning.}
+
+	- \textbf{Unix} \emph{Ett operativsystem som ofta används i olika typer av servrar och arbetsstationer.}
+
+	\textbf{URD} (User Requirements Document) \emph{Dokument inom PSS050 standarden där användarens krav specificeras.}
+
+	- \textbf{URL} (Uniform Resource Locator) \emph{Den formella benämningen av en webbadress. En text som beskriver var en viss resurs på internet finns, samt hur den går att komma åt.}
+
+	- \textbf{Webb} \emph{Även känt som WWW (World Wide Web). Det system som används för att hämta, visa och manipulera delar på internet. WWW utgörs av standarderna URL, HTTP respektive HTML.}
+
+	\textbf{Webbapplikation} \emph{Samlingsnamn för mjukvara som användare kommer åt via en webbläsare.}
+
+	\textbf{Webbläsare} \emph{Ett program som hämtar, tolkar och återger webbsidor kodade exempelvis som HTML.}
+
+	\textbf{Webbserver} \emph{Program som körs på en server och distribuerar webbsidor och/eller andra filer som en webbläsare begär via HTTP-protokollet.}
+
+	\textbf{Webbsida} \emph{En fil, innehållandes exempelvis HTML, avsedd att visas av en webbläsare.}
+
+	\textbf{XSS} (Cross site scripting) \emph{En teknik som utnyttjar svagheter i en webbsida genom att låta en auktoriserad användare accessa en länk som modifierar sidan på ett sätt som den auktoriserade användaren inte önskar [1.3.3].}
+
+	- \textbf{Öppen källkod} \emph{Innebär möjlighet att ändra i konstruktionen för ett system. I ett datorprogram som har öppen källkod kan den som vill göra ändringar i programmet och utveckla det vidare.}
+
+\clearpage
+\section{Källor}
+
+
+Referenser till de källor som använts i dokumentet är listade här under. En och samma källa kan refereras vid flera ställen i texten. En referens är på formatet [Sektion.Rubrik.Löpnummer]. Exempelvis är [2.5.1] den första (1) referensen för rubriken ``Relation till andra system'' (5) under sektion ``Allmän beskrivning'' (2).
+
+\textbf{Apache HTTP Server}
+
+\url{http://httpd.apache.org/}
+
+Hänvisning till källan görs från referenserna: [1.3.1].
+
+\textbf{CentOS}
+
+\url{http://www.centos.org/}
+
+Hänvisning till källan görs från referenserna: [1.3.2].
+
+\textbf{Cross-site-scripting}
+
+\url{http://en.wikipedia.org/wiki/Cross-site_scripting}
+
+Hänvisning till källan görs från referenserna: [1.3.3].
+
+\clearpage
+\section{Dokumentöversikt}
+
+
+Detta dokument innehåller fyra distinkta delar. Sektion 1 är denna introduktion till projektet. Sektion 2 beskriver produktens funktionalitet och presenterar dessutom externa faktorer kring produkten. Sektion 2.7 är extra intressant för utvecklare, ty den innehåller logiska datamodeller och användarscenarion .  Sektion 3 beskriver de specifika krav från kunden såväl från Nyx som finns på produkten. Sektion 4 innehåller en matris där mjukvarans krav kan spåras tillbaka till användarens krav från URD:n.
+
+\clearpage
+\section{Allmän beskrivning}
+
+
+
+\clearpage
+\section{Relation till aktuella projekt}
+
+
+Nyx produkt ska bli en del av Kårspexets webbplats och byta ut det gamla bokningssystemet som finns där. Till vår kännedom är det ingen annan som gör några större ändringar på Kårspexets webbplats eller det gamla bokningssystemet.
+
+\clearpage
+\section{Relation till tidigare och kommande projekt}
+
+
+För tillfället använder sig Kårspexet av Fysikalens bokningssystem. Det skulle vara möjligt att få tillgång till det systemet för att se hur det fungerar. Detta för att få en bättre inblick i vad som är problematiskt och vad som fungerar bra som vi bör återskapa.
+
+Kårspexet har uttryckligen bett om att det nya bokningssystemet ska passa in på deras nuvarande webbplats utan att designen krockar för mycket. Detta gäller främst kundens gränssnitt, men inte de övriga.
+
+Victor Hallberg har gjort Sjöslagets bokningssystem som relaterar till detta projekt eftersom det också är ett bokningssystem. Vissa delar av det projektet skulle vi kunna använda oss av här. Validering av input med javascript och navigation mellan bokningssteg är ett exempel på detta.
+
+Andreas Tarandi har jobbat med kortköp på andra sidor. Om vi väljer att implementera kortköp även här så kan vi ha användning av det.
+
+\clearpage
+\section{Funktion och syfte}
+
+
+Bokningssystemet ska användas av fyra typer av användare: kund, säljare, ekonomichef och administratör. Dessa har olika roller som interagerar med varandra. Varje typ av användare har ett eget gränssnitt till systemet men många av funktionerna är delade.
+
+	\subsection{Boka biljetter på webben}
+
+
+	Kunder ska kunna boka biljetter från Kårspexets webbplats. Efter att kunden har genomfört en bokning ska kunden få ett mail med betalningsuppgifter och bokningsnummer.
+
+	\subsection{Registrera betalningar}
+
+
+	Ekonomichefen ska kunna registrera betalningar för bokningar som kunder gjort.
+
+	\subsection{Administrera biljetter}
+
+
+	Efter att kunden har bokat och ekonomichefen registrerat kundens betalning placerar administratören ut vilka stolar kunden ska få sitta på under föreställningen. När placeringen är klar får kunden ett mail med uppmaning att hämta ut sina biljetter.
+
+	\subsection{Lämna ut bokade biljetter}
+
+
+	Säljare verifierar att en kunds biljetter är redo att hämtas, lämnar ut biljetterna och registrerar i systemet att biljetterna har hämtats. Gränssnittet för säljare ska vara lätt att lära sig eftersom säljarna ofta byts ut.
+
+	\subsection{Sälja biljetter direkt}
+
+
+	Säljaren ska kunna sälja biljetter kontant. Det är då säljaren som väljer vilka stolar kunden får sitta på.
+
+	\subsection{Administrera mailutskick}
+
+
+	Administratören ska kunna ändra informationen i de automatiska utskicken som sker samt kunna göra nya utskick till valda bokningars kontaktpersoner.
+
+	\subsection{Administrera föreställningar och teatrar}
+
+
+	Vid nya föreställningar är det administratören som  för in dessa i systemet. Priser ska kunna ändras och om föreställningen är på en ny teater ska teatern kunna läggas till. Detta innebär att nya salongsskisser med nya sektioner och stolar ska kunna skapas. Administratören ska kunna välja vilka föreställningar det går att boka/köpa biljetter till.
+
+	\subsection{Administrera konton}
+
+
+	Administratören ska kunna ändra lösenord för alla användarkonton. Säljarnas lösenord ska kunna genereras automatiskt och vara giltigt en begränsad tid.
+
+	\subsection{Statistik}
+
+
+	Administratören och ekonomichefen ska kunna se statistik om antalet bokade och sålda biljetter för att kunna få inblick i verksamheten.
+
+\clearpage
+\section{Miljömässiga betänkanden}
+
+
+
+	\subsection{Användarna}
+
+
+	Produkten kommer ha fyra olika typer av användare: kund, säljare, administratör och ekonomichef.
+
+		\subsubsection{Kunder}
+
+
+		Kunder går att dela upp i två distinkta grupper: de som studerar på en teknisk högskola eller ett universitet respektive släktingar eller bekanta till Kårspexets medlemmar som inte är associerade med en teknisk högskola eller ett universitet.
+
+		Studenter använder datorer dagligen och är vana vid både mail och webbsidor. Hos släktingar och bekanta varierar den tekniska kompetensen stort, där finns både tonåringar och pensionärer. Vi antar att användarna har viss vana vid mail och webben men att de kan ta lång tid på sig att anpassa sig till nya gränssnitt. Kunderna kommer att använda systemet relativt sällan, det är därför viktigt att kundens gränssnitt är enkelt, även första gången man använder det.
+
+		\subsubsection{Säljare}
+
+
+		Säljare är medlemmar i Kårspexet och är därmed sannolikt kårmedlemmar vid KTH, eller har varit det. De är först och främst aktiva med Kårspexets arrangemang och är säljare i andra hand. Det är därför viktigt att säljargränssnittet är enkelt, då säljarna inte skall behöva någon utbildning i systemet.
+
+		\subsubsection{Administratör och ekonomichef}
+
+
+		Både administratören och ekonomiansvarige är aktiva medlemmar i Kårspexet. De är därmed vana användare av mailklienter och det nuvarande bokningssystemet och kommer använda systemet ofta. Det är acceptabelt att viss utbildning krävs. Användarvänlighetskraven på administratörens gränssnitt är relativt låga.
+
+	\subsection{Systemmiljö}
+
+
+	Systemet kommer att köras på Kårspexets server med operativsystemet CentOS och kommer administreras av personer med stor eller mycket stor kunskap om Linux-servrar. De kan antas kunna hantera administreringen och underhållet av systemet själva.
+
+\clearpage
+\section{Relation till andra system}
+
+
+Nyx system kommer att köras på en server som Kårspexet har tillgång till. På servern körs webbserver, databashanterare och ett operativsystem. Vårt program använder webbservern och databasen för att kommunicera med användarna och databasen för att lagra data. I grundutförandet kommer vårt program i övrigt att vara fristående från andra system, men om vi har tid så kommer det även att använda sig av externa system för att implementera kortbetalningar.
+
+\clearpage
+\section{Generella begränsningar}
+
+
+
+	\subsection{Datamodell}
+
+
+	\includegraphics[width=\textwidth]{nyx-databasmodell-final.pdf}
+
+	Varje box motsvarar en tabell i databasen, varje rad i en box motsvarar fält i tabellen. En rad i en box kan representera flera fält i en tabell, t.ex. kontaktuppgifter som skulle motsvara fälten Namn, Telefon, Adress osv. Pilarna indikerar att det finns en referens mellan två tabeller, ‘FK’ visar vilket fält som refererar till den andra tabellen. En fetmarkerad rad i en box innebär att fältet i tabellen måste ha ett värde. ’PK’ innebär att ett eller flera fält identifierar en rad i tabellen, alltså gör den unik.
+
+	\subsection{Resurser}
+
+
+	Nyx kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera då vi totalt har fem programmerare. På kort tid ska vi hinna implementera fyra gränssnitt för bokningssystemets användare. Gränssnitten kommer behöva testas men eftersom vi har lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. En stor del av arbetet kommer behöva läggas på utvecklingen av administratörsgränssnittet då det är där de flesta och mest avancerade funktionerna kommer finnas. Vi har inte någon budget för projektet och vi kommer inte att tillföra egna pengar för att köpa in något, detta gör att vi begränsas till att använda programvara som är gratis. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+	\subsection{Kundbehov}
+
+
+	Vårat mål är att leverera ett fullständigt bokningssystem med alla de funktioner som Kårspexet har specificerat. På grund av systemets förväntade komplexitet och projektets tidsram kommer kvalitén i delar av slutprodukten vara begränsad. Gränssnittet för besökare (slutkunder) respektive säljare ska designas på ett sätt som gör att det går att använda utan några speciella förkunskaper inom vårt system. Det ska därför fungera på ett sätt som efterliknar liknande produkter. Detta begränsar oss i hur pass många funktioner och val vi kan låta användarna exponeras för på en och samma gång. Administratörsgränssnittet är inte begränsat på samma sätt då dess användare kommer utbildas i förväg.
+
+	\subsection{Tekniska begränsningar}
+
+
+	Kårspexet står för den server som kommer köra vår webbapplikation. Vi har ingen kontroll över dess hårdvara, men vi har verifierat att operativsystemet som körs på servern är kompatibelt med Apache, Ruby on Rails och MySQL. Applikationen kommer inte inkludera avancerade algoritmer utan till störst del involveras mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i nätverksanslutningen. Systemet kommer enligt våra uppskattningar exponeras för upp till åtta samtidiga användare. Rails under Apache kommer i detta fall att, under godtycklig tidpunkt, använda uppskattningsvis c:a 250 MiB systemminne. CentOS anger 256 MiB minne samt en klockfrekvens på minst 500 MHz som minimikrav för datorer som kör operativsystemet. Med MySQL och Apache körandes samtidigt utöver dessa bör servern ha minst 1 GiB systemminne och en processor med klockfrekvensen 1 GHz eller högre. Kårspexets server har en processor med klockfrekvensen 2,6 GHz och 1 GiB systemminne, vilket beräknas vara tillräckligt.
+
+\clearpage
+\section{Modellbeskrivning}
+
+
+För att bättre förklara hur bokningssystemet fungerar följer nedan användarscenarion som på en övergripande nivå visar de fyra gränssnitt vi kommer implementera för systemets användare.
+
+	\subsection{Kundgränssnittet}
+
+
+	\includegraphics[width=\textwidth]{kund-usecase.jpg}
+
+	I ett typsikt användarscenario så kommer kunden vy användas på följande sätt. Kunden väljer först vilken föreläsning han vill se sedan väljer han i vilken sektion han vill sitta. Efter det så ger kunden ut sina betalnings uppgifter och sedan får han ett bekräftelse mail.
+
+	\subsection{Säljargränssnittet}
+
+
+	\includegraphics[width=\textwidth]{saljare-usecase.jpg}
+
+	Säljare loggar in i systemet där han sedan möts av vyn för kontantköp där han sedan väljer önskad föreställning och sedan önskade platser. Han bekräftar då plasterna och hämtar berörda biljetter till kunden. Sedan tar han betalt och lämnar ut biljetterna till kunden.
+
+	\subsection{Ekonomichefsgränssnittet}
+
+
+	\includegraphics[width=\textwidth]{ekonomi-usecase.jpg}
+
+	Ekonomichefen loggar in i systemet och kan därifrån bekräfta inkomna betalningar.
+
+	\subsection{Admingränssnittet}
+
+
+	\includegraphics[width=\textwidth]{admin-usecase1.jpg}
+
+	\includegraphics[width=\textwidth]{admin-usecase2.jpg}
+
+	Administratören loggar in i systemet och väljer berörd bokning. Han placerar sedan ut platserna.
+
+	Eller så kan han välja att göra mailutskick för en eller flera bokningar.
+
+	\subsection{Systemkomponenter}
+
+
+	\includegraphics[width=\textwidth]{bokningssys.png}
+
+	När man ansluter till systemet kommer man normalt in i kundgränssnittet där man kan boka en föreställning. Man kan sedan välja att logga in som säljare, ekonomichef eller administratör där man kommer åt respektive gränssnitt som i sin tur ansluter mot databasen.Lagt 
+
+	Detta ger en bild över hur de logiska delarna i systemet kommer att fungera ihop med den tidigare modellen av databasen som beskrevs i [URD 2.7.1].
+
+\clearpage
+\section{Specifika krav}
+
+
+
+\clearpage
+\section{Funktionalitetskrav}
+
+
+
+	\subsection{Funktionalitet för autentisering}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.1 Autentisering } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Säljarens, administratörens och ekonomichefens funktionaliteter ska endast kunna användas av autentiserade användare, i enlighet med SR9.2. Autentisering sker genom inloggning med användarnamn och ett lösenord. Den inloggade användaren ska kunna logga ut, dvs att upphäva sin behörighet tills nästa inloggning. För att uppfylla detta behöver systemet hantera användarkonton med olika behörigheter (användarroller).  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg (Hög ?)  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & URD4.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att systemet hänvisar användaren till inloggning och att man efter inloggning får tillgång till användarrollens funktionalitet. Pröva även att logga ut och att man därefter inte längre har tillgång till funktionaliteten  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Funktionalitet för kund}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.2 Kund: Boka } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & En kund ska kunna göra en bokning så som beskrivs i stycke \emph{i Gränssnittskrav}. Detta inkluderar att välja föreställning, sektion och antal biljetter med student- respektive ordinariepris. Vid slutförd bokning ska kunden få en bokningsbekräftelse både som webbsida och som mail.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Hög  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.6, UR2.10, UR2.12  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Pröva att genomföra användarscenarierna för kund. Kontrollera i administrationsgränssnittet att bokningen finns i systemet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.3 Kund: Visa/avboka bokning } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Kunden ska kunna visa eller avboka sin bokning, från och med att bokningen görs och minst fram tills föreställningens början/slut(?). Förslagsvis kan kunden göra detta via en länk i bokningens bekräftelsemail.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.4  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Pröva att genomföra en bokning och sedan visa och avboka den. Kontrollera avbokningen i administratörsgränssnittet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.4 Kund: Kortbetalning } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Vid bokning ska kunden kunna betala sina biljetter med betalkort.  \\
+		\hline
+		\sffamily\textbf{Behov} & Deluxe  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.8  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Gör en bokning och välj att betala med kort. Kontrollera kontoutdrag för kund och mottagare. Kontrollera att bokningen registrerats som betald, till exempel via administratörsgränssnittet. Detta krav kostar pengar att uppfylla och verifiera, vi tänker enbart göra det i samarbete med Kårspexet.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Funktionalitet för säljaren}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.5 Säljare: Nytt kontantköp } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & En säljare ska kunna genomföra ett kontantköp i enlighet med \emph{vad?}. Detta inkluderar att skapa ny bokning, välja föreställning och sittplatser, registrera betalning och registrera biljetterna som uthämtade.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Testa att genomföra ett kontantköp enligt användarscenariot. Kontrollera i administrationsgränssnittet att en korrekt bokning skapats.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.6 Säljare: Lämna ut bokade biljetter } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Säljaren ska kunna lämna ut biljetterna för en bokning. Detta innebär, förutom att registrera biljetternas utlämnande, eventuellt att välja sittplatser och att ta betalt.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.2  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Pröva att genomföra biljettutlämningen, med bokningar som är placerade respektive oplacerade och betalda respektive obetalda.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Funktionalitet för administratör}
+
+
+
+		\subsubsection{Administration av användarkonton}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.7 Administratör: Hantera konton } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna lägga till och ta bort användarkonton, samt ändra deras lösenord, kontotyp(behörighet) och giltighetstid.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR4.2  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa ett användarkonton. Man ska få välja lösenord, kontotyp och giltighetstid. Testa sedan att logga in med det nya användarkontot. Testa att ändra lösenord och att det nya lösenordet fungerar men inte det nya. Testa att ändra kontotyp och att användaren får tillgång till kontotypens funktionalitet. Testa att välja en giltighetstid som inte inkluderar det aktuella tillfället och att därefter inte går att logga in.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.8 Administratör: Lösenordsgenerator } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna välja ett automatiskt genererat lösenord vid kontohanteringen (SR1.7). Detta för att lösenorden ska bli säkra och för att förenkla administratörens arbete.  \\
+			\hline
+			\sffamily\textbf{Behov} & Deluxe  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR4.3  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa lösenordet automatiskt vid skapandet av ett konto. Gör en bedömning av hur säkert lösenordet är ... (!?).  \\
+			\hline
+		\end{tabular}
+
+
+		\subsubsection{Administration av teatrar och omgångar}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.9 Administratör: Hantera teatrar } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & En teater är en lokal där föreställningar i en omgång kan spelas. Administratören ska kunna lägg till, ändra och ta bort teatrar i databasen (ändringar och borttagningar måste vara begränsade så att felaktiga länkar i databasen undviks). Data som förknippas med teatern är namn, beskrivning, etc, samt sektioner, platser och bild av sektioner och platser.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Hög(?)  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.12  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa och sedan redigera en teater. Kontrollera att teatern kan väljas när en omgång skapas.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.10 Administratör: Hantera omgångar } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna lägga till, ta bort och ändra omgångar och deras föreställningar.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.1, UR1.2, UR1.13, UR1.14  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa en omgång, skapa och ta bort föreställningar för omgången, ändra info om omgången och att ta bort omgången.  \\
+			\hline
+		\end{tabular}
+
+
+		\subsubsection{Administration av bokningar}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.11 Administratör: Placera bokningar } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna välja sittplatser åt bokningar.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR2.13  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Verifiera SR1.25 genom administratörens gränssnitt.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.12 Administratör: Registrera betalningar } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna registrera att bokningar har betalats. Det ska också gå att ändra en boknings betalningsstatus från betald till obetald (!?).  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medlel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR2.9  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att registrera en betalning. Sök sedan upp bokningen igen för att kontrollera att den blivit betald.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.13 Administratör: Hantera bokningar } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna lägga till, ändra och ta bort bokningar. Bokningar ska kunna markeras som gratis. Alla ändringar ska bekräftas med en bekräftelsesida där ändringarna visas.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR2.5, UR2.14  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa gratisbiljetter, ändra någon uppgift och sedan ta bort bokningarna. Notera att bekräftelsesidor visas för varje ändring. Genom att hitta bokningen igen och visa, ändra och ta bort den, har man verifierat att bokningen lagrats i databasen.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.14 Administratör: Mailutskick } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska kunna söka upp bokningar och göra ett mailutskick till kunderna, baserat på en mail-mall. Det ska också gå att skapa nya mail-mallar.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.7  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Testa att skapa en ny mail-mall och att göra ett utskick med denna. Kontrollera att man får förhandsgranska utskicket. Kontrollera även att mailen kommer fram och att mallarna använts korrekt.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.15 Administratör: Mailutskick förhandsgranskning } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Mailutskick (SR1.14) ska förhandsgranskas innan de genomförs. Innan utskicket görs ska en förhandsgranskning i form av ett av (eventuellt flera) meddelanden visas.  \\
+			\hline
+			\sffamily\textbf{Behov} & Plus  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Låg  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.9  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Kontrollera att inget utskick görs utan att en förhandsgranskning först visas.  \\
+			\hline
+		\end{tabular}
+
+
+		\subsubsection{Statistik}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.16 Administratör: Statistik } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Administratören ska få statistik om bokningarna, som hjälp för att planera aktuellt och kommande arbete. Statistiken ska inkludera antal bokade respektive utgivna biljetter per föreställning, omgång och spelår och rabattklass.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Låg  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.3  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Ta en titt på statistiken. Kontrollera att den följer beskrivningen och att den verkar/är korrekt.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.17 Administratör: Statistik Plus } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Mer utförlig statistik än enligt SR1.16. Detta inkluderar, statistik över tidsintervall, bokningar beroende på föreställnings start-/sluttid, tidpunkter för biljettutlämningar.  \\
+			\hline
+			\sffamily\textbf{Behov} & Plus  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.4  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Se SR1.16  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.18 Administratör: Statistik Deluxe } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Statistiken (SR1.16) ska framställas grafiskt.  \\
+			\hline
+			\sffamily\textbf{Behov} & Deluxe  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Medel  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.6  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Se SR1.16  \\
+			\hline
+		\end{tabular}
+
+
+		\subsubsection{Ekonomigränssnitt}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR1.19 Administratör: Ekonomiansvarigs gränssnitt } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Det ska finnas en begränsad version av administrationsgränssnittet, som är speciellt anpassat för den ekonomiansvarige. Följande funktioner ska inkluderas: registrera betalningar, göra mailutskick, statistik.  \\
+			\hline
+			\sffamily\textbf{Behov} & Plus  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Hög  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR1.10  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Pröva att logga in med ett ekonomichef-konto och kontrollera att man får tillgång till de tre funktionerna som nämns i beskrivningen.  \\
+			\hline
+		\end{tabular}
+
+
+	\subsection{Funktionalitet som föregående funktionalitet beror på}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.20 Sök bokningar } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & För många av uppgifterna systemets användare ska utföra behöver man kunna söka upp och välja ut bokningar. Detta gäller de funktioner som beskrivs av SR1.6 och SR1.11-SR1.14. Detta ska lösas av en flexibel modul som kan anpassas till de olika användningarna. Olika uppsättningar av egenskaper hos bokningarna ska kunna visas och bokningarna ska kunna sorteras och filtreras på de olika egenskaperna. Användaren ska själv kunna anpassa sorteringen och filtreringen.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Hög  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR1.5, UR1.8  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Testa denna funktion genom till exempel Hantera bokningar-gränssnittet (SR1.13). Det ska gå att sortera på bokningarnas olika attribut och utföra olika filtreringar.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.21 Föreställningsväljare } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Vid skapandet av en bokning måste en föreställning väljas. Det ska finnas (minst) en modul som låter användaren göra detta. Det ska bara gå att välja en föreställning i en aktuell omgång.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.1, UR2.5, UR2.6  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Testa de funktioner som är beroende av denna funktion, förslagsvis SR1.2 Kund: Boka. Om det går att välja bland de aktuella omgångarna är kravet uppfyllt.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.22 Sektionsplacering } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & För att låta kunden välja sektion vid en bokning och eventuellt för att låta administratören och säljaren välja sittplatser för en bokning, behövs funktionalitet för att visa en bild av teaterns sektioner och låta användaren välja en sektion.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.6  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Testa att göra en bokning som kund. Notera om valet av sektion visas i en bild.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.23 Sektionsplacering färgkodning } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & I Sektionsplaceringen (SR1.22) ska antal lediga platser i de olika sektionerna visas med en färgskala. Detta för att kunden snabbt ska förstå vilka sektioner han kan få plats i.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.7  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Låt bokningar tillkomma (eller försvinna). Kontrollera att korrekta färger visas vid sektionsvalet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.24 Sektionsplacering interaktiv } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & I Sektionsplaceringen (SR1.22) ska kundens val av sektion ska visas i bilden. Med stor sannolikhet kommer valet av sektion att göras i en lista utanför bilden (i ett HTML-formulär). Den sektion som muspekaren befinner sig över i listan eller bilden, ska markeras både i listan och bilden.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.3  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att sektionsvalet visas interaktivt, genom att sektioner som pekas på markeras.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.25 Platsplacering } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Säljare och administratören ska kunna välja sittplatser åt bokningarna. Därför behöver en mängd platser (stolar) i en teater kunna visas och väljas. För en viss föreställning ska det visas vilka platser som är upptagna och bara lediga platser ska kunna väljas.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.13  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Testa att välja platser för en bokning. Kontrollera att upptagna platser markeras och inte kan väljas. Kontrollera att bokningen har fått platser genom att söka upp den i administrationsgränssnittet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.26 Bekräftelse } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Vid de flesta inmatningar ska, för att säkerställa att korrekta uppgifter ges, en bekräftelsesida visas för användaren. Datan som angetts ska visas och användaren ska kunna välja att bekräfta att uppgifterna är korrekta.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.10  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kravet är uppfyllt om bekräftelsesidor kan användas. Testa till exempel att göra en bokning.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.27 Mail-skickare } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Systemet ska kunna göra mail-utskick till kunderna, automatiskt (vid bokning SR1.2) och manuellt (SR1.14). Givet en mängd bokningar och en mailmall skapas meddelanden och skickas till de epostadresser som hör till bokningarna. Mail-mallarna ska lagras i databasen. Genom mallen anpassas mailen till de olika bokningarna, uppgifter om namn, bokningsnummer, föreställningens datum, bokade platser, betalstatus, etc, läggs in i meddelandet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR1.7  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Verifiera SR1.14 (Administratör: Mail-utskick).  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.28 Menyer } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Administratören, säljaren och eventuellt ekonomiansvarige ska ha gränssnitt där de från en meny kan nå funktioner som hör till respektive användare.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Hög  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR1.10, UR1.11, UR2.11, UR3.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Ta en titt på de olika användarnas första-sidor. Kontrollera att det finns länkar till sidor för alla funktionerna och att dessa länkar pekar rätt.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Övrig funktionalitet}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.29 Tidsmätning } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & För att kunna kontrollera systemets svarstid (SR2.5 eller SR12.2 !?), ska för varje anrop till systemet, tiden för att generera svaret skrivas till en logg-fil.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR3.2  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Gör ett eller flera anrop och kontrollera att uppmätta tider står i loggen.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR1.30 Databas } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Systemet har data som behöver lagras permanent och säkert. Det behövs en databas. Vi har bestämt oss för att använda databashanteraren MySQL genom ett Active record-gränssnitt.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard.  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Hög  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt.  \\
+		\hline
+		\sffamily\textbf{Källa} & UR3.2  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Starta om systemet och kontrollera att data inte förlorats. Teatrar, föreställningar, bokningar, användarkonton, mail-mallar och all data dessa beror på ska finnas kvar.  \\
+		\hline
+	\end{tabular}
+
+
+\clearpage
+\section{Prestandakrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR 2.1 Trafikmängd för en bokning } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Den maximala datatrafikmängd som får krävas för att en bokning skall kunna genomföras är 4 MiB i var riktning.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medel  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt så länge informationsinnehållet i bokningsprocessen inte utökas.  \\
+	\hline
+	\sffamily\textbf{Källa} & UR5.1, UR5.4  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Mäta trafiken i båda riktningar mellan klienten och servern då en bokning.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR 2.2 Anropsantal för en bokning } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Det maximala antalet anrop som får krävas för att en bokning skall kunna genomföras är 11 (ett första anrop och 10 nominella anrop).  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medel  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt så länge flödet för bokningsprocessen inte ändras.  \\
+	\hline
+	\sffamily\textbf{Källa} & UR5.1, UR5.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Mäta antalet förfrågningar som görs mot server då en bokning utförs.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR 2.3 Maximal svarstid } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Bokningssystemet/produkten får inte ha en genereringstid för webbsidan som är större än 1 sekund. Överföringstiden till klienten ej inräknad.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medel  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabil så länge produkten inte ändras eller belastningen går utanför specifikation.  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR3.2, UR5.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Under ett stresstest motsvarande maxintensiteten för bokningsanrop mäta eller observera tiden för ett anrop. Webbserverns loggfil är hjälpsam.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Gränssnittskrav}
+
+
+
+	\subsection{Mjukvaruinterface}
+
+
+
+		\subsubsection{Klient}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR3.1 Webbläsare } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Kårspexets bokningssystem ska stödja följande webbläsare; \emph{Firefox 3\underline{}, \emph{Internet Explorer 8}}.   \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Låg  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Instabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR7.3  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Provkörning av systemet i dessa webbläsare.  \\
+			\hline
+		\end{tabular}
+		\vspace{6mm}
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR3.2 Internet Explorer 7 } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Kårspexets bokningssystem ska även stödja \emph{Internet Explorer 7}.  \\
+			\hline
+			\sffamily\textbf{Behov} & Plus  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Låg  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Instabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR7.5  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Provkörning av systemet i \emph{Internet Explorer 7}.  \\
+			\hline
+		\end{tabular}
+
+
+		\subsubsection{Server}
+
+
+		\begin{tabular} { p{2.6cm} p{12.5cm} }
+			\hline
+			\sffamily\textbf{Krav} & \sffamily\textbf{SR3.3 Serverinterface } \\
+			\hline
+			\sffamily\textbf{Beskrivning} & Apache används som webbserver för att göra bokningssystemet tillgängligt via HTTP-protokollet.  \\
+			\hline
+			\sffamily\textbf{Behov} & Standard  \\
+			\hline
+			\sffamily\textbf{Prioritet} & Hög  \\
+			\hline
+			\sffamily\textbf{Stabilitet} & Stabilt  \\
+			\hline
+			\sffamily\textbf{Källa} & UR9.2  \\
+			\hline
+			\sffamily\textbf{Verifierbarhet} & Visa att Kårspexets server kör Apache.  \\
+			\hline
+		\end{tabular}
+
+
+	\subsection{Kommunikationsinterface}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR3.4 Databasinterface } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Webbservern kommunicerar med MySQL-databasen via Rails med hjälp av Unix-sockets.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Hög  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR9.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Verifiera webbservern kommunicerar med databasen.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Arbetsflödesanalys av användarscenarion}
+
+
+	Nyx produkts GUI är uppdelat i tre delar; Kundens, Säljarens och Administratörens GUI. Systemet har även en fjärde användare, Ekonomichefen, som använder en begränsad version av Administratörens GUI.
+
+		\subsubsection{Kundens GUI}
+
+
+		Kundens GUI består av en bokningssida på Kårspexets webbplats. När kunden trycker på ``Boka biljett'' eller dylik dirigeras han/hon till vår produkt. 
+
+		Det första kunden får göra är att avgöra vilken föreställning i den nuvarande omgången som denne vill gå på. Här möts dessutom kunden av en grafisk representation av hur fulla de olika sektionerna är, som stöds av en färgskala. Nästa steg är att välja vilken sektion kunden vill sitta i. Kunden får ej välja vilken stol denne vill sitta i, ty det gör administratören. När kunden valt sektion så matar kunden in sina betalningsuppgifter, så som namn, telefonnummer, hur han/hon vill betala (kontant, postgiro, kort) och dylik. Sedan bekräftar kunden sina uppgifter och bokningen är klar.
+
+		Kunden kan dessutom i varje steg backa tillbaka till ett tidigare steg i bokningen, förutsätt att bokningen inte är bekräftad. 
+
+		För kundens interfacestruktur, se figur 1.
+
+		\includegraphics[width=\textwidth]{kundInterfaceStruktur.jpg}
+
+		\subsubsection{Säljarens GUI}
+
+
+		Betrodda medlemmar av Kårspexet kan agera säljare, och får då ett temporärt lösenord av administratören till en separat inloggningssida. Säljaren loggar in vid sitt säljtillfälle och möts då av två olika val; kontant köp och hämta bokad biljett.
+
+		För säljarens interfacestruktur, se figur 2.
+
+		\includegraphics[width=\textwidth]{saljarInterfaceStruktur.jpg}
+
+			\paragraph{Kontant köp}\
+
+			Kontant köp innebär att kunder står i kö för att köpa en biljett direkt från Kårspexet, istället för att boka sin biljett på Kårspexets webbplats först. Säljaren frågar då kunden vilken föreställning och vilken sektion som denne vill gå till. Säljaren placerar ut platser i den valda sektionen på den valda föreställningen och bekräftar sedan dessa uppgifter med kunden. Säljaren får en prompt om att gå och hämta de valda biljetterna, varpå säljaren tar betalt och lämnar ut biljetterna till kunden.
+
+			\paragraph{Hämta bokad biljett}\
+
+			Hämta bokad biljett innebär att kunden redan har bokat precis vilken föreställning och sektion som denne vill gå på, och behöver därmed endast hämta ut sina biljetter. Säljaren ber då kunden om dennes namn, bokningsnumret eller dylik, och söker sedan igenom databasen efter bokningen. Om bokningens platser är oplacerade så placerar säljaren dessa manuellt, och hämtar sedan biljetterna. Om kunden valt att betala kontant eller inte betalat tillräckligt för sina biljetter så tar säljaren betalt som vanligt och lämnar ut biljetterna.
+
+		\subsubsection{Administratör}
+
+
+		En betrodd medlem av Kårspexet har som uppgift att agera administratör över hela Kårspexets bokningssystem. Denne sköter allt administrativt som behöver skötas både framför och bakom kulisserna. 
+
+		Administratören loggar in på samma sida som säljaren, men med ett annat konto och lösenord. Det första som möter administratören är översiktssidan, som kan ses som fördefinierade sökfilter som till exempel visar hur många platser som är oplacerade, hur många platser det finns kvar per föreställning eller omgång och så vidare. 
+
+		Administratören har tillgång till en meny som låter henom utföra diverse olika operationer. Administratören kan till exempel lägga till nya omgångar, föreställningar och teatrar via olika gränssnitt. Administratörens huvuduppgift är att placera ut bokningar, så detta gränssnitt får en hög prioritet.  
+
+		För administratörens interfacestruktur, se figur 3.
+
+		\includegraphics[width=\textwidth]{adminInterfaceStruktur.jpg}
+
+		\subsubsection{Ekonomichef}
+
+
+		En betrodd medlem av Kårspexet agerar ekonomichef. Denne person har kontroll över Kårspexets ekonomi och har som huvuduppgift att hantera bokningsbetalningar. När en betalningen godtagits för biljetten, så kan därefter administratören placera ut platsen.
+
+		Ekonomichefen ska också ha möjlighet att se mer övergripande statistik om biljettsäljning, vinter och förluster och dylik. Detta kommer kunna ses i en separat flik, som även administratören har tillgång.
+
+		För ekonomichefens interfacestruktur, se figur 4.
+
+		\includegraphics[width=\textwidth]{ekonomiInterfaceStruktur.jpg}
+
+	\subsection{Interfaceprototyper}
+
+
+
+		\subsubsection{Kundens prototyp}
+
+
+		\includegraphics[width=\textwidth]{kundSRD.jpg}
+
+		\subsubsection{Säljarens prototyp}
+
+
+		\includegraphics[width=\textwidth]{saeljarPlaceringv1.jpg}
+
+		\subsubsection{Administratörens prototyp}
+
+
+		\includegraphics[width=\textwidth]{adminBokning.jpg}
+
+\clearpage
+\section{Körbarhetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR4.1 Servern måste köra Ruby on Rails } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Vår mjukvara kommer kodas i rails, så ett stort krav för att kunna starta applikationen är att servern som används kan köra ruby on rails. Vi planerar att använda Apache och Passenger på Kårspexets server, men det behöver inte nödvändigtvis vara den enda möjliga lösningen för vår mjukvara.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR7.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Det går att starta applikationen och komma åt den från en webbläsare.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR4.2 Mjukvaran ska kunna köras på apache } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Vår mjukvara ska gå att använda tillsammans med Apache. Denna lösning kommer vi använda på Kårspexets server.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR9.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Test av mjukvaran på en server som kör Apache som webbserver. Om man kan besöka sidan via en webbläsare är kravet uppfyllt.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR4.3 Servern måste köra MySQL } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Databasmjukvaran MySQL måste finnas på servern för att vår mjukvara ska fungera.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Sabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR9.1  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Det går att komma åt applikationen i en webbläsare och göra något enkelt som att till exempel boka en biljett eller skapa en föreställning utan felmeddelanden.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR4.4 Säker kortbetalning } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Det externa systemet för kortbetalning behöver fungera på ett säkert och smidigt sätt samt kommunicera med vårt system för att hantera betalningar av denna typ.  \\
+	\hline
+	\sffamily\textbf{Behov} & Deluxe  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Låg  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Sabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR2.8  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Gör en bokning och välj att betala med kort. Kontrollera kontoutdrag för kund och mottagare. Kontrollera att bokningen registrerats som betald, till exempel via administratörsgränssnittet. Detta krav kostar pengar att uppfylla och verifiera, vi tänker enbart göra det i samarbete med Kårspexet.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Resurskrav}
+
+
+\textbf{Victor: Är detta krav som vi ställer på all användning av vår produkt eller är det någon form av begränsande krav typ ``med dessa resurser måste det fungera''?}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR5.1 Tillgänglig webbserver } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Bokningssystemet körs på en server som är åtkomstbar på internet för kunder såväl som säljare och andra administratörer.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Normal  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR7.1  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Systemet går att använda från en dator som är ansluten till internet och inte befinner sig på samma lokala nätverk som servern.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR5.2 Webbläsare } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Användning av bokningsystemet görs i någon av de webbläsare vi valt att stödja; Firefox 3\underline{ samt Internet Explorer 8}.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Normal  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR7.3  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+|\_.Verifierbarhet|Each software requirement shall be verifiable. This means that it must be possible to:
+
+a) check that the requirement has been incorporated in the design;
+
+b) prove that the software will implement the requirement;
+
+c) test that the software does implement the requirement.|
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR5.3 Serverns prestanda } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Kravet på serverns hårdvara omfattande processor och arbetsminne som en helhet. Hårdvaran måste klara av att hantera 1,47 anrop/sekund. Det motsvarar 8 samtidiga användare.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medel  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabil  \\
+	\hline
+	\sffamily\textbf{Källa} & UR5.1  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Stresstesta servern med flera användare och observera processor- och minnesanvändningen i aktivitetshanterare på servern.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR5.4 Serverns uppkopplingshastighet } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Kravet på serverns uppkopplingshastighet mot internet. Servern måste ha en uppkopplingshastighet på 4,27 MiBit/sekund.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medel  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabil  \\
+	\hline
+	\sffamily\textbf{Källa} & UR5.4  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Stresstesta servern med flera användare och observera nätverkstrafiken i aktivitetshanterare på servern.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Verifikationskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR6.1 Testkod } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  För att testa att serverns operationer utförs korrekt.  \\
+	\hline
+	\sffamily\textbf{Behov} &  Normal.  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Standard.  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Stabilt.  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR8.6.  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Nyx testar manuellt att vår testkod ger tillbaka förväntat svar.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR6.2 Användartestning. } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  En användargrupp testar systemet i ett rimligt scenario.  \\
+	\hline
+	\sffamily\textbf{Behov} &  Normal.  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Standard.  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Stabilt.  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR8.1, UR8.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Nyx genomför kontrollerade tester och observerar användargruppens respons.  \\
+	\hline
+\end{tabular}
+
+
+	\subsection{Test av användaracceptans}
+
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR7.1 Test av användaracceptans } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Alla gränssnitt måste gås igenom och testas mot alla applicerbara krav utlagda i URD:n. Separata testprotokoll för varje gränssnitt med instruktioner för att verifiera att det följer varje applicerbart krav i URD:n ska skapas samt gås igenom och fyllas i av testpersoner.  \\
+		\hline
+		\sffamily\textbf{Motivering} & Mjukvaran måste följa de krav som är utlagda av URD:n.  \\
+		\hline
+		\sffamily\textbf{Behov} & Hög  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR8.6  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Granska ifyllda testprotokoll för kund-, säljar-, ekonomi- samt administratörsgränssnittet och verifiera att de överrensstämmer med de krav som ställs i URD:n.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR7.2 Spridning av testpersonal } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & När testpersonal bestäms för att utföra de separata testerna måste personal tilldelas så att varje gränssnitt testas av personer som inte har tidigare erfarenheter av gränssnitt de inte ska ha tillgång till i systemet.  \\
+		\hline
+		\sffamily\textbf{Motivering} & Testresultaten får inte färgas av en testpersons erfarenhet av ett system de inte bör ha tillgänglighet till. Därför är det viktigt att vi utför test för varje gränssnitt där användaren inte har tidigare erfarenhet av andra gränssnitt än motsvarande roll skulle ha.  \\
+		\hline
+		\sffamily\textbf{Behov} & Låg  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Instabilt  \\
+		\hline
+		\sffamily\textbf{Källa} & UR8.6  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Verifiera med hjälp av ifyllda testprotokoll och användarstudier, att det förekommer accepterade tester där testpersonen inte har erfarenhet av andra system än motsvarande roll skulle ha tillgång till.  En testperson som testar kund-gränssnittet ska inte ha tidigare erfarenhet av säljar-, ekonomi- eller administratörsgränssnittet. När de administrativa gränssnitten testas får dock  testpersonen ha tidigare erfarenhet av kund-gränssnittet, då alla personer har tillgång till kund-gränssnittet.  \\
+		\hline
+	\end{tabular}
+
+
+\clearpage
+\section{Dokumentationskrav}
+
+
+
+	\subsection{Kund}
+
+
+	I det här sammanhanget är en kund den person som skall utföra en bokning på Kårspexets webbplats.
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.1 Bokningsinstruktioner } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Instruktioner för hur man bokar en biljett på bokningswebbsidan. Varje steg i bokningsprocessen skall vara synligt både innan och under en bokning. Beskrivningen skall innehålla vilken information som kunden uppmanas att ange under varje steg.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.6, UR8.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att det finns instruktioner för hur bokningen går till på bokningswebbsidan.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Kårspexet}
+
+
+	För betrodda medlemmar i kårspexet
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.2 Tips och tricks } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & En sida där dolda hjälpfunktioner och knep finns dokumenterade. Sidan skall vara åtkomlig från webbgränssnittet. Varje syssla i systemet har en unik undersida i``Tips och tricks'' som endast är relevant för sysslan. Exempel på knep eller dold hjälpfunktion är tangentbordskommandon.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.11, UR1.10, UR1.11  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att alla aktuella gränssnitt kan nå sidan. Kontrollera att alla sysslor med dolda funktioner finns dokumenterade.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.3 Instruktioner för säljare } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & De sysslor som kan utföras av en säljare skall beskrivas var för sig där de utförs i gränssnittet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Medel  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR2.11  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Observera att det finns synliga instruktioner för varje syssla i säljargränssnittet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.4 Dokumentation för den ekonomiansvarige } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Instruktioner för hur den ekonomiansvarige kan använda gränssnittets alla funktioner. Utvalda sysslor kan utformas som lathundar. Instruktionerna skall kunna skrivas ut på behagligt pappersformat och hittas på webbplatsen i relation till gränssnittet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR1.10  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att dokumentationen kan nås från ekonomigränssnittet.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.5 Dokumentation för administratören } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Instruktioner för hur administratören kan använda gränssnittets alla funktioner. Utvalda sysslor kan utformas som lathundar. Återkommande sysslor som utförs sällan bör ha en tutorial. Exempel på sådan syssla är ``planering av ny föreställning''. Instruktionerna skall kunna skrivas ut på behagligt pappersformat och hittas på webbplatsen i relation till gränssnittet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR1.11, UR8.2  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att instruktionerna kan nås från administrationsgränssnittet.  \\
+		\hline
+	\end{tabular}
+
+
+	\subsection{Systemutvecklare}
+
+
+	För utvecklare som skall anpassa eller berika produktens funktionalitet.
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.6 Databasens struktur } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Dokumentation om hur databasen är strukturerad. Dokumentationen skall omfatta: var information sparas, hur poster mellan tabeller länkas (foreigen keys), vilka regler och begränsningar (constraints) som finns. Det bör finnas exempelbeskrivningar för SQL-uttryck. Dokumentationen skall finnas tillgänglig från administratörens gränssnitt och i källkodsmappen för bokninssystemet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR8.5, UR9.1  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att dokumentationen ligger där den skall och att dokumentet beskriver den aktuella databasen.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.7 Webbplatsens struktur } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Dokumentation om hur webbplatsens är strukturerad. Dokumentationen skall omfatta: en webbkarta, vilka webbsidor som använder gemensamma bibliotek/funktioner, hur en sida är uppbyggd med MVC. Dokumentationen skall finnas tillgänglig från administratörens gränssnitt och i  källkodsmappen för bokningssystemet.  \\
+		\hline
+		\sffamily\textbf{Behov} & Plus  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR8.5  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att dokumentationen ligger där den skall och att dokumentet beskriver den aktuella webbplatsen.  \\
+		\hline
+	\end{tabular}
+	\vspace{6mm}
+
+	\begin{tabular} { p{2.6cm} p{12.5cm} }
+		\hline
+		\sffamily\textbf{Krav} & \sffamily\textbf{SR 8.8 Kommenterad källkod } \\
+		\hline
+		\sffamily\textbf{Beskrivning} & Den implementerade källkoden skall kommenteras. Funktioner skall beskrivas för framtida vidareutveckling.  \\
+		\hline
+		\sffamily\textbf{Behov} & Standard  \\
+		\hline
+		\sffamily\textbf{Prioritet} & Låg  \\
+		\hline
+		\sffamily\textbf{Stabilitet} & Stabil  \\
+		\hline
+		\sffamily\textbf{Källa} & UR8.5  \\
+		\hline
+		\sffamily\textbf{Verifierbarhet} & Kontrollera att källkodens funktioner och delar är dokumenterad i källfilen.  \\
+		\hline
+	\end{tabular}
+
+
+\clearpage
+\section{Säkerhetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR9.1 Skydd av lösenord } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Lösenord ska inte sparas i klartext i databasen. De bör sparas som saltade SHA-1 lösenord.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR6.1  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Verifiera att lösenorden i databasen sparas som saltade SHA-1 strängar  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR9.2 Användarroller } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Användare ska ges olika roller, som har tillgång till olika delar av systemet  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR4.1  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Verifiera att en de olika användarrollerna endast kommer åt de delar av systemet som de ska komma åt  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR9.3 Datasäkerhet } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Alla frågor till databasen ska använda funktioner som förhindrar SQL-injections.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR6.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Funktionaliteten finns redan i rails, men vi bör verifiera att ev. egenskriva SQL-frågor inte är sårbara  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR9.4 HTTPS  } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & HTTPS ska användas för den inloggade delen av systemet och för ev. kortbetalning  \\
+	\hline
+	\sffamily\textbf{Behov} & Deluxe  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Låg  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR6.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Verifiera att de delar av sidan som använder inloggning eller kortbetalning kräver https  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR9.5 Förhindra XSS  } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & För att förhindra XSS bör POST med autentitets-verifiering användas  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR6.2  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Funktionaliteten finns i rails. Vi bör dock verifiera att vi inte lägger in några egna svagheter  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Portabilitetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR10.1 Stöd för CentOS } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Systemet ska ha stöd för att köras och installeras på CentOS.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Hög  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR9.1, UR9.2, UR7.2, URD 2.3.4  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Genom att installera och köra systemet.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Kvalitetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.1 Kontroll av dokumentation } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  All dokumentation skall ses över av minst en person i Nyx som inte är ansvarig för koden som dokumenterats. Vid eventuella åtgärder meddelas ansvarig för koden. När dokumentationen anses klara kvalitetskraven skriver granskaren sitt namn och datum under kommentarer.  \\
+	\hline
+	\sffamily\textbf{Behov} & Plus  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Normal  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR8.5  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Genom att skriva namn och datum i kommentarer efter granskning är det lätt att kontrollera vem som granskat och godkännt dokumentationen samt när detta gjordes.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.2 Ansvarsfördelning för testkod } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  En policy för mjukvarukvalitetsom tydligt hanterar ansvarsfödelning av teskod för vem som har ansvar för att testkod skrivs och körs samt när denna skall vara skriven och köras.  \\
+	\hline
+	\sffamily\textbf{Behov} &  Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Normal  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Instabilt, policyn är ännu inte skriven  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR8.6   \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Kontrollera att policy finns att tillgå för alla medlemmar i Nyx.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.3 Stresstest av systemet } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Testning för den typ av användning systemet skall klara av. Vid felaktigheter analyseras dessa för åtgärd i ett testprotokoll.   \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Normalt  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Instabilt, testerna ännu inte designade  \\
+	\hline
+	\sffamily\textbf{Källa} &  UR5.1   \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Testprotokoll med tillhörande resultat finns.   \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.4 Användartestning av gränssnitt  } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Systemet testas av personer utanför Nyx som faller in under respektive användarkategori. Testarnas åsikter och kommentarer kommer analyseras för att sedan förbättra systemet.   \\
+	\hline
+	\sffamily\textbf{Behov} &  Standard   \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Normal  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Instabilt, testerna ännu inte designade.   \\
+	\hline
+	\sffamily\textbf{Källa} &  UR3.1, UR8.1-4, UR8.6  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Testprotokoll med tillhörande resultat finns. Dessa protokoll är tillgängliga efter testfasen med tydliga resultat. Av dessa skall en tydlig åtgärd X finnas om undermåligt resultat Y finns för fråga Z.   \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.5 Prestandaövervakning } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  Övervakning av prestanda under användartester för att sedan undersöka avvikelser.   \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Högt  \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Instabilt, tester ännu inte designade.   \\
+	\hline
+	\sffamily\textbf{Källa} &  UR5   \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Inga avvikande resultat noterade efter användartester i dessa protokoll.   \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR11.6 Policy för kontroll av kod  } \\
+	\hline
+	\sffamily\textbf{Beskrivning} &  En policy som säger hur och av vem koden skall granskas samt hur detta skall dokumenteras.   \\
+	\hline
+	\sffamily\textbf{Behov} &  Plus  \\
+	\hline
+	\sffamily\textbf{Prioritet} &  Normal   \\
+	\hline
+	\sffamily\textbf{Stabilitet} &  Instabilt, policy ännu inte skriven.   \\
+	\hline
+	\sffamily\textbf{Källa} &  UR8.6   \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} &  Den av policyn rekommenderade dokumentationen av granskningen kontrolleras.   \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Tillförlitlighetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR12.1 Stabilitet } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Systemet ska vara stabilt och bör därför ge inte serverfel oftare än var 1000:e sidladdning. Användarorsakade fel så som InvalidAuthenticyToken räknas ej.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Medium  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR5.3  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Serverfel bör loggas tydligt. Man kan sedan jämföra antalet serverfel med ungefärligt antal sidladdningar för att verifiera detta krav.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Underhållskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR13.1 Dokumentation } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Dokumentation ska finnas (och uppdateras vid ändringar) för skrivna Ruby-klasser (däribland Rails-kontroller, -modeller och -mailers) och dess metoder.  \\
+	\hline
+	\sffamily\textbf{Motivering} & Kårspexet vill själva kunna vidareutveckla bokningssystemet, vilket i så fall skulle göras av utvecklare som är obekanta med källkoden. Väldokumenterad kod underlättar i sådana fall mycket.  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Låg  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR8.5  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Granska källkoden till bokningssystemet och verifiera att ingen  klass eller metod saknar dokumentation.  \\
+	\hline
+\end{tabular}
+\vspace{6mm}
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR13.2 Skrivsätt } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Dokumentation av metoder ska beskriva vad metoden gör i presens samt följa vanliga skrivregler (fullständiga meningar, punkt som avslutning, etc.). Klasser ska dokumenteras på ett sätt som ger en överblick över vad de gör (kontroller) eller beskriver (modeller).  \\
+	\hline
+	\sffamily\textbf{Motivering} & Sättet som dokumentationen är skriven på bör vara konsekvent och lättöverskådligt.  \\
+	\hline
+	\sffamily\textbf{Behov} & Plus  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Låg  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR8.5  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Undersök dokumentationen och kontrollera att inga delar av den är formulerade på felaktigt sätt.  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Trygghetskrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Krav} & \sffamily\textbf{SR14.1 Databasbackup } \\
+	\hline
+	\sffamily\textbf{Beskrivning} & Databasen ska backas upp minst dagligen till en annan disk i en annan lokal så att data aldrig riskerar att gå förlorad  \\
+	\hline
+	\sffamily\textbf{Behov} & Standard  \\
+	\hline
+	\sffamily\textbf{Prioritet} & Låg  \\
+	\hline
+	\sffamily\textbf{Stabilitet} & Stabilt  \\
+	\hline
+	\sffamily\textbf{Källa} & UR6.3  \\
+	\hline
+	\sffamily\textbf{Verifierbarhet} & Verifiera att backup av databasen är uppsatt korrekt  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+\section{Spårningsmatris mellan användarkrav och mjukvarukrav}
+
+
+\begin{tabular} { p{2.6cm} p{12.5cm} }
+	\hline
+	\sffamily\textbf{Kravkälla} & \sffamily\textbf{Krav } \\
+	\hline
+	UR1.1 & SR1.10 Administratör: Hantera omgångar  \\
+	\hline
+	UR1.2 & SR1.10 Administratör: Hantera omgångar  \\
+	\hline
+	UR1.3 & SR1.16 Administratör: Statistik  \\
+	\hline
+	UR1.4 & SR1.17 Administratör: Statistik Plus  \\
+	\hline
+	UR1.5 & SR1.20 Sök bokningar  \\
+	\hline
+	UR1.6 & SR1.18 Administratör: Statistik Deluxe  \\
+	\hline
+	UR1.7 & SR1.14 Administratör: Mailutskick, SR1.27 Mail-skickare  \\
+	\hline
+	UR1.8 & SR1.20 Sök bokningar  \\
+	\hline
+	UR1.9 & SR1.15 Administratör: Mailutskick förhandsgranskning  \\
+	\hline
+	UR1.10 & SR 8.4 Dokumentation för den ekonomiansvarige, SR1.19 Administratör: Ekonomiansvarigs gränssnitt, SR 8.2 Tips och tricks, SR1.28 Menyer  \\
+	\hline
+	UR1.11 & SR 8.5 Dokumentation för administratören, SR 8.2 Tips och tricks, SR1.28 Menyer  \\
+	\hline
+	UR1.12 & SR1.9 Administratör: Hantera teatrar  \\
+	\hline
+	UR1.13 & SR1.10 Administratör: Hantera omgångar  \\
+	\hline
+	UR1.14 & SR1.10 Administratör: Hantera omgångar  \\
+	\hline
+	UR2.1 & SR1.21 Föreställningsväljare, SR1.5 Säljare: Nytt kontantköp  \\
+	\hline
+	UR2.2 & SR1.6 Säljare: Lämna ut bokade biljetter  \\
+	\hline
+	UR2.3 & SR1.24 Sektionsplacering interaktiv  \\
+	\hline
+	UR2.4 & SR1.3 Kund: Visa/avboka bokning  \\
+	\hline
+	UR2.5 & SR1.21 Föreställningsväljare, SR1.13 Administratör: Hantera bokningar  \\
+	\hline
+	UR2.6 & SR1.22 Sektionsplacering, SR 8.1 Bokningsinstruktioner, SR1.21 Föreställningsväljare, SR1.2 Kund: Boka  \\
+	\hline
+	UR2.7 & SR1.23 Sektionsplacering färgkodning  \\
+	\hline
+	UR2.8 & SR1.4 Kund: Kortbetalning  \\
+	\hline
+	UR2.9 & SR1.12 Administratör: Registrera betalningar  \\
+	\hline
+	UR2.10 & SR1.2 Kund: Boka, SR1.26 Bekräftelse  \\
+	\hline
+	UR2.11 & SR 8.2 Tips och tricks, SR1.28 Menyer, SR 8.3 Instruktioner för säljare  \\
+	\hline
+	UR2.12 & SR1.2 Kund: Boka  \\
+	\hline
+	UR2.13 & SR1.11 Administratör: Placera bokningar, SR1.25 Platsplacering  \\
+	\hline
+	UR2.14 & SR1.13 Administratör: Hantera bokningar  \\
+	\hline
+	UR3.1 & SR11.4 Användartestning av gränssnitt, SR1.28 Menyer  \\
+	\hline
+	UR3.2 & SR1.29 Tidsmätning, SR 2.5 Maximal svarstid  \\
+	\hline
+	UR4.1 & SR9.2 Användarroller  \\
+	\hline
+	UR4.2 & SR1.7 Administratör: Hantera konton  \\
+	\hline
+	UR4.3 & SR1.8 Administratör: Lösenordsgenerator  \\
+	\hline
+	UR5.1 & SR 2.2 Anropsantal för en bokning, SR5.3 Serverns prestanda, SR11.3 Stresstest av systemet, SR 2.1 Trafikmängd för en bokning, SR 2.3 Största sidladdningen, SR5.4 Serverns uppkopplingshastighet, SR 2.4 Nominell sidladdning  \\
+	\hline
+	UR5.2 & SR 2.2 Anropsantal för en bokning, SR12.2 Svarstid, SR 2.5 Maximal svarstid, SR 2.1 Trafikmängd för en bokning, SR 2.3 Största sidladdningen, SR 2.4 Nominell sidladdning  \\
+	\hline
+	UR5.3 & SR12.1 Stabilitet  \\
+	\hline
+	UR5 & SR11.5 Prestandaövervakning  \\
+	\hline
+	UR6.1 & SR9.1 Skydd av lösenord  \\
+	\hline
+	UR6.2 & SR9.4 HTTPS, SR9.5 Förhindra XSS, SR9.3 Datasäkerhet  \\
+	\hline
+	UR6.3 & SR14.1 Databasbackup  \\
+	\hline
+	UR7.1 & SR5.1 Tillgänglig webbserver  \\
+	\hline
+	UR7.2 & SR10.1 Stöd för CentOS, SR4.1 Servern måste köra Ruby on Rails  \\
+	\hline
+	UR7.3 & SR5.2 Webbläsare, SR3.1 Webbläsare  \\
+	\hline
+	UR7.5 & SR3.2 Internet Explorer 7  \\
+	\hline
+	UR8.1-4 & SR11.4 Användartestning av gränssnitt  \\
+	\hline
+	UR8.1 & SR 8.1 Bokningsinstruktioner, SR6.2 Användartestning  \\
+	\hline
+	UR8.2 & SR6.2 Användartestning, SR 8.5 Dokumentation för administratören  \\
+	\hline
+	UR8.5 & SR11.1 Kontroll av dokumentation, SR 8.6 Databasens struktur, SR13.2 Skrivsätt, SR 8.7 Webbplatsens struktur, SR13.1 Dokumentation, SR 8.8 Kommenterad källkod  \\
+	\hline
+	UR8.6 & SR11.4 Användartestning av gränssnitt, SR7.1 Test av användaracceptans, SR6.1 Testkod, SR7.2 Spridning av testpersonal, SR11.6 Policy för kontroll av kod, SR11.2 Ansvarsfördelning för testkod  \\
+	\hline
+	UR9.1 & SR10.1 Stöd för CentOS, SR 8.6 Databasens struktur, SR4.3 Servern måste köra MySQL, SR3.4 Databasinterface  \\
+	\hline
+	UR9.2 & SR10.1 Stöd för CentOS, SR3.3 Serverinterface, SR4.2 Mjukvaran ska kunna köras på apache  \\
+	\hline
+	URD 2.3.4 & SR10.1 Stöd för CentOS  \\
+	\hline
+	URD4.1 & SR1.1 Autentisering  \\
+	\hline
+\end{tabular}
+
+
+\clearpage
+	\appendix
+
+\end{document}
+

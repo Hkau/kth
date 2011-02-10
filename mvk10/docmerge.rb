@@ -59,9 +59,6 @@ Net::HTTP.start("redmine.torandi.com") { |http|
   ver << "h1. Dokumentversioner\n\n"
   ver << "Dokumentet har genererats från följande deldokument.\n\n"
   $docv.shift
-  $docv.sort!{ |x, y|
-    x[0].casecmp(y[0])
-  }
   $docv.each do |elem|
     ver << '*' + elem[0] + '* version: _' + elem[1] + '_.' + "\n\n"
   end

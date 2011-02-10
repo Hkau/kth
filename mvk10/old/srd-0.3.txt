@@ -1,0 +1,1177 @@
+h1. Software Requirements Document (SRD)
+
+h1. Abstract
+
+This document describes the requirements of Nyx's software for the client Kårspexet. The main purpose of this document is to facilitate the requirements for Nyx's developers, by interpreting and expanding on the user requirements document (URD) for the same project. The document details the software's functionality and goes more in depth with how that functionality is to be implemented in the product.
+
+h1. Ändringslogg
+
+|_.Version|_.Ändringar|
+|_.0.3|Ny version inför granskning.|
+|_.0.2|Prototypbilder inkluderade i dokumentet.|
+|_.0.1|Första sammanställd version av dokumentet.|
+
+h1. Gruppmedlemmar
+
+Projektgruppen *Nyx* består av följande medlemmar.
+
+*Kalle Arvidsson* -- 890601-2490, kallear@kth.se
+
+*Peter Boström* -- 890224-0814, pbos@kth.se
+
+*Erik Eklund* -- 880816-0454, eekl@kth.se 
+
+*André Gräsman* -- 890430-3214, grasman@kth.se 
+
+*Rasmus Göransson* -- 850908-8517, rasmusgo@kth.se 
+
+*Per Hagsten* -- 870529-0115, hagsten@kth.se
+
+*Victor Hallberg* -- 890121-0057, victorha@kth.se
+
+*Anna Maria Modée* -- 871120-0363, ammodee@kth.se 
+
+*Daniel Nyberg* -- 900104-4495, dnyb@kth.se 
+
+*Johan Stjernberg* -- 890315-0533, stjer@kth.se
+
+*Andreas Tarandi* -- 890416-0317, taran@kth.se
+
+
+$VERSIONS$
+$TOC$
+
+h1. Introduktion
+
+h1. Syfte
+
+Detta dokuments syfte är att ge projektets utvecklare en överblick av produktens omfattning och mer detaljerad genomgång av dess funktionalitet. Dokumentet är speciellt skrivet för att underlätta för utvecklarna av produkten. 
+
+För att underlätta för  läsaren så bör mjukvarans omfattning först läsas igenom, tillsammans med de tekniska begreppen som existerar i texten. Först efter detta bör de mer tekniskt detaljerade sektion 2 och sektion 3 gås igenom.
+h1. Mjukvarans omfattning
+
+Produkten består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt för besökare och administrationsverktyg för Kårspexets personal. Administrationsverktygen består av tre gränssnitt; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+h1. Definitioner akronymer och förkortningar
+
+_May extend/delete information from URD Section 1.3._
+
+*Alla akronym från URD är medtagna. Om du använder något av akronymen, var snäll och ta bort bindesträcket " - " framför akronymet så man vet att det används i SRD.*
+
+
+*Algoritm* _Inom matematik och datorvetenskap är detta en begränsad uppsättning tydliga instruktioner för att utföra en uppgift._
+
+*Apache* _Syftar i detta dokument på webbservern Apache HTTP Server._
+
+*Apache HTTP Server* Världens mest använda webbserver. Är gratis att använda. [1.3.1]_
+
+- *Apache Software Foundation* _Organisation som stödjer ett antal open source-projekt, bland annat Apache HTTP Server. [1.3.2]_
+
+- *Applikation* _I datasammanhang även kallat tillämpningsprogram. Ett dataprogram som fyller ett direkt syfte för användaren._
+
+*Arbetsminne* _Även kallat primärminne. En fysisk komponent i en dator. Används för att lagra program och data då programmet körs._
+
+*Bandbredd* _I vardagligt tal en storhet för hur mycket information som kan överföras på en viss tid. Vanlig enhet är Mbit/sekund._
+
+*Bit* (Binary Digit) _Den grundläggande enhet som datorer arbetar med. En bit kan anta ett utav två möjliga värden (ofta angivna som 0 eller 1)._
+
+*Byte* _En vanlig enhet för informationsmängd i datasammanhang. En byte är ett paket bestående av åtta bitar._
+
+*CentOS* _Ett operativsystem baserat på Red Hat Enterprise Linux som är gratis att använda. [1.3.3]_
+
+*Databas* _En databas är en samling information ordnad på ett sådant sätt att informationen i den effektivt går att hitta._
+
+*Firefox* (Mozilla Firefox) _En gratis webbläsare som går att köra på de populäraste operativsystemen.
+
+*Foreign key* _Inom relationsdatabaser en begränsning som kräver att information på ett ställe finns definierat tidigare på ett annat ställe (kolumner i tabeller)._
+
+- *Mail* _Elektroniskt brev (engelska: email)._
+
+- *Mailklient* _Datorprogram för att hantera/läsa/skicka mail._
+
+*GHz* _Enhet för antalet miljarder svängningar per sekund. "G" är binärt prefix för 10^9. "Hz" är förkortning för Hertz._
+
+*Gränssnitt* _Utformningen av kommunikationen mellan en mjukvarumodul och användare eller annan mjuk-/hårdvara._
+
+*GUI* (Graphical User Interface) _Se gränssnitt._
+
+*HTML* (Hyper Text Markup Language) _Ett språk och webbstandard som används för att beskriva strukturering av text, bilder och annan media på en webbsida._
+
+*HTTP* (HyperText Transfer Protocol) _Ett standardiserat protokoll som definierar hur kommunikation över webben sker._
+
+*HTTPS* (HTTP Secure) _En kombination av HTTP och SSL/TLS med syftet att förhindra avlyssning av HTTP-trafiken_
+
+*Hårdvara* _Även kallat Maskinvara. Ett samlingsnamn för en dators fysiska komponenter._
+
+- *Interface* _Se gränssnitt._
+
+*Internet Explorer* _En webbläsare utvecklad av Microsoft för operativsystemet Windows._
+
+*InvalidAuthenticyToken* _Ett fel som kan uppstå i rails om användaren backar på sidor innehållande formulär. Uppstår på grund av Rails skydd mot XSS._
+
+*kB* (kilobyte) _Se kbyte._
+
+*kbyte* (kilobyte) _Enhet för datamängd. "k" är prefix för 10^3. För "byte", se Byte._
+
+*KiB* (kibibyte) _Enhet för datamängd. "Ki" är ett binärt prefix för 2^10. "B" är förkortning för Byte._
+
+- *Klockfrekvens* _Beteckning för den hastighet i vilken en processor arbetar i._
+
+- *KTH* (Kungliga Tekniska Högskolan) _Sveriges största tekniska universitet._
+
+- *Latens* _Även känt som svarstid, tidsfördröjning eller lagg. Tidsskillnaden mellan en begäran och respons på begäran._
+
+- *Latency* _Engelskt ord för Latens._
+
+*Linux* _Unix-liknande operativsystem. Linux är fri mjukvara._
+
+- *Logik* _Vetenskapen om att dra korrekta slutsatser från givna påståenden._
+
+*Mb* (Megabyte) _Se Mbyte._
+
+*Mbyte* (Megabyte) _Enhet för datamängd. "M" är prefix för 10^6. För "byte", se Byte._
+
+- *MHz* _Enhet för antalet miljoner svängningar per sekund. "M" är binärt prefix för 10^6. "Hz" är förkortning för Hertz._
+
+*MiB* (mebibyte) _Enhet för datamängd. "Mi" är ett binärt prefix för 2^20. "B" är förkortning för Byte._
+
+*MiBit/s* (mebibit per sekund) _Enhet för datahastighet. "Mi" är ett binärt prefix för 2^20. "Bit" är den minsta enheten för informationsmängder i datasammanhang._
+
+*Mjukvara* _Även kallat programvara. En organiserad samling av data och maskininstruktioner._
+
+- *Mjukvarubibliotek* _En samling av redan existerande program eller delar av program som används för att utveckla mjukvara._
+
+- *Modul* _Term för komponenter eller funktioner som går att separera från resten av systemet och som inte nödvändigtvis krävs för att systemet ska fungera som helhet._
+
+- *MVC* (Model-View-Controller) _Se Model-View-Controller._
+
+*Model-View-Controller* _Ett koncept som bygger på att separera data (modeller), logik (kontroller) och användarinterface (vyer)._
+
+- *MVC ramverk* _Mjukvarubibliotek designade efter MVC-konceptet._
+
+*MySQL* _En typ av relationsdatabas baserad på SQL-standarden. Ett relationsdatabas hanteringssystem där flera användare kan arbeta med flera databaser._
+
+*N/A* (Not Applicable) _Inte applicerbart. Används bland annat i tabeller där alla fält förväntas fyllas i men fältet saknar applicerbart värde._
+
+- *Open Source* _Engelskt låneord för öppen källkod._
+
+- *Operativsystem* _Ett datorprogram vars syfte är att underlätta användandet av en dator genom att vara länken mellan programvara och hårdvara._
+
+*Passenger* _I Rails-sammanhang en modul som gör det möjligt att köra Ruby on Rails på webbservern Apache._
+
+- *PHP* _Ett programmeringsspråk som ofta används för att skapa webbapplikationer._
+
+*Processor* _Den komponent i en dator som utför beräkningar efter instruktioner._
+
+- *Programmeringsspråk* _Språk som människor använder för att skapa datorprogram._
+
+*Rails* _I datorsammanhang vanlig förkortning för Ruby on Rails._
+
+*RDoc* (Ruby Doc) _Verktyg för att generera dokumentation för Ruby-källkod i HTML-format.
+
+- *Red Hat Enterprise Linux* _Variant av Linux._
+
+- *Rendering* _I datasammanhang (även känt som Rendrering) det program som framställer en bild/animering med hjälp av beräkningar från en beskrivning._
+
+*Ruby* _Ett objektorienterat programmeringsspråk._
+
+*Ruby on Rails* _Ett abstrakt mjukvarubibliotek med öppen källkod för utveckling av webbapplikationer._
+
+- *Systemminne* _Även kallat RAM (Random Access Memory), arbetsminne eller primärminne. Används för att tillfälligt lagra data som datorn arbetar med._
+
+- *Spex* (Spektakel) _Humoristisk studentamatörteaterföreställning._
+
+*SQL* (Structured Query Language) _Ett språk designat för att interagera med databaser._
+
+*SQL-injection* _En metod för att förändra eller komma åt data i en databas genom att ange strängar i användarinterfacet som förändrar betydelsen av en SQL-fråga._
+
+*SHA-1* _En hashfunktion._
+
+*SSL/TLS* (Secure Socket Layer/Transport Layer Security) _Ett kryptografiskt protokoll för att sätta upp säkra kommunikationskanaler över internet._
+
+*Testkod* _Kod som används för att testa funktioner i programmet så att det returnerar förväntat svar för att försäkra sig om att mjukvaran fungerar på ett tillfredsställande sätt._
+
+*Tutorial* _En metod för att överföra kunskap som ofta används vid inlärning._
+
+- *Unix* _Ett operativsystem som ofta används i olika typer av servrar och arbetsstationer._
+
+*URD* (User Requirements Document) _Dokument inom PSS050 standarden där användarens krav specificeras._
+
+- *URL* (Uniform Resource Locator) _Den formella benämningen av en webbadress. En text som beskriver var en viss resurs på internet finns, samt hur den går att komma åt._
+
+- *Webb* _Även känt som WWW (World Wide Web). Det system som används för att hämta, visa och manipulera delar på internet. WWW utgörs av standarderna URL, HTTP respektive HTML._
+
+*Webbapplikation* _Samlingsnamn för mjukvara som användare kommer åt via en webbläsare._
+
+*Webbläsare* _Ett program som hämtar, tolkar och återger webbsidor kodade exempelvis som HTML._
+
+*Webbserver* _Program som körs på en server och distribuerar webbsidor och/eller andra filer som en webbläsare begär via HTTP-protokollet._
+
+*Webbsida* _En fil, innehållandes exempelvis HTML, avsedd att visas av en webbläsare._
+
+*XSS* (Cross site scripting) _En teknik som utnyttjar svagheter i en webbsida genom att låta en auktoriserad användare accessa en länk som modifierar sidan på ett sätt som den auktoriserade användaren inte önskar [1.3.4]._
+
+- *Öppen källkod* _Innebär möjlighet att ändra i konstruktionen för ett system. I ett datorprogram som har öppen källkod kan den som vill göra ändringar i programmet och utveckla det vidare._
+h1. Källor
+
+_May extend/delete information from URD Section 1.4_
+
+Referenser till de källor som använts i dokumentet är listade här under. En och samma källa kan refereras vid flera ställen i texten. En referens är på formatet [Sektion.Rubrik.Löpnummer]. Exempelvis är [2.5.1] den första (1) referensen för rubriken "Relation till andra system" (5) under sektion "Allmän beskrivning" (2).
+
+*Apache HTTP Server*
+http://httpd.apache.org/
+Hänvisning till källan görs från referenserna: [1.3.1].
+
+*Apache Software Foundation*
+http://www.apache.org/
+Hänvisning till källan görs från referenserna: [1.3.2].
+
+*CentOS*
+http://www.centos.org/
+Hänvisning till källan görs från referenserna: [1.3.3].
+
+*Cross-site-scriptning*
+http://en.wikipedia.org/wiki/Cross-site_scripting
+Hänvisning till källan görs från referenserna: [1.3.4].
+
+
+*Webbläsarstatistik*
+http://en.wikipedia.org/wiki/Usage_share_of_web_browsers
+Hänvisning till källan görs från referencserna: [SR3.1]
+
+h1. Dokumentöversikt
+
+_Similar to URD Section 1.5, but describes the SRD. However, it need not be assumed that readership on the customer side exists. In practise, this document may be internal and confidential to the development team._
+
+Detta dokument innehåller fyra distinkta delar. Sektion 1 är denna introduktion till projektet. Sektion 2 visar produktens funktionalitet och presenterar dessutom de externa faktorer kring produkten. Sektion 2.7 är extra intressant för utvecklare, ty den innehåller logiska datamodeller och användarscenarion (use cases).  Sektion 3 beskriver de specifika krav från kunden såväl från Nyx som finns på produkten. Sektion 4 innehåller en matris där mjukvarans krav kan spåras tillbaka till användarens krav från URDn.
+
+
+
+h1. Allmän beskrivning
+
+h1. Relation till aktuella projekt
+
+_Describes the relationship with other current projects (either customer side or developer side). Customer side could be outsourced component of a larger project. Developer side could be related to similar development work allowing synergies in work, staff sharing, component re-use, software re-use, etc._
+
+Vårt projekt relaterar till Kårspexets hemsida och ska byta ut det gamla bokningssystemet som finns där. Till vår kännedom är det ingen annan som gör några större ändringar på Kårspexets hemsida eller det gamla bokningssystemet.
+
+Vi har heller inga aktuella projekt som någon i gruppen arbetar med som relaterar till Kårspexet.
+
+h1. Relation till tidigare och kommande projekt
+
+_Relation to predecessor and successor projects. Describes the relationship with past and future projects (either customer side or developer side). Similar to Section 2.1 in the SRD, but looking outside the present time._
+
+Kårspexet använder sig just nu av Fysikalens bokningssystem. Det skulle vara möjligt att få tillgång till det systemet för att se hur det fungerar just nu och få bättre inblick i vad som är problem just nu och vad som fungerar bra som vi bör återskapa.
+
+Kårspexet har uttryckligen bett om att det nya bokningssystemet ska passa in i deras gamla hemsida utan att designen krockar för mycket. Det innebär att kundens gränssnitt behöver vara anpassat till Kårspexets nuvarande hemsida. De andra gränssnitten behöver inte anpassas.
+
+Victor har gjort Sjöslagets bokningssystem som relaterar till detta projekt eftersom det också är ett bokningssystem. Vissa delar av det projektet skulle vi kunna använda oss av här. T.ex. validering av input med javascript och navigation mellan bokningssteg.
+
+Andreas har jobbat med kortköp på andra sidor. Om vi väljer att implementera kortköp även här så kan vi ha användning av det.
+h1. Funktion och syfte
+
+_Describes the main functions the product must perform, gives an overview. (Details are set out in Section 3.) Takes a developer-centric approach. Similar to Section 2.2 in the URD._
+
+Bokningssystemet ska användas av fyra typer av användare: kund, säljare, ekonomichef och administratör. Dessa har olika roller som interagerar med varandra. Varje typ av användare har ett eget gränssnitt till systemet men många av funktionerna är delade.
+
+h2. Boka biljetter från hemsidan
+
+Kunder ska kunna boka biljetter från kårspexets hemsida. Efter att kunden har genomfört en bokning ska kunden få ett mail med betalningsuppgifter och bokningsnummer.
+
+h2. Registrera betalningar
+
+Ekonomichefen ska kunna registrera betalningar för bokningar som kunder gjort.
+
+h2. Administrera biljetter
+
+Efter att kunden har bokat och ekonomichefen registrerat kundens betalning placerar administratören ut vilka stolar kunden ska få sitta på under föreställningen. När placeringen är klar får kunden ett mail med uppmaning att hämta ut sina biljetter.
+
+h2. Lämna ut bokade biljetter
+
+Säljare verifierar att en kunds biljetter är redo att hämtas, lämnar ut biljetterna och registrerar i systemet att biljetterna har hämtats. Gränssnittet för säljare ska vara lätt att lära sig eftersom säljarna ofta byts ut.
+
+h2. Sälja biljetter direkt
+
+Säljaren ska kunna sälja biljetter kontant. Det är då säljaren som väljer vilka stolar kunden får sitta på.
+
+h2. Administrera mailutskick
+
+Administratören ska kunna ändra informationen i de automatiska utskicken som sker samt kunna göra nya utskick till valda bokningars kontaktpersoner.
+
+h2. Administrera föreställningar och teatrar
+
+När det vankas nya föreställningar är det administratören som matar in dem i systemet. Priser ska kunna ändras och om föreställningen är på en ny teater ska teatern kunna läggas till. Detta innebär att nya salongsskisser med nya sektioner och stolar ska kunna matas in. Administratören ska kunna välja vilka föreställningar det går att boka/köpa biljetter till.
+
+h2. Administrera konton
+
+Administratören ska kunna ändra både sitt eget och andras lösenord. Säljarens lösenord ska kunna genereras automatiskt och vara giltigt en begränsad tid.
+
+h2. Statistik
+
+Administratören och ekonomichefen ska kunna se statistik om antalet bokade och sålda biljetter för att kunna få inblick i verksamheten.
+
+h1. Miljömässiga betänkanden
+
+_Environmental considerations. Describes where the product will be used (business environment and/or geographical location), who will use it (job roles, skill levels), who will operate and maintain it, hardware it will run on, operating system required._
+
+h2. Användarna
+
+Produkten kommer ha fyra olika typer av användare: kund, säljare, administratör och ekonomiansvarig. 
+
+h3. Kunder
+
+Kunder går att dela upp i två distinkta grupper: de som studerar på en teknisk högskola eller ett universitet respektive släktingar eller bekanta till Kårspexets medlemmar som inte är associerade med en teknisk högskola eller ett universitet.
+
+Studenter använder datorer dagligen och är vana vid både mail och webbsidor. Hos släktingar och bekanta varierar den tekniska kompetensen stort, där finns både tonåringar och pensionärer. Vi antar att användarna har viss vana vid mail och webb, men att de kan ta lång tid på sig att anpassa sig till nya gränssnitt. Kunderna kommer att använda systemet bara enstaka gånger. Det är därför viktigt att kundens gränssnitt är enkelt, även första gången man använder det.
+
+h3. Säljare
+
+Säljare är medlemmar i Kårspexet och är därmed sannolikt kårmedlemmar vid en teknisk högskola. De är först och främst aktiva med Kårspexets arrangemang och är säljare i andra hand. Det är därför viktigt att säljargränssnittet är enkelt, då säljarna inte skall behöva någon utbildning i systemet. 
+
+h3. Administratör och ekonomiansvarig
+
+Både administratören och ekonomiansvarige är studenter på en teknisk högskola, i Kårspexets fall KTH. De är därmed vana att navigera i personliga inloggningssidor, t.ex. Mina sidor, eller studera.nu. De är även vana användare av mailklienter. De kommer använda systemet ofta. Det är acceptabelt att viss utbildning krävs. Användarvänlighets-kraven på administratörens gränssnitt är relativt låga.
+
+h2. Systemmiljö
+
+Systemet kommer att köras på en server med operativsystemet CentOS och kommer administreras av personer med stor eller mycket stor kunskap om linux-servrar. De kan antas kunna hantera administreringen och underhållet av systemet själva.
+
+h1. Relation till andra system
+
+_Relation to other systems. Describes related external systems and subsystems. (A revision of URD Section 2.1)._
+
+Nyx system kommer att köras på en extern server som Kårspexet inte har tillgång till. På servern körs även webbserver, databashanterare och såklart ett operativsystem. Nyx program använder webbservern för att kommunicera med användarna och databasen för att lagra data. I grundutförandet programmet i övrigt fristående från andra system, men om Nyx har tid så kommer det även att använda sig av externa system för att utföra kortbetalningar.
+
+
+h1. Generella begränsningar
+
+_General constraints. Describes the main constraints that apply and why they exist. (A revision of URD Section 2.3)._
+
+h2. Datamodell
+
+Datamodellen finns bifogad med beskrivning i appendix.
+
+h2. Resurser
+
+Vi kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera då vi totalt är fem programmerare. På kort tid ska vi hinna implementera fyra gränssnitt för bokningssystemets användare. Gränssnitten kommer behöva testas men eftersom vi har lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. En stor del av arbetet kommer behöva läggas på utvecklingen av administratörsgränssnittet då det är där de flesta och mest avancerade funktionerna kommer finnas. Vi har inte någon budget för projektet och vi kommer inte att tillföra egna pengar för att köpa in något, detta gör att vi begränsas till att använda programvara som är gratis. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+h2. Kundbehov
+
+Nyx mål är att leverera ett fullständigt bokningssystem med alla de funktioner som Kårspexet har specificerat. På grund av systemets förväntade komplexitet och projektets tidsram kommer kvaliteten i delar av slutprodukten vara begränsad. Gränssnittet för besökare (slutkunder) respektive säljare ska designas på ett sätt som gör att det går att använda utan några speciella förkunskaper inom vårt system. Det ska alltså fungera på ett sätt som efterliknar liknande produkter. Detta begränsar oss i hur pass många funktioner och val vi kan låta användarna exponeras för på en och samma gång. Administratörsgränssnittet är inte begränsat på samma sätt då dess användare kommer utbildas i förväg.
+
+h2. Tekniska begränsningar
+
+Kårspexet står för den server som kommer köra vår webbapplikation. Vi har ingen kontroll över deras hårdvara, men vi har verifierat att operativsystemet som körs på servern är kompatibelt med Apache, Ruby on Rails [2.6.1] och MySQL. Applikationen kommer inte inkludera avancerade algoritmer utan till störst del involveras mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i nätverksanslutningen. Systemet kommer enligt våra uppskattningar exponeras för upp till åtta samtidiga användare. Rails under Apache kommer i detta fall att, under godtycklig tidpunkt, använda uppskattningsvis c:a 250 MiB systemminne [2.6.2]. CentOS anger 256 MiB minne samt en klockfrekvens på minst 500 MHz som minimikrav för datorer som kör operativsystemet [2.6.3]. Med MySQL och Apache körandes samtidigt utöver dessa bör servern ha minst 1 GiB systemminne och en processor med klockfrekvensen 1 GHz eller högre. Kårspexets server har en processor med klockfrekvensen 2,6 GHz och 1 GiB systemminne, vilket beräknas vara tillräckligt.
+h1. Modellbeskrivning
+
+För att bättre förklara hur bokningssystemet fungerar följer nedan usecases som på en övergripande nivå visar de fyra gränssnitt vi kommer implementera för systemets användare.
+
+h2. Kundgränssnittet
+
+!kund-usecase.jpg!
+
+h2. Säljargränssnittet
+
+!saljare-usecase.jpg!
+
+h2. Ekonomichefsgränssnittet
+
+!ekonomi-usecase.jpg!
+
+h2. Admingränssnittet
+
+!admin-usecase.jpg!
+
+h2. Systemkomponenter
+
+!skiss-bokningssystem.jpg!
+
+Detta ger en bild över hur de logiska delarna i systemet kommer att fungera ihop med den tidigare modellen av databasen som beskrevs i [URD 2.7.1].
+
+
+h1. Specifika krav
+
+
+|_.Krav|_.SRX.Y Lämplig rubrik (_exempel: krav 5 under 3.6 har ID SR6.5_)|
+|_.Beskrivning||
+|_.Behov|Essential software requirements *shall* be marked as such. Essential software requirements are non-negotiable; others may be less vitally important and subject to negotiation.|
+|_.Prioritet|For incremental delivery, each software requirement *shall* include a measure of priority so that the developer can decide the production schedule.|
+|_.Stabilitet|Some requirements may be known to be stable over the expected life of the software; others may be more dependent on feedback from the design phase, or may be subject to  hange during the software life cycle. Such unstable requirements *should* be flagged.|
+|_.Källa|References that trace software requirements back to the URD *shall* accompany each software requirement.|
+|_.Verifierbarhet|Each software requirement shall be verifiable. This means that it must be possible to:
+a) check that the requirement has been incorporated in the design;
+b) prove that the software will implement the requirement;
+c) test that the software does implement the requirement.|
+
+*Klarhet*: A requirement is clear if it has one, and only one, interpretation. Clarity implies lack of ambiguity. If a term used in a particular context has multiple meanings, the term should be qualified or replaced with a more specific term.
+
+
+h1. Funktionalitetskrav
+
+_Functional requirements. Describes each logical component in terms of functional behaviour._
+
+_3.1 Functional requirements. What each logical component does._
+
+_Att göra:_
+* _Se över prioriteter_
+* _Se över Verifierbarhet. Kan man skriva mer än bara "testa"?_
+* _Sök upp alla_ ?
+* _ändra rubriken_ Funktionalitet som föregående funktionalitet beror på
+
+h2. Funktionalitet för autentisering
+
+|_.Krav|_.SR1.1 Autentisering|
+|_.Beskrivning|Säljarens, administratörens och ekonomichefens funktionaliteter ska endast kunna användas av autentiserade användare, i enlighet med SR9.2. Autentisering sker genom inloggning med användarnamn och ett lösenord. Den inloggade användaren ska kunna logga ut, dvs att upphäva sin behörighet tills nästa inloggning. För att uppfylla detta behöver systemet hantera användarkonton med olika behörigheter (användarroller).|
+|_.Behov|Standard|
+|_.Prioritet|Låg (Hög ?)|
+|_.Stabilitet|Stabilt|
+|_.Källa|URD4.1|
+|_.Verifierbarhet|Kontrollera att systemet hänvisar användaren till inloggning och att man efter inloggning får tillgång till användarrollens funktionalitet. Pröva även att logga ut och att man därefter inte längre har tillgång till funktionaliteten|
+
+h2. Funktionalitet för kund
+
+|_.Krav|_.SR1.2 Kund: Boka|
+|_.Beskrivning|En kund ska kunna göra en bokning så som beskrivs i stycke _i Gränssnittskrav_. Detta inkluderar att välja föreställning, sektion och antal biljetter med student- respektive ordinariepris. Vid slutförd bokning ska kunden få en bokningsbekräftelse både som webbsida och som mail.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.6, UR2.10, UR2.12|
+|_.Verifierbarhet|Pröva att genomföra användarscenarierna för kund. Kontrollera i administrationsgränssnittet att bokningen finns i systemet.|
+
+|_.Krav|_.SR1.3 Kund: Visa/avboka bokning|
+|_.Beskrivning|Kunden ska kunna visa eller avboka sin bokning, från och med att bokningen görs och minst fram tills föreställningens början/slut(?). Förslagsvis kan kunden göra detta via en länk i bokningens bekräftelsemail.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.4|
+|_.Verifierbarhet|Pröva att genomföra en bokning och sedan visa och avboka den. Kontrollera avbokningen i administratörsgränssnittet.|
+
+|_.Krav|_.SR1.4 Kund: Kortbetalning|
+|_.Beskrivning|Vid bokning ska kunden kunna betala sina biljetter med betalkort.|
+|_.Behov|Deluxe|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.8|
+|_.Verifierbarhet|Gör en bokning och välj att betala med kort. Kontrollera kontoutdrag för kund och mottagare. Kontrollera att bokningen registrerats som betald, till exempel via administratörsgränssnittet. Detta krav kostar pengar att uppfylla och verifiera, vi tänker enbart göra det i samarbete med Kårspexet.|
+
+h2. Funktionalitet för säljaren
+
+|_.Krav|_.SR1.5 Säljare: Nytt kontantköp|
+|_.Beskrivning|En säljare ska kunna genomföra ett kontantköp i enlighet med _vad?_. Detta inkluderar att skapa ny bokning, välja föreställning och sittplatser, registrera betalning och registrera biljetterna som uthämtade.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.1|
+|_.Verifierbarhet|Testa att genomföra ett kontantköp enligt användarscenariot. Kontrollera i administrationsgränssnittet att en korrekt bokning skapats.|
+
+|_.Krav|_.SR1.6 Säljare: Lämna ut bokade biljetter|
+|_.Beskrivning|Säljaren ska kunna lämna ut biljetterna för en bokning. Detta innebär, förutom att registrera biljetternas utlämnande, eventuellt att välja sittplatser och att ta betalt.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.2|
+|_.Verifierbarhet|Pröva att genomföra biljettutlämningen, med bokningar som är placerade respektive oplacerade och betalda respektive obetalda.|
+
+h2. Funktionalitet för administratör
+
+h3. Administration av användarkonton
+
+|_.Krav|_.SR1.7 Administratör: Hantera konton|
+|_.Beskrivning|Administratören ska kunna lägga till och ta bort användarkonton, samt ändra deras lösenord, kontotyp(behörighet) och giltighetstid.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR4.2|
+|_.Verifierbarhet|Testa att skapa ett användarkonton. Man ska få välja lösenord, kontotyp och giltighetstid. Testa sedan att logga in med det nya användarkontot. Testa att ändra lösenord och att det nya lösenordet fungerar men inte det nya. Testa att ändra kontotyp och att användaren får tillgång till kontotypens funktionalitet. Testa att välja en giltighetstid som inte inkluderar det aktuella tillfället och att därefter inte går att logga in.|
+
+|_.Krav|_.SR1.8 Administratör: Lösenordsgenerator|
+|_.Beskrivning|Administratören ska kunna välja ett automatiskt genererat lösenord vid kontohanteringen (SR1.7). Detta för att lösenorden ska bli säkra och för att förenkla administratörens arbete.|
+|_.Behov|Deluxe|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR4.3|
+|_.Verifierbarhet|Testa att skapa lösenordet automatiskt vid skapandet av ett konto. Gör en bedömning av hur säkert lösenordet är ... (!?).|
+
+h3. Administration av teatrar och omgångar
+
+|_.Krav|_.SR1.9 Administratör: Hantera teatrar|
+|_.Beskrivning|En teater är en lokal där föreställningar i en omgång kan spelas. Administratören ska kunna lägg till, ändra och ta bort teatrar i databasen (ändringar och borttagningar måste vara begränsade så att felaktiga länkar i databasen undviks). Data som förknippas med teatern är namn, beskrivning, etc, samt sektioner, platser och bild av sektioner och platser.|
+|_.Behov|Standard|
+|_.Prioritet|Hög(?)|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.12|
+|_.Verifierbarhet|Testa att skapa och sedan redigera en teater. Kontrollera att teatern kan väljas när en omgång skapas.|
+
+|_.Krav|_.SR1.10 Administratör: Hantera omgångar|
+|_.Beskrivning|Administratören ska kunna lägga till, ta bort och ändra omgångar och deras föreställningar.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.1, UR1.2, UR1.13, UR1.14|
+|_.Verifierbarhet|Testa att skapa en omgång, skapa och ta bort föreställningar för omgången, ändra info om omgången och att ta bort omgången.|
+
+h3. Administration av bokningar
+
+|_.Krav|_.SR1.11 Administratör: Placera bokningar|
+|_.Beskrivning|Administratören ska kunna välja sittplatser åt bokningar.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.13|
+|_.Verifierbarhet|Verifiera SR1.25 genom administratörens gränssnitt.|
+
+|_.Krav|_.SR1.12 Administratör: Registrera betalningar|
+|_.Beskrivning|Administratören ska kunna registrera att bokningar har betalats. Det ska också gå att ändra en boknings betalningsstatus från betald till obetald (!?).|
+|_.Behov|Standard|
+|_.Prioritet|Medlel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.9|
+|_.Verifierbarhet|Testa att registrera en betalning. Sök sedan upp bokningen igen för att kontrollera att den blivit betald.|
+
+|_.Krav|_.SR1.13 Administratör: Hantera bokningar|
+|_.Beskrivning|Administratören ska kunna lägga till, ändra och ta bort bokningar. Bokningar ska kunna markeras som gratis. Alla ändringar ska bekräftas med en bekräftelsesida där ändringarna visas.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.5, UR2.14|
+|_.Verifierbarhet|Testa att skapa gratisbiljetter, ändra någon uppgift och sedan ta bort bokningarna. Notera att bekräftelsesidor visas för varje ändring. Genom att hitta bokningen igen och visa, ändra och ta bort den, har man verifierat att bokningen lagrats i databasen.|
+
+|_.Krav|_.SR1.14 Administratör: Mailutskick|
+|_.Beskrivning|Administratören ska kunna söka upp bokningar och göra ett mailutskick till kunderna, baserat på en mail-mall. Det ska också gå att skapa nya mail-mallar.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.7|
+|_.Verifierbarhet|Testa att skapa en ny mail-mall och att göra ett utskick med denna. Kontrollera att man får förhandsgranska utskicket. Kontrollera även att mailen kommer fram och att mallarna använts korrekt.|
+
+|_.Krav|_.SR1.15 Administratör: Mailutskick förhandsgranskning|
+|_.Beskrivning|Mailutskick (SR1.14) ska förhandsgranskas innan de genomförs. Innan utskicket görs ska en förhandsgranskning i form av ett av (eventuellt flera) meddelanden visas.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.9|
+|_.Verifierbarhet|Kontrollera att inget utskick görs utan att en förhandsgranskning först visas.|
+
+h3. Statistik
+
+|_.Krav|_.SR1.16 Administratör: Statistik|
+|_.Beskrivning|Administratören ska få statistik om bokningarna, som hjälp för att planera aktuellt och kommande arbete. Statistiken ska inkludera antal bokade respektive utgivna biljetter per föreställning, omgång och spelår och rabattklass.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.3|
+|_.Verifierbarhet|Ta en titt på statistiken. Kontrollera att den följer beskrivningen och att den verkar/är korrekt.|
+
+|_.Krav|_.SR1.17 Administratör: Statistik Plus|
+|_.Beskrivning|Mer utförlig statistik än enligt SR1.16. Detta inkluderar, statistik över tidsintervall, bokningar beroende på föreställnings start-/sluttid, tidpunkter för biljettutlämningar.|
+|_.Behov|Plus|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.4|
+|_.Verifierbarhet|Se SR1.16|
+
+|_.Krav|_.SR1.18 Administratör: Statistik Deluxe|
+|_.Beskrivning|Statistiken (SR1.16) ska framställas grafiskt.|
+|_.Behov|Deluxe|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.6|
+|_.Verifierbarhet|Se SR1.16|
+
+h3. Ekonomigränssnitt
+
+|_.Krav|_.SR1.19 Administratör: Ekonomiansvarigs gränssnitt|
+|_.Beskrivning|Det ska finnas en begränsad version av administrationsgränssnittet, som är speciellt anpassat för den ekonomiansvarige. Följande funktioner ska inkluderas: registrera betalningar, göra mailutskick, statistik.|
+|_.Behov|Plus|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.10|
+|_.Verifierbarhet|Pröva att logga in med ett ekonomichef-konto och kontrollera att man får tillgång till de tre funktionerna som nämns i beskrivningen.|
+
+h2. Funktionalitet som föregående funktionalitet beror på
+
+|_.Krav|_.SR1.20 Sök bokningar|
+|_.Beskrivning|För många av uppgifterna systemets användare ska utföra behöver man kunna söka upp och välja ut bokningar. Detta gäller de funktioner som beskrivs av SR1.6 och SR1.11-SR1.14. Detta ska lösas av en flexibel modul som kan anpassas till de olika användningarna. Olika uppsättningar av egenskaper hos bokningarna ska kunna visas och bokningarna ska kunna sorteras och filtreras på de olika egenskaperna. Användaren ska själv kunna anpassa sorteringen och filtreringen.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.5, UR1.8|
+|_.Verifierbarhet|Testa denna funktion genom till exempel Hantera bokningar-gränssnittet (SR1.13). Det ska gå att sortera på bokningarnas olika attribut och utföra olika filtreringar.|
+
+|_.Krav|_.SR1.21 Föreställningsväljare|
+|_.Beskrivning|Vid skapandet av en bokning måste en föreställning väljas. Det ska finnas (minst) en modul som låter användaren göra detta. Det ska bara gå att välja en föreställning i en aktuell omgång.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.1, UR2.5, UR2.6|
+|_.Verifierbarhet|Testa de funktioner som är beroende av denna funktion, förslagsvis SR1.2 Kund: Boka. Om det går att välja bland de aktuella omgångarna är kravet uppfyllt.|
+
+|_.Krav|_.SR1.22 Sektionsplacering|
+|_.Beskrivning|För att låta kunden välja sektion vid en bokning och eventuellt för att låta administratören och säljaren välja sittplatser för en bokning, behövs funktionalitet för att visa en bild av teaterns sektioner och låta användaren välja en sektion.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.6|
+|_.Verifierbarhet|Testa att göra en bokning som kund. Notera om valet av sektion visas i en bild.|
+
+|_.Krav|_.SR1.23 Sektionsplacering färgkodning|
+|_.Beskrivning|I Sektionsplaceringen (SR1.22) ska antal lediga platser i de olika sektionerna visas med en färgskala. Detta för att kunden snabbt ska förstå vilka sektioner han kan få plats i.|
+|_.Behov|Plus|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.7|
+|_.Verifierbarhet|Låt bokningar tillkomma (eller försvinna). Kontrollera att korrekta färger visas vid sektionsvalet.|
+
+|_.Krav|_.SR1.24 Sektionsplacering interaktiv|
+|_.Beskrivning|I Sektionsplaceringen (SR1.22) ska kundens val av sektion ska visas i bilden. Med stor sannolikhet kommer valet av sektion att göras i en lista utanför bilden (i ett HTML-formulär). Den sektion som muspekaren befinner sig över i listan eller bilden, ska markeras både i listan och bilden.|
+|_.Behov|Plus|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR2.3|
+|_.Verifierbarhet|Kontrollera att sektionsvalet visas interaktivt, genom att sektioner som pekas på markeras.|
+
+|_.Krav|_.SR1.25 Platsplacering|
+|_.Beskrivning|Säljare och administratören ska kunna välja sittplatser åt bokningarna. Därför behöver en mängd platser (stolar) i en teater kunna visas och väljas. För en viss föreställning ska det visas vilka platser som är upptagna och bara lediga platser ska kunna väljas.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.13|
+|_.Verifierbarhet|Testa att välja platser för en bokning. Kontrollera att upptagna platser markeras och inte kan väljas. Kontrollera att bokningen har fått platser genom att söka upp den i administrationsgränssnittet.|
+
+|_.Krav|_.SR1.26 Bekräftelse|
+|_.Beskrivning|Vid de flesta inmatningar ska, för att säkerställa att korrekta uppgifter ges, en bekräftelsesida visas för användaren. Datan som angetts ska visas och användaren ska kunna välja att bekräfta att uppgifterna är korrekta.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|2.10|
+|_.Verifierbarhet|Kravet är uppfyllt om bekräftelsesidor kan användas. Testa till exempel att göra en bokning.|
+
+|_.Krav|_.SR1.27 Mail-skickare|
+|_.Beskrivning|Systemet ska kunna göra mail-utskick till kunderna, automatiskt (vid bokning SR1.2) och manuellt (SR1.14). Givet en mängd bokningar och en mailmall skapas meddelanden och skickas till de epostadresser som hör till bokningarna. Mail-mallarna ska lagras i databasen. Genom mallen anpassas mailen till de olika bokningarna, uppgifter om namn, bokningsnummer, föreställningens datum, bokade platser, betalstatus, etc, läggs in i meddelandet.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.7|
+|_.Verifierbarhet|Verifiera SR1.14 (Administratör: Mail-utskick).|
+
+|_.Krav|_.SR1.28 Menyer|
+|_.Beskrivning|Administratören, säljaren och eventuellt ekonomiansvarige ska ha gränssnitt där de från en meny kan nå funktioner som hör till respektive användare.|
+|_.Behov|Standard| 
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR1.10, UR1.11, UR2.11, UR3.1|
+|_.Verifierbarhet|Ta en titt på de olika användarnas första-sidor. Kontrollera att det finns länkar till sidor för alla funktionerna och att dessa länkar pekar rätt.|
+
+h2. Övrig funktionalitet
+
+|_.Krav|_.SR1.29 Tidsmätning|
+|_.Beskrivning|För att kunna kontrollera systemets svarstid (SR2.5 eller SR12.2 !?), ska för varje anrop till systemet, svarstiden skrivas till en logg-fil.|
+|_.Behov|Standard.|
+|_.Prioritet|Låg.|
+|_.Stabilitet|Stabilt.|
+|_.Källa|UR3.2|
+|_.Verifierbarhet|Gör ett eller flera anrop och kontrollera att uppmätta tider står i loggen.|
+
+h1. Prestandakrav
+
+_Performance requirements. Describes specific performance requirements on components such as: time, space, load, reliability etc._
+
+|_.Krav|_.SR 2.1 Trafikmängd för en bokning|
+|_.Beskrivning|Den maximala datatrafikmängd som får krävas för att en bokning skall kunna genomföras är 3,125 MiBit. Trafikmaximumet är räknat i en riktning (ex. server till klient).|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt så länge informationsinnehållet i bokningsprocessen inte utökas.|
+|_.Källa|UR5.1, UR5.2|
+|_.Verifierbarhet|Mäta trafiken i båda riktningar mellan klienten och servern då en bokning.|
+
+|_.Krav|_.SR 2.2 Anropsantal för en bokning|
+|_.Beskrivning|Det maximala antalet anrop som får krävas för att en bokning skall kunna genomföras är 11 (ett första anrop och 10 nominella anrop).|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt så länge flödet för bokningsprocessen inte ändras.|
+|_.Källa|UR5.1, UR5.2|
+|_.Verifierbarhet|Mäta antalet förfrågningar som görs mot server då en bokning utförs.|
+
+|_.Krav|_.SR 2.3 Största sidladdningen|
+|_.Beskrivning|Den största sidladdningen för bokningsprocessen i datatrafik räknat får inte vara större än 100KiB.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt så länge informationsinnehållet i bokningsprocessen inte utökas.|
+|_.Källa|UR5.1, UR5.2|
+|_.Verifierbarhet|Mäta och observera den största sidladdningen då en bokning utförs.|
+
+|_.Krav|_.SR 2.4 Nominell sidladdning|
+|_.Beskrivning|Medelvärdet för de nominella anropen under bokningsprocessen i datatrafik räknat får inte överstiga 30KiB.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt så länge informationsinnehållet i bokningsprocessen inte utökas.|
+|_.Källa|UR5.1, UR5.2|
+|_.Verifierbarhet|Mäta och observera medelvärdet för alla anrop, exklusivt det största, då en bokning utförs.|
+
+|_.Krav|_.SR 2.5 Maximal svarstid|
+|_.Beskrivning|Bokningssystemet får inte ha en svarstid till klienten som är större än 1 sekund.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil så länge produkten inte ändras eller belastningen går utanför specifikation.|
+|_.Källa| UR3.2, UR5.2|
+|_.Verifierbarhet|Under ett stresstest motsvarande maxintensiteten för bokningsanrop mäta eller observera tiden för ett anrop. Webbserverns loggfil är hjälpsam.|
+h1. Gränssnittskrav
+
+h2. Mjukvaruinterface
+
+h3. Klient
+
+|_.Krav|_.SR3.1 Webbläsare|
+|_.Beskrivning|Kårspexets bokningssystem ska stödja följande webbläsare; _Firefox 3+_, _Internet Explorer 8+_. |
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|UR7.3|
+|_.Verifierbarhet|Provkörning av systemet i dessa webbläsare.|
+
+|_.Krav|_.SR3.2 Internet Explorer 7|
+|_.Beskrivning|Kårspexets bokningssystem ska även stödja _Internet Explorer 7_.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|UR7.5|
+|_.Verifierbarhet|Provkörning av systemet i _Internet Explorer 7_.|
+
+h3. Server
+
+|_.Krav|_.SR3.3 Serverinterface|
+|_.Beskrivning|Apache används som webbserver för att göra bokningssystemet tillgängligt via HTTP-protokollet.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR9.2|
+|_.Verifierbarhet|Visa att Kårspexets server kör Apache.|
+
+h2. Kommunikationsinterface
+
+|_.Krav|_.SR3.4 Databasinterface|
+|_.Beskrivning|Webbservern kommunicerar med MySQL-databasen via Rails med hjälp av Unix-sockets.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR9.1|
+|_.Verifierbarhet|Verifiera webbservern kommunicerar med databasen.|
+
+h2. Arbetsflödesanalys av användarscenarion
+
+Nyx produkts GUI är uppdelat i tre delar; Kundens, Säljarens och Administratörens GUI. Systemet har även en fjärde användare, Ekonomichefen, som använder en begränsad version av Administratörens GUI.
+
+h3. Kundens GUI
+
+Kundens GUI består av en bokningssida på Kårspexets hemsida. När kunden trycker på "Boka biljett" eller dylik dirigeras han/hon till vår produkt. 
+Det första kunden får göra är att avgöra vilken föreställning i den nuvarande omgången som denne vill gå på. Här möts dessutom kunden av en grafisk representation av hur fulla de olika sektionerna är, som stöds av en färgskala. Nästa steg är att välja vilken sektion kunden vill sitta i. Kunden får ej välja vilken stol denne vill sitta i, ty det gör administratören. När kunden valt sektion så matar kunden in sina betalningsuppgifter, så som namn, telefonnummer, hur han/hon vill betala (kontant, postgiro, kort) och dylik. Sedan bekräftar kunden sina uppgifter och bokningen är klar.
+Kunden kan dessutom i varje steg backa tillbaka till ett tidigare steg i bokningen, förutsätt att bokningen inte är bekräftad. 
+För kundens interfacestruktur, se figur 1.
+!kundInterfaceStruktur.jpg!
+
+h3. Säljarens GUI
+
+Betrodda medlemmar av Kårspexet kan agera säljare, och får då ett temporärt lösenord av administratören till en separat inloggningssida. Säljaren loggar in vid sitt säljtillfälle och möts då av två olika val; kontant köp och hämta bokad biljett.
+För säljarens interfacestruktur, se figur 2.
+!saljarInterfaceStruktur.jpg!
+
+h4. Kontant köp
+
+Kontant köp innebär att kunder står i kö för att köpa en biljett direkt från Kårspexet, istället för att boka sin biljett på Kårspexets hemsida först. Säljaren frågar då kunden vilken föreställning och vilken sektion som denne vill gå till. Säljaren placerar ut platser i den valda sektionen på den valda föreställningen och bekräftar sedan dessa uppgifter med kunden. Säljaren får en prompt om att gå och hämta de valda biljetterna, varpå säljaren tar betalt och lämnar ut biljetterna till kunden.
+
+h4. Hämta bokad biljett
+
+Hämta bokad biljett innebär att kunden redan har bokat precis vilken föreställning och sektion som denne vill gå på, och behöver därmed endast hämta ut sina biljetter. Säljaren ber då kunden om dennes namn, bokningsnumret eller dylik, och söker sedan igenom databasen efter bokningen. Om bokningens platser är oplacerade så placerar säljaren dessa manuellt, och hämtar sedan biljetterna. Om kunden valt att betala kontant eller inte betalat tillräckligt för sina biljetter så tar säljaren betalt som vanligt och lämnar ut biljetterna.
+
+h3. Administratör
+
+En betrodd medlem av Kårspexet har som uppgift att agera administratör över hela Kårspexets bokningssystem. Denne sköter allt administrativt som behöver skötas både framför och bakom kulisserna. 
+Administratören loggar in på samma sida som säljaren, men med ett annat konto och lösenord. Det första som möter administratören är översiktssidan, som kan ses som fördefinierade sökfilter som till exempel visar hur många platser som är oplacerade, hur många platser det finns kvar per föreställning eller omgång och så vidare. 
+Administratören har tillgång till en meny som låter henom utföra diverse olika operationer. Administratören kan till exempel lägga till nya omgångar, föreställningar och teatrar via olika gränssnitt. Administratörens huvuduppgift är att placera ut bokningar, så detta gränssnitt får en hög prioritet.  
+För administratörens interfacestruktur, se figur 3.
+!adminInterfaceStruktur.jpg!
+
+h3. Ekonomichef
+
+En betrodd medlem av Kårspexet agerar ekonomichef. Denne person har kontroll över Kårspexets ekonomi och har som huvuduppgift att hantera bokningsbetalningar. När en betalningen godtagits för biljetten, så kan därefter administratören placera ut platsen.
+Ekonomichefen ska också ha möjlighet att se mer övergripande statistik om biljettsäljning, vinter och förluster och dylik. Detta kommer kunna ses i en separat flik, som även administratören har tillgång.
+För ekonomichefens interfacestruktur, se figur 4.
+!ekonomiInterfaceStruktur.jpg!
+
+h2. Interfaceprototyper
+
+h3. Kundens prototyp
+!kundSRD.jpg!
+
+h3. Säljarens prototyp
+!säljarPlaceringv1.jpg!
+
+h3. Administratörens prototyp
+!adminBokning.jpg!
+h1. Körbarhetskrav
+
+|_.Krav|_.SR4.1 Servern måste köra Ruby on Rails|
+|_.Beskrivning|Vår mjukvara kommer kodas i rails, så ett stort krav för att kunna starta applikationen är att servern som används kan köra ruby on rails. Vi planerar att använda Apache och Passenger på Kårspexets server, men det behöver inte nödvändigtvis vara den enda möjliga lösningen för vår mjukvara.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR7.2|
+|_.Verifierbarhet|Det går att starta applikationen och komma åt den från en webbläsare.|
+
+|_.Krav|_.SR4.2 Mjukvaran ska kunna köras på apache|
+|_.Beskrivning|Vår mjukvara ska gå att använda tillsammans med Apache. Denna lösning kommer vi använda på Kårspexets server.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR9.2|
+|_.Verifierbarhet|Test av mjukvaran på en server som kör Apache som webbserver. Om man kan besöka sidan via en webbläsare är kravet uppfyllt.|
+
+|_.Krav|_.SR4.3 Servern måste köra MySQL|
+|_.Beskrivning|Databasmjukvaran MySQL måste finnas på servern för att vår mjukvara ska fungera.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Sabilt|
+|_.Källa|UR9.1|
+|_.Verifierbarhet|Det går att komma åt applikationen i en webbläsare och göra något enkelt som att till exempel boka en biljett eller skapa en föreställning utan felmeddelanden.|
+
+h1. Resurskrav
+
+_Resource requirements. Platform, OS, network, browser requirements, etc._
+
+_Resource requirements. These specify upper limits on physical
+resources such as processing power, main memory, disc space etc.
+These are especially needed when extension of processing hardware late
+in the life cycle becomes too expensive, as in many embedded systems.
+_
+
+*Victor: Är detta krav som vi ställer på all användning av vår produkt eller är det någon form av begränsande krav typ "med dessa resurser måste det fungera"?*
+
+|_.Krav|_.SR5.1 Tillgänglig webbserver|
+|_.Beskrivning|Bokningssystemet körs på en server som är åtkomstbar på internet för kunder såväl som säljare och andra administratörer.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR7.1|
+|_.Verifierbarhet|Systemet går att använda från en dator som är ansluten till internet och inte befinner sig på samma lokala nätverk som servern.|
+
+|_.Krav|_.SR5.2 Webbläsare|
+|_.Beskrivning|Användning av bokningsystemet görs i någon av de webbläsare vi valt att stödja; Firefox 3+ samt Internet Explorer 8+.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR7.3|
+|_.Verifierbarhet|Each software requirement shall be verifiable. This means that it must be possible to:
+a) check that the requirement has been incorporated in the design;
+b) prove that the software will implement the requirement;
+c) test that the software does implement the requirement.|
+
+|_.Krav|_.SR5.3 Serverns prestanda|
+|_.Beskrivning|Kravet på serverns hårdvara omfattande processor och arbetsminne som en helhet. Hårdvaran måste klara av att hantera 1,47 anrop/sekund. Det motsvarar 8 samtidiga användare.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR5.1|
+|_.Verifierbarhet|Stresstesta servern med flera användare och observera processor- och minnesanvändningen i aktivitetshanterare på servern.|
+
+|_.Krav|_.SR5.4 Serverns uppkopplingshastighet|
+|_.Beskrivning|Kravet på serverns uppkopplingshastighet mot internet. Servern måste ha en uppkopplingshastighet på 1,15 MiBit/sekund.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR5.1|
+|_.Verifierbarhet|Stresstesta servern med flera användare och observera nätverkstrafiken i aktivitetshanterare på servern.|
+h1. Verifikationskrav
+
+|_.Krav|_.SR6.1 Testkod|
+|_.Beskrivning| För att testa att serverns operationer utförs korrekt.|
+|_.Behov| Normal.|
+|_.Prioritet| Standard.|
+|_.Stabilitet| Stabilt.|
+|_.Källa| UR8.6.|
+|_.Verifierbarhet| Nyx testar manuellt att vår testkod ger tillbaka förväntat svar.|
+
+|_.Krav|_.SR6.2 Användartestning.|
+|_.Beskrivning| En användargrupp testar systemet i ett rimligt scenario.|
+|_.Behov| Normal.|
+|_.Prioritet| Standard.|
+|_.Stabilitet| Stabilt.|
+|_.Källa| UR8.1, UR8.2|
+|_.Verifierbarhet| Nyx genomför kontrollerade tester och observerar användargruppens respons.|
+
+_Verification requirements. Plan and methods for verifying and validating the system against the SRD based on user evaluation, testing and (if necessary) formal verification._
+h2. Test av användaracceptans
+
+_Acceptance testing requirements. Plan and methods for verifying that the final system meets the end-user requirements as specified by the URD._
+
+|_.Krav|_.SR7.1 Test av användaracceptans|
+|_.Beskrivning|Alla gränssnitt måste gås igenom och testas mot alla applicerbara krav utlagda i URD:n. Separata testprotokoll för varje gränssnitt med instruktioner för att verifiera att det följer varje applicerbart krav i URD:n ska skapas samt gås igenom och fyllas i av testpersoner.|
+|_.Motivering|Mjukvaran måste följa de krav som är utlagda av URD:n.|
+|_.Behov|Hög|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR8.6|
+|_.Verifierbarhet|Granska ifyllda testprotokoll för kund-, säljar-, ekonomi- samt administratörsgränssnittet och verifiera att de överrensstämmer med de krav som ställs i URD:n.|
+
+|_.Krav|_.SR7.2 Spridning av testpersonal|
+|_.Beskrivning|När testpersonal bestäms för att utföra de separata testerna måste personal tilldelas så att varje gränssnitt testas av personer som inte har tidigare erfarenheter av gränssnitt de inte ska ha tillgång till i systemet.|
+|_.Motivering|Testresultaten får inte färgas av en testpersons erfarenhet av ett system de inte bör ha tillgänglighet till. Därför är det viktigt att vi utför test för varje gränssnitt där användaren inte har tidigare erfarenhet av andra gränssnitt än motsvarande roll skulle ha.|
+|_.Behov|Låg|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|UR8.6|
+|_.Verifierbarhet|Verifiera med hjälp av ifyllda testprotokoll och användarstudier, att det förekommer accepterade tester där testpersonen inte har erfarenhet av andra system än motsvarande roll skulle ha tillgång till.  En testperson som testar kund-gränssnittet ska inte ha tidigare erfarenhet av säljar-, ekonomi- eller administratörsgränssnittet. När de administrativa gränssnitten testas får dock  testpersonen ha tidigare erfarenhet av kund-gränssnittet, då alla personer har tillgång till kund-gränssnittet.|
+
+h1. Dokumentationskrav
+
+_Documentation requirements. A proposal for future system documentation that will be suitable for the job roles and skill levels identified for different end users (actors). (See SRD Section 2.4 and URD Section 2.4)_
+
+h2. Kund
+
+I det här sammanhanget är en kund den person som skall utföra en bokning på Kårspexets hemsida.
+
+|_.Krav|_.SR 8.1 Bokningsinstruktioner|
+|_.Beskrivning|Instruktioner för hur man bokar en biljett på bokningswebbsidan. Varje steg i bokningsprocessen skall vara synligt både innan och under en bokning. Beskrivningen skall innehålla vilken information som kunden uppmanas att ange under varje steg.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.6, UR8.1|
+|_.Verifierbarhet|Kontrollera att det finns instruktioner för hur bokningen går till på bokningswebbsidan.|
+
+h2. Kårspexet
+
+För betrodda medlemmar i kårspexet
+
+|_.Krav|_.SR 8.2 Tips och tricks|
+|_.Beskrivning|En sida där dolda hjälpfunktioner och knep finns dokumenterade. Sidan skall vara åtkomlig från webbgränssnittet. Varje syssla i systemet har en unik undersida i"Tips och tricks" som endast är relevant för sysslan. Exempel på knep eller dold hjälpfunktion är tangentbordskommandon.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.11, UR1.10, UR1.11|
+|_.Verifierbarhet|Kontrollera att alla aktuella gränssnitt kan nå sidan. Kontrollera att alla sysslor med dolda funktioner finns dokumenterade.|
+
+|_.Krav|_.SR 8.3 Instruktioner för säljare|
+|_.Beskrivning|De sysslor som kan utföras av en säljare skall beskrivas var för sig där de utförs i gränssnittet.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabil|
+|_.Källa|UR2.11|
+|_.Verifierbarhet|Observera att det finns synliga instruktioner för varje syssla i säljargränssnittet.|
+
+|_.Krav|_.SR 8.4 Dokumentation för den ekonomiansvarige|
+|_.Beskrivning|Instruktioner för hur den ekonomiansvarige kan använda gränssnittets alla funktioner. Utvalda sysslor kan utformas som "gå igenom (walk thru) tutorials". Instruktionerna skall kunna skrivas ut på behagligt pappersformat och hittas på hemsidan i relation till gränssnittet.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR1.10|
+|_.Verifierbarhet|Kontrollera att dokumentationen kan nås från ekonomigränssnittet.|
+
+|_.Krav|_.SR 8.5 Dokumentation för administratören|
+|_.Beskrivning|Instruktioner för hur administratören kan använda gränssnittets alla funktioner. Utvalda sysslor kan utformas som "gå igenom (walk thru) tutorials". Återkommande sysslor som utförs sällan bör ha en tutorial. Exempel på sådan syssla är "planering av ny föreställning". Instruktionerna skall kunna skrivas ut på behagligt pappersformat och hittas på hemsidan i relation till gränssnittet.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR1.11, UR8.2|
+|_.Verifierbarhet|Kontrollera att instruktionerna kan nås från administrationsgränssnittet.|
+
+h2. Systemutvecklare
+
+För utvecklare som skall anpassa eller berika produktens funktionalitet.
+
+|_.Krav|_.SR 8.6 Databasens struktur|
+|_.Beskrivning|Dokumentation om hur databasen är strukturerad. Dokumentationen skall omfatta: var information sparas, hur poster mellan tabeller länkas (foreigen keys), vilka regler och begränsningar (constraints) som finns. Det bör finnas exempelbeskrivningar för SQL-uttryck. Dokumentationen skall finnas tillgänglig från administratörens gränssnitt och i källkodsmappen för bokninssystemet.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR8.5, UR9.1|
+|_.Verifierbarhet|Kontrollera att dokumentationen ligger där den skall och att dokumentet beskriver den aktuella databasen.|
+
+|_.Krav|_.SR 8.7 Webbplatsens struktur|
+|_.Beskrivning|Dokumentation om hur webbplatsens är strukturerad. Dokumentationen skall omfatta: en webbkarta, vilka webbsidor som använder gemensamma bibliotek/funktioner, hur en sida är uppbyggd med MVC. Dokumentationen skall finnas tillgänglig från administratörens gränssnitt och i  källkodsmappen för bokningssystemet.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR8.5|
+|_.Verifierbarhet|Kontrollera att dokumentationen ligger där den skall och att dokumentet beskriver den aktuella webbplatsen.|
+
+|_.Krav|_.SR 8.8 Kommenterad källkod|
+|_.Beskrivning|Den implementerade källkoden skall kommenteras. Funktioner skall beskrivas för framtida vidareutveckling.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabil|
+|_.Källa|UR8.5|
+|_.Verifierbarhet|Kontrollera att källkodens funktioner och delar är dokumenterad i källfilen.|
+h1. Säkerhetskrav
+
+_Security requirements. Requirements on data security, access security, security of external system and overall environment. May include e.g. firewall and cryptology techniques, password protection, data encryption, underlying OS security etc._
+
+|_.Krav|SR9.1 Skydd av lösenord|
+|_.Beskrivning|Lösenord ska inte sparas i klartext i databasen. De bör sparas som saltade SHA-1 lösenord.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR6.1|
+|_.Verifierbarhet|Verifiera att lösenorden i databasen sparas som saltade SHA-1 strängar|
+
+|_.Krav|SR9.2 Användarroller|
+|_.Beskrivning|Användare ska ges olika roller, som har tillgång till olika delar av systemet|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR4.1|
+|_.Verifierbarhet|Verifiera att en de olika användarrollerna endast kommer åt de delar av systemet som de ska komma åt|
+
+|_.Krav|SR9.3 Datasäkerhet|
+|_.Beskrivning|Alla frågor till databasen ska använda funktioner som förhindrar SQL-injections.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR6.2|
+|_.Verifierbarhet|Funktionaliteten finns redan i rails, men vi bör verifiera att ev. egenskriva SQL-frågor inte är sårbara|
+
+|_.Krav|SR9.4 HTTPS |
+|_.Beskrivning|HTTPS ska användas för den inloggade delen av systemet och för ev. kortbetalning|
+|_.Behov|Deluxe|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR6.2|
+|_.Verifierbarhet|Verifiera att de delar av sidan som använder inloggning eller kortbetalning kräver https|
+
+|_.Krav|SR9.5 Förhindra XSS |
+|_.Beskrivning|För att förhindra XSS bör POST med autentitets-verifiering användas|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR6.2|
+|_.Verifierbarhet|Funktionaliteten finns i rails. Vi bör dock verifiera att vi inte lägger in några egna svagheter|
+h1. Portabilitetskrav
+
+|_.Krav|_.SR10.1 Stöd för CentOS|
+|_.Beskrivning|Systemet ska ha stöd för att köras och installeras på CentOS.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR9.1, UR9.2, UR7.2, URD 2.3.4|
+|_.Verifierbarhet|Genom att installera och köra systemet.|
+
+
+h1. Kvalitetskrav
+
+_Manke; Quality requirements. Includes design quality, software quality, performance quality, report quality, documentation quality, usability quality. A description of plans and methods to impose quality. Standards for performance measurement and reporting._
+
+_PSS050; Quality requirements. These specify attributes of the software that
+ensure that it will be fit for its purpose (other than the major quality
+attributes of reliability, maintainability and safety, which should always be
+specified). Where appropriate, software quality attributes should be
+specified in measurable terms (i.e. with the use of metrics)._
+
+|_.Krav|_.SR11.1 Kontroll av dokumentation|
+|_.Beskrivning| All dokumentation skall ses över av minst en person i Nyx som inte är ansvarig för koden som dokumenterats. Vid eventuella åtgärder meddelas ansvarig för koden. När dokumentationen anses klara kvalitetskraven skriver granskaren sitt namn och datum under kommentarer.|
+|_.Behov|Plus|
+|_.Prioritet|Normal|
+|_.Stabilitet|Stabilt|
+|_.Källa| UR8.5|
+|_.Verifierbarhet| Genom att skriva namn och datum i kommentarer efter granskning är det lätt att kontrollera vem som granskat och godkännt dokumentationen samt när detta gjordes.|
+
+|_.Krav|_.SR11.2 Ansvarsfördelning för testkod|
+|_.Beskrivning| En policy för mjukvarukvalitetsom tydligt hanterar ansvarsfödelning av teskod för vem som har ansvar för att testkod skrivs och körs samt när denna skall vara skriven och köras.|
+|_.Behov| Standard|
+|_.Prioritet| Normal|
+|_.Stabilitet| Instabilt, policyn är ännu inte skriven|
+|_.Källa| UR8.6 |
+|_.Verifierbarhet| Kontrollera att policy finns att tillgå för alla medlemmar i Nyx.|
+
+|_.Krav|_.SR11.3 Stresstest av systemet|
+|_.Beskrivning|Testning för den typ av användning systemet skall klara av. Vid felaktigheter analyseras dessa för åtgärd i ett testprotokoll. |
+|_.Behov|Standard|
+|_.Prioritet| Normalt|
+|_.Stabilitet| Instabilt, testerna ännu inte designade|
+|_.Källa| UR5.1 |
+|_.Verifierbarhet| Testprotokoll med tillhörande resultat finns. |
+
+|_.Krav|_.SR11.4 Användartestning av gränssnitt |
+|_.Beskrivning|Systemet testas av personer utanför Nyx som faller in under respektive användarkategori. Testarnas åsikter och kommentarer kommer analyseras för att sedan förbättra systemet. |
+|_.Behov| Standard |
+|_.Prioritet| Normal|
+|_.Stabilitet| Instabilt, testerna ännu inte designade. |
+|_.Källa| UR3.1, UR8.1-4, UR8.6|
+|_.Verifierbarhet| Testprotokoll med tillhörande resultat finns. Dessa protokoll är tillgängliga efter testfasen med tydliga resultat. Av dessa skall en tydlig åtgärd X finnas om undermåligt resultat Y finns för fråga Z. |
+
+|_.Krav|_.SR11.5 Prestandaövervakning|
+|_.Beskrivning| Övervakning av prestanda under användartester för att sedan undersöka avvikelser. |
+|_.Behov|Standard|
+|_.Prioritet| Högt|
+|_.Stabilitet| Instabilt, tester ännu inte designade. |
+|_.Källa| UR5 |
+|_.Verifierbarhet| Inga avvikande resultat noterade efter användartester i dessa protokoll. |
+
+|_.Krav|_.SR11.6 Policy för kontroll av kod |
+|_.Beskrivning| En policy som säger hur och av vem koden skall granskas samt hur detta skall dokumenteras. |
+|_.Behov| Plus|
+|_.Prioritet| Normal |
+|_.Stabilitet| Instabilt, policy ännu inte skriven. |
+|_.Källa| UR8.6 |
+|_.Verifierbarhet| Den av policyn rekommenderade dokumentationen av granskningen kontrolleras. |
+h1. Tillförlitlighetskrav
+
+_Reliability requirements. Includes uptime, mean time to failure, accessibility, loading, average performance, worst-case performance, etc._
+
+|_.Krav|SR12.1 Stabilitet|
+|_.Beskrivning|Systemet ska vara stabilt och bör därför inte serverfel oftare än var 1000:e sidladdning. Användarintroducerade fel så som InvalidAuthenticyToken räknas ej.|
+|_.Behov|Standard|
+|_.Prioritet|Medium|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR5.3|
+|_.Verifierbarhet|Serverfel bör loggas tydligt. Man kan sedan jämföra antalet serverfel med ungefärligt antal sidladdningar för att verifiera detta krav.|
+
+|_.Krav|SR12.2 Svarstid|
+|_.Beskrivning|Systemet får inte ta för lång tid på sig att leverera en sida. På rimlig hårdvara bör systemet vid alla operationer i alla gränssnitt som enbart gäller en enstaka bokning svara på max 1 sekund.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR5.2|
+|_.Verifierbarhet|Tiderna mäts och skrivs till en logg. Kontrollera att tiderna är tillräckligt små.|
+
+h1. Underhållskrav
+
+_Maintainability requirements. Levels of code documentation, software commenting, commenting standards needed to maintain, repair and upgrade the code._
+
+|_.Krav|_.SR13.1 Dokumentation|
+|_.Beskrivning|Dokumentation ska finnas (och uppdateras vid ändringar) för skrivna Ruby-klasser (däribland Rails-kontroller, -modeller och -mailers) och dess metoder.|
+|_.Motivering|Kårspexet vill själva kunna vidareutveckla bokningssystemet, vilket i så fall skulle göras av utvecklare som är obekanta med källkoden. Väldokumenterad kod underlättar i sådana fall mycket.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR8.5|
+|_.Verifierbarhet|Granska källkoden till bokningssystemet och verifiera att ingen  klass eller metod saknar dokumentation.|
+
+|_.Krav|_.SR13.2 Skrivsätt|
+|_.Beskrivning|Dokumentation av metoder ska beskriva vad metoden gör i presens samt följa vanliga skrivregler (fullständiga meningar, punkt som avslutning, etc.). Klasser ska dokumenteras på ett sätt som ger en överblick över vad de gör (kontroller) eller beskriver (modeller).|
+|_.Motivering|Sättet som dokumentationen är skriven på bör vara konsekvent och lättöverskådligt.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR8.5|
+|_.Verifierbarhet|Undersök dokumentationen och kontrollera att inga delar av den är formulerade på felaktigt sätt.|
+h1. Trygghetskrav
+
+_Safety requirements. Hazard situations, plans and methods to avoid system failure under hazard. Levels of safety assurance._
+
+|_.Krav|_.SR14.1 Databasbackup|
+|_.Beskrivning|Databasen ska backas upp minst dagligen till en annan disk i en annan lokal så att data aldrig riskerar att gå förlorad|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|UR6.3|
+|_.Verifierbarhet|Verifiera att backup av databasen är uppsatt korrekt|
+
+h1. Spårningsmatris mellan användarkrav och mjukvarukrav
+
+_User Requirements vs Software Requirements Traceability matrix. Gives a table cross referencing software functional requirements to user functional requirements. (It is not necessary to trace non-functional requirements here, since it can be difficult to judgeperformance aspects from a logical model alone._
+
+Bild (matris/tabell)  i 
+http://www.nada.kth.se/~karlm/mvk/Project_Handbook.pdf
+på sida 15.
+
+h1. Appendix
+
+
+TODO.
