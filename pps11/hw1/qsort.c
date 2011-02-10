@@ -2,6 +2,7 @@
 
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 pthread_mutex_t rand_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -73,7 +74,8 @@ void psort(int *v, int first, int last)
 	v[low_idx] = pivot;
 
 	addsort(v, first, low_idx-1);
-	addsort(v, low_idx+1, last);
+	// don't need to find another worker for the second half
+	psort(v, low_idx+1, last);
 }
 
 struct qsthread
@@ -147,6 +149,7 @@ void *run_thread(void *thread_ptr)
 		free_thread_pool[num_free_threads++] = thread;
 		pthread_mutex_unlock(&order_lock);
 	}
+	return NULL;
 }
 
 void addsort(int *v, int first, int last)
@@ -198,6 +201,8 @@ void quicksort(int *array, size_t n)
 	for(i = 0; i < spawned_threads; ++i)
 	{
 		pthread_join(thread_pool[i].thread, NULL);
+		//pthread_mutex_destroy(&thread_pool[i].wait_lock);
+		//pthread_cond_destroy(&thread_pool[i].start_signal);
 	}
 	pthread_attr_destroy(&thread_attr);
 }

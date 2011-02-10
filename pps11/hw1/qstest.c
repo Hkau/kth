@@ -3,10 +3,10 @@
 #include <stdlib.h>
 
 // warning: this might be too large in some cases, in that case
-// try with a smaller number. This (32*1024*1024) took around 
-// 18 seconds on my laptop before multithreading.
-// After it...
-#define size (1024*1024*32)
+// try with a smaller number. This (128*1024*1024) took around 
+// 55 seconds before multithreading, and ~30 seconds after.
+
+#define size (128*1024*1024)
 
 int main()
 {
@@ -41,6 +41,7 @@ int main()
 			return 1;
 		}
 	}
+	free(stuff);
 	return 0;
 }
 
