@@ -13,6 +13,15 @@ urd:
 	rm urd.log
 	rm urd.toc
 	rm versions.txt
+add:
+	ruby1.8 docmerge.rb Architectural_Design_Document > add.txt
+	ruby1.8 wikitex.rb < add.txt > add.tex
+	pdflatex add.tex
+	pdflatex add.tex
+	rm add.aux
+	rm add.log
+	rm add.toc
+	rm versions.txt
 
 srd:
 	ruby1.8 docmerge.rb Software_Requirements_Document > srd.txt
@@ -23,4 +32,5 @@ srd:
 	rm srd.log
 	rm srd.toc
 	rm versions.txt
+
 

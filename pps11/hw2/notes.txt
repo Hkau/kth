@@ -1,0 +1,41 @@
+# Matrix sums: gcc -DMAXSIZE=10000 -o matrixSum-openmp matrixSum-openmp.c -fopenmp && ./matrixSum-openmp
+
+# I never used any arrays for partial sums, I used local variables within the block, so after I finished 1a I was done with 1b as well, hope that's ok. The master thread prints after the parallel block finishes.
+
+# Running times (I only have 2 physical cores on my laptop, so these might not be the desired results), rounded median.
+
+# n = 100
+
+- For n=100, results aren't really worth presenting. They run really fast and get times that (though average) are really stochastic, and possibly mostly startup times either way.
+
+# n = 1000
+
+OMP_NUM_THREADS=1: 0.011
+OMP_NUM_THREADS=2: 0.007
+OMP_NUM_THREADS=3: 0.007-0.015, but more varying
+OMP_NUM_THREADS=4: 0.015
+
+- Thoughts: It's worth branching into one extra thread, but as I only have two physical cores, the extra threads above 2 just cause overhead. It's also hard to measure because values vary, since the timespan is so small.
+
+# n = 10000
+
+OMP_NUM_THREADS=1: 1.04
+OMP_NUM_THREADS=2: 0.54
+OMP_NUM_THREADS=3: 0.55
+OMP_NUM_THREADS=4: 0.55
+
+- Thoughts: When getting up into larger n values, this starts to scale really well. Unfortunately I can't see any performance gain beyond two threads, but the "thread cost" compared to the workload becomes really small, and drops down to almost half. I'd expect 3-core performance to be somewhere around 0.3-0.35 and 4-core to be between 0.25 and 0.30
+
+# n = 20000
+OMP_NUM_THREADS=1: 4.14
+OMP_NUM_THREADS=2: 2.14
+OMP_NUM_THREADS=3: 2.14
+OMP_NUM_THREADS=4: 2.16
+
+- Thoughts: Like n = 10000, this scales really well. Since the algorithm is fundamentally parallel, it's splitting up work fine, but I'm limited to two cores.
+
+# Performance
+- Note that the program runs way slower than these times, because the real performance drop happens with rand() when the matrix is filled. If the goal was to optimize the program and not the algorithm, one'd best parallelize the initialization loop, which would require a pseudorandom number generator that is thread safe.
+
+
+# Quicksort: gcc -DARRAY_SIZE=10000000 -o qstest qs*.c -fopenmp && ./qstest

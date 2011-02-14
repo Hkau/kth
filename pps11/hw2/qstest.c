@@ -2,14 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <omp.h>
+
 // warning: this might be too large in some cases, in that case
 // try with a smaller number. This (128*1024*1024) took around 
 // 55 seconds before multithreading, and ~30 seconds after.
 
-#define size (10*1024*1024)
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE (128*1024*1024)
+#endif
 
 int main()
 {
+	int size = ARRAY_SIZE;
 	int *stuff = malloc(size * sizeof(int));
 	if(stuff == NULL)
 	{
@@ -31,7 +36,10 @@ int main()
 		stuff[i] = tmp;
 	}
 
+	double start = omp_get_wtime();
 	quicksort(stuff, size);
+	double stop = omp_get_wtime();
+	printf("%g\n", (stop - start));
 
 	for(i = 0; i < size; ++i)
 	{

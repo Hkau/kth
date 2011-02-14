@@ -81,7 +81,7 @@ void psort(int *v, int first, int last)
 	// sort elements before it (first "half")
 	addsort(v, first, low_idx-1);
 	// add second half of sort order
-	addsort(v, first, low_idx-1);
+	addsort(v, low_idx+1, last);
 }
 
 // "thread" structure, each thread can be ordered to sort a list segment
