@@ -1,3 +1,7 @@
+all:
+	echo 'make urd', 'make srd' or 'make add'
+
+
 urd:
 	ruby1.8 fetchissues.rb > export.csv
 	iconv -f iso8859-1 export.csv > exportutf8.csv

@@ -5,7 +5,7 @@ input.gsub!(/\r/, '') # removes \r from possible \r\n
 input.gsub!(/\$TOC\$/, '\clearpage \tableofcontents \clearpage')
 input.gsub!(/\$VERSIONS\$/) {|match| open('versions.txt').read }
 input.gsub!(/\$ISSUES\$/) {|match| open('issues.txt').read }
-input.gsub!(/!(\S+)!/){ |s|
+input.gsub!(/!([^\s!]+)!/){ |s|
   name = $1
   name.gsub!('å', 'aa')
   name.gsub!('ä', 'ae')
@@ -40,6 +40,9 @@ split.each do |section|
   section.gsub! /&/, '\\\&'
   tmp = section.split /\n/
   tmp.each do |line|
+    if line =~ /^\\begin\{figure\}\[ht\]/ # don't touch if it's a figure
+      next
+    end
     line.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
   # replace *format* _format_ and +format+ etc.
     line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
@@ -52,14 +55,15 @@ split.each do |section|
     line.gsub!(/_/, '\_')
     line.gsub!(/#/, '\#')
     line.gsub!(/%/, '\%')
-    line.gsub!(/\\url\{([^\}]*)}/) { |s|
+    line.gsub!(/\\url\{([^\}]*)\}/) { |s|
       url = $1
       url.gsub!('\_', '_') # \_ => _ inside urls.
       url.gsub!('\#', '_') # \# => # inside urls.
       '\url{' + url + '}'
     }
     line.gsub!(/\s-([^\s-].*?[^\s-])-\s/, ' \sout{\1} ')
-    line.gsub!(/(\d+)\^(\d+)/, '$\1^{\2}$')
+    line.gsub!(/\^/, '\^')
+    line.gsub!(/(\d+)\\\^(\d+)/, '$\1^{\2}$')
   end
   section[0..-1] = tmp.join "\n"
   #section.gsub! /^(\s*$)+/m, "\n\n"

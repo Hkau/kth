@@ -13,6 +13,6 @@ Net::HTTP.start("redmine.torandi.com") { |http|
   res = http.post('/login', req, header)
   cookie = res.response['set-cookie']
   header = {'Cookie'=>cookie}
-  print http.get('/projects/karspexet/issues.csv', header).body
+  print http.get('/projects/karspexeturd/issues.csv', header).body
 }
 
