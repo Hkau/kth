@@ -1,0 +1,13 @@
+#!/bin/bash
+
+RUBY="ruby1.8"
+PREDIR="/var/rails/redmine/public/pre"
+
+doc=$1
+shrt=$2
+$RUBY docmerge.rb --doc=$doc --pre=$shrt
+if [ $? != 0 ]; then
+	pre="--pre=$shrt" make $shrt
+	rm "$PREDIR/$shrt-pre.pdf"
+	mv "$shrt.pdf" "$PREDIR/$shrt-pre.pdf"
+fi

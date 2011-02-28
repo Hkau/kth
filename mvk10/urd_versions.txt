@@ -1,0 +1,20 @@
+URD/abstract:4
+URD/Ändringslogg:15
+Gruppmedlemmar:3
+URD/Introduktion:4
+URD/Introduktion/Syfte:10
+URD/Introduktion/Mjukvarans omfattning:6
+URD/Introduktion/Definitioner akronymer och förkortningar:69
+URD/Introduktion/Källor:17
+URD/Introduktion/Dokumentöversikt:8
+URD/Allmän beskrivning:5
+URD/Allmän beskrivning/Produktperspektiv:28
+URD/Allmän beskrivning/Allmän funktionalitet:15
+URD/Allmän beskrivning/Allmänna begränsningar:45
+URD/Allmän beskrivning/Användarbeskrivning:45
+URD/Allmän beskrivning/Antaganden och beroenden:33
+URD/Allmän beskrivning/Plattform:12
+URD/Specifika krav:4
+URD/Specifika krav/Funktionalitetskrav:1
+URD/Specifika krav/Kravbegränsning:57
+URD/appendix:5

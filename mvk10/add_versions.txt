@@ -1,0 +1,22 @@
+ADD/abstract:4
+ADD/Ändringslogg:3
+Gruppmedlemmar:3
+ADD/Introduktion:2
+ADD/Introduktion/Syfte:5
+ADD/Introduktion/Mjukvarans omfattning:3
+ADD/Introduktion/Definitioner akronymer och förkortningar:21
+ADD/Introduktion/Källor:5
+ADD/Introduktion/Dokumentöversikt:9
+ADD/Systemöverblick:8
+ADD/Systemkontext:10
+ADD/Systemdesign:2
+ADD/Systemdesign/Designmetod:23
+ADD/Systemdesign/Uppdelningsbeskrivning:11
+ADD/Komponentbeskrivning:19
+ADD/Komponentbeskrivning/Model:67
+ADD/Komponentbeskrivning/Controller:24
+ADD/Komponentbeskrivning/View:48
+ADD/Komponentbeskrivning/Övriga_komponenter:19
+ADD/Genomförbarhet- och resursuppskattning:31
+ADD/Spårningsmatris mellan mjukvarukrav och strukturella krav:3
+ADD/appendix:1

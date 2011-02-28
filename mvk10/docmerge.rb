@@ -1,11 +1,25 @@
 require 'net/http'
 require 'cgi'
 
-doc = ARGV[0]
+doc=nil
+$pre=nil
+ARGV.each do |arg|
+	if arg =~/--doc=(.+)/ or arg =~/-d(.+)/
+		doc=$1
+	end
+
+	if arg =~/--pre=(.+)/ or arg =~/-p(.+)/
+		$pre=$1
+	end
+end
+
+if doc.nil?
+	$stderr.write "Missing --doc, crashing, crashing!\n"
+	exit
+end
 
 $docv = []
 
-ver = open('versions.txt', 'w')
 
 def fetchfiles(http, header, doc)
   resp = http.get("/projects/karspexet/wiki/" + doc, header)
@@ -15,8 +29,8 @@ def fetchfiles(http, header, doc)
     name.gsub!('å', 'aa')
     name.gsub!('ä', 'ae')
     name.gsub!('ö', 'oe')
-    $stderr.puts doc + ': ' + name
-    f = open(name, 'w')
+    $stderr.puts doc + ': files/' + name
+    f = open('files/' + name, 'w')
     f << http.get(doc, header).body
     f.close()
     ''
@@ -24,7 +38,9 @@ def fetchfiles(http, header, doc)
 end
 
 def wikifetch(http, header, doc)
-  fetchfiles(http, header, doc)
+	if $pre.nil?
+		fetchfiles(http, header, doc)
+	end
   resp = http.get("/projects/karspexet/wiki/" + doc, header)
   version = (/format=html&amp;version=(\d+)/.match(resp.body))[1]
   $docv[-1] << version
@@ -56,13 +72,35 @@ Net::HTTP.start("redmine.torandi.com") { |http|
   header = {'Cookie'=>cookie}
   $docv << [doc]
   wikidoc = wikifetch http, header, doc
-  ver << "h1. Dokumentversioner\n\n"
-  ver << "Dokumentet har genererats från följande deldokument.\n\n"
-  $docv.shift
-  $docv.each do |elem|
-    ver << '*' + elem[0] + '* version: _' + elem[1] + '_.' + "\n\n"
-  end
-  wikidoc.gsub!(/\r/, '')
-  puts wikidoc
+
+
+	if $pre.nil?
+		ver = open('versions.txt', 'w')
+		ver << "h1. Dokumentversioner\n\n"
+		ver << "Dokumentet har genererats från följande deldokument.\n\n"
+		$docv.shift
+		$docv.each do |elem|
+			ver << '*' + elem[0] + '* version: _' + elem[1] + '_.' + "\n\n"
+		end
+		ver.close
+
+		wikidoc.gsub!(/\r/, '')
+		puts wikidoc
+	else
+		#Just check versions and exit with correct exit status
+		cur_ver=open("#{$pre}_versions.txt").read.split("\n")
+		$docv.shift
+		if cur_ver.size==$docv.size
+			if cur_ver.zip($docv).all? { |m| m[0]=="#{m[1][0]}:#{m[1][1]}" } 
+				exit 0
+			end
+		end
+		#Doesn't match, update #{$pre}_versions.txt
+		ver=open("#{$pre}_versions.txt",'w')
+		$docv.each do |elem| 
+			ver<<"#{elem[0]}:#{elem[1]}\n"
+		end
+		exit 1
+	end
 }
 

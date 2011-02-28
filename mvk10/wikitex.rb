@@ -11,7 +11,7 @@ input.gsub!(/!([^\s!]+)!/){ |s|
   name.gsub!('ä', 'ae')
   name.gsub!('ö', 'oe')
 
-  '\begin{figure}[ht] \centering \includegraphics[width=0.8\textwidth]{' + name + '} \end{figure} \FloatBarrier'
+  '\begin{figure}[ht] \centering \includegraphics[width=0.8\textwidth]{files/' + name + '} \end{figure} \FloatBarrier'
 }
 
 num = input[/[0-9]\.[0-9]/].to_f
@@ -22,6 +22,25 @@ elsif num == 1.0
   version = ' -- \emph{Final Draft}'
 else
   version = ' -- \emph{Revised}'
+end
+
+ARGV.each do |arg|
+	# --pre=version or -pversion marks this as a "bleeding edge" or "pre"-version.
+	if arg =~ /--pre=(.+)/ or arg=~/-p(.+)/
+		pre_version=open("#{$1}_preversion.txt").read.to_i
+		pre_version=pre_version+1
+		prefile=open("#{$1}_preversion.txt",'w')
+		prefile<<pre_version.to_s
+		prefile.close
+		version="-pre#{pre_version} -- \\emph{Working Draft}"
+		#Generate data for wiki:
+		prelvers=open("#{$1}_prelongversion.txt",'w')
+		prelvers<<"#{num.to_s}-pre#{pre_version}"
+		prelvers.close
+		predate=open("#{$1}_predate.txt",'w')
+		predate<<Time.now.strftime("%Y-%m-%d %H:%M")
+		predate.close
+	end
 end
 
 puts '\version{' + num.to_s + version + '}'
@@ -43,12 +62,14 @@ split.each do |section|
     if line =~ /^\\begin\{figure\}\[ht\]/ # don't touch if it's a figure
       next
     end
+    line.strip!
     line.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
   # replace *format* _format_ and +format+ etc.
     line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
-    line.gsub!(/http:\/\/([^\s]+)/, '\url{http://\1}')
+    line.gsub!(/http:\/\/([^\s|]+)/, '\url{http://\1}')
 #    line.gsub!(/\+(^_+?)\+/, '\underline{\1}')
     line.gsub!(/(^|\W)(\*_|_\*)([^\|]+?)(\*_|_\*)(\W|$)/, '\1\textbf{\emph{\3}}\5')
+    line.gsub!(/(^|\W)@([^\|]+?)@(\W|$)/, '\1{\tt \2}\3')
     line.gsub!(/(^|\W)_([^\|]+?)_(\W|$)/, '\1\emph{\2}\3')
     line.gsub!(/(^|\W)\*(.+?)\*(\W|$)/, '\1\textbf{\2}\3')
   #section.gsub!(/^_([^\|]+?)_$/, '\emph{\1}')
@@ -142,12 +163,16 @@ while not split.empty?
   level = section[1].to_i - 1
   puts
   puts
+  cols = []
   split[1].each do |line|
-    if line =~ /^\|([^|]*\|)+$/
+    if cols != [] or line =~ /^(\|[^|]*)+$/
+      line.gsub!('||', '| |')
       line.strip!
-      line.slice!(0)
-      line.chop!
+      if cols == []
+        line.slice!(0)
+      end
       line = (line+' ').split '|'
+      line[-1].strip!
       if not in_table
         in_table = true
 	puts "\t" * level + '\begin {table} [ht] \begin{tabular} { ' + tableformat + ' }'
@@ -155,7 +180,10 @@ while not split.empty?
 	level += 1
 	puts "\t" * level + '\hline'
       end
-      cols = []
+      if cols != []
+        cols[-1] << "\n\n" << line[0]
+	line.shift
+      end
       line.each do |word|
         if word[0..2] == '\_.'
 	  cols << '\sffamily\textbf{' + word[3..-1] + '}'
@@ -163,7 +191,12 @@ while not split.empty?
           cols << word
 	end
       end
-      line = (cols.join ' & ') + " \\\\\n" + "\t" * level + "\\hline"
+      if line[-1] != ''
+        next
+      end
+      cols.pop
+      line = '{' + (cols.join '} & {') + "} \\\\\n" + "\t" * level + "\\hline"
+      cols = []
     else
       if in_table
         in_table = false

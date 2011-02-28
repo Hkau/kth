@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while [ 1 ]; do
+	make pre
+	echo "Sleeping"
+	sleep 600
+done
