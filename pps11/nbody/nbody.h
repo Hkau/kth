@@ -2,6 +2,10 @@
 #define NBODY_H
 
 #include <stddef.h>
+#include <stdbool.h>
+
+void nbody_init(int count, bool allow_negative);
+void nbody_quit();
 
 typedef struct
 {
@@ -50,6 +54,10 @@ static inline float sq(float x)
 extern float bounds;
 
 extern float turbo;
+
+extern bool allow_negative;
+
+extern int numSteps;
 
 #endif
 

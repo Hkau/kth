@@ -9,6 +9,8 @@
 
 void gui_init(const char *appname)
 {
+	if(numSteps > 0)
+		return;
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_WM_SetCaption(appname, appname);
@@ -51,11 +53,14 @@ void gui_init(const char *appname)
 }
 
 int x = 0, y = 0;
-
+float turbo = 1.f;
 int ms = 0;
 #define abs(x) (x < 0? -x : x)
 bool gui_update()
 {
+	if(numSteps > 0)
+		return true;
+
 	while(true)
 	{
 		SDL_Event event;
@@ -159,7 +164,7 @@ bool gui_update()
 	glEnd();
 
 	glColor3f(1, 1, 1);
-	glPointSize(1);
+	glPointSize(3);
 
 
 	float max_mass = 0;
@@ -188,6 +193,8 @@ bool gui_update()
 
 void gui_quit()
 {
+	if(numSteps > 0)
+		return;
 	SDL_Quit();
 }
 
