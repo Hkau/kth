@@ -18,7 +18,7 @@ urd:
 	rm urd.log
 	rm urd.toc
 	rm versions.txt
-	rm -r files/
+
 add:
 	mkdir -p files
 	ruby1.8 docmerge.rb --doc=Architectural_Design_Document > add.txt
@@ -29,7 +29,6 @@ add:
 	rm add.log
 	rm add.toc
 	rm versions.txt
-	rm -r files/
 
 srd:
 	mkdir -p files
@@ -41,7 +40,6 @@ srd:
 	rm srd.log
 	rm srd.toc
 	rm versions.txt
-	rm -r files/
 
 pre_urd:
 	./build_pre User_Requirements_Document urd

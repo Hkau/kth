@@ -66,7 +66,7 @@ split.each do |section|
     line.gsub!(/^(\*+)\s/) {|match| '>> ' * (match.size-1) }
   # replace *format* _format_ and +format+ etc.
     line.gsub!(/\"(.+?)\"/,  '``\1\'\'')
-    line.gsub!(/http:\/\/([^\s|]+)/, '\url{http://\1}')
+    line.gsub!(/https?:\/\/([^\s|]+)/, '\url{\0}')
 #    line.gsub!(/\+(^_+?)\+/, '\underline{\1}')
     line.gsub!(/(^|\W)(\*_|_\*)([^\|]+?)(\*_|_\*)(\W|$)/, '\1\textbf{\emph{\3}}\5')
     line.gsub!(/(^|\W)@([^\|]+?)@(\W|$)/, '\1{\tt \2}\3')
