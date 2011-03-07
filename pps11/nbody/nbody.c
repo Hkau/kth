@@ -14,8 +14,8 @@ int num_steps = -1;
 body_t *body = NULL;
 size_t num_bodies = 500;
 bool allow_negative = false;
-float bounds = 10.f;
-//float bounds = 100.f;
+//float bounds = 10.f;
+float bounds = 200.f;
 
 // Gravitational constant
 float G = 0.000000000001;
@@ -57,7 +57,7 @@ void nbody_quit()
 void body_move(body_t *body, vec3f pos)
 {
 		// wall bounce when hitting bounds
-		float bounce = 1/2.f;//10.f;
+		float bounce = 1/5.f;//10.f;
 
 		if(pos.x < -bounds)
 		{
