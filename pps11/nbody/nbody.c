@@ -14,7 +14,8 @@ int num_steps = -1;
 body_t *body = NULL;
 size_t num_bodies = 500;
 bool allow_negative = false;
-float bounds = 100.f;
+float bounds = 10.f;
+//float bounds = 100.f;
 
 // Gravitational constant
 float G = 0.000000000001;

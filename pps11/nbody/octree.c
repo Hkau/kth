@@ -104,13 +104,14 @@ void oct_add(octree *node, body_t *body)
 	node->count++;
 	node->mass += body->mass;
 	node->center = vec3f_add(node->center, body->pos);
-#ifndef NO_THREADS
-	pthread_mutex_unlock(&node->lock);
-#endif
 
 	body->node = node;
 	body->next = node->bodies;
 	node->bodies = body;
+
+#ifndef NO_THREADS
+	pthread_mutex_unlock(&node->lock);
+#endif
 }
 
 void oct_move(body_t *body, vec3f pos)
@@ -126,6 +127,7 @@ void oct_move(body_t *body, vec3f pos)
 		// make sure body wasn't moved while getting lock
 		if(body->node == node)
 			break;
+		//printf("I can't believe it helped!\n");
 		pthread_mutex_unlock(&node->lock);
 		node = body->node;
 		// otherwise, keep getting lock further down,
@@ -144,6 +146,7 @@ void oct_move(body_t *body, vec3f pos)
 		return; // already in right oct..
 	}
 
+	// unlink body from node, so that we can move higher up in the tree
 	body_t *b;
 	if(node->bodies == body)
 		node->bodies = body->next;
