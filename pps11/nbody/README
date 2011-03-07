@@ -1,0 +1,37 @@
+n-body simulation
+
+build all:
+	make
+
+build individual:
+	make <program>
+
+Programs:
+
+n² serial: nbody1
+n² parallel: nbody2
+barnes-hut serial: nbody3
+barnes-hut parallel: nbody4
+
+Parameters:
+
+./nbody1 <num_bodies> <num_steps> <allow_negative_mass>
+./nbody2 <num_bodies> <num_steps> <num_workers> <allow_negative_mass>
+./nbody3 <num_bodies> <num_steps> <far> <allow_negative_mass> <render_octree>
+./nbody4 <num_bodies> <num_steps> <far> <num_workers> <allow_negative_mass> <render_octree>
+
+<num_bodies> is the number of bodies
+<num_steps> is the number of time steps in the simulation.
+<far> is the distance used to decide when to approximate (Barnes-Hut programs only)
+<num_workers> is the number of workers, including main thread (parallel programs only)
+<allow_negative_mass> specifies whether negative-mass particles are allowed. '0' disables, any other number enables. This gives a more interesting simulation.
+<render_octree> specifies whether the gui should render the octree as well. '0' disables, any other number enables. (Barnes-Hut programs only)
+
+Omitting the num_steps parameter or giving it a value <= 0 will start a realtime simulation with GUI.
+
+GUI key commands:
+
+TAB (turbo) speeds up simulation to 10 times the speed.
+SHIFT (slowdown) slows simulation down to 1/10th.
+CTRL (freeze) stops simulation (so that you can rotate and view the state).
+

@@ -7,10 +7,20 @@
 
 #include <math.h>
 
+#ifdef USE_OCTREE
+	#include "octree.h"
+#endif
+int render_octree = 1;
+
+int last_ms;
+bool disabled = false;
 void gui_init(const char *appname)
 {
-	if(numSteps > 0)
+	if(num_steps > 0)
+	{
+		disabled = true;
 		return;
+	}
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_WM_SetCaption(appname, appname);
@@ -50,15 +60,70 @@ void gui_init(const char *appname)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glColor3f(1.0, 1.0, 1.0);
 	
+	last_ms = SDL_GetTicks();
 }
 
 int x = 0, y = 0;
 float turbo = 1.f;
-int ms = 0;
-#define abs(x) (x < 0? -x : x)
+
+#ifdef USE_OCTREE
+void draw_octree(octree *node)
+{
+	if(node->count == 0)
+		return;
+
+	// min point
+	glVertex3f(node->min.x, node->min.y, node->min.z);
+	glVertex3f(node->max.x, node->min.y, node->min.z);
+
+	glVertex3f(node->min.x, node->min.y, node->min.z);
+	glVertex3f(node->min.x, node->max.y, node->min.z);
+
+	glVertex3f(node->min.x, node->min.y, node->min.z);
+	glVertex3f(node->min.x, node->min.y, node->max.z);
+
+	// max x point
+	glVertex3f(node->max.x, node->min.y, node->min.z);
+	glVertex3f(node->max.x, node->max.y, node->min.z);
+
+	glVertex3f(node->max.x, node->min.y, node->min.z);
+	glVertex3f(node->max.x, node->min.y, node->max.z);
+
+	// max y point
+	glVertex3f(node->min.x, node->max.y, node->min.z);
+	glVertex3f(node->max.x, node->max.y, node->min.z);
+
+	glVertex3f(node->min.x, node->max.y, node->min.z);
+	glVertex3f(node->min.x, node->max.y, node->max.z);
+
+	// max z point
+	glVertex3f(node->min.x, node->min.y, node->max.z);
+	glVertex3f(node->max.x, node->min.y, node->max.z);
+
+	glVertex3f(node->min.x, node->min.y, node->max.z);
+	glVertex3f(node->min.x, node->max.y, node->max.z);
+
+	// max point
+	glVertex3f(node->max.x, node->max.y, node->max.z);
+	glVertex3f(node->min.x, node->max.y, node->max.z);
+
+	glVertex3f(node->max.x, node->max.y, node->max.z);
+	glVertex3f(node->max.x, node->min.y, node->max.z);
+
+	glVertex3f(node->max.x, node->max.y, node->max.z);
+	glVertex3f(node->max.x, node->max.y, node->min.z);
+
+	if(node->children == NULL)
+		return;
+	int i;
+	for(i = 0; i < 8; ++i)
+		draw_octree(&node->children[i]);
+}
+#endif
+
 bool gui_update()
 {
-	if(numSteps > 0)
+	if(disabled)
 		return true;
 
 	while(true)
@@ -80,6 +145,10 @@ bool gui_update()
 							break;
 						case SDLK_LCTRL:
 						case SDLK_RCTRL:
+							turbo = 0.f;
+							break;
+						case SDLK_LSHIFT:
+						case SDLK_RSHIFT:
 							turbo = 0.1f;
 							break;
 						default:
@@ -90,10 +159,10 @@ bool gui_update()
 					switch(event.key.keysym.sym)
 					{
 						case SDLK_TAB:
-							turbo = 1.f;
-							break;
 						case SDLK_LCTRL:
 						case SDLK_RCTRL:
+						case SDLK_LSHIFT:
+						case SDLK_RSHIFT:
 							turbo = 1.f;
 							break;
 						default:
@@ -108,10 +177,11 @@ bool gui_update()
 					break;
 			}
 		}
-		ms += SDL_GetTicks();
-		if(ms >= 10)
+
+		if(SDL_GetTicks() - last_ms >= 10)
 		{
-			ms -= 10;
+			//printf("%d ms/frame\n", SDL_GetTicks() - last_ms);
+			last_ms = SDL_GetTicks();
 			break;
 		}
 	}
@@ -132,12 +202,19 @@ bool gui_update()
 		if(abs(body[i].pos.z) > distance)
 			distance = abs(body[i].pos.z);
 	}
+#ifdef USE_OCTREE
+	if(render_octree)
+		glTranslatef(0, 0, -2*bounds);
+	else
+		glTranslatef(0, 0, -2*distance);
+#else
 	glTranslatef(0, 0, -2*distance);
+#endif
 	glRotatef(y/20.0, 1, 0, 0);
 	glRotatef(x/20.0, 0, 0, 1);
 
 	// Draw grid
-	glColor3f(0.2, 0.2, 0.2);
+	glColor3f(0.15, 0.15, 0.15);
 	glBegin(GL_LINES);
 
 	for(i = -100; i <= 100; i+= 10)
@@ -163,9 +240,18 @@ bool gui_update()
 		glVertex3i(0, 0, 2);
 	glEnd();
 
-	glColor3f(1, 1, 1);
-	glPointSize(3);
+#ifdef USE_OCTREE
+	if(render_octree)
+	{
+		glColor3f(0., .2, 0.);
+		glBegin(GL_LINES);
+		draw_octree(top);
+		glEnd();
+	}
+#endif
 
+	glColor3f(1, 1, 1);
+	glPointSize(1);
 
 	float max_mass = 0;
 	for(i = 0; i < num_bodies; ++i)
@@ -193,7 +279,7 @@ bool gui_update()
 
 void gui_quit()
 {
-	if(numSteps > 0)
+	if(disabled)
 		return;
 	SDL_Quit();
 }
