@@ -1,0 +1,60 @@
+hw5. Stable Marriage
+
+build:
+
+	make
+
+	Builds the program 'stable_marriage'
+
+run:
+
+	./run.sh n
+
+	Runs the application for "n" threads. This argument is not optional.
+
+	The run.sh is simply a wrapper script. The applications need to have
+	-np 2*n+1 specified to run, so mpirun -np 21 ./stable_marriage would
+	be the correct way to launch the program for n=10. This script makes
+	the call more readable.
+
+main design:
+
+	Each man will go through his list of favorite women, and send
+	proposals to them, in order. When accepted, he'll stay happy until
+	broken up with or being signaled that he's done. These are the two
+	message types he can recieve in this state. A woman will accept
+	the first proposal given to her. Should she recieve another proposal
+	from a guy she likes better, she'll dump her current fiancé. If it's
+	from someone she doesnt like better she'll simply refuse it.
+
+	When accepting their first proposal/getting their first proposal
+	accepted each person will signal to the counting thread that they've
+	gotten someone, this only happens once per thread. When the counter
+	has been maxed each thread will recieve a DONE message, upon where
+	they quit.
+
+	For a man: i+1:th preferred woman is pref[i].
+
+	For a woman: Man i has "preference level" pref[i].
+
+	This means that the woman can check if she prefers man x over man y
+	in constant time.
+
+notes:
+
+	Most MPI_Send/MPI_Read calls uses the reciever's rank as tag, because
+	the people most often knows whom to propose to or refuse/break up with.
+	Source is set similarly when the sender is known.
+
+	The message sent, an int msg; is sometimes ignored. It's still passed
+	though it might be possible to send a null message instead.
+
+	There are some issues (at least during my tests) with printf not syncing
+	properly between threads. This has been attempted to be resolved by
+	always calling fflush(stdout) after each printf. Though this resolved
+	them a bit, they're still bad.
+
+	As all MPI_Send/MPI_Recv calls are blocking and fflush as well, this
+	is assumed not to be a race condition within the application, but
+	rather a sync issue within the host environment/mpirun somehow.
+
