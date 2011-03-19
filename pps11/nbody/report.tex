@@ -1,0 +1,85 @@
+\documentclass[a4paper] {article}
+\usepackage[utf8]{inputenc}
+\title {Optimization and Parallelization \\ of the N-Body Simulation}
+\author {Peter Boström \\ pbos@kth.se}
+
+\begin {document}
+\maketitle
+
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+
+The N-body simulation is a simulation of gravitational forces between bodies. Every body is affected by every other body. This report aims to show that the simulation can be optimized significantly from its naive or simple solution. It also aims to investigate how well the n-body simulation can be parallelized. These simulations were done in three dimensions, but the problem is very similar regardless. There are possibly less issues of bodies clumping together when all bodies are distributed across more dimensions.
+
+\section{Programs}
+
+All programs are divided into two steps, first calculating forces per-body and then applying acceleration as well as velocity. All programs are implemented in C with the Pthreads library using a shared-memory programming model. All programs have a graphical user interface. If the program is run with a specified number of iterations the gui gets cut away, and doesn't interfere with time measurement.
+
+A lot of code is shared between implementations, and the latter ones even have a lot of macros to include or exclude the pthread calls. To see which source files are associated with which program, please see the Makefile for the files actually being used.
+
+As a note; because of the graphical user interface, the programs all additionally require OpenGL as well as SDL to compile and run.
+
+\subsection{nbody1}
+
+Sequential $n^2$ program.
+
+During the calculate-forces phase each body's calculates a resulting force by is calculated by adding the forces acting upon it from each other body (nested for-loop).
+
+The add-velocity phase simply iterates through every body, add forces and updates velocities as well as position.
+
+\subsection{nbody2}
+
+Parallel $n^2$ program.
+
+This version works mainly like the previous program. Since no bodies move during the calculate-forces phase you could say that their positions and masses are read-only. These properties are enough to calculate forces, thus the workload can be split up, so each thread grabs 10 bodies from a bag of tasks and updates those. Synchronization in this step is only done when picking from the bag of tasks, as everything but force is read-only in this step their parallel calculation doesn't interfere with eachother.
+
+During the second, add-velocities phase, a similar bag of tasks is used, as each body's force only updates its own velocity and position, they're easily parallelized in the same way. Each body is independent in this step.
+
+These two steps are separated with barriers in order to stay properly synchronized.
+
+\subsection{nbody3}
+
+Sequential $n\ log\ n$ program using Barnes-Hut method.
+
+The Barnes-Hut method works by splitting space into regions using an octree. Each octree contains an aggregated mass as well as center for all bodies cointained within that volume. In orter do avoid the $n^2$ problem bodies that are concidered far away can have their masses represented by this approximation for the regions. This calculation of forces work recursively. Starting with the top node, if the volume of a node is far away, add a force based on the approximation given by its masses and centers. Else the step is repeated recursively for each subnode within the node. Some of the subnodes may be far away enough to approximate, others may not.
+
+The add-velocity step is more complex than the naive solution. Moving a body means that all mass centers of all octree nodes this node is in needs to be moved as well. This means that the operation is no longer linear. But instead the $n^2$ step is gone. Moving bodies also means that they move around in the octree as well. So if a body moves outside the volume of its current node it gets removed from its current node, with its mass and effect on mass centrum being removed as well. Iteratively up the tree until it finds a node where it can recide and gets added there.
+
+Whenever a node gets too many bodies, it simply splits. This happens until the node is smaller than a minimum size specified in 'octree.c'.
+
+\subsection{nbody4}
+
+Parallel $n\ log\ n$ program using Barnes-Hut method.
+
+Synchronizing the previous method can be quite tricky. This program shares all characteristics with the previous program and is done the same way. Problems however occur when nodes are being moved around in the tree. Firstly, when any octree node value is being manipulated, it has to be locked. Otherwise different threads would be able to update their nodes simultaneously, and as the vector add operation isn't atomic they could get out of sync.
+
+There are two particularly problematic operations which are related. Moving a body and splitting an octree node. Splitting an octree node means all bodies contained in the node will be moved to one of the eight newly created subnodes. The synchronization with splitting a node is done like when setting a value. So this part is ok.
+
+A problematic and specific case however, whenever you want to move a body and it's locked because the containing node is being split. In this case what happens is that the thread attempts to lock the node which the body is in, and get blocked. During this time the node is being split and all bodies within it will get moved to other nodes. Once this procedure finishes and the lock is given to the first thread, this node will no longer be the same as the one of the body. Thus it needs to be unlocked and the thread must get the lock for the new node instead. This will repeat until the thread finally manages to get the correct lock. Otherwise we'd attempt to remove the body from a node where it simply isn't reciding.
+
+\section{Evaluation}
+
+\subsection{Results}
+THIS IS A TABLE-
+
+Present the results from the evaluation experiments. Use tables to present the raw data and graphs to show speedups and comparisons. Also explain your results. Do not just present the output data! What do the results show? Why?
+
+\subsection{Graphs}
+
+THESE ARE GRAPHS
+
+\subsection{Conculsions}
+
+The $n\ log\ n$ benefits are crucial to be able to simulate more than 1000 nodes in realtime. The performance impact in way larger instances (1000+) is huge. The n=240 instance is still quick enough to simultate in realtime with the naive sequential $n^2$ version. Even though parallelization has proven useful, this is where we gain the real boost.
+
+The parallelization is really simple in the $n^2$ version, and really pays off as well. For the Barnes-Hut verions the smaller instances are believed to have more interaction within the same nodes. A larger instance is more beneficial to parallelize as bodies will be divided into even smaller regions which will more separated from eachother.
+
+\section{Conclusion}
+
+It's been really useful to parallelize aswell as optimize this problem. Optimization is crucial for larger instances and I'd say parallelization is benefitial rather than crucial. Except for smaller instances parallelization has given great results. It's been very interesting as well to parallelize such a fairly complex data structure as well. There are a lot of issues where synchronization errors and deadlocks can occur if not done properly.
+Briefly summarize what your report has shown, and describe what you have learned from this project. As a side note the graphical interface proved really useful to understand how the simulation was working and if it seemed to be done correctly as well.
+
+\end{document}
+

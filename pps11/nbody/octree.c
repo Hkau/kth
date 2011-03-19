@@ -116,9 +116,24 @@ void oct_add(octree *node, body_t *body)
 
 void oct_move(body_t *body, vec3f pos)
 {
+	octree *node = body->node;
+	vec3f delta = vec3f_sub(pos, body->pos);
 	body->pos = pos;
 
-	octree *node = body->node;
+	// update all node centers this body is in, that is
+	// climb all the way up the tree, to the root.
+	octree *tmp = node;
+	while(tmp != NULL)
+	{
+#ifndef NO_THREADS
+		pthread_mutex_lock(&tmp->lock);
+#endif
+		tmp->center = vec3f_add(tmp->center, delta);
+#ifndef NO_THREADS
+		pthread_mutex_unlock(&tmp->lock);
+#endif
+		tmp = tmp->parent;
+	}
 
 #ifndef NO_THREADS
 	while(true)
@@ -131,7 +146,7 @@ void oct_move(body_t *body, vec3f pos)
 		pthread_mutex_unlock(&node->lock);
 		node = body->node;
 		// otherwise, keep getting lock further down,
-		// until we've acquired the correct lock.
+		// until we've acquired a lock for the correct node.
 	}
 #endif
 
