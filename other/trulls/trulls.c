@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <pthread.h> // yes, the problem is that hard.
+
 int n;
 int squares;
-int *board;
-
 struct
 {
 	int i, j;
@@ -14,13 +14,14 @@ struct
 
 int num_moves = sizeof(moves)/sizeof(moves[0]);
 
+pthread_mutex_t sol_lock;
 int solutions = 0;
 
 int max_depth = 0;
 
 unsigned long total_iter = 0;
 
-int reachable(int i, int j)
+int reachable(int *board, int i, int j)
 {
 	int move;
 	for(move = 0; move < num_moves; ++move)
@@ -37,7 +38,7 @@ int reachable(int i, int j)
 }
 
 unsigned long iter_report = 1024;
-void search(int i, int j, int iter)
+void search(int *board, int i, int j, int iter)
 {
 	if(++total_iter == iter_report)
 	{
@@ -78,6 +79,7 @@ void search(int i, int j, int iter)
 
 		if(iter == squares)
 		{
+			pthread_mutex_lock(&sol_lock);
 			++solutions;
 			printf("solution %d:\n", solutions);
 	
@@ -90,6 +92,7 @@ void search(int i, int j, int iter)
 					printf("(%4d)", board[a*n+b]);
 				putchar('\n');
 			}
+			pthread_mutex_unlock(&sol_lock);
 		}
 		else
 		{
@@ -107,7 +110,7 @@ void search(int i, int j, int iter)
 				if(board[check_i * n + check_j] != 0)
 					continue; // piece already visited, doesn't need to be reachable
 
-				if(!reachable(check_i, check_j))
+				if(!reachable(board, check_i, check_j))
 				{
 /*					printf("invalid (%d, %d)\n", check_i, check_j);
 					int a;
@@ -123,7 +126,7 @@ void search(int i, int j, int iter)
 				}
 			}
 			if(!invalid_move)
-				search(new_i, new_j, iter); // this piece can still be reached => search is ok
+				search(board, new_i, new_j, iter); // this piece can still be reached => search is ok
 		}
 
 		// search from here is done, put piece back
@@ -131,40 +134,96 @@ void search(int i, int j, int iter)
 	}
 }
 
+int num_threads = 1;
+pthread_mutex_t job_lock = PTHREAD_MUTEX_INITIALIZER;
+int iter_i = 0, iter_j = -1; // will increase to 0,0 in first iteration
+
+pthread_mutex_t barrier_lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t barrier_signal = PTHREAD_COND_INITIALIZER;
+int barrier_count = 0;
+
+void barrier()
+{
+	pthread_mutex_lock(&barrier_lock);
+
+	barrier_count++;
+
+	if(barrier_count == num_threads)
+	{
+		pthread_cond_broadcast(&barrier_signal);
+		barrier_count = 0; // reset barrier
+	}
+	else
+		pthread_cond_wait(&barrier_signal, &barrier_lock);
+
+	pthread_mutex_unlock(&barrier_lock);
+}
+
+void *run(void *args)
+{
+	int *board = calloc(sizeof(int), squares);
+
+	while(1)
+	{
+		pthread_mutex_lock(&job_lock);
+		// only starting from 1 8th of the field, other solutions are flipped or rotated versions of these.
+		iter_j++;
+		if(iter_j > n/2)
+		{
+			iter_i ++;
+			if(iter_i > n/2)
+			{
+				pthread_mutex_unlock(&job_lock);
+				break;
+			}
+			iter_j = iter_i;
+		}
+		pthread_mutex_unlock(&job_lock);
+
+		board[iter_i*n + iter_j] = 1;
+		printf("search(%d, %d, 1);\n", iter_i, iter_j); // uncomment if n is few
+		search(board, iter_i, iter_j, 1);
+		board[iter_i*n + iter_j] = 0;
+	}
+
+	free(board);
+
+	barrier();
+
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
-	if(argc != 2)
+	if(argc != 2 && argc != 3)
 	{
-		fprintf(stderr, "usage: %s n\n", argv[0]);
+		fprintf(stderr, "usage: %s n [num_threads]\n", argv[0]);
 		return -1;
 	}
 
 	n = atoi(argv[1]);
-	squares = n*n;
+	if(argc == 3)
+		num_threads = atoi(argv[2]);
 
-	board = calloc(sizeof(int), squares);
+
+	squares = n*n;
 
 	fputs(argv[0], stdout);
 	putchar(' ');
 	puts(argv[1]);
 	puts("searching for solutions:");
 
-	// only starting from 1 8th of the field, other solutions are flipped or rotated versions of these.
+	pthread_t threads[num_threads];
+
 	int i;
-	for(i = 0; i <= n/2; ++i)
+	for(i = 0; i < num_threads-1; ++i)
 	{
-		int j;
-		for(j = i; j <= n/2; ++j)
-		{
-			board[i*n + j] = 1;
-			printf("search(%d, %d, 1);\n", i, j); // uncomment if n is few
-			search(i, j, 1);
-			board[i*n + j] = 0;
-		}
+		pthread_create(&threads[i], NULL, &run, NULL);
 	}
+	run(NULL);
+
 
 	printf("%d solutions found\n", solutions);
-	free(board);
 
 	return 0;
 }
