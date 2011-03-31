@@ -1,3 +1,8 @@
+/*
+	Large main program comment.
+
+	Fill me.
+*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,6 +14,7 @@
 
 int num_proc;
 
+// closes open pipe file descriptors
 void closepfd(int pfd[][2])
 {
 	int ret;
@@ -30,7 +36,7 @@ void closepfd(int pfd[][2])
 	}
 }
 
-
+// closes open pipe file descriptors and kills all processes belonging to the process group
 void closekill(int pfd[][2], const char *str)
 {
 	closepfd(pfd);
@@ -39,6 +45,7 @@ void closekill(int pfd[][2], const char *str)
 	kill(0, SIGKILL);
 }
 
+// executes 'prog' with argument list 'args' with stdin and stdout redirected to 'fd_stdin'/'fd_stdout'
 int forkexecv(int pfd[][2], int fd_stdin, int fd_stdout, char *prog, char* args[])
 {
 	int pid = fork();
@@ -73,6 +80,7 @@ int forkexecv(int pfd[][2], int fd_stdin, int fd_stdout, char *prog, char* args[
 	return 0;
 }
 
+// executes 'prog' with stdin/stdout redirected, with no additional arguments
 int forkexec(int pfd[][2], int fd_stdin, int fd_stdout, char *prog)
 {
 	char *args[2] = {prog, (char *) NULL};
@@ -101,8 +109,8 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 	}
-	// printenv | grep parameterlista | sort | less
 
+	// printenv | grep parameterlista | sort | less
 	if(forkexec(pfd, STDIN_FILENO, pfd[0][1], "printenv"))
 	{
 		closekill(pfd, "couldn't start printenv");
