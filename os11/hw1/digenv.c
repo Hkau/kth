@@ -1,8 +1,31 @@
 /*
-	Large main program comment.
+ * NAME:
+ *   digenv  -  a program for viewing/filtering environment variables
+ * 
+ * SYNTAX:
+ *   digenv [args]
+ *
+ * DESCRIPTION:
+ *   digenv displays a sorted version of environment variables for
+ *   the current environment. If 'args' are provided these variables
+ *   are filtered with these arguments being passed on to grep.
+ *
+ * OPTIONS:
+ *   See grep(1).
+ *   
+ * ENVIRONMENT:
+ *   PAGER       Used by digenv to display the data. less will be used
+ *               if PAGER is unspecified.
+ * 
+ * EXAMPLES:
+ *   digenv
+ *   digenv -E "^PATH="
+ *
+ * SEE ALSO:
+ *   grep(1), less(1), printenv(1), sort(1)
+ *
+ */
 
-	Fill me.
-*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -14,7 +37,7 @@
 
 int num_proc;
 
-// closes open pipe file descriptors
+// closes open pipe file descriptors (all pipe file descriptors)
 void closepfd(int pfd[][2])
 {
 	int ret;
@@ -37,15 +60,16 @@ void closepfd(int pfd[][2])
 }
 
 // closes open pipe file descriptors and kills all processes belonging to the process group
-void closekill(int pfd[][2], const char *str)
+void closekill(int pfd[][2], const char *error)
 {
 	closepfd(pfd);
-	fputs(str, stderr);
+	fputs(error, stderr);
 	fputc('\n', stderr);
 	kill(0, SIGKILL);
 }
 
-// executes 'prog' with argument list 'args' with stdin and stdout redirected to 'fd_stdin'/'fd_stdout'
+// forks and executes 'prog' with argument list 'args'
+// with 'fd_stdin' and 'fd_stdout' as new stdin/stdouts.
 int forkexecv(int pfd[][2], int fd_stdin, int fd_stdout, char *prog, char* args[])
 {
 	int pid = fork();
@@ -91,6 +115,7 @@ int main(int argc, char *argv[])
 {
 	char *pager = getenv("PAGER");
 
+	// Default to 'less' if there's no pager selected
 	if(pager == NULL)
 		pager = "less";
 
@@ -98,6 +123,7 @@ int main(int argc, char *argv[])
 
 	int pfd[num_proc-1][2];
 
+	// create pipes
 	int ret;
 	for(int i = 0; i < num_proc-1; ++i)
 	{
@@ -110,15 +136,16 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	// printenv | grep parameterlista | sort | less
+	// start printenv
 	if(forkexec(pfd, STDIN_FILENO, pfd[0][1], "printenv"))
 	{
 		closekill(pfd, "couldn't start printenv");
 		kill(0, SIGKILL);
 		return -1;
 	}
-	int start_grep = argc > 1;
+
 	// start grep if there are grep arguments
+	int start_grep = argc > 1;
 	if(start_grep)
 	{
 		char **subargs = malloc((argc+1)*sizeof(char *));
@@ -135,17 +162,20 @@ int main(int argc, char *argv[])
 		}
 
 	}
+	// start sort to sort the data
 	if(forkexec(pfd, pfd[start_grep][0], pfd[start_grep+1][1], "sort"))
 	{
 		closekill(pfd, "couldn't start sort");
 		return -1;
 	}
+	// finally start pager
 	if(forkexec(pfd, pfd[start_grep+1][0], STDOUT_FILENO, pager))
 	{
 		closekill(pfd, "couldn't start PAGER");
 		return -1;
 	}
 
+	// the parent thread doesn't need the pipes anymore, so they should be closed
 	closepfd(pfd);
 
 	int status;
@@ -155,7 +185,8 @@ int main(int argc, char *argv[])
 			wait(&status);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 
-		if(WIFSIGNALED(status) || WEXITSTATUS(status) != 0)
+		// If the process ended abnormally, kill all other processes
+		if(WIFSIGNALED(status) /*|| WEXITSTATUS(status) != 0*/)
 		{
 			fprintf(stderr, "error, process exited abnormally.\n");
 			kill(0, SIGKILL);
