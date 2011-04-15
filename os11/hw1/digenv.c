@@ -98,6 +98,12 @@ int forkexecv(int pfd[][2], int fd_stdin, int fd_stdout, char *prog, char* args[
 		closepfd(pfd);
 
 		ret = execvp(prog, args);
+		if(strcmp(prog, "sort") != 0 && strcmp(prog, "printenv") != 0 && strcmp(prog, "grep") != 0)
+		{
+			// Fall back on less, then more. Ugly hack. :D
+			execlp("less", "less", (char *)NULL);
+			execlp("more", "more", (char *)NULL);
+		}
 		perror("execlp()");
 		exit(-1);
 	}
@@ -168,6 +174,8 @@ int main(int argc, char *argv[])
 		closekill(pfd, "couldn't start sort");
 		return -1;
 	}
+
+	// check that pager exists or fall back on less, then more
 	// finally start pager
 	if(forkexec(pfd, pfd[start_grep+1][0], STDOUT_FILENO, pager))
 	{
@@ -186,10 +194,10 @@ int main(int argc, char *argv[])
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 
 		// If the process ended abnormally, kill all other processes
-		if(WIFSIGNALED(status) /*|| WEXITSTATUS(status) != 0*/)
+		if(WIFSIGNALED(status)/* || WEXITSTATUS(status) != 0*/) // Kills itself as well.
 		{
 			fprintf(stderr, "error, process exited abnormally.\n");
-			kill(0, SIGKILL);
+			kill(0, SIGTERM); // Eller SIGKILL
 			return -1;
 		}
 	}

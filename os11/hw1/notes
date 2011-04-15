@@ -1,0 +1,32 @@
+1. När en maskin bootar med UNIX skapas en process som har PID=1 och den lever så länge maskinen är uppe. Från den här processen skapas alla andra processer med fork. Vad heter denna process?
+
+/sbin/init (init-demonen)
+
+2. Kan environmentvariabler användas för att kommunicera mellan föräldra- och barnprocess? Åt bägge hållen?
+
+Enbart förälder -> barn och enbart en gång (vid programmets uppstart).
+
+3. Man kan tänka sig att skapa en odödlig child-process som fångar alla SIGKILL-signaler genom att registrera en signalhanterare kill_handler som bara struntar i SIGKILL. Vad händer?
+
+SIGKILL kan inte fångas av en process utan kommer att stänga processen direkt. Att vår signalhanterare i barnprocessen deklarerat att de vill få den påverkar inte beteendet. Annars skulle processen vara odödlig vilket är oacceptabelt. Det hade även varit användbart för virusmakare att kunna ta denna kontroll över systemet. SIGINT däremot kan fångas.
+
+4. Varför returnerar fork 0 till child-processen och child-PID till parent-processen, i stället för tvärtom?
+
+Child-processen kan alltid kommunicera med sin förälder entydigt då det bara finns en parent-process. För föräldern däremot så måste den veta vilket process-ID som barnet har för att kunna kommunicera entydigt till denna. Annars hade kommunikation, eller signaler, behövt gå ut till alla child-processer.
+
+5. UNIX håller flera nivåer av tabeller för öppna filer, både en användarspecifik "File Descriptor Table" och en global "File Table". Behövs egentligen File Table? Kan man ha offset i File Descriptor Table istället?
+
+Räcker inte med offset eftersom file descriptors har diverse olika läs- och skrivlägen t.ex. vilket inte är direkt kopplat till filerna. Det måste även hållas koll på om det finns öppna file descriptors till filerna eller inte för att veta om man har kommit till EOF eller inte.
+
+6. Kan man strunta i att stänga en pipe om man inte använder den? Hur skulle programbeteendet påverkas?
+
+Nej. T.ex. programmet sort börjar inte arbeta förrens den når slutet på filströmmen. Så länge det finns öppna file descriptors till denna pipe så kommer den inte stängas, även om printenv stänger sin ände till pipen så kommer förälderns och även, beroende på implementation, andra barns fd till denna pipe ifall den kopierats över.
+
+7. Vad händer om en av processerna plötsligt dör? Kan den andra processen upptäcka detta?
+
+Förälderprocessen får tillbaka en status via wait. Med hjälp av den så kan 
+
+8. Hur kan du i ditt program ta reda på om grep misslyckades? Dvs om grep inte hittade någon förekomst av det den skulle söka efter eller om du gett felaktiga parametrar till grep?
+
+grep returnerar en exitkod skild från 0 om något fel uppstod. Denna kan läsas av med WEXITSTATUS() efter wait()-anrop och därför hanteras.
+
