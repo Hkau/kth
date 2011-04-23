@@ -1,7 +1,7 @@
 /*
  * NAME:
  *   digenv  -  a program for viewing/filtering environment variables
- * 
+ *
  * SYNTAX:
  *   digenv [args]
  *
@@ -12,11 +12,11 @@
  *
  * OPTIONS:
  *   See grep(1).
- *   
+ *
  * ENVIRONMENT:
  *   PAGER       Used by digenv to display the data. less will be used
  *               if PAGER is unspecified.
- * 
+ *
  * EXAMPLES:
  *   digenv
  *   digenv -E "^PATH="
@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include <sys/types.h>
-#include <sys/wait.h> 
+#include <sys/wait.h>
 #include <unistd.h>
 #include <signal.h>
 
@@ -125,7 +125,8 @@ int main(int argc, char *argv[])
 	if(pager == NULL)
 		pager = "less";
 
-	num_proc = 3 + (argc > 1);
+	const int start_grep = (argc > 1) ? 1 : 0;
+	num_proc = 3 + start_grep;
 
 	int pfd[num_proc-1][2];
 
@@ -146,12 +147,10 @@ int main(int argc, char *argv[])
 	if(forkexec(pfd, STDIN_FILENO, pfd[0][1], "printenv"))
 	{
 		closekill(pfd, "couldn't start printenv");
-		kill(0, SIGKILL);
 		return -1;
 	}
 
 	// start grep if there are grep arguments
-	int start_grep = argc > 1;
 	if(start_grep)
 	{
 		char **subargs = malloc((argc+1)*sizeof(char *));

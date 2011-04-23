@@ -24,9 +24,27 @@ Nej. T.ex. programmet sort börjar inte arbeta förrens den når slutet på fils
 
 7. Vad händer om en av processerna plötsligt dör? Kan den andra processen upptäcka detta?
 
-Förälderprocessen får tillbaka en status via wait. Med hjälp av den så kan 
+Förälderprocessen får tillbaka en status via wait. Med hjälp av den så kan dödsorsaken utredas och åtgärder vidtas.
 
 8. Hur kan du i ditt program ta reda på om grep misslyckades? Dvs om grep inte hittade någon förekomst av det den skulle söka efter eller om du gett felaktiga parametrar till grep?
 
 grep returnerar en exitkod skild från 0 om något fel uppstod. Denna kan läsas av med WEXITSTATUS() efter wait()-anrop och därför hanteras.
 
+
+# Programbeteende
+
+Programmet öppnar först alla pipes som behövs. 3 eller 4 beroende på om grep ska användas.
+
+Den första barn-processen som startas är printenv som kopplas till den första pipen.
+
+Om grep ska användas startas den och kopplas till den första och andra pipen.
+
+Sedan startas sort kopplad med utdatan från den senaste pipen och den sista öppna pipen.
+
+Den sista processen som startas är pager, less eller more. Om pager inte hittas startas less. Om inte less vill starta så startas more. Om more inte heller vill vara med så avslutas allting.
+
+När alla processer har startats stänger föräldraprocessen alla pipes och väntar på att alla barn ska avslutas.
+
+Om något barn blir dödat dödar föräldern alla andra barn genom att skicka SIGTERM.
+
+Slutligen avslutas föräldraprocessen.
