@@ -1,0 +1,118 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel} 
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[L]{Laboration 1: Kommunikation med pipes\\}
+\fancyhead[R]{pbos@kth.se\\ rasmusgo@kth.se}
+\fancyfoot[C]{Operativsystem, ID2006}
+\fancyfoot[R]{\thepage}
+
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{language=C,
+	basicstyle=\footnotesize,
+	numbers=left,
+	numberstyle=\footnotesize,
+	title=\lstname,
+	showstringspaces=false,
+	fancyvrb=true,
+	extendedchars=true,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4}
+
+\lstset{ % För att å, ä och ö ska funka inuti lstlistings, kan behövas för andra symboler också..
+	literate={ö}{{\"o}}1
+		{ä}{{\"a}}1
+		{å}{{\aa}}1
+	}
+
+\title{Operativsystem -- Laboration 1\\\vspace{4pt}\normalsize Kommunikation med pipes}
+\author{Peter Boström -- \emph{pbos@kth.se}\\
+	Rasmus Göransson -- \emph{rasmusgo@kth.se}}
+
+\begin{document}
+\maketitle
+\pagestyle{fancyplain}
+
+\section*{Problembeskrivning}
+
+Poängen med labben var att skriva ett program som forkar och startar nya program som använder sig av pipes för kommunikation mellan dem. Programmet ska skriva ut, eventuellt filtrera och sortera environment-variabler. Dessa ska slutligen presenteras med en pager beroende på eventuell miljövariabel, annars less, om less inte finns så slutligen mer.
+
+\section*{Programbeteende, lösning}
+
+Programmet öppnar först alla pipes som behövs. 3 eller 4 beroende på om grep ska användas.
+
+Den första barn-processen som startas är printenv som kopplas till den första pipen.
+
+Om grep ska användas startas den och kopplas till den första och andra pipen.
+
+Sedan startas sort kopplad med utdatan från den senaste pipen och den sista öppna pipen.
+
+Den sista processen som startas är pager, less eller more. Om pager inte hittas startas less. Om inte less vill starta så startas more. Om more inte heller vill vara med så genereras samma fel som om printenv, grep eller sort inte skulle kunna startas och alltig avslutas.
+
+När alla processer har startats stänger föräldraprocessen alla pipes och väntar på att alla barn ska avsluta.
+
+Om något barn blir dödat dödar föräldern alla andra barn genom att skicka ut signalen SIGTERM.
+
+\section*{Instuderingsfrågor}
+
+Följande instuderingsfrågor besvarades från labbpeket.
+
+\begin{enumerate}
+	\item När en maskin bootar med UNIX skapas en process som har PID=1 och den lever så länge maskinen är uppe. Från den här processen skapas alla andra processer med fork. Vad heter denna process?
+	\begin{itemize}
+		\item /sbin/init (init-demonen)
+	\end{itemize}
+	\item Kan environmentvariabler användas för att kommunicera mellan föräldra- och barnprocess? Åt bägge hållen?
+	\begin{itemize}
+		\item Enbart förälder -> barn och enbart en gång (vid programmets uppstart).
+	\end{itemize}
+	\item Man kan tänka sig att skapa en odödlig child-process som fångar alla SIGKILL-signaler genom att registrera en signalhanterare \emph{kill\_handler} som bara struntar i SIGKILL. Vad händer?
+	\begin{itemize}
+		\item SIGKILL kan inte fångas av en process utan kommer att stänga processen direkt. Att vår signalhanterare i barnprocessen deklarerat att de vill få den påverkar inte beteendet. Annars skulle processen vara odödlig vilket är oacceptabelt. Det hade även varit användbart för virusmakare att kunna ta denna kontroll över systemet. SIGINT däremot kan fångas.
+	\end{itemize}
+	\item Varför returnerar fork 0 till child-processen och child-PID till parent-processen, i stället för tvärtom?
+	\begin{itemize}
+		\item Child-processen kan alltid kommunicera med sin förälder entydigt då det bara finns en parent-process. För föräldern däremot så måste den veta vilket process-ID som barnet har för att kunna kommunicera entydigt till denna. Annars hade kommunikation, eller signaler, behövt gå ut till alla child-processer.
+	\end{itemize}
+	\item UNIX håller flera nivåer av tabeller för öppna filer, både en användarspecifik "File Descriptor Table" och en global "File Table". Behövs egentligen File Table? Kan man ha offset i File Descriptor Table istället?
+	\begin{itemize}
+		\item Räcker inte med offset eftersom file descriptors har diverse olika läs- och skrivlägen t.ex. vilket inte är direkt kopplat till filerna. Varje FD ger också position i filen och förmodligen ännu fler attribut. Det måste även hållas koll på om det finns öppna file descriptors till filerna eller inte för att veta om man har kommit till EOF eller inte.
+	\end{itemize}
+	\item Kan man strunta i att stänga en pipe om man inte använder den? Hur skulle programbeteendet påverkas?
+	\begin{itemize}
+		\item Nej. T.ex. programmet sort börjar inte arbeta förrens den når slutet på filströmmen. Så länge det finns öppna file descriptors till denna pipe så kommer den inte stängas, även om printenv stänger sin ände till pipen så kommer förälderns och även, beroende på implementation, andra barns fd till denna pipe ifall den kopierats över.
+	\end{itemize}
+	\item Vad händer om en av processerna plötsligt dör? Kan den andra processen upptäcka detta?
+	\begin{itemize}
+		\item Förälderprocessen får tillbaka en status via wait. Med hjälp av den så kan dödsorsaken utredas och åtgärder vidtas.
+	\end{itemize}
+	\item Hur kan du i ditt program ta reda på om grep misslyckades? Dvs om grep inte hittade någon förekomst av det den skulle söka efter eller om du gett felaktiga parametrar till grep?
+	\begin{itemize}
+		\item grep returnerar en exitkod skild från 0 om något fel uppstod. Denna kan läsas av med WEXITSTATUS() efter wait()-anrop och därför hanteras.
+	\end{itemize}
+\end{enumerate}
+
+\section*{Program}
+
+\subsection*{Makefile}
+\lstinputlisting[language=make]{Makefile}
+
+\subsection*{digenv.c}
+\lstinputlisting{digenv.c}
+
+\section*{Lärdomar}
+
+Vi har lärt oss att använda pipes och att de är väldigt, väldigt viktiga att stänga. Det var intressant att stdin och stdout kan bestämmas av en process innan den kör exec med dup2(). Lite trist att kill(0, SIGTERM) inte skickar enbart till barnen utan även till sig själv. Det kunde vi inte undvika utan att sätta oss in i processgrupper vilket inte kändes så relevant. Intressant med fork att allt minne för processen kan ses som att det har duplicerats. Trots detta behöver den nya processen inte ta upp lika mycket minne så länge det inte används enl. copy-on-write.
+
+\end{document}
+
