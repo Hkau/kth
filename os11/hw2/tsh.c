@@ -14,12 +14,11 @@ char buffer[128];
 char *flags[16]; // space for argument pointers
 bool shell_exit = false;
 
-bool forking = false; // background process messages will be suppressed for the short instant when the parent is forking.
 pid_t fg_pid = -1;
 
 void exited(pid_t pid)
 {
-	printf("tsh: [%d] stopped\n", pid);
+	printf("tsh: [%d] terminated\n", pid);
 }
 
 // chose not to go to HOME and properly report the errors instead.
@@ -47,6 +46,7 @@ bool cd(char *path)
 	return false;
 }
 
+void myhandler(int signal);
 bool run(char *str)
 {
 	flags[0] = strtok(str, " \n");
@@ -103,11 +103,17 @@ bool run(char *str)
 	struct timeval fgstart, fgend;
 	gettimeofday(&fgstart, NULL);
 	pid_t pid;
+	#ifndef USE_POLL
+	sigset_t sigchld_set;
+	#endif
 	if(!bg)
 	{
-		forking = true;
+		#ifndef USE_POLL
+		sigemptyset(&sigchld_set);
+		sigaddset(&sigchld_set, SIGCHLD);
+		sigprocmask(SIG_BLOCK, &sigchld_set, NULL);
+		#endif
 		fg_pid = pid = fork();
-		forking = false;
 	}
 	else
 		pid = fork();
@@ -139,7 +145,13 @@ bool run(char *str)
 		int status;
 		waitpid(fg_pid, &status, 0);
 		gettimeofday(&fgend, NULL);
-		printf("tsh: %.0f ms.\n", ((float) fgend.tv_usec - fgstart.tv_usec)/1000.f);
+		long ms = (fgend.tv_sec - fgstart.tv_sec) * 1000 + (fgend.tv_usec - fgstart.tv_usec) / 1000;
+		fprintf(stderr, "tsh: %ld ms.\n", ms);
+
+		#ifndef USE_POLL
+		sigprocmask(SIG_UNBLOCK, &sigchld_set, NULL);
+		myhandler(SIGCHLD); // Catch any zombies whose signal was blocked.
+		#endif
 	}
 
 	return true;
@@ -158,15 +170,14 @@ void myhandler(int signal)
 				// no zombie left to wait for
 				break;
 			}
-			if(pid == fg_pid || forking)
+			if(pid == fg_pid)
 				continue;
-			if(WIFEXITED(signal))
+			if(WIFEXITED(signal) || WIFSIGNALED(signal))
 				exited(pid);
 			// stop timer for pid;
 		}
 		return;
 	}
-	fprintf(stderr, "myhandler recieved signal %d\n", signal);
 }
 
 int main()
@@ -184,16 +195,26 @@ int main()
 
 	while(true)
 	{
-		char *pwd = getcwd(buffer, sizeof(buffer));
-		if(pwd != NULL)
-			fputs(pwd, stdout);
-		fputs("$ ", stdout);
 		char *foo;
-		do
+		while(true)
 		{
+			char *cwd = getcwd(buffer, sizeof(buffer));
+			if(cwd != NULL)
+				fputs(cwd, stdout);
+			fputs("$ ", stdout);
+
 			errno = 0;
 			foo = fgets(buffer, sizeof(buffer), stdin);
-		}while(foo == NULL && errno == EINTR);
+			if(foo != NULL || errno != EINTR)
+			{
+				break;
+			}
+			putchar('\n');
+			#ifdef USE_POLL
+			myhandler(SIGCHLD); // is ok, handler doesn't require to be able to wait for one
+			#endif
+		}
+
 		#ifdef USE_POLL
 		myhandler(SIGCHLD); // is ok, handler doesn't require to be able to wait for one
 		#endif
