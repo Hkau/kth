@@ -1,0 +1,169 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[L]{Laboration 2: Small shell\\}
+\fancyhead[R]{pbos@kth.se\\ rasmusgo@kth.se}
+\fancyfoot[C]{Operativsystem, ID2006}
+\fancyfoot[R]{\thepage}
+
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{language=C,
+	basicstyle=\footnotesize,
+	numbers=left,
+	numberstyle=\footnotesize,
+	title=\lstname,
+	showstringspaces=false,
+	fancyvrb=true,
+	extendedchars=true,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4}
+
+\lstset{ % För att å, ä och ö ska funka inuti lstlistings, kan behövas för andra symboler också..
+	literate={ö}{{\"o}}1
+		{ä}{{\"a}}1
+		{å}{{\aa}}1
+	}
+
+\title{Operativsystem -- Laboration 2\\\vspace{4pt}\normalsize Small shell}
+\author{Peter Boström -- \emph{pbos@kth.se}\\
+	Rasmus Göransson -- \emph{rasmusgo@kth.se}}
+
+\begin{document}
+\maketitle
+\pagestyle{fancyplain}
+
+\section*{Problembeskrivning}
+
+Poängen med labben var att skriva ett terminalskal som hanterar förgrunds- och bakgrundsprocesser och hanterar signaler. Det är även en övning i att hantera systemanrop som avbryts av signaler.
+
+\section*{Programbeteende, lösning}
+
+Programmets huvudkomponenter är mainloopen i main, funktionen run och funktionen myhandler.
+
+Main loop läser input och anropar run för att köra kommandon.
+
+Run tolkar kommandon och startar nya processer.
+
+Myhandler rensar upp efter döda barnprocesser.
+
+När programmet startas installeras signalhanterare för SIGINT och SIGCHLD. Sedan startas main loop som läser kommandon från användaren. Om inmatningen blir avbruten startas den om. När ett kommando har tagits emot körs run.
+
+Run tolkar kommandot och avgör om det är ett inbyggt kommando eller inte. Om det inte är inbyggt testas det om kommandot avslutas med ett \&. Om det gör det körs kommandot som en process i bakgrunden. Om det är en förgrundsprocess startas en tidtagning.
+
+Så länge ingen förgrundsprocess körs är signalhanteraren igång och kan avbryta input för att ta hand om bakgrundsprocesser som avslutats eller om användaren trycker \^C.
+
+Inga allokeringar görs av programmet.
+
+\section*{Instuderingsfrågor}
+
+Följande instuderingsfrågor besvarades från labbpeket.
+
+\begin{enumerate}
+	\item Motivera varför det ofta är bra att exekvera kommandon i en separat process.
+	\begin{itemize}
+		\item Ifall de inte exekveras i en separat process så kan inte programmet som exekverade processen fortsätta köra då den nya processen kört klart. Den nya processen har med exec helt och hållet ersatt den process som anropade den.
+	\end{itemize}
+	\item Vad händer om man inte i kommandotolken exekverar wait() för en barn-process som avslutas?
+	\begin{itemize}
+		\item Den lämnar kvar en s.k. defunct eller zombie-process som inte tas bort förrens wait körts. Den ligger då kvar tills dess att kommandotolken avslutas.
+	\end{itemize}
+	\item Hur skall man utläsa SIGSEGV?
+	\begin{itemize}
+		\item SIG används för att det är en signal. SEGV står för segmentation violation vilket är en signal som skickas till processer som försöker komma åt otillåtet minne.
+	\end{itemize}
+	\item Varför kan man inte blockera SIGKILL?
+	\begin{itemize}
+		\item SIGKILL används ofta för att döda processer som inte dör via SIGTERM eller SIGINT. Hade processen kunnat blockera SIGKILL också så hade processen kunnat vara helt odödlig.
+	\end{itemize}
+	\item Hur ska man utläsa deklarationen void (*disp)(int)?
+	\begin{itemize}
+		\item Funktionspekare som heter disp till en funktion som tar en int-parameter och inte returnerar något värde (void).
+	\end{itemize}
+	\item Vilket systemanrop använder sigset(3C) troligtvis för att installera en signalhanterare?
+	\begin{itemize}
+		\item sigaction(2)
+	\end{itemize}
+	\item Hur gör man för att din kommandotolk inte ska termineras då en förgrundsprocess i den termineras med <Ctrl-c>?
+	\begin{itemize}
+		\item Man fångar upp SIGINT, den signal som skickas då <Ctrl-c> matas in av användaren.
+	\end{itemize}
+\end{enumerate}
+
+\section*{Program}
+
+Koden finns även tillfälligt på \url{http://lemming.ceri.se/tmp/os11-hw2.tar}. Kontakta annars någon av oss.
+
+\subsection*{Makefile}
+\lstinputlisting[language=make]{Makefile}
+
+\subsection*{tsh.c}
+\lstinputlisting{tsh.c}
+
+\section*{Exempelkörning}
+
+\begin{lstlisting}
+lemming@phobos:~/Code/kth/os11/hw2$ ./tsh 
+/home/lemming/Code/kth/os11/hw2$ cd ..
+/home/lemming/Code/kth/os11$ cd 
+/home/lemming$ cd Co	
+tsh: cd: Co	: File not found
+/home/lemming$ cd Code/kth/os11/hw2
+/home/lemming/Code/kth/os11/hw2$ ls
+Makefile  report.aux  report.log  report.pdf  report.tex  tsh  tsh.c
+tsh: 5 ms.
+/home/lemming/Code/kth/os11/hw2$ cd ..
+/home/lemming/Code/kth/os11$ ls -a
+.  ..  hw1  hw2
+tsh: 6 ms.
+/home/lemming/Code/kth/os11$ cd hw2
+/home/lemming/Code/kth/os11/hw2$ cat Makefile
+all: tsh.c
+	gcc -std=c99 -D_POSIX_SOURCE -pedantic -Wall -g -o tsh tsh.c
+
+poll: tsh.c
+	gcc -std=c99 -DUSE_POLL -D_POSIX_SOURCE -pedantic -Wall -g -o tsh tsh.c
+
+tsh: 4 ms.
+/home/lemming/Code/kth/os11/hw2$ echo &
+/home/lemming/Code/kth/os11/hw2$ 
+tsh: [27332] terminated
+
+/home/lemming/Code/kth/os11/hw2$ ls -a &
+/home/lemming/Code/kth/os11/hw2$ .  ..  Makefile  report.aux  report.log  report.pdf  report.tex  .report.tex.swp  tsh  tsh.c
+tsh: [27333] terminated
+
+/home/lemming/Code/kth/os11/hw2$ echo
+
+tsh: 4 ms.
+/home/lemming/Code/kth/os11/hw2$ sleep 1
+tsh: 1002 ms.
+/home/lemming/Code/kth/os11/hw2$ exit
+lemming@phobos:~/Code/kth/os11/hw2$ 
+\end{lstlisting}
+
+\section*{Lärdomar}
+
+Lärt oss använda strtok, execvp användes sedan tidigare. Fånga signaler och mer om signaler överhuvudtaget. Att signaler går att blockera tillfälligt, vilket var viktigt för att undvika race conditions i programmet, trots otrådat.
+
+Vi valde att låta cd hantera fel och inte gå tillbaka till hemkatalogen och lärde oss därför även lite fel som kan uppstå. Att cd går till hemkatalogen finns fortfarande i uppgiften, då cd utan argument tar en hem, som cd vanligtvis gör.
+
+Det var också intressant att fork() ibland inte hinner returnera innan barnet exekverat klart och skickat SIGCHLD till föräldern. Detta var det som gav upphov till tidigare race conditions som nu är undvikna.
+
+Det var kul att se hur snabbt det gick att skriva ett fullt fungerande skal, även om det saknar en del funktionalitet.
+
+Det var bra att låta en tom pipe gå in i bakgrundsprocessen där man stänger skrivsidan, så att bakgrundsprocesser inte säger att de stött på en invalid file descriptor, utan istället får en som är stängd bara. Bash visar samma beteende.
+
+\end{document}
+
