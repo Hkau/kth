@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{placeins}
+\usepackage[small]{caption}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -17,7 +18,7 @@
 \fancyfoot[C]{Diskret matematik, SF1631}
 \fancyfoot[R] {\thepage}
 
-\title{Grafer och planäritet\\\vspace{4pt}\normalsize Derp derp undertitel hej.}
+\title{Grafer och planäritet}
 \author{Peter Boström -- \emph{pbos@kth.se}}
 
 \begin{document}
@@ -26,7 +27,7 @@
 
 \section*{Grafer, kompletta grafer och andra begrepp}
 
-En \textbf{graf} är en samling, eller \emph{mängd}, av så kallade \emph{noder} och \emph{kanter} mellan dem. En nod är en punkt och en kant är ett sträck draget mellan två noder. En kant är en anslutning mellan två noder.
+En \textbf{graf} är en samling, eller \emph{mängd}, av så kallade \emph{noder} och \emph{kanter} som ansluter mellan två noder. En nod kan ses som en punkt och kant kan ses som ett sträck draget mellan två av dessa noder. En kant bör även ses som en anslutning mellan två noder.
 
 \begin{figure}[!ht]
 	\begin{center}
@@ -37,7 +38,7 @@ En \textbf{graf} är en samling, eller \emph{mängd}, av så kallade \emph{noder
 \end{figure}
 \FloatBarrier
 
-En \textbf{bipartit graf} är en graf där grafen kan delas upp i två grupper av noder som inte har några kanter internt mellan sig, men tillåts ha anslutningar mellan noder som inte tillhör samma grupp.
+En \textbf{bipartit graf} är en graf där grafen kan delas upp i två grupper av noder som inte har några kanter internt mellan sig, men tillåts ha anslutningar mellan noder i de olika grupperna.
 
 \begin{figure}[!ht]
 	\begin{center}
@@ -48,128 +49,117 @@ En \textbf{bipartit graf} är en graf där grafen kan delas upp i två grupper a
 \end{figure}
 \FloatBarrier
 
-En \textbf{komplett graf} är en graf där varje par av noder har en kant mellan sig. Kompletta grafer tecknas $K_n$ där $n$ är antalet noder.
+En \textbf{komplett graf} är en graf där varje nod har en kant som ansluter med varje annan nod. Kompletta grafer tecknas $K_n$ där $n$ står för antalet noder i den kompletta grafen.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig3}
-		\caption{Blah stuff figure shit.}
+		\caption{Bild på $K_4$ till vänster. Grafen till höger är inte komplett då det saknas en kant mellan två av noderna.}
 		\label{fig3}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bild\ k_4,\ bild\ k_4-\{e\}$$
-
-Bildförklaring sista bilden. Den högra är inte komplett då det saknas en kant mellan nod $blah_1$ och $blah_2$.
-
-\textbf{Kompletta bipartita grafer} tecknas $K_{n,m}$ och har två grupper av noder med $n$ respektive $m$ stycken noder där varje nod ansluter till varje enskild nod i den andra gruppen. Figur \cite{fig2} är ett exempel på en komplett bipartit graf, $K_{3,3}$.
+\textbf{Kompletta bipartita grafer} tecknas $K_{n,m}$ och har två grupper av noder med $n$ respektive $m$ stycken noder där varje nod i en grupp ansluter till varje nod i den andra gruppen. Figur \ref{fig2} är ett exempel på en komplett bipartit graf, $K_{3,3}$. Notera att $n$ och $m$ lika gärna kan vara olika tal.
 
 \section*{Grafers planäritet}
 
-En graf är \textbf{plan} om blah blah ritad på ett visst sätt.
+En graf är \textbf{plan} om den är tecknad så att inga kanter korsar varandra. Man kan tänka sig att att grafen är plan betyder att den är helt platt.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig4}
-		\caption{Blah stuff figure shit.}
+		\caption{Båda grafer bildar den kompletta grafen $K_4$. Den vänstra grafen är plan medan den högra inte är det då (minst) två kanter korsar varandra.}
 		\label{fig4}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bild\ k_4\ plan,\ bild\ k_4$$
+En \textbf{planär graf} är en graf som \emph{kan} ritas plant, men inte nödvändigtvis är plant ritad. I exemplet ovan, figur \ref{fig4}, är endast den vänstra grafen plan medan båda grafer är planära.
 
-Båda grafer bildar den kompletta grafen $K_4$. Den vänstra grafen är plant ritad medan den högra inte är det då (minst) två kanter korsar varandra.
-Bildförklaring, vänsterbilden plan medan högerbilden inte är det då (minst) två kanter korsar varandra.
+Grafers planäritet har viktiga verkliga användningsområden. Ett vanligt exempel är under konstruktion av kretskort då om ledningarna som dras korsar varandra blir det kortslutning. Kretskort går att representera med grafer där en nod är en elektronisk komponent och kanterna är de ledningar som ska dras mellan komponenterna.
 
-En \textbf{planär graf} är en graf som \emph{kan} ritas så, men behöver nödvändigtvis inte vara ritad så. I exemplet ovan, figur \cite{somefig}, är endast den vänstra grafen plan medan båda grafer är planära.
+Bildar dessa en planär graf går kretskortet att konstruera på enbart ett lager.
 
-Grafers planäritet har viktiga verkliga användningsområden. Ett vanligt exempel är vid konstruktion av kretskort BLAH MROE STUFF HERE.
-Varför viktigt? Blah blah kretskort jag har ingen kreativitet mer än så. En plan graf är även ofta mer lättläst än andra som blir mer sammannystade då kanter korsar varandra.
+\section*{Icke-planära grafer}
 
-\section*{Ickeplanära grafer}
-
-Grafer som inte går att rita plant kallas för \textbf{ickeplanära grafer}. Ett exempel på en ickeplanär graf är kompletta grafen med 5 noder, $K_5$.
+Grafer som inte går att rita plant kallas för \textbf{icke-planära grafer}. Ett exempel på en icke-planär graf är kompletta grafen med 5 noder, $K_5$.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig5}
-		\caption{Blah stuff figure shit.}
+		\caption{Kompletta grafen $K_5$, till vänster, samt figur för att illustrera varför grafen inte går att rita plant.}
 		\label{fig5}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$Bilden,\ studiematerialet, K_5$$
+Bilden till vänster är hur vi $K_5$ vanligt ritas.
+Vi förstår att alla noder måste sitta ihop med alla, så först kopplar vi ihop noderna till en pentagon.
+För alla ytterligare anslutningar gäller det att kanterna, för att den ska ritas planärt, måste ligga antingen helt innanför eller utanför pentagonen, då de annars kommer att korsa existerande kanter.
 
-*Intuitiv förklaring till bilden, att linjer måste ritas inuti eller utanför pentagonen helt för att inte korsa andra linjer.*
+Om vi antar att t.ex. nod $5$ och nod $2$, se figur \ref{fig5}, är sammankopplade innanför polygonen kommer det att avgränsa nod $1$ från nod $4$ och $5$ inuti hexagonen.
+Därför måste kanterna mellan nod $1$ och nod $4$ samt nod $1$ och nod $5$ ritas utanför polygonen.
+Kanten som dras mellan $3$ och $5$ hade kunnat dras till vänster om resten av grafen, men båda dessa teckningar medför att ingen av de två kanter som ska finnas mellan nod $2$ och nod $4$ samt nod $5$ och nod $3$ kan ritas utanför pentagonen utan att korsa någon av dessa kanter.
+Kvar har vi då att kanterna mellan nod $2$ och nod $4$ måste ritas innanför pentagonen, vilket omöjligt kan göras utan att dessa korsar varandra.
 
-Då $K_4$ som tidigare nämnts är planär är $K_5$ den minsta kompletta grafen som samtidigt inte är planär.
+Alltså är $K_5$ inte planär. Då $K_4$ som tidigare nämnts är planär är $K_5$ den minsta kompletta grafen som samtidigt inte är planär.
 
 En annan graf som inte går att rita plant är $K_{3,3}$.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig6}
-		\caption{Blah stuff figure shit.}
+		\caption{Kompletta bipartita grafen $K_{3,3}$. Till höger är den ritad som en hexagon liknande figuren ovan.}
 		\label{fig6}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bild\ K_{3,3},\ bild\ K_{3,3}\ som\ hexagon$$
+Att $K_{3,3}$ är icke-planär förklaras på liknande sätt. I denna hexagon kan varken två extra kanter ritas plant inuti eller utanför hexagonen. Eftersom tre totalt ska ritas, och varken två av dem kan placeras inuti eller utanför, så är $K_{3,3}$ icke-planär.
 
-Förklaring till varför $K_{3,3}$ inte är planär. Blah blah ritas utanför /eller/ inuti.
-
-$K_{2,3}$ däremot är planär och $K_{3,3}$ är på liknande sätt den minsta kompletta bipartita grafen. 
+$K_{2,3}$ däremot är planär, så $K_{3,3}$ är då den minsta icke-planära kompletta bipartita grafen.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig7}
-		\caption{Blah stuff figure shit.}
+		\caption{Planära kompletta bipartita grafen $K_{2,3}$, till vänster tecknad som vanligt och till höger tecknad plant.}
 		\label{fig7}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bild\ K_{2,3},\ bild\ K_{2,3}\ plan$$
+\section*{Homomorfa grafer och större icke-planära grafer}
 
-\section*{Homomorfa grafer och större ickeplanära grafer}
-
-Vad är en homomorf graf? Förklara iaf. hur det är relevant för vårat fall.
+En homomorfi mellan två innebär att den ena grafen på ett eller annat sätt innehar samma egenskaper som den andra. Dvs. att de på ett eller annat sätt är identiska. Det kan handla om att den innehåller triviala tillägg som inte påverkar dess egenskaper. Notera att varje graf är homomorf med sig själv.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig8}
-		\caption{Blah stuff figure shit.}
+		\caption{Exempel på där vänstergrafen är homomorfa med den högra. I vårt fall är det uppenbart att extra noder på en kant inte påverkar dess planäritet då en kant redan kan böjas hur som helst när den ritas ut.}
 		\label{fig8}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bilden\ från\ 12.5\ studiematerialet$$
+Det har visat sig att ingen planär graf har en delgraf som är homomorf med $K_{5}$ eller $K_{3,3}$.
+Detta påstående kallas för Kuratowskis teorem och är mycket viktigt för att kunna bestämma om grafer är planära eller inte. 
+Beviset däremot är komplicerat och lämnas att eventuellt undersökas av den intresserade läsaren.
 
-Förklara varför det inte påverkar planäriteten av grafen och att de därför är identiska så vitt vi bryr oss. Varje graf är även homomorf med sig själv.
+Notera att varje komplett graf med fler än $5$ noder innehåller $K_5$ som delgraf. Notera även att varje kompletta bipartita graf där båda grupper av noder är om 3 eller fler noder innehåller $K_{3,3}$ som delgraf.
 
-Det har visat sig att ingen planär graf har en delgraf (kan vara hela grafen) som är homomorf med $K_{5}$ eller $K_{3,3}$. Detta påstående kallas för Kuratowskis teorem. Bevis för detta teorem finns men är komplicerat och lämnas åt den intresserade läsaren att finna.
-
-Varje graf är planär enbart om det inte finns en delgraf som går att sammandra till $K_5$ eller $K_{3,3}$. Förklara sammandragningar ish. "Som kan representeras, utan att fuska\texttrademark, med ett hörn".
+Ett annat exempel på en grafhomomorfi är att planära delgrafer går att dra ihop till en nod utan att skapa ytterligare korsningar, då de kan ritas oändligt små. Delgrafen kan inte dras ihop på det här sättet om den innehåller fler än en anslutning till en annan nod.
 
 \begin{figure}[!ht]
 	\begin{center}
 		\includegraphics{fig9}
-		\caption{Blah stuff figure shit.}
+		\caption{Icke-planär graf som varken har $K_5$ eller $K_{3,3}$ som delgraf.}
 		\label{fig9}
 	\end{center}
 \end{figure}
 \FloatBarrier
 
-$$bild\ 12.6\ looks\ nice.$$
-
-Förklara bilden och att det är en sammandragning av en planär delgraf som inte skapar konflikter inuti noden.
-
-Exempel på en ickeplanär graf som inte direkt är $K_{3,3}$ men går att dra samman till den.
+Exemplet ovan illustrerar hur homomorfi är viktigt för att kunna avgöra om en graf är planär eller inte. Dras den planära delgrafen längst ner till vänster ihop till en nod så blir grafen den icke-planära kompletta bipartita grafen $K_{3,3}$.
 
 \end{document}
 
