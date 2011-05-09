@@ -11,6 +11,10 @@
 #error STRATEGY must contain a value 1-4.
 #endif
 
+#define STRATEGY_FIRST 1
+#define STRATEGY_BEST 2
+#define STRATEGY_WORST 3
+#define STRATEGY_QUICK 4
 
 typedef double alignment_type;
 
@@ -45,7 +49,7 @@ header *morecore(size_t units)
 	return hdr;
 }
 
-#if STRATEGY == 4
+#if STRATEGY == STRATEGY_QUICK
 
 #ifndef NRQUICKLISTS
 #define NRQUICKLISTS 4
@@ -62,6 +66,10 @@ header *quicklist[NRQUICKLISTS] = {0};
 
 void *malloc(size_t size)
 {
+#if STRATEGY == STRATEGY_WORST || STRATEGY == STRATEGY_BEST
+	header *best, *prevbest;
+	size_t value;
+#endif
 	header *p, *prevp;
 	size_t units;
 
@@ -70,7 +78,7 @@ void *malloc(size_t size)
 
 	units = (size + sizeof(header)-1) / sizeof(header) + 1; /* get enough units, rounded up.*/
 
-#if STRATEGY == 4
+#if STRATEGY == STRATEGY_QUICK
 	if(units <= (4 << NRQUICKLISTS)) /* is the number of units small enough to take from a quick list? */
 	{
 		int list;
@@ -86,6 +94,8 @@ void *malloc(size_t size)
 		size = 8 << list;
 		/* else make new ones */
 		header *more = morecore(nalloc);
+		if(more == NULL)
+			return NULL;
 		for(i = 0; i < nalloc; i += size)
 		{
 			more[i].s.size = size;
@@ -98,10 +108,34 @@ void *malloc(size_t size)
 	}
 #endif
 	prevp = freep;
+
+#if STRATEGY == STRATEGY_WORST
+	best = &base;
+	value = 0;
+#elif STRATEGY == STRATEGY_BEST
+	value = (size_t) -1;
+	best = &base;
+#endif
+
 	for(p = prevp->s.next;; prevp = p, p = p->s.next)
 	{
 		if(p->s.size >= units)
 		{
+#if STRATEGY == STRATEGY_WORST
+			if(p->s.size > value)
+			{
+				best = p;
+				prevbest = prevp;
+				value = p->s.size;
+			}
+#elif STRATEGY == STRATEGY_BEST
+			if(p->s.size < value)
+			{
+				best = p;
+				prevbest = prevp;
+				value = p->s.size;
+			}
+#else
 			if(p->s.size == units)
 				/* unlink nothing left to store */
 				prevp->s.next = p->s.next;
@@ -114,12 +148,40 @@ void *malloc(size_t size)
 			}
 			freep = prevp;
 			return (void *)(p+1);
+#endif
 		}
 		if(p == freep)
 		{
+#if STRATEGY == STRATEGY_WORST || STRATEGY == STRATEGY_BEST
+			if(best == &base) /* no available block */
+			{
+				best = morecore(units);
+				if(best == NULL)
+					return NULL;
+				free((void *)(best+1));
+				for(prevp = &base, p = base.s.next; p->s.size < units; prevbest = p, p = p->s.next);
+				prevbest = prevp;
+				best = p;
+			}
+			p = best;
+			prevp = prevbest;
+			if(p->s.size == units)
+				/* unlink nothing left to store */
+				prevp->s.next = p->s.next;
+			else
+			{
+				/* allocate tail, keep present block */
+				p->s.size -= units;
+				p += p->s.size;
+				p->s.size = units;
+			}
+			freep = prevp;
+			return (void *)(p+1);
+#else
 			if((p = morecore(units)) == NULL)
 				return NULL;
 			free((void *)(p + 1));
+#endif
 		}
 	}
 }
@@ -162,7 +224,7 @@ void free(void *ptr)
 
 	bp = (header *)ptr - 1;    /* point to block header */
 
-#if STRATEGY == 4
+#if STRATEGY == STRATEGY_QUICK
 	if(bp->s.size <= (4 << NRQUICKLISTS)) /* is the number of units small enough to take from a quick list? */
 	{
 		int list;
@@ -174,6 +236,7 @@ void free(void *ptr)
 	}
 #endif
 
+	/* break if bp is inbetween p and p->s.next or is outside of p->s.next and p when the list loops back */
 	for (p = freep; !(bp > p && bp < p->s.next); p = p->s.next)
 		if (p >= p->s.next && (bp > p || bp < p->s.next))
 			break; /* freed block at start or end of arena */
