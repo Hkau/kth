@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
   else
     progname = "";
   MESSAGE("-- This test checks malloc(), free() and realloc()\n");
-  srand((unsigned int)time(NULL));
+  srand(42);
   start = (char *)sbrk(0);
 
   for(i=0;i<MAXPOSTS;i++)
