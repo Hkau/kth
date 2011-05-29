@@ -1,0 +1,649 @@
+h1. User Requirements Document (URD)
+
+
+h1. Abstract
+
+This document aims to describe the user requirements for Kårspexets online booking system, developed by Nyx. It contains the system's capabilities, constraints, assumptions, and dependencies, as well as its user characteristics, and operational enviroment. The document also features an extensive list of detailed requirements of the system, deduced from the preceding descriptions.
+
+
+h1. Ändringslogg
+
+|_.Version|_.Ändringar|
+|_.1.4|Version inför projektavslut. Plus- och deluxekrav som inte är uppfylda är strukna och innehåller istället rationalisering av varför de togs bort.|
+|_.1.3|Slutgiltig version inför SRD:n. Mindre revideringar av kravdetaljer.|
+|_.1.2|Sektion 2.5: Antaganden och beroende reviderad.|
+|_.1.1|Tillkommna krav från SRD:n. Numrering av krav.|
+|_.1.0|Sista utkastet för inlämning. Sista genomläsningen för enhetlig formulering. Krav formatteras konsekvent.|
+|_.0.6|Konsekvent formulering. Inklusion av databasmodellen i appendix. Fåtal nya krav samt gruppering av dessa.|
+|_.0.5|Allmän korrigering, strukturering och omformulering. Lite teknisk formattering samt inklusion av gruppmedlemmar i dokumentet.|
+|_.0.4|Omformuleringar. Ny version för granskning. Ny punktformatering, alla krav innehåller samma punkter.|
+|_.0.3|Texter ska vara färdigskrivna. Version som skickas för granskning av URD:n. Revisionsnummer flyttade till egen punkt.|
+|_.0.2|Texter under bearbetning men i stort sätt färdigkomponerade. Texter i dokumentet numreras numera med sitt revisionsnummer i dokumenthanteringssystemet för spårbarhet. Kravdatabas innehåller kundens funktionalitetskrav, men beskrivande texter saknas till vissa av dem.|
+|_.0.1|Första sammanställd version av dokumentet.|
+
+$VERSIONS$
+
+h1. Gruppmedlemmar
+
+Projektgruppen *Nyx* består av följande medlemmar.
+
+*Kalle Arvidsson* -- 890601-2490, kallear@kth.se
+
+*Peter Boström* -- 890224-0814, pbos@kth.se
+
+*Erik Eklund* -- 880816-0454, eekl@kth.se 
+
+*André Gräsman* -- 890430-3214, grasman@kth.se 
+
+*Rasmus Göransson* -- 850908-8517, rasmusgo@kth.se 
+
+*Per Hagsten* -- 870529-0115, hagsten@kth.se
+
+*Victor Hallberg* -- 890121-0057, victorha@kth.se
+
+*Anna Maria Modée* -- 871120-0363, ammodee@kth.se 
+
+*Daniel Nyberg* -- 900104-4495, dnyb@kth.se 
+
+*Johan Stjernberg* -- 890315-0533, stjer@kth.se
+
+*Andreas Tarandi* -- 890416-0317, taran@kth.se
+
+
+$TOC$
+
+h1. Introduktion
+
+h2. Syfte
+
+Dokumentets syfte är att specificera detaljer kring projektets produkt som omfattning och funktionalitet. Den är speciellt skriven för att underlätta arbetet inom projektgruppen, men skall också kunna läsas av vår kund Kårspexet. Dokumentet redogör för vilka funktioner som ingår i de olika kravversionerna Standard, Plus och Delux av produkten. Standard omfattar vårt löfte på funktionalitet i produkten vi levererar till Kårspexet. 
+h2. Mjukvarans omfattning
+
+Produkten består av ett webbaserat biljettbokningssystem med ett enkelt användargränssnitt för besökare och ett administrationsverktyg för Kårspexet. Administrationsverktygen består av tre gränssnitt; ett för säljare, ett för ekonomiansvariga och ett för administratörer.
+h2. Definitioner, akronymer och förkortningar
+
+*Algoritm* _Inom matematik och datorvetenskap är detta en begränsad uppsättning tydliga instruktioner för att utföra en uppgift._
+
+*Apache* _Syftar i detta dokument på webbservern  Apache HTTP Server._
+
+*Apache HTTP Server* _Världens mest använda webbserver. Är gratis att använda._ [1.3.1]
+
+*Apache Software Foundation* _Organisation som stödjer ett antal open source-projekt, bland annat Apache HTTP Server._ [1.3.2]
+
+*Applikation* _I datasammanhang även kallat tillämpningsprogram. Ett dataprogram som fyller ett direkt syfte för användaren._
+
+*Bandbredd* _I vardagligt tal en storhet för hur mycket information som kan överföras på en viss tid. Vanlig enhet är Mbit/sekund._
+
+*Bit* (Binary Digit) _Den grundläggande enhet som datorer arbetar med. En bit kan anta ett utav två möjliga värden (ofta angivna som 0 eller 1)._
+
+*Byte* _En vanlig enhet för informationsmängd i datasammanhang. En byte är ett paket bestående av åtta bitar._
+
+*CentOS* _Ett operativsystem baserat på Red Hat Enterprise Linux som är gratis att använda._ [1.3.3]
+
+*Databas* _En databas är en samling information ordnad på ett sådant sätt att informationen i den effektivt går att hitta._
+
+*Mail* _Elektroniskt brev (engelska: email)._
+
+*Mailklient* _Datorprogram för att hantera/läsa/skicka mail._
+
+*GHz* _Enhet för antalet miljarder svängningar per sekund. "G" är binärt prefix för 10^9. "Hz" är förkortning för Hertz._
+
+*Gränssnitt* _Utformningen av kommunikationen mellan en mjukvarumodul och användare eller annan mjuk-/hårdvara._
+
+*HTML* (Hyper Text Markup Language) _Ett språk och webbstandard som används för att beskriva strukturering av text, bilder och annan media på en webbsida._
+
+*HTTP* (HyperText Transfer Protocol) _Ett standardiserat protokoll som definierar hur kommunikation över webben sker._
+
+*Hårdvara* _Även kallat Maskinvara. Ett samlingsnamn för en dators fysiska komponenter._
+
+*Interface* _Se gränssnitt._
+
+*kB* (kilobyte) _Se kbyte._
+
+*kbyte* (kilobyte) _Enhet för datamängd. "k" är prefix för 10^3. För "byte", se Byte._
+
+*KiB* (kibibyte) _Enhet för datamängd. "Ki" är ett binärt prefix för 2^10. "B" är förkortning för Byte._
+
+*Klockfrekvens* _Beteckning för den hastighet i vilken en processor arbetar i._
+
+*KTH* (Kungliga Tekniska Högskolan) _Sveriges största tekniska universitet._
+
+*Latens* _Även känt som svarstid, tidsfördröjning eller lagg. Tidsskillnaden mellan en begäran och respons på begäran._
+
+*Latency* _Engelskt ord för Latens._
+
+*Linux* _Unix-liknande operativsystem. Linux är fri mjukvara._
+
+*Logik* _Vetenskapen om att dra korrekta slutsatser från givna påståenden._
+
+*Mb* (Megabyte) _Se Mbyte._
+
+*Mbyte* (Megabyte) _Enhet för datamängd. "M" är prefix för 10^6.  För "byte", se Byte._
+
+*MHz* _Enhet för antalet miljoner svängningar per sekund. "M" är binärt prefix för 10^6. "Hz" är förkortning för Hertz._
+
+*MiB* (mebibyte) _Enhet för datamängd. "Mi" är ett binärt prefix för 2^20. "B" är förkortning för Byte._
+
+*MiBit/s* (mebibit per sekund) _Enhet för datahastighet. "Mi" är ett binärt prefix för 2^20. "Bit" är den minsta enheten för informationsmängder i datasammanhang._
+
+*Mjukvara* _Även kallat programvara. En organiserad samling av data och maskininstruktioner._
+
+*Mjukvarubibliotek* _En samling av redan existerande program eller delar av program som används för att utveckla mjukvara._
+
+*Modul* _Term för komponenter eller funktioner som går att separera från resten av systemet och som inte nödvändigtvis krävs för att systemet ska fungera som helhet._
+
+*MVC* (Model-View-Controller) _Ett koncept som bygger på att separera data (modeller), logik (kontroller) och användarinterface (vyer)._
+
+*MVC ramverk* _Mjukvarubibliotek designade efter MVC-konceptet._
+
+*MySQL* _En typ av relationsdatabas baserad på SQL-standarden. Ett relationsdatabas hanteringssystem där flera användare kan arbeta med flera databaser._
+
+*Open Source* _Engelskt låneord för öppen källkod._
+
+*Operativsystem* _Ett datorprogram vars syfte är att underlätta användandet av en dator genom att vara länken mellan programvara och hårdvara._
+
+*Passenger* _I Rails-sammanhang en modul som gör det möjligt att köra Ruby on Rails på webbservern Apache._
+
+*PHP* _Ett programmeringsspråk som ofta används för att skapa webbapplikationer._
+
+*Processor* _Den komponent i en dator som utför beräkningar efter instruktioner._
+
+*Programmeringsspråk* _Språk som människor använder för att skapa datorprogram._
+
+*Rails* _I datorsammanhang vanlig förkortning för Ruby on Rails._
+
+*Red Hat Enterprise Linux* _Variant av Linux._
+
+*Rendering* _I datasammanhang (även känt som Rendrering) det program som framställer en bild/animering med hjälp av beräkningar från en beskrivning._
+
+*Ruby* _Ett objektorienterat programmeringsspråk._
+
+*Ruby on Rails* _Ett abstrakt mjukvarubibliotek med öppen källkod för utveckling av webbapplikationer._
+
+*Systemminne* _Även kallat RAM (Random Access Memory), arbetsminne eller primärminne. Används för att tillfälligt lagra data som datorn arbetar med._
+
+*Spex* (Spektakel) _Humoristisk studentamatörteaterföreställning._
+
+*SQL* (Structured Query Language) _Ett språk designat för att interagera med databaser._
+
+*Unix* _Ett operativsystem som ofta används i olika typer av servrar och arbetsstationer._
+
+*URL* (Uniform Resource Locator) _Den formella benämningen av en webbadress. En text som beskriver var en viss resurs på internet finns, samt hur den går att komma åt._
+
+*Webb* _Även känt som WWW (World Wide Web). Det system som används för att hämta, visa och manipulera delar på internet. WWW utgörs av standarderna URL, HTTP respektive HTML._
+
+*Webbapplikation* _Samlingsnamn för mjukvara som användare kommer åt via en webbläsare._
+
+*Webbläsare* _Ett program som hämtar, tolkar och återger webbsidor kodade exempelvis som HTML._
+
+*Webbserver* _Program som körs på en server och distribuerar webbsidor och/eller andra filer som en webbläsare begär via HTTP-protokollet._
+
+*Webbsida* _En fil, innehållandes exempelvis HTML, avsedd att visas av en webbläsare._
+
+*Öppen källkod* _Innebär möjlighet att ändra i konstruktionen för ett system. I ett datorprogram som har öppen källkod kan den som vill göra ändringar i programmet och utveckla det vidare._
+
+h2. Källor
+
+Referenser till de källor som använts i dokumentet är listade här under. En och samma källa kan refereras vid flera ställen i texten. En referens är på formatet [Sektion.Rubrik.Löpnummer]. Exempelvis är [2.5.1] den första (1) referensen för rubriken "Antaganden och beroenden" (5) under sektion "Allmän beskrivning" (2).
+
+h3. Allmän kunskap av Människa-dator interaktion och användarvänlighet
+
+_Användarcentrerad systemdesign-en process med fokus på en användare och användbarhet_ Jan Gulliksen & Bengt Göransson, Studentlitteratur 2002, Studentlitteratur AB, Lund, tryckt 2010
+Hänvisning till källan görs från referenserna: [2.1.1]
+
+h3. Apache HTTP Server
+
+http://httpd.apache.org/
+Hänvisning till källan görs från referenserna: [1.3.1].
+
+h3. Apache Software Foundation
+
+http://www.apache.org/
+Hänvisning till källan görs från referenserna: [1.3.2].
+
+h3. CentOS
+
+http://www.centos.org/
+Hänvisning till källan görs från referenserna: [1.3.3].
+
+h3. Installation av Passenger på CentOS 5
+
+http://hasham2.blogspot.com/2008/07/install-phusion-passenger-on-cent-os-5.html
+Hänvisning till källan görs från referenserna: [2.3.1].
+
+h3. Minimikrav för att installera och köra CentOS på en dator
+
+http://www.centos.org/docs/5/html/CDS/install/8.0/Installation_Guide-Support-Platforms.html
+Hänvisning till källan görs från referenserna: [2.3.3].
+
+h3. Undersökning av prestanda för Rails
+
+http://www.rubyenterpriseedition.com/comparisons.html
+Hänvisning till källan görs från referenserna: [2.3.2].
+
+h3. Webbläsarstatistik 
+
+http://en.wikipedia.org/wiki/Usage_share_of_web_browsers
+Hänvisning till källan görs från referenserna: [3.2.1].
+h2. Dokumentöversikt
+
+Systemet som Nyx utvecklar åt Kårspexet ersätter ett gammalt system, detta behandlas i sektion 2.1. Sektion 2.2 presenterar systemets användare och går igenom tänkta användarscenarion för dessa. Projektets allmänna begränsningar behandlas i sektion 2.3, medan systemets användare beskrivs i mer detalj i sektion 2.4. De antaganden som finns angående systemets drift hittas i sektion 2.5 och de mer operativa kraven beskrivs i 2.6. I sektion 3 specificeras all funktionalitet i tabellform.
+
+
+
+
+h1. Allmän beskrivning
+
+h2. Produktperspektiv
+
+Kårspexet vill ha ett nytt bokningssystem till sina föreställningar eftersom de är missnöjda med sin nuvarande lösning. De vill ha ett väldokumenterat system med tillgång till källkoden för att vid behov kunna vidareutveckla systemet. Lösningen måste vara så enkel att Kårspexet slipper lägga mer tid än nödvändigt på administrationen, vilket ger dem mer tid till att fokusera på andra aktiviteter som marknadsföring och att anordna bra spex.
+
+Vårt uppdrag är att skapa ett nytt bokningssystem efter Kårspexets önskemål. Vi skall fokusera på att skapa ett enkelt och visuellt tilltalande system för Kårspexet och deras kunder. Bokningssystemet som används idag ser något föråldrat och komplicerat ut och designen är ej anpassad till övriga delar av hemsidan. Systemet körs på en extern server som Kårspexet inte har tillgång till. Det system som vi kommer att konstruera ska ha olika gränssnitt för kunder, administratörer och säljare på Kårspexets hemsida. Varje gränssnitt kommer att anpassas till sin målgrupp och dokumenteras därefter. På så sätt kommer interaktionen med hela systemet bli lättare och angenämare för alla användare.
+
+Ett nytt bokningssystem kan hjälpa Kårspexet att höja sina intäkter genom en ökad biljettförsäljning. Icke-användarvänliga system kan få osäkra besökare att avstå från ett köp, där ett enkelt system kan locka till sig fler kunder [2.1.1]. Ett bra bokningssystem kan ge ett bättre intryck på studenter och andra besökare, vilket kan ge möjligheten att producera fler spex som leder till ytterligare intäkter.
+h2. Allmän funktionalitet
+
+Bokningssystemet ska användas av fyra typer av användare: kund, säljare, ekonomichef och administratör. Dessa har olika roller som interagerar med varandra.
+
+h3. Boka biljetter från hemsidan
+
+Kunder ska kunna boka biljetter från kårspexets hemsida. Efter att kunden har genomfört en bokning ska kunden få ett mail med betalningsuppgifter och bokningsnummer.
+
+h3. Registrera betalningar
+
+Ekonomichefen ska kunna registrera betalningar för bokningar som kunder gjort.
+
+h3. Administrera biljetter
+
+Efter att kunden har bokat och ekonomichefen registrerat kundens betalning placerar administratören ut vilka stolar kunden ska få sitta på under föreställningen. När placeringen är klar får kunden ett mail med uppmaning att hämta ut sina biljetter.
+
+h3. Lämna ut bokade biljetter
+
+Säljare verifierar att en kunds biljetter är redo att hämtas, lämnar ut biljetterna och registrerar i systemet att biljetterna har hämtats. Gränssnittet för säljare ska vara lätt att lära sig eftersom säljarna ofta byts ut.
+
+h3. Sälja biljetter direkt
+
+Säljaren ska kunna sälja biljetter kontant. Det är då säljaren som väljer vilka stolar kunden får sitta på.
+
+h3. Administrera mailutskick
+
+Administratören ska kunna ändra informationen i de automatiska utskicken som sker samt kunna göra nya utskick till valda bokningars kontaktpersoner.
+
+h3. Administrera föreställningar och teatrar
+
+När det vankas nya föreställningar är det administratören som matar in dem i systemet. Priser ska kunna ändras och om föreställningen är på en ny teater ska teatern kunna läggas till. Detta innebär att nya salongsskisser med nya sektioner och stolar ska kunna matas in. Administratören ska kunna välja vilka föreställningar det går att boka/köpa biljetter till.
+
+h3. Administrera konton
+
+Administratören ska kunna ändra både sitt eget och andras lösenord. Säljarens lösenord ska kunna genereras automatiskt och vara giltigt en begränsad tid.
+
+h3. Statistik
+
+Administratören och ekonomichefen ska kunna se statistik om antalet bokade och sålda biljetter för att kunna få inblick i verksamheten.
+h2. Allmänna begränsningar
+
+h3. Datamodell
+
+Datamodellen finns bifogad med beskrivning i appendix.
+
+h3. Resurser
+
+Vi kommer vara begränsade i vilka och hur många funktioner vi kommer kunna implementera då vi totalt är fem programmerare. På kort tid ska vi hinna implementera fyra gränssnitt för bokningssystemets användare. Gränssnitten kommer behöva testas men eftersom vi har lika många testare som vi har utvecklare kommer inte detta utgöra ett hinder för tidsplanen. En stor del av arbetet kommer behöva läggas på utvecklingen av administratörsgränssnittet då det är där de flesta och mest avancerade funktionerna kommer finnas.
+
+Vi har inte någon budget för projektet och vi kommer inte att tillföra egna pengar för att köpa in något, detta gör att vi begränsas till att använda programvara som är gratis. Detta skulle kunna innebära ett problem i vissa projekt, men just inom webbutveckling finns det starka open source-programvaror att använda för våra ändamål.
+
+h3. Kundbehov
+
+Nyx mål är att leverera ett fullständigt bokningssystem med alla de funktioner som Kårspexet har specificerat. På grund av systemets förväntade komplexitet och projektets tidsram kommer kvaliteten i delar av slutprodukten vara begränsad.
+
+Gränssnittet för besökare (slutkunder) respektive säljare ska designas på ett sätt som gör att det går att använda utan några speciella förkunskaper inom vårt system. Det ska alltså fungera på ett sätt som efterliknar liknande produkter. Detta begränsar oss i hur pass många funktioner och val vi kan låta användarna exponeras för på en och samma gång. Administratörsgränssnittet är inte begränsat på samma sätt då dess användare kommer utbildas i förväg.
+
+h3. Tekniska begränsningar
+
+Kårspexet står för den server som kommer köra vår webbapplikation. Vi har ingen kontroll över deras hårdvara, men vi har verifierat att operativsystemet som körs på servern är kompatibelt med Apache, Ruby on Rails [2.3.1] och MySQL.
+
+Applikationen kommer inte inkludera avancerade algoritmer utan till störst del involveras mycket trafik till och från databasen. I och med att webbapplikationen och databasen körs på en och samma dator undviks eventuella begränsningar i nätverksanslutningen.
+
+Systemet kommer enligt våra uppskattningar exponeras för upp till åtta samtidiga användare. Rails under Apache kommer i detta fall att, under godtycklig tidpunkt, använda uppskattningsvis c:a 250 MB systemminne [2.3.2]. CentOS anger 256 mb minne samt en klockfrekvens på minst 500 MHz som minimikrav för datorer som kör operativsystemet [2.3.3]. Med MySQL och Apache körandes samtidigt utöver dessa bör servern ha minst en gigabyte systemminne och en processor med klockfrekvensen 1 GHz eller högre. Kårspexets server har en processor med klockfrekvensen 2,6 GHz och 1 Gb systemminne, vilket alltså bör vara tillräckligt.
+h2. Användarbeskrivning
+
+Produkten kommer ha fyra olika typer av användare: kund, säljare, administratör och ekonomiansvarig. 
+
+h3. Kund
+
+h4. Teknisk bakgrund för kund
+
+Kunder går att dela upp i två distinkta grupper: de som studerar på en teknisk högskola eller ett universitet respektive släktingar eller bekanta till Kårspexets medlemmar som inte är associerade med en teknisk högskola eller ett universitet.
+
+h5. Studenter
+
+Använder datorer dagligen, antingen som en del i sin utbildning och/eller för privat bruk. Användarna är vana med mailklienter och anpassar sig i behaglig takt till nya webbsidor och gränssnitt.
+
+h5. Släktingar och bekanta
+
+Den tekniska kompetensen varierar stort inom denna grupp från datorvana tonåringar till pensionärer som inte är lika datorvana. Användarna är vana med mailklienter till viss mån, men kan ta lång tid på sig att anpassa sig till nya gränssnitt. 
+
+h4. Typscenario för kunden
+
+Kunden besöker Kårspexets hemsida och klickar på boka biljett. En snabb och utförlig överblick av vilka föreställningar som finns och antalet platser i respektive sektion visas. Kunden får snabb återkoppling på sina val och går igenom bokningens steg; val av föreställning, val av sektion, betalningsuppgifter och bokningsbekräftelse. När kunden slutfört bokningen skickas ett mail från Kårspexet som bekräftelse. Mailet innehåller information om hur kunden kan betala sin bokning. När betalningen har registrerats kommer ett mail från Kårspexet om att hans/hennes biljett finns att hämta hos ombud.
+
+h3. Säljare
+
+h4. Teknisk bakgrund för säljare
+
+Säljare är medlemmar i Kårspexet och är därmed sannolikt kårmedlemmar vid en teknisk högskola. De är först och främst aktiva med Kårspexets arrangemang och är säljare i andra hand. Det är därför viktigt att Säljargränssnittet är enkelt, då säljarna inte skall behöva någon utbildning i systemet. 
+
+h4. Typscenario för säljare
+
+Säljaren står i kårhuset eller på utsatt plats och loggar in på Kårspexets hemsida. Antingen säljs biljetter direkt på plats eller så kommer en kund som bokat sin biljett via hemsidan och valt att betala kontant. I båda fallen placerar säljaren ut en plats i den sektion kunden har valt och tar emot betalning för bokningen. Säljaren ger även ut utplacerade biljetter som blivit betalda till kunder som fått mailbekräftelse från Kårspexet om att deras biljett finns att hämta ut.  
+
+h3. Administratör och ekonomiansvarig
+
+h4. Allmän teknisk bakgrund för administratören och ekonomiansvarig
+
+Både administratören och ekonomiansvarige är studenter på en teknisk högskola, i Kårspexets fall KTH. De är därmed vana att navigera i personliga inloggningssidor, t.ex. Mina sidor, eller studera.nu. De är även vana användare av mailklienter. Deras tekniska bakgrund är uppdelad i två jämna läger; de mindre datorvana och de med lite mer datorvana. 
+
+h5. Mindre datorvana
+
+Organisatören kan ha en bakgrund i matematik, biologi, kemi, eller liknande ämne, där datorer inte är en väsentlig del av utbildningen. Organisatören kan hantera textredigerare väl, då han/hon är van att skriva rapporter. Det tar lite längre tid för den mindre datorkunnige att använda nya program eller anpassa sig till nya gränssnitt.
+
+h5. Mer datorvana
+
+Organisatören kan ha en bakgrund i datalogi, teknisk fysik, eller liknande ämne, där datorer har varit en större del av utbildningen. Organisatören har mer erfarenhet av gränssnitt och navigering på webben. En sida söks igenom systematiskt och organisatören lär sig snabbt arbeta i nya gränssnitt och program.
+
+h4. Typscenario för administratören
+
+Administratören loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 30 minuter till förfogande att jobba med sina uppgifter.
+
+*Görs ofta:* placerar ut betalda bokningar, planerar föreställningar och tar hand om specialbokningar, t.ex. handikappsbokningar eller stora företagsbokningar. 
+
+*Görs mer sällan:* lägger till en ny teater, lägger till en ny omgång, skickar massutskick till b.la. kundbokningar, kollar på statistik.	
+
+h4. Typscenario för ekonomiansvarige		
+
+Ekonomiansvarige loggar in på Kårspexets hemsida. Han/hon har uppskattningsvis 30 minuter till förfogande att jobba med sina uppgifter.
+
+*Görs ofta:* bockar av betalade bokningar, skickar påminnelser till obetalda bokningar, tar bort gamla bokningar.
+
+*Görs mer sällan:* kollar på utförlig statistik. 
+h2. Antaganden och beroenden
+
+Bokningssystemet som utvecklas för Kårspexet är beroende av datorkraft från webbservrar där mjukvaran körs. Mjukvaran och systemet i sin helhet ställer krav på yttre faktorer för att systemet skall bli användbart. De yttre faktorerna är framför allt bandbredd och serverprestanda.
+
+Bandbredden talar om i vilken hastighet webbservern kan kommunicera med omvärlden. Omvärlden består av ett flertal användare som var och en kräver en viss del av den totala bandbredden då en användare är aktiv. Med andra ord beror behovet av bandbredd på hur många som använder systemet samtidigt.
+
+Serverprestanda talar om hur många anrop till ett system en server kan hantera samtidigt. Varje aktiv användare kräver en del av den totala prestanda som finns tillgänglig. Behovet på serverprestanda beror precis som bandbredd på hur många som använder systemet vid en och samma tidpunkt.
+
+Uppskattat möjliga samtida användare beror på de antaganden vi gör om systemet. Utifrån denna uppskattning samt dess användning vill vi bestämma hur mycket prestanda och bandbredd som systemet maximalt kan kräva.
+
+h3. Avgörande faktorer
+
+*A.* Hur många platser en föreställning har i medeltal.
+
+*B.* Hur många föreställningar som släpps för biljettköp åt gången.
+
+*C.* Hur stor del av platserna som säljs per tidsenhet då efterfrågan är som störst.
+
+*D.* Hur många anrop (sidladdningar) det krävs från bokningsgränssnittet för användaren till servern under en bokning i medeltal.
+
+*E.* Hur lång tid det tar att boka (på vilken tid antalet anrop är fördelade vid en bokning).
+
+*F.* Hur mycket trafik som totalt överförs vid en bokning i en riktning.
+
+*G.* Hur många platser som bokas vid en bokning i medeltal.
+
+h3. Antaganden
+
+*a.* En föreställning har inte mer än 800 platser.
+
+*b.* Biljettsläpp görs inte för mer än 4 föreställningar i taget.
+
+*c.* Efterfrågan är maximalt 30% av platserna per timme.
+
+*d.* Bokningsgränssnittet för användaren behöver inte anropa servern mer än 11 gånger per bokning.
+
+*e.* En bokning tar 4 minuter och bokningens anrop till servern är jämnt fördelat över tiden. 
+
+*f.* En bokning kräver max 4 MiB trafik i en riktning .
+
+*g.* Varje bokning omfattar 2 platser i medeltal.
+
+h3. Beräkningar
+
+*3200* bokningsbara platser vid varje biljettsläpp: (a*b)
+*0,046* (anrop/sekund/bokning) under den tid det tar att boka: (d/e/60)
+*0,27* (platser/sekund) som hanteras då efterfrågan är maximal: (a*b*c/100/60/60)
+*0,14* (bokningar/sekund) som hanteras då efterfrågan är maximal: (a*b*c/100/60/60/g)
+*1,47* (anrop/sekund) till servern då efterfrågan är maximal: (a*b*c*d/100/60/60/g)
+*4,27* (MiBit/sekund) i medelvärde mot servern då efterfrågan är maximal: (a*b*c*f*8/100/60/60/g)
+
+h3. Slutsats
+
+Utifrån antagandena skall bandbredden minst vara *4,27* MiBit/sekund och webbservern måste klara av att hantera *1,47* anrop/sekund. Vad gäller bandbredden så motsvarar *4,27* MiBit/sekund en mindre del av en vanlig uppkoppling i hemmet. Det låga antalet *1,47* anrop/sekund mot bokningssystemet gör att prestanda från en vanlig persondator räcker till.
+
+Antagandena om användandet av systemet har diskuterats med Kårspexet. De antaganden som gjorts är väl tilltagna gentemot Kårspexets uppfattning av användandet. Antagandena är tilltagna på ett sådant sätt att kraven för bandbredd och serverprestanda blir större. Med andra ord kommer Kårspexets användande av systemet sannolikt ha lägre krav på den befintliga hårdvaran än med angivna antagandena ovan.
+h2. Plattform
+
+Biljettsystemet kommer använda flera externa system. Till att börja med kommer MVC-ramverket _Ruby on Rails_ för webbapplikationer i Ruby användas. Det ger oss funktionalitet som underlättar webbutveckling, databashantering samt rendering av HTML.
+
+Vi kommer även att använda databasmotorn _MySQL_ för lagring av data. Databasen görs tillgänglig för systemet med hjälp av SQL. Dock kommer Rails att sköta mycket av den kommunikationen åt oss och i slutändan kommer databasen vara tillgänglig genom modeller i form av klasser i koden. 
+
+Systemet kommer dessutom vara beroende av Apache med modulen _Passenger_ för att sköta inladdningen av applikationen och all HTTP-kommunikation mellan webbapplikationen och besökarna.
+
+När vi implementerar kortbetalning i systemet kommer vi även vara beroende av ett externt system för hantering av korttransaktioner. Hur gränssnitt mot det systemet ser ut vet vi inte, eftersom inga beslut har tagits angående vilket system som ska användas.
+
+h1. Specifika krav
+
+h2. Funktionalitetskrav
+
+$ISSUES$
+
+h2. Begränsande krav
+
+h3. Prestanda
+
+|_.Krav|_.UR5.1 Serverbelastning|
+|_.Beskrivning|Systemet ska utan märkbara problem hantera minst åtta typiska användare samtidigt. Hur väl kravet uppfylls beror mycket på serverns prestanda.|
+|_.Motivering|Det kommer förekomma fall då flera använder systemet samtidigt. Se Antaganden och beroenden för uppskattningar.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Testkörning av systemet på Kårspexets server med åtta eller fler användare.|
+
+|_.Krav|_.UR5.2 Svarstid|
+|_.Beskrivning|Systemet får inte ta för lång tid på sig att svara på användarens anrop. Vi kan dock inte ansvara för fördröjningar i nätverket mellan systemet och användaren. Olika operationer kan ha olika långa maximala svarstider. Vid alla operationer i alla gränssnitt som enbart gäller en enstaka bokning ska systemet svara på max 1 sekund.|
+|_.Motivering|Svarstiden är viktig för användarens upplevelse av systemet och vid väldigt långa svarstider försämras systemets användbarhet.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Tiderna mäts och skrivs till en logg. Kontrollera att tiderna är tillräckligt små.|
+
+|_.Krav|_.UR5.3 Pålitlighet|
+|_.Beskrivning|Serverfel som inte beror på användarfel ska inträffa väldigt sällan.|
+|_.Motivering|Kårspexet och användaren av systemet ska kunna lita på att systemet i de allra flesta fall inte krashar eller ger något fel.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Antalet besök och serverfel loggas och jämförs.|
+
+|_.Krav|_.UR5.4 Serverns uppkopplingshastighet|
+|_.Beskrivning|Serverns uppkopplingshastighet får inte underskrida 4,27 MiBit/Sekund.|
+|_.Motivering|Uppkopplingshastigheten är viktig för att rätt antal användare skall kunna arbeta mot systemet samtidigt.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Mäta serverns uppkopplingshastighet med exempelvis bredbandskollen.se.|
+
+h3. Säkerhet
+
+|_.Krav|_.UR6.1 Autentisering|
+|_.Beskrivning|De funktioner som hör till säljarna, ekonomichefen eller administratören, ska bara kunna användas om man angett ett lösenord.|
+|_.Motivering|Bara Kårspexets personal ska kunna använda dessa funktioner.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Verifiera kravet Inloggningssystem|
+
+|_.Krav|_.UR6.2 Datasäkerhet|
+|_.Beskrivning|Data och lösenord i systemet ska inte gå att komma åt av obehöriga|
+|_.Motivering|Användare av systemet ska kunna lita på att data och lösenord är trygga i systemet|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Verifiera att det inte går att komma åt data i systemet oaktoriserat|
+
+|_.Krav|_.UR6.3 Datatrygghet|
+|_.Beskrivning|Mer än ett dygns data ska inte gå förlorad vid systemhaveri|
+|_.Motivering|För mycket data ska inte försvinna vid systemhaveri|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Verifiera att backuper är korrekt uppsatta |
+
+h3. Miljö
+
+|_.Krav|_.UR7.1 Webb|
+|_.Beskrivning|Kunder såväl som Kårspexets personal ska kunna använda bokningssystemet genom webbgränssnitt.|
+|_.Motivering|Smidigast eftersom det innebär maximal tillgänglighet.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Provkörning av systemet via webbläsare.|
+
+|_.Krav|_.UR7.2 Rails|
+|_.Beskrivning|Ruby on Rails är ett ramverk för utveckling av webbapplikationer. Bokningssystemet ska huvudsakligen vara byggt med detta ramverk.|
+|_.Motivering|Gruppen tycker det verkar passande för projektet och vill arbeta i ramverket.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Undersökning av serverns konfiguration samt källkoden.|
+
+|_.Krav|_.UR7.3 Webbläsarkompatibilitet|
+|_.Beskrivning|Det ska gå använda bokningssystemets alla funktioner med följande webbläsare: _Firefox 3_, _Internet Explorer 8_.|
+|_.Motivering|Dessa webbläsare är stora på marknaden just nu och bör stödas av vårt system. Vi refererar till punkt 1.4 för statistik på webbläsaranvändande.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Provkörning av systemet i dessa webbläsare.|
+
+|_.Krav|_.UR7.4 Visuell webbläsarkompatibilitet|
+|_.Beskrivning|Det ska inte vara skillnad på hur systemets webbsidor ser ut i de webbläsare som nämndes i kravet webbläsarkompatibilitet. Mindre avvikelser får förekomma, till exempel i teckensnitt.|
+|_.Motivering|Om gränssnitten inte ser ut som de är tänkta att se ut, är de troligen svårare att använda. Se även motiveringen för webbläsarkompatibilitet.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Provkörning av systemet i de olika webbläsarna.|
+
+|_.Krav|_.UR7.5 Internet Explorer 7|
+|_.Beskrivning|Kravet webbläsarkompatibilitet uppfylls även för webbläsaren _Internet Explorer 7_.|
+|_.Motivering| _Internet Explorer 7_ är en webbläsare som används, men som skiljer sig från de andra webbläsarna så att extra arbete krävs för att sidorna ska visas korrekt. Därför finns detta krav inte i Standard.|
+|_.Behov|Plus|
+|_.Prioritet|Låg|
+|_.Stabilitet|Instabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Provkörning av systemet med _Internet Explorer 7_.|
+
+h3. Användbarhet
+
+|_.Krav|_.UR8.1 Bokningstid|
+|_.Beskrivning|En typisk kund ska kunna genomföra sin första bokning på mindre än fem minuter.|
+|_.Motivering|Det ska vara enkelt och smidigt att använda systemet.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|En urvalsgrupp som inte tidigare använt systemet provbokar under tidsmätning.|
+
+|_.Krav|_.UR8.2 Inlärningstid|
+|_.Beskrivning|En typisk KTH-student ska, på en dag, kunna sätta sig in i administrationsgränssnittets huvudsakliga funktioner.|
+|_.Motivering|Det ska gå smidigt för Kårspexets personal att använda systemet.|
+|_.Behov|Standard|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Undersökning av hur lång tid det tar för Kårspexets personal eller andra KTH-studenter att sätta sig in i systemet.|
+
+|_.Krav|_.UR8.3 Introduktion|
+|_.Beskrivning|Vid leverans av produkt ska en introduktion till systemet ges vid ett tillfälle. Vi utlovar ingen vidare kundhjälp efter leverans.|
+|_.Motivering|Det är nödvändigt att ge instruktioner till Kårspexet, dock kan inte gratis hjälp utlovas efter leverans.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Johan Stjernberg, Kalle Arvidsson|
+|_.Verifierbarhet|Kårspexet kan ombedas intyga att de fått instruktioner för systemet.|
+
+|_.Krav|_.UR8.4 Förbättring|
+|_.Beskrivning|Kårspexets personal såväl som deras kunder ska ha ett bättre bokningssystem än det tidigare.|
+|_.Motivering|Om inte vårt bokningssystem är bättre än det befintliga har vi misslyckats med vårt uppdrag.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Kårspexets personal ombedes lämna en muntlig eller skriftlig jämförelse av systemen, med särskilt fokus på användbarhet och effektivitet.|
+
+|_.Krav|_.UR8.5 Dokumentation|
+|_.Beskrivning|Kårspexet vill få tillgång till bokningssystemets källkod vid projektets avslutande för att själva kunna modifiera systemet. Av denna anledning ska koden vara väldokumenterad för att underlätta vidareutveckling.|
+|_.Motivering|Kårspexet vill ha möjlighet att själva göra modifieringar av systemet, vilket underlättas om källkoden dokumenteras.|
+|_.Behov|Standard|
+|_.Prioritet|Låg|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Undersökning av källkoden visar att den är dokumenterad.|
+
+|_.Krav|_.UR8.6 Mjukvarutestning|
+|_.Beskrivning|Mjukvaran ska testas.|
+|_.Motivering|Nyx kvalitékontrollerar systemet med hjälp av testning.|
+|_.Behov|Standard|
+|_.Prioritet|Normal|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Nyx skriver testkod för att testa systemet och utför användarstudier med protokoll.|
+
+h3. Externa system
+
+|_.Krav|_.UR9.1 MySQL|
+|_.Beskrivning|Bokningssystemet ska använda databashanteraren MySQL.|
+|_.Motivering|Gruppen vill använda MySQL och Kårspexet har samtyckt.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Uppvisning av databas eller kontroll av källkod.|
+
+|_.Krav|_.UR9.2 Apache|
+|_.Beskrivning|Bokningssystemet ska använda webbservern Apache.|
+|_.Motivering|Gruppen vill att webbplatsen ska använda Apache. Apache har stöd för Ruby on Rails.|
+|_.Behov|Standard|
+|_.Prioritet|Hög|
+|_.Stabilitet|Stabilt|
+|_.Källa|Nyx|
+|_.Verifierbarhet|Visa att Apache körs på servern.|
+
+|_.Krav|_.UR9.3 Kortbetalningssystem|
+|_.Beskrivning|Bokningssystemet ska använda sig av ett externt system för kortbetalning.|
+|_.Motivering|Vi kan inte ta på oss att hantera säkra kortbetalningar själva, ett externt system behövs.|
+|_.Behov|Deluxe|
+|_.Prioritet|Medel|
+|_.Stabilitet|Stabilt|
+|_.Källa|Kårspexet|
+|_.Verifierbarhet|Om kortbetalning fungerar används ett externt system. För verifiering av att kortbetalning fungerar, se kravet kortköp.|
+
+
+h1. appendix
+
+h1. Databasmodell
+
+!nyx-databasmodell-final.pdf!
+
+Varje box motsvarar en tabell i databasen, varje rad i en box motsvarar fält i tabellen. En rad i en box kan representera flera fält i en tabell, t.ex. kontaktuppgifter som skulle motsvara fälten Namn, Telefon, Adress osv. Pilarna indikerar att det finns en referens mellan två tabeller, ‘FK’ visar vilket fält som refererar till den andra tabellen. En fetmarkerad rad i en box innebär att fältet i tabellen måste ha ett värde. 'PK' innebär att ett eller flera fält identifierar en rad i tabellen, alltså gör den unik.
