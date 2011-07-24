@@ -41,6 +41,17 @@ srd:
 	rm srd.toc
 	rm versions.txt
 
+manual:
+	mkdir -p files
+	ruby1.8 docmerge.rb --doc=Manual > manual.txt
+	ruby1.8 wikitex.rb $(pre) < manual.txt > manual.tex
+	pdflatex manual.tex
+	pdflatex manual.tex
+	rm manual.aux
+	rm manual.log
+	rm manual.toc
+	rm versions.txt
+
 pre_urd:
 	./build_pre User_Requirements_Document urd
 

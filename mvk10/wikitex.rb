@@ -76,6 +76,7 @@ split.each do |section|
     line.gsub!(/_/, '\_')
     line.gsub!(/#/, '\#')
     line.gsub!(/%/, '\%')
+    line.gsub!(/\$/, '\$')
     line.gsub!(/\\url\{([^\}]*)\}/) { |s|
       url = $1
       url.gsub!('\_', '_') # \_ => _ inside urls.

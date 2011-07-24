@@ -1,0 +1,723 @@
+\documentclass[a4paper, twoside, 11pt, titlepage]{article}
+
+\usepackage{bds/bds}
+
+\usepackage[utf8]{inputenc} % -- använd denna "när det funkar", dvs på skolans nya datorer + linux, ibland på windows
+\usepackage[swedish,english]{babel}
+\usepackage{placeins}
+
+\project{Bokningssystem för Kårspexet}
+\author{
+	\small
+	Arvidsson, Kalle -- kallear@kth.se\\
+	Boström, Peter -- pbos@kth.se\\
+	Eklund, Erik -- eekl@kth.se\\
+	Gräsman, André -- grasman@kth.se\\
+	Göransson, Rasmus -- rasmusgo@kth.se\\
+	Hagsten, Per -- hagsten@kth.se\\
+	Hallberg, Victor -- victorha@kth.se\\
+	Modée, Anna Maria -- ammodee@kth.se\\
+	Nyberg, Daniel -- dnyb@kth.se\\
+	Stjernberg, Johan -- stjer@kth.se\\
+	Tarandi, Andreas -- taran@kth.se
+	}
+
+\version{1.8 -- \emph{Revised}}
+\title{Manual}
+
+\begin{document}
+\maketitle
+
+\clearpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+\selectlanguage{english}
+\begin{abstract}
+	Denna användarmanual för Nyx biljettsystem för Kårspexet är uppdelad i fyra delar; en administratörsdel, säljardel, användardel samt en del med instruktioner för installation av systemet.
+\end{abstract}
+\selectlanguage{swedish}
+
+\newpage
+
+\setcounter{page}{1}
+
+\startfooter
+
+\clearpage
+\section*{Dokumentversioner}
+
+
+Dokumentet har genererats från följande deldokument.
+
+\textbf{Gruppmedlemmar} version: \emph{3}.
+
+\textbf{Manual/Admin} version: \emph{37}.
+
+\textbf{Manual/Säljare} version: \emph{13}.
+
+\textbf{Manual/Användare} version: \emph{6}.
+
+\textbf{Manual/Installation} version: \emph{2}.
+
+\clearpage
+\section*{Gruppmedlemmar}
+
+
+Projektgruppen \textbf{Nyx} består av följande medlemmar.
+
+\textbf{Kalle Arvidsson} -- 890601-2490, kallear@kth.se
+
+\textbf{Peter Boström} -- 890224-0814, pbos@kth.se
+
+\textbf{Erik Eklund} -- 880816-0454, eekl@kth.se
+
+\textbf{André Gräsman} -- 890430-3214, grasman@kth.se
+
+\textbf{Rasmus Göransson} -- 850908-8517, rasmusgo@kth.se
+
+\textbf{Per Hagsten} -- 870529-0115, hagsten@kth.se
+
+\textbf{Victor Hallberg} -- 890121-0057, victorha@kth.se
+
+\textbf{Anna Maria Modée} -- 871120-0363, ammodee@kth.se
+
+\textbf{Daniel Nyberg} -- 900104-4495, dnyb@kth.se
+
+\textbf{Johan Stjernberg} -- 890315-0533, stjer@kth.se
+
+\textbf{Andreas Tarandi} -- 890416-0317, taran@kth.se
+
+\clearpage \tableofcontents \clearpage
+
+\clearpage
+\section{Administratör}
+
+
+Instruktioner på denna sida gäller för administratörsgränssnittet (/admin). Manualen är strukturerad i den ordning flikarna står i gränssnittet.
+
+	\subsection{Logga in}
+
+
+	För att logga in, gå in på login-skärmen (/login) och mata in administratörens användarnamn samt lösenord. Du kommer nu omdirigeras till administratörsgränssnittet.
+
+	\subsection{Översikt}
+
+
+	I översikten visas en snabb överblick av de bokningar som finns i systemet. Bredvid rubriken ”Antal obetalda bokningar” visas antalet obetalda bokningar som finns inlagt i systemet. Bredvid rubriken ”Antal betalda, ej placerade bokningar” så visas antalet betalda men ej utplacerade bokningar. Dessa siffror går att klicka på för att komma till tillhörande vyer för att administrera dessa bokningar. Under ”Antal bokningar” visas alla omgångar samt hur många bokningar som gjorts till dem.
+
+	\subsection{Bokningar}
+
+
+
+		\subsubsection{Visa bokningar}
+
+
+		Under fliken 'Bokningar' listas bokningar. För att ändra vilka bokningar som visas, ändra vad som ska visas i filtren och tryck på 'Uppdatera'. För att markera flera attribut i listan samtidigt, håll in ctrl.
+
+		\subsubsection{Skapa ny bokning}
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Bokningar'.
+
+		\item Klicka på 'Skapa ny bokning'.
+
+		\begin{enumerate}
+		\item Välj vilken föreställning som ska bokas.
+
+		\item Skriv in kontaktuppgifter för bokningen.
+
+		\item Fyll i antalet biljetter av respektive typ.
+
+		\item Fyll eventuellt i om bokningen ska få ett placerings mail och om den är hämtad.
+
+		\item Fyll eventuellt i hur mycket som betalats in för biljetten samt om den är helt betald eller inte.
+
+		\item Klicka på 'Skapa'.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		När bokningen är sparad kommer bokningen upp och kan redigeras. För att placera bokningen se \textbf{Placera bokning}.
+
+		\subsubsection{Redigera bokningar}
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Bokningar'.
+
+		\item Sök upp den aktuella bokningen, eventuellt genom att söka med formuläret på sidan.
+
+		\item Klicka på bokningens 'ID'-fält. Du hamnar nu på formuläret för att redigera bokningen.
+
+		\item Ändra de uppgifter som skulle ändras. T.ex. så kan bokningens betalningsstatus uppdateras.
+
+		\item Klicka på 'Spara'.
+
+		\end{enumerate}
+		För att placera den redigerade bokningen se \textbf{Placera bokning}.
+
+
+	\subsection{Placeringar}
+
+
+	Överst på sidan så visas antal oplacerade bokningar. Under denna rubrik så visas olika omgångar med bokningar. Det går att klicka på dessa bokningar i tabellerna för att administrera dem. Först visas omgångens namn och sedan vilket datum som föreställningen går. Dessa går att klicka på för att komma till de tillhörande vyerna.
+
+		\subsubsection{Oplacerad betald bokning}
+
+
+		\begin{enumerate}
+		\item Klicka på ett bokningsnummer.
+
+		\begin{enumerate}
+		\item En salongskiss över den aktuella föreställningen visas. De platser som är upptagna är markerade som upptagna, och lediga som lediga. Dessutom så finns en markering för uthämtade platser. Sektionsmarkering visas för de sektioner som bokningen avser, som även visas genom en dynamisk tabell.
+
+		\item Placera ut platser i de markerade sektionerna. En sektion blir avmarkerad när den aktuella bokningens platser i den sektionen är placerade.
+
+		\item När alla platser är placerade, klicka på 'Bekräfta'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Ändra placering av bokning}
+
+
+		\begin{enumerate}
+		\item Gå till Bokningar.
+
+		\begin{enumerate}
+		\item Tryck på ett bokningsnummer för den bokningen du vill placera om.
+
+		\item Tryck sedan på ``Redigera placering''.
+
+		\item Klicka sedan på stolarna för att placera ut bokningen.
+		\end{enumerate}
+		\end{enumerate}
+
+	\subsection{Omgångar}
+
+
+
+		\subsubsection{Lägg till omgång}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Omgångar'.
+
+		\item Klicka på 'Skapa ny omgång'.
+
+		\begin{enumerate}
+		\item Skriv in namnet på omgången.
+
+		\item Välj viljen teater omgången går på. Finns inte den teater som omgången ska ges på i systemet, se avsnittet \textbf{Lägg till teater}.
+
+		\item Skriv in en beskrivande text.
+
+		\item Skriv in eventuellt startdatum (valfritt).
+
+		\item Tryck på 'Skapa'.
+		\end{enumerate}
+
+		\item Omgången har nu skapats och du är inne på sidan för att redigera den existerande omgången.
+		\end{enumerate}
+
+		För instruktioner för hur man t.ex. lägger till biljettpriser eller gör omgången synlig, se avsnitt \textbf{Redigera omgång}.
+
+		\subsubsection{Redigera omgång}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Omgångar'
+
+		\item Klicka på namnet på den omgång du vill redigera.
+
+		\item Klicka på 'Redigera'.
+
+		\begin{enumerate}
+		\item Redigera de uppgifter som ska ändras. Det går även här att göra omgången synlig för kunder.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Lägg till föreställning}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Omgångar'
+
+		\item Klicka på namnet på den omgången som en ny föreställning ska skapas till.
+
+		\item Välj 'Skapa ny föreställning'.
+
+		\begin{enumerate}
+		\item Välj datum samt tid för föreställningen.
+
+		\item Skriv in eventuell beskrivande text för föreställningen.
+
+		\item Klicka på 'Skapa'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Redigera föreställning}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Omgångar'
+
+		\item Klicka på namnet på den omgång föreställningen är med i.
+
+		\item Klicka på datumet för föreställningen.
+
+		\begin{enumerate}
+		\item Ändra de uppgifter som skulle ändras.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Ta bort föreställning}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Omgångar'
+
+		\item Klicka på namnet på den omgång föreställningen är med i.
+
+		\item Klicka på 'Ta bort' bredvid föreställningen.
+
+		\item Klicka på 'Bekräfta borttagning'.
+		\end{enumerate}
+
+	\subsection{Teatrar}
+
+
+
+		\subsubsection{Lägg till teater}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'.
+
+		\item Klicka på 'Skapa ny teater'.
+
+		\begin{enumerate}
+		\item Fyll i teaterns interna och publika namn. Det publika namnet är det som visas för allmänheten.
+
+		\item Fyll i eventuell intern kommentar och en publik beskrivande text av teatern.
+
+		\item Lägg till den publika överblicksbilden över teatern. Denna måste vara i PNG-format.
+
+		\item Lägg till interna platskartan över teatern som används vid placering av biljetter.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		Teatern är nu sparad. För att administrera och lägga sektioner se avsnitt \textbf{Lägg till sektion}.
+
+		\subsubsection{Redigera/ta bort teater}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'
+
+		\item Klicka på den aktuella teaterns namn.
+
+		\item För att ta bort teatern klicka på 'Ta bort'.
+
+		\begin{enumerate}
+		\item Klicka på 'Bekräfta borttagning'.
+		\end{enumerate}
+
+		\item För att redigera teatern klicka på 'Redigera'.
+
+		\begin{enumerate}
+		\item Ändra de uppgifter som ska ändras.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Lägg till sektion}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'
+
+		\item Klicka på den aktuella teaterns namn.
+
+		\item Klicka på 'Redigera'.
+
+		\item Klicka på 'Sektioner'.
+
+		\item Klicka på 'Skapa ny sektion'.
+
+		\begin{enumerate}
+		\item Skriv in sektionens namn.
+
+		\item Lägg till en bild som är lika stor som den publika översikten över teatern. Denna bild ska vara helt genomskinlig förutom en vit yta som täcker ut motsvarande sektion på översiktsbilden.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Redigera/ta bort sektion}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'
+
+		\item Klicka på den aktuella teaterns namn.
+
+		\item Klicka på 'Sektioner'.
+
+		\item Klicka på sektionens namn.
+
+		\item För att ta bort sektionen klicka på 'Ta bort'.
+
+		\begin{enumerate}
+		\item Klicka på 'Bekräfta borttagning'.
+
+		\item Notera att om du tar bort en sektion så kommer de stolar som tillhör sektionen att försvinna.
+		\end{enumerate}
+
+		\item För att redigera sektionen klicka på 'Redigera'.
+
+		\begin{enumerate}
+		\item För att ändra namnet byt helt enkelt ut det i fältet.
+
+		\item För att ändra bild, ladda upp en ny bild (i PNG-format).
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Lägg till stolar}
+
+
+		För att lägga till stolar krävs det att teatern redan har alla sektioner. För att lägga till en sektion se \textbf{Lägg till sektion}.
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'.
+
+		\item Klicka på teaterns namn.
+
+		\item Klicka på 'Stolar'.
+
+		\begin{enumerate}
+		\item Välj sektion som de nuvarande stolarna ska placeras på.
+
+		\item Välj rad och nummer som numreringen du vill placera ut ska börja på.
+
+		\item Klicka ut stolar i nummerordning till du kommer till nästa rad.
+
+		\item Välj ny rad och fortsätt numrera. Upprepa tills alla rader i sektionen är ifyllda.
+
+		\item Om det finns flera sektioner som ska numreras välj den nya sektionen och fortsätt numrera.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Flytta/ta bort stolar}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Teatrar'.
+
+		\item Klicka på teaterns namn.
+
+		\item Klicka på 'Stolar'.
+
+		\item Klicka på den aktuella stolen.
+
+		\begin{enumerate}
+		\item För att ta bort stolen, klicka på 'Ta bort'.
+
+		\item Ändra annars attribut och klicka på 'Spara'.
+		\end{enumerate}
+		\end{enumerate}
+
+	\subsection{Utskick}
+
+
+	Utskicksvyn används för att administrera de olika mail mallarna som används för att skicka mail till föreställnings besökare.
+
+		\subsubsection{Skapa ny mailmall}
+
+
+		\begin{enumerate}
+		\item För att skapa en ny mailmall klickar du på länken ``Skapa ny mailmall''.
+
+		\begin{enumerate}
+		\item Fyll i mailmallensnamn.
+
+		\item Fyll i mailmallens ämnesrad.
+
+		\item Fyll i meddelandet till kunden.
+
+		\item Tryck på ``Skapa'' för att spara den nya mailmallen.
+
+		\item När du skriver meddelandet så kan du använda dig av variabler för att bifoga relevant information till kunden. Detta görs genom att man inkluderar dessa inom ett par måsvingar.
+
+		\item Ex: Du ska betala {summa}.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Redigera en existerande mailmall.}
+
+
+		\begin{enumerate}
+		\item Klicka på redigera länken brevid mailmallen för att editera den.
+		\end{enumerate}
+
+		\subsubsection{Ta bort en existerande mailmall.}
+
+
+		\begin{enumerate}
+		\item Klicka på ``Ta bort'' brevid mailmallen du vill ta bort för att radera den.
+		\end{enumerate}
+
+		\subsubsection{Skicka ett utskick}
+
+
+		\begin{enumerate}
+		\item Gå in i ``Bokningar'' och markera de du vill skicka mail till.
+
+		\begin{enumerate}
+		\item Klicka ``Skicka mail'' knappen. Du dirigeras då om till mail vyn. Notera att mottagarnas mail adresser syns på högersida.
+
+		\item Boka i den mailmall du vill använda eller skriv en temporär mall.
+
+		\item Klicka på förhandsgranska.
+
+		\item Kontrollera sedan att mailet stämmer och klicka sedan på Skicka eller Avbryt.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Temporärar mall}
+
+
+		\begin{enumerate}
+		\item För att skicka en temporär mall så bocka i den.
+
+		\begin{enumerate}
+		\item Fyll i önskat ämne.
+
+		\item Fyll i meddelandet.
+
+		\item Klicka sedan förhandsgranska.
+
+		\item Kontrollera sedan att mailet stämmer och klicka sedan på Skicka eller Avbryt.
+		\end{enumerate}
+		\end{enumerate}
+
+	\subsection{Statistik}
+
+
+
+		\subsubsection{Visa statistik}
+
+
+		För att ändra vilken statistik som visas, ändra vad som ska visas i filtren och tryck på 'Uppdatera'. För att markera flera attribut i listan samtidigt, håll in ctrl.
+
+		\subsubsection{Hämta statistik som CSV}
+
+
+		För att hämta resultatet som en .csv fil så ändra vad som ska visas i filtren och tryck sedan på 'Hämta csv'.
+
+	\subsection{Användare}
+
+
+
+		\subsubsection{Skapa användare}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Användare'.
+
+		\item Klicka på 'Skapa ny användare'.
+
+		\item Fyll i användarnamn, behörighetsnivå, eventuellt utgångsdatum, eventuell e-postadress och eventuellt lösenord.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+
+		\subsubsection{Redigera användare}
+
+
+		\begin{enumerate}
+		\item Gå in under fliken 'Användare'.
+
+		\item Klicka på aktuell användare som ska redigeras.
+
+		\item Klicka på redigera. För att ta bort, klicka på 'Ta bort'.
+
+		\item Ändra önskade attribut. Om lösenord ej anges behålls det gamla.
+
+		\item Klicka på 'Spara'.
+		\end{enumerate}
+
+\clearpage
+\section{Säljare}
+
+
+Instruktioner på denna sida gäller för säljargränssnittet (/sales). Manualen är strukturerad i den ordning flikarna står i gränssnittet.
+
+	\subsection{Inloggning}
+
+
+
+		\subsubsection{Logga in}
+
+
+		\begin{enumerate}
+		\item Fyll i ditt användarnamn och lösenord i det givna fälten. Tryck sedan på Logga in knappen.
+		\end{enumerate}
+
+		\subsubsection{Logga ut}
+
+
+		\begin{enumerate}
+		\item Klicka på logga ut som finns vid säljargränssnittets översikt i övre vänstra hörnet.
+		\end{enumerate}
+
+	\subsection{Översikt}
+
+
+	Översikten ser man när man loggat in. Där ser man två val ``Gör ny bokning'' eller ``Sök bokning''.
+
+		\subsubsection{Gör ny bokning}
+
+
+		\begin{enumerate}
+		\item Klicka på knappen ``Gör ny bokning''.
+
+		\begin{enumerate}
+		\item Under välj föreställning välj önskat datum. Klicka sedan på nästa.
+
+		\item Fråga kunden artigt om vilken sektion denne vill ha biljetter i.
+
+		\item Välj platser utifrån salongsskissen. Genom att klicka på tomma platser i salongskissen.
+
+		\item Ange platser och rabattklass för att avgöra vilka platser som ska vara studentplatser. Klicka på nästa.
+
+		\item Bekräfta med kund att uppgifterna i sammanfattningen är korrekta. Om inte, klicka på tillbaka; om korrekt, klicka på nästa.
+
+		\item Hämta de angivna biljetter till kunden. Klicka sedan på nästa.
+
+		\item Ta betalt av kunden. Klicka på nästa.
+
+		\item Ge kunden biljetterna. Klicka på nästa för att bekräfta genomfört köp.
+		\end{enumerate}
+		\end{enumerate}
+
+		\subsubsection{Sök bokning}
+
+
+		\begin{enumerate}
+		\item Klicka på ``Sök bokning''.
+
+		\begin{enumerate}
+		\item Ange de sökkriterier som är relevanta. Klicka på nästa.
+
+		\item Om bokningen är placerad, ta fram angivna biljetter. Klicka på nästa för att bekräfta utlämning.
+
+		\item Om bokningen inte är placerad:
+
+		\item Fråga kunden artigt om vilken sektion denne vill ha biljetter i.
+
+		\item Välj platser utifrån salongsskissen. Genom att klicka på tomma platser i salongskissen.
+
+		\item Bekräfta med kund att uppgifterna i sammanfattningen är korrekta.  Om inte, klicka på tillbaka; om korrekt, klicka på nästa.
+
+		\item Hämta de angivna biljetter till kunden. Klicka sedan på nästa.
+
+		\item Om bokningen inte är betald, ta betalt av kunden. Klicka på nästa.
+
+		\item Ge kunden biljetterna. Klicka på nästa för att bekräfta genomfört köp.
+		\end{enumerate}
+		\end{enumerate}
+
+\clearpage
+\section{Användare}
+
+
+Instruktioner på denna sida gäller för kundgränssnittet.
+
+	\subsection{Gör ny bokning}
+
+
+	\begin{enumerate}
+	\item Välj en föreställning på önskat datum. Klicka på nästa.
+
+	\begin{enumerate}
+	\item Ange antal biljetter i korrekt prisklass på önskad(e) sektion(er). Klicka på nästa
+
+	\item Fyll i kontaktuppgifter och eventuellt meddelande. Klicka på nästa.
+
+	\item Bekräfta att det är korrekt i sammanfattningen. Om inte, klicka på tillbaka; om korrekt, klicka på nästa för att bekräfta bokning.
+
+	\item Ett kvitto på bokningen visas. Ett e-postmeddelande har skickats till den angivna e-postadressen med bokningsinformation.
+		\end{enumerate}
+		\end{enumerate}
+
+\clearpage
+\section{Installation}
+
+
+Guide för att konfigurera ett konto för att antingen installera systemet på kårspexets server eller underhålla det.
+
+	\subsection{Konfigurera konto:}
+
+
+	\begin{enumerate}
+	\item Länka rätt ruby miljö
+
+	{\tt export PATH=/opt/ruby-enterprise-1.8.7-2011.03/lib/ruby/gems/1.8/gems/:\\/opt/ruby-enterprise-1.8.7-2011.03/bin/:\$PATH}
+
+	Eller lägg in ``{\tt PATH=/opt/ruby-enterprise-1.8.7-2011.03/lib/ruby/gems/1.8/gems/:\\/opt/ruby-enterprise-1.8.7-2011.03/bin/:\$PATH}'' i .bash\_profile eller motsvarande.
+
+	\item Bokningssystemet ligger i:
+
+	(Kräver grupptillhörighet www)
+
+	{\tt /opt/spexet/web/rails/ticket-system/}
+
+	\emph{Samtliga kommandon måste köras från bokningsssytemets mapp.}
+
+	\item Installera gems
+
+	(kräver att git finns installerat)
+
+	{\tt bundle install (bundle install --path=vendor/)}
+
+	\item Migrera databas
+
+	{\tt bundle exec rake db:migrate}
+
+	\subsection{Vid uppdatering}
+
+
+	\item Uppdatera källkod
+
+	{\tt git pull}
+
+	\emph{Kräver att kontot har en giltig ssh-nyckel inlagd för vårt git-repo}
+
+	\item Uppdatera gems
+
+	{\tt bundle install}
+
+	\item Migrera databasen upp till aktuell version
+
+	{\tt bundle exec rake db:migrate}
+
+	\emph{Körs med fördel mot development databasen först för att testa eventuella konflikter}
+
+	{\tt RAILS\_ENV=development bundle exec rake db:migrate} för att migrera development
+
+	{\tt RAILS\_ENV=production bundle exec rake db:migrate} för att migrera production
+	\end{enumerate}
+
+\end{document}
+

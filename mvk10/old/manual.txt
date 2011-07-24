@@ -1,0 +1,367 @@
+h1. Manual
+
+h1. Abstract
+
+Denna användarmanual för Nyx biljettsystem för Kårspexet är uppdelad i fyra delar; en administratörsdel, säljardel, användardel samt en del med instruktioner för installation av systemet.
+
+$VERSIONS$
+
+h1. Gruppmedlemmar
+
+Projektgruppen *Nyx* består av följande medlemmar.
+
+*Kalle Arvidsson* -- 890601-2490, kallear@kth.se
+
+*Peter Boström* -- 890224-0814, pbos@kth.se
+
+*Erik Eklund* -- 880816-0454, eekl@kth.se 
+
+*André Gräsman* -- 890430-3214, grasman@kth.se 
+
+*Rasmus Göransson* -- 850908-8517, rasmusgo@kth.se 
+
+*Per Hagsten* -- 870529-0115, hagsten@kth.se
+
+*Victor Hallberg* -- 890121-0057, victorha@kth.se
+
+*Anna Maria Modée* -- 871120-0363, ammodee@kth.se 
+
+*Daniel Nyberg* -- 900104-4495, dnyb@kth.se 
+
+*Johan Stjernberg* -- 890315-0533, stjer@kth.se
+
+*Andreas Tarandi* -- 890416-0317, taran@kth.se
+
+
+$TOC$
+
+h1. Administratör
+
+Instruktioner på denna sida gäller för administratörsgränssnittet (/admin). Manualen är strukturerad i den ordning flikarna står i gränssnittet.
+
+h2. Logga in
+
+För att logga in, gå in på login-skärmen (/login) och mata in administratörens användarnamn samt lösenord. Du kommer nu omdirigeras till administratörsgränssnittet.
+
+h2. Översikt
+
+I översikten visas en snabb överblick av de bokningar som finns i systemet. Bredvid rubriken ”Antal obetalda bokningar” visas antalet obetalda bokningar som finns inlagt i systemet. Bredvid rubriken ”Antal betalda, ej placerade bokningar” så visas antalet betalda men ej utplacerade bokningar. Dessa siffror går att klicka på för att komma till tillhörande vyer för att administrera dessa bokningar. Under ”Antal bokningar” visas alla omgångar samt hur många bokningar som gjorts till dem.
+
+h2. Bokningar
+
+h3. Visa bokningar
+
+Under fliken 'Bokningar' listas bokningar. För att ändra vilka bokningar som visas, ändra vad som ska visas i filtren och tryck på 'Uppdatera'. För att markera flera attribut i listan samtidigt, håll in ctrl.
+
+h3. Skapa ny bokning
+
+# Gå in under fliken 'Bokningar'.
+# Klicka på 'Skapa ny bokning'.
+## Välj vilken föreställning som ska bokas.
+## Skriv in kontaktuppgifter för bokningen.
+## Fyll i antalet biljetter av respektive typ.
+## Fyll eventuellt i om bokningen ska få ett placerings mail och om den är hämtad.
+## Fyll eventuellt i hur mycket som betalats in för biljetten samt om den är helt betald eller inte.
+## Klicka på 'Skapa'.
+## Klicka på 'Spara'.
+
+När bokningen är sparad kommer bokningen upp och kan redigeras. För att placera bokningen se *Placera bokning*.
+
+h3. Redigera bokningar 
+
+# Gå in under fliken 'Bokningar'.
+# Sök upp den aktuella bokningen, eventuellt genom att söka med formuläret på sidan.
+# Klicka på bokningens 'ID'-fält. Du hamnar nu på formuläret för att redigera bokningen.
+# Ändra de uppgifter som skulle ändras. T.ex. så kan bokningens betalningsstatus uppdateras.
+# Klicka på 'Spara'.
+
+För att placera den redigerade bokningen se *Placera bokning*.
+
+h2. Placeringar
+
+Överst på sidan så visas antal oplacerade bokningar. Under denna rubrik så visas olika omgångar med bokningar. Det går att klicka på dessa bokningar i tabellerna för att administrera dem. Först visas omgångens namn och sedan vilket datum som föreställningen går. Dessa går att klicka på för att komma till de tillhörande vyerna.
+
+h3. Oplacerad betald bokning
+
+# Klicka på ett bokningsnummer. 
+## En salongskiss över den aktuella föreställningen visas. De platser som är upptagna är markerade som upptagna, och lediga som lediga. Dessutom så finns en markering för uthämtade platser. Sektionsmarkering visas för de sektioner som bokningen avser, som även visas genom en dynamisk tabell.
+## Placera ut platser i de markerade sektionerna. En sektion blir avmarkerad när den aktuella bokningens platser i den sektionen är placerade.
+## När alla platser är placerade, klicka på 'Bekräfta'.  
+
+h3. Ändra placering av bokning
+
+# Gå till Bokningar.
+## Tryck på ett bokningsnummer för den bokningen du vill placera om. 
+## Tryck sedan på "Redigera placering".
+## Klicka sedan på stolarna för att placera ut bokningen.
+
+h2. Omgångar
+
+h3. Lägg till omgång 
+
+# Gå in under fliken 'Omgångar'.
+# Klicka på 'Skapa ny omgång'.
+## Skriv in namnet på omgången.
+## Välj viljen teater omgången går på. Finns inte den teater som omgången ska ges på i systemet, se avsnittet *Lägg till teater*.
+## Skriv in en beskrivande text.
+## Skriv in eventuellt startdatum (valfritt).
+## Tryck på 'Skapa'.
+# Omgången har nu skapats och du är inne på sidan för att redigera den existerande omgången.
+
+För instruktioner för hur man t.ex. lägger till biljettpriser eller gör omgången synlig, se avsnitt *Redigera omgång*.
+
+h3. Redigera omgång
+
+# Gå in under fliken 'Omgångar'
+# Klicka på namnet på den omgång du vill redigera.
+# Klicka på 'Redigera'.
+## Redigera de uppgifter som ska ändras. Det går även här att göra omgången synlig för kunder.
+## Klicka på 'Spara'.
+
+h3. Lägg till föreställning
+
+# Gå in under fliken 'Omgångar'
+# Klicka på namnet på den omgången som en ny föreställning ska skapas till.
+# Välj 'Skapa ny föreställning'.
+## Välj datum samt tid för föreställningen.
+## Skriv in eventuell beskrivande text för föreställningen.
+## Klicka på 'Skapa'.
+
+h3. Redigera föreställning
+
+# Gå in under fliken 'Omgångar'
+# Klicka på namnet på den omgång föreställningen är med i.
+# Klicka på datumet för föreställningen.
+## Ändra de uppgifter som skulle ändras.
+## Klicka på 'Spara'.
+
+h3. Ta bort föreställning
+
+# Gå in under fliken 'Omgångar'
+# Klicka på namnet på den omgång föreställningen är med i.
+# Klicka på 'Ta bort' bredvid föreställningen.
+# Klicka på 'Bekräfta borttagning'.
+
+h2. Teatrar
+
+h3. Lägg till teater
+
+# Gå in under fliken 'Teatrar'.
+# Klicka på 'Skapa ny teater'.
+## Fyll i teaterns interna och publika namn. Det publika namnet är det som visas för allmänheten.
+## Fyll i eventuell intern kommentar och en publik beskrivande text av teatern.
+## Lägg till den publika överblicksbilden över teatern. Denna måste vara i PNG-format.
+## Lägg till interna platskartan över teatern som används vid placering av biljetter.
+## Klicka på 'Spara'.
+
+Teatern är nu sparad. För att administrera och lägga sektioner se avsnitt *Lägg till sektion*.
+
+h3. Redigera/ta bort teater
+
+# Gå in under fliken 'Teatrar'
+# Klicka på den aktuella teaterns namn.
+# För att ta bort teatern klicka på 'Ta bort'.
+## Klicka på 'Bekräfta borttagning'.
+# För att redigera teatern klicka på 'Redigera'.
+## Ändra de uppgifter som ska ändras.
+## Klicka på 'Spara'.
+
+h3. Lägg till sektion
+
+# Gå in under fliken 'Teatrar'
+# Klicka på den aktuella teaterns namn.
+# Klicka på 'Redigera'.
+# Klicka på 'Sektioner'.
+# Klicka på 'Skapa ny sektion'.
+## Skriv in sektionens namn.
+## Lägg till en bild som är lika stor som den publika översikten över teatern. Denna bild ska vara helt genomskinlig förutom en vit yta som täcker ut motsvarande sektion på översiktsbilden.
+## Klicka på 'Spara'.
+
+h3. Redigera/ta bort sektion
+
+# Gå in under fliken 'Teatrar'
+# Klicka på den aktuella teaterns namn.
+# Klicka på 'Sektioner'.
+# Klicka på sektionens namn.
+# För att ta bort sektionen klicka på 'Ta bort'.
+## Klicka på 'Bekräfta borttagning'.
+## Notera att om du tar bort en sektion så kommer de stolar som tillhör sektionen att försvinna.
+# För att redigera sektionen klicka på 'Redigera'.
+## För att ändra namnet byt helt enkelt ut det i fältet.
+## För att ändra bild, ladda upp en ny bild (i PNG-format).
+## Klicka på 'Spara'.
+
+h3. Lägg till stolar
+
+För att lägga till stolar krävs det att teatern redan har alla sektioner. För att lägga till en sektion se *Lägg till sektion*.
+
+# Gå in under fliken 'Teatrar'.
+# Klicka på teaterns namn.
+# Klicka på 'Stolar'.
+## Välj sektion som de nuvarande stolarna ska placeras på.
+## Välj rad och nummer som numreringen du vill placera ut ska börja på.
+## Klicka ut stolar i nummerordning till du kommer till nästa rad.
+## Välj ny rad och fortsätt numrera. Upprepa tills alla rader i sektionen är ifyllda.
+## Om det finns flera sektioner som ska numreras välj den nya sektionen och fortsätt numrera.
+
+h3. Flytta/ta bort stolar
+
+# Gå in under fliken 'Teatrar'.
+# Klicka på teaterns namn.
+# Klicka på 'Stolar'.
+# Klicka på den aktuella stolen.
+## För att ta bort stolen, klicka på 'Ta bort'.
+## Ändra annars attribut och klicka på 'Spara'.
+
+h2. Utskick
+
+Utskicksvyn används för att administrera de olika mail mallarna som används för att skicka mail till föreställnings besökare.
+
+h3. Skapa ny mailmall
+
+# För att skapa en ny mailmall klickar du på länken "Skapa ny mailmall".
+## Fyll i mailmallensnamn.
+## Fyll i mailmallens ämnesrad.
+## Fyll i meddelandet till kunden.
+## Tryck på "Skapa" för att spara den nya mailmallen.
+## När du skriver meddelandet så kan du använda dig av variabler för att bifoga relevant information till kunden. Detta görs genom att man inkluderar dessa inom ett par måsvingar.
+## Ex: Du ska betala {summa}.
+	
+h3. Redigera en existerande mailmall.
+
+# Klicka på redigera länken brevid mailmallen för att editera den.
+
+h3. Ta bort en existerande mailmall.
+
+# Klicka på "Ta bort" brevid mailmallen du vill ta bort för att radera den.
+
+h3. Skicka ett utskick
+
+# Gå in i "Bokningar" och markera de du vill skicka mail till.
+## Klicka "Skicka mail" knappen. Du dirigeras då om till mail vyn. Notera att mottagarnas mail adresser syns på högersida.
+## Boka i den mailmall du vill använda eller skriv en temporär mall.
+## Klicka på förhandsgranska.
+## Kontrollera sedan att mailet stämmer och klicka sedan på Skicka eller Avbryt.
+
+h3. Temporärar mall
+
+# För att skicka en temporär mall så boka i den.
+## Fyll i önskat ämne.
+## Fyll i meddelandet.
+## Klicka sedan förhandsgranska.
+## Kontrollera sedan att mailet stämmer och klicka sedan på Skicka eller Avbryt.
+
+h2. Statistik
+
+h3. Visa statistik
+
+För att ändra vilken statistik som visas, ändra vad som ska visas i filtren och tryck på 'Uppdatera'. För att markera flera attribut i listan samtidigt, håll in ctrl. 
+
+h3. Hämta statistik som CSV
+
+För att hämta resultatet som en .csv fil så ändra vad som ska visas i filtren och tryck sedan på 'Hämta csv'.
+
+h2. Användare
+
+h3. Skapa användare
+
+# Gå in under fliken 'Användare'.
+# Klicka på 'Skapa ny användare'.
+# Fyll i användarnamn, behörighetsnivå, eventuellt utgångsdatum, eventuell e-postadress och eventuellt lösenord.
+# Klicka på 'Spara'.
+
+h3. Redigera användare
+
+# Gå in under fliken 'Användare'.
+# Klicka på aktuell användare som ska redigeras.
+# Klicka på redigera. För att ta bort, klicka på 'Ta bort'.
+# Ändra önskade attribut. Om lösenord ej anges behålls det gamla.
+# Klicka på 'Spara'.
+h1. Säljare
+
+Instruktioner på denna sida gäller för säljargränssnittet (/sales). Manualen är strukturerad i den ordning flikarna står i gränssnittet. 
+
+h2. Inloggning
+
+h3. Logga in
+
+# Fyll i ditt användarnamn och lösenord i det givna fälten. Tryck sedan på Logga in knappen.
+
+h3. Logga ut
+
+# Klicka på logga ut som finns vid säljargränssnittets översikt i övre vänstra hörnet.
+
+h2. Översikt
+
+Översikten ser man när man loggat in. Där ser man två val "Gör ny bokning" eller "Sök bokning". 
+
+h3. Gör ny bokning
+
+# Klicka på knappen "Gör ny bokning".
+## Under välj föreställning välj önskat datum. Klicka sedan på nästa.
+## Fråga kunden artigt om vilken sektion denne vill ha biljetter i.
+## Välj platser utifrån salongsskissen. Genom att klicka på tomma platser i salongskissen.
+## Ange platser och rabattklass för att avgöra vilka platser som ska vara studentplatser. Klicka på nästa. 
+## Bekräfta med kund att uppgifterna i sammanfattningen är korrekta. Om inte, klicka på tillbaka; om korrekt, klicka på nästa.
+## Hämta de angivna biljetter till kunden. Klicka sedan på nästa.
+## Ta betalt av kunden. Klicka på nästa.
+## Ge kunden biljetterna. Klicka på nästa för att bekräfta genomfört köp.
+
+h3. Sök bokning
+
+# Klicka på "Sök bokning".
+## Ange de sökkriterier som är relevanta. Klicka på nästa.
+## Om bokningen är placerad, ta fram angivna biljetter. Klicka på nästa för att bekräfta utlämning.
+## Om bokningen inte är placerad: 
+## Fråga kunden artigt om vilken sektion denne vill ha biljetter i.
+## Välj platser utifrån salongsskissen. Genom att klicka på tomma platser i salongskissen. 
+## Bekräfta med kund att uppgifterna i sammanfattningen är korrekta.  Om inte, klicka på tillbaka; om korrekt, klicka på nästa.
+## Hämta de angivna biljetter till kunden. Klicka sedan på nästa.
+## Om bokningen inte är betald, ta betalt av kunden. Klicka på nästa.
+## Ge kunden biljetterna. Klicka på nästa för att bekräfta genomfört köp.
+h1. Användare
+
+Instruktioner på denna sida gäller för kundgränssnittet.
+
+h2. Gör ny bokning 
+
+# Välj en föreställning på önskat datum. Klicka på nästa.
+## Ange antal biljetter i korrekt prisklass på önskad(e) sektion(er). Klicka på nästa
+## Fyll i kontaktuppgifter och eventuellt meddelande. Klicka på nästa. 
+## Bekräfta att det är korrekt i sammanfattningen. Om inte, klicka på tillbaka; om korrekt, klicka på nästa för att bekräfta bokning.
+## Ett kvitto på bokningen visas. Ett e-postmeddelande har skickats till den angivna e-postadressen med bokningsinformation. 
+
+
+h1. Installation
+
+Guide för att konfigurera ett konto för att antingen installera systemet på kårspexets server eller underhålla det.
+
+h2. Konfigurera konto:
+
+# Länka rätt ruby miljö
+@export PATH=/opt/ruby-enterprise-1.8.7-2011.03/lib/ruby/gems/1.8/gems/:/opt/ruby-enterprise-1.8.7-2011.03/bin/:$PATH@
+Eller lägg in "@PATH=/opt/ruby-enterprise-1.8.7-2011.03/lib/ruby/gems/1.8/gems/:/opt/ruby-enterprise-1.8.7-2011.03/bin/:$PATH@" i .bash_profile eller motsvarande.
+
+# Bokningssystemet ligger i:
+(Kräver grupptillhörighet www)
+@/opt/spexet/web/rails/ticket-system/@
+_Samtliga kommandon måste köras från bokningsssytemets mapp._
+# Installera gems 
+(kräver att git finns installerat)
+@bundle install (bundle install --path=vendor/)@
+# Migrera databas
+@bundle exec rake db:migrate@
+
+h2. Vid uppdatering
+
+# Uppdatera källkod
+@git pull@
+_Kräver att kontot har en giltig ssh-nyckel inlagd för vårt git-repo_
+# Uppdatera gems
+@bundle install@
+# Migrera databasen upp till aktuell version
+@bundle exec rake db:migrate@
+_Körs med fördel mot development databasen först för att testa eventuella konflikter_ 
+@RAILS_ENV=development bundle exec rake db:migrate@ för att migrera development
+@RAILS_ENV=production bundle exec rake db:migrate@ för att migrera production
+
