@@ -117,24 +117,24 @@ Make a network on 12.128.0.0/17.
 
 	a) 167.14.81.9
 
-	No prefix matches 167. so default route, next hop is 93.171.89.1
+	No prefix matches 167. so default route, next hop is 93.171.89.1 on m0.
 
 	b) 192.121.17.13
 
-	Matches 192.121.17.13/32, next hop is 111.92.92.127.
+	Matches 192.121.17.13/32, next hop is 111.92.92.127 on m2.
 
 	c) 7.152.35.14
 
 	This fucker is down, either fall back to default and send to 93.171.89.1
-	or drop that shit.
+	on m0 or drop that shit.
 
 	d) 111.92.66.178
 
-	Matches 111.92.64.0/18, direct delivery.
+	Matches 111.92.64.0/18, direct delivery on m2.
 
 	e) 133.10.165.254
 
-	Matches 133.10.165.0/24, next hop is 62.88.93.33.
+	Matches 133.10.165.0/24, next hop is 62.88.93.33 m1.
 
 4. IPv4 options and IPv6 extension headers
 
