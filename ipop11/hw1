@@ -25,9 +25,9 @@ Peter Boström <pbos@kth.se>
 	   networks!
 
 	192.168.48.0/25
-	192.168.48.1/25
+	192.168.48.128/25
 	192.168.49.0/25
-	192.168.49.1/25
+	192.168.49.128/25
 
 	d) What is the directed broadcast address of the network 121.2.20.0/22?
 
@@ -94,10 +94,10 @@ Make a network on 12.128.0.0/17.
 	   N: 12.128.64.5
 	   Computer: 12.128.64.6
 	S: 12.128.64.8/30
-	   N: 12.128.64.9
+	   O: 12.128.64.9
 	   Computer: 12.128.64.10
 	T: 12.128.64.12/30
-	   N: 12.128.64.13
+	   P: 12.128.64.13
 	   Computer: 12.128.64.14
 
 	The routing table for R1 will include M, N, O, P and the directly
