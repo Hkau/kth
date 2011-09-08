@@ -1,0 +1,35 @@
+Review of homework #1 for protok11 by Rishie Sharma
+Peter Boström <pbos@kth.se>
+2011-09-08
+
+Total score: 100 - ? p = ? p
+
+1 a) OK
+  b) OK
+  c) OK
+  d) OK
+  e) OK
+  f) Correct AS number, organization is supposed to be SUNET/NORDUnet. Generous
+     grading => -1p.
+
+2  There's no route to the next-hop addresses 12.128.64.1-4, so packets can not
+   be sent to the /20 networks. Also no interfaces are mentioned in the
+   solution, nor flags in the routing table (well, all are probably up, but the
+   /20 networks should be under gateway entries).
+
+   The ABC, DEF, GHI, JKL offices have however been well-aggregated into /20
+   networks of M, N, O, P.
+   
+   -? p (I've talked to György and he suggested this)
+
+3 a) OK
+  b) OK
+  c) No, this link is not up, so the packet is either sent to the default route
+     or simply dropped. -4p.
+  d) OK
+  e) OK
+
+4 a) OK
+  b) OK
+  c) OK (note that the fragmentation info will take an additional 8 bytes, even
+     though it doesn't matter).
