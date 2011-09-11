@@ -1,0 +1,151 @@
+Homework #2 for protok11
+Peter Boström <pbos@kth.se>
+2011-09-11
+
+1. ARP
+
+Hosts:
+
+H1: IP=A, MAC=x
+H2: IP=B, MAC=y
+H3: IP=C, MAC=z
+H4: IP=D, MAC=t
+
+Bridge B1 Connects H3, H4 and router R1.
+
+Router R1:
+
+=> B1: IP=E, MAC=v
+=> H2: IP=F, MAC=w
+=> H1: IP=G, MAC=u
+
+B1 has a MAC address table, R1 and all hosts have ARP tables, all initially
+empty.
+
+Consider that host H4 sends an IPv4 unicast datagram to host H1.
+
+	a, b) Provide the state of the five ARP caches as they will appear after the
+	   IPv4 unicast datagram has been delivered to host H1, that is, after
+	   dynamic ARP resolution has been made.
+
+	H4 checks its routing table and decides to send this to IP E (R1's IP on
+	the interface connected to the bridge). E is not in H4's ARP table, so it
+	broadcasts a request for E's MAC address through ARP. This request includes
+	H4's IP and MAC address. B1 learns H4's MAC and repeats the broadcast on its
+	other interfaces. H3 learns H4's IP and MAC address, but sends nothing. R1
+	learns H4's IP and MAC as well, and send back its own IP and MAC address
+	directly to H4. B1 learns R1's MAC and interface. H4 learns E's MAC address.
+
+	H4 is now ready and forwards the datagram to R1. R1 checks its routing table
+	and decides to send the datagram to H1's IP A. It broadcast to find A's MAC
+	address to be able to deliver it. By doing so it also sends its own IP and
+	MAC, which gets learned by H1 before returning (A, x) to R1.
+
+	The datagram then gets delivered to H1.
+
+	a) ARP caches
+
+	H1 (IP, MAC):
+	G, u
+
+	H3 (IP, MAC):
+	D, t
+
+	H4 (IP, MAC):
+	E, v
+
+	R1 (IP, MAC):
+	D, t
+
+	H2 is empty.
+
+	b) MAC address table
+
+	B1 (MAC, Interface):
+	t, West
+	v, South
+
+2. UDP and fragmentation
+
+6400 octets to be sent inside an UDP datagram over a link with MTU=2272 octets.
+
+	a) How many fragments are transmitted?
+
+	An UDP datagram adds an 8-octet header => 6408 bytes. An IPv4 header will
+	take 20 bytes which gives a maximum payload of 2252. Fragmented packets must
+	however be in sizes divisible by 8, so we can use up to 2248 octets for each
+	packet.
+
+	We'll need ceil(6408/2248) = 3 fragments to send this UDP datagram.
+
+	b) Give the values of the MF bit, offset and total length field of the IP
+	   header of each fragment.
+
+	Packet 1 will have MF=1 and offset = 0, it'll contain the first 2248 octets
+	of the UDP datagram. Length = 2248. There are now 4160 octets left.
+
+	Packet 2 will have MF=1 and offset = 2248/8 = 281 and contain the 2248
+	following octets. Length = 2248. There are now 1912 octets left.
+
+	Packet 3 will have MF=0 and offset = 2248*2/8 = 562 and contain the remaining
+	1912 octets. Length = 1912. This is the final packet.
+
+3. TCP session management
+
+Consider the TCP SYN Flooding Attack.
+
+	a) What kind of attack is this?
+
+	A Denial-of-Service attack.
+
+	b) How is the attack done?
+
+	During a TCP handshake, a SYN is sent to the server, which sends a SYN-ACK
+	back the attacker is expected to send an ACK back, which never happens. This
+	gives the server a half-open connection and occupies limited resources.
+
+	An attacker will send a lot of these SYN messages and establish a lot of
+	half-open connections, eventually the SYN queue or other limited resources
+	will be occupied and connections can't be established by legitimate hosts.
+
+	c) What damage is caused?
+
+	New hosts will be unable to connect to the server, as it's occuped with these
+	half-open connections.
+
+	d) How can a server alleviate the effects of the attack? Describe one
+	   solution in sufficient detail such that it becomes clear why it alleviates
+	   the attack.
+
+	Provided that the attacker doesn't spoof the source address, then you can
+	simply limit the number of new connections per source per timeframe. This means
+	that additional SYN messages from the same source are dropped, and the number
+	of half-open connections from that host is limited.
+
+4. TCP 2
+
+Segment to existing connection is sent at 4:30:20. The sender doesn't recieve an
+acknowledgement and resends at 4:30:28 and recieves an acknowledgement at 4:30:30
+where it sends another segment and recieves the following 2 seconds after, at 4:30:32.
+When the first mentioned segment was sent the smoothed RTT (sRTT) was 4 seconds.
+
+Give the values of the smoothed RTT (sRTT), the variation (RTTvar) and the
+retransmission timeout (RTO):
+
+	a) after the transmission of the first-mentioned segment (4:30:20)
+
+	foo
+
+	b) after the transmission of the first-mentioned segment (4:30:20)
+
+	foo
+
+	c) after the transmission of the first-mentioned segment (4:30:20)
+
+	foo
+
+	d) after the transmission of the first-mentioned segment (4:30:20)
+
+	foo
+
+
