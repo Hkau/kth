@@ -132,20 +132,91 @@ When the first mentioned segment was sent the smoothed RTT (sRTT) was 4 seconds.
 Give the values of the smoothed RTT (sRTT), the variation (RTTvar) and the
 retransmission timeout (RTO):
 
+RFC2988:
+
+(2.3) When a subsequent RTT measurement R' is made, a host MUST set
+
+	RTTvar <- (1 - beta) * RTTvar + beta * |sRTT - R'|
+	sRTT <- (1 - alpha) * sRTT + alpha * R'
+
+	The value of sRTT used in the update to RTTvar is its value before updating sRTT
+	itself using the second assignment. That is, updating RTTVAR and sRTT MUST be
+	computed in the above order.
+
+	The above SHOULD be computed using alpha=1/8 and beta=1/4 (as suggested in [JK88]).
+
+	After the computation, a host MUST update:
+
+	RTO <- sRTT + max (G, K*RTTvar)
+
+	(where K=4, from 2.2, G is smaller than RTTvar so G is only used if RTTvar = 0)
+
 	a) after the transmission of the first-mentioned segment (4:30:20)
 
-	foo
+	sRTT = 4 before
+	RTO = 8 (as the segment was resent after 8 seconds)
+	RTO came from sRTT + 4*RTTvar =>
+	RTTvar = 1 second
 
-	b) after the transmission of the first-mentioned segment (4:30:20)
+	b) after the first retransmission (4:30:28)
 
-	foo
+	RTO doubles when it triggers (5.5), no new measures for RTT are made, so sRTT and
+	RTTvar remain the same.
 
-	c) after the transmission of the first-mentioned segment (4:30:20)
+	sRTT = 4s
+	RTO = 16s
+	RTTvar = 1s
 
-	foo
+	c) after the reception of the first acknowledgement (4:30:30)
 
-	d) after the transmission of the first-mentioned segment (4:30:20)
+	It will assume that the ACK came for the last-sent packet, with a new RTT measure
+	R' of 2 seconds. The algorithm updates as specified above, according to (2.3).
 
-	foo
+	RTTvar <- (1 - beta) * RTTvar + beta * |sRTT - R'|
+	sRTT <- (1 - alpha) * sRTT + alpha * R'
+	RTO <- sRTT + max (G, K*RTTvar)
 
+	RTTvar <- (1 - 1/4) * 1 + 1/4* |4 - 2| = 3/4 + 2/4 = 5/4 = 1.25s
+	sRTT <- (1 - 1/8) * 4 + 1/8 * 2 = 7/8 * 4 + 2/8 = 30/4 = 7.5s
+	RTO <- 7.5 + 4*1.25 = 12.5s
+
+	d) after the reception of the second acknowledgement (4:30:32)
+
+	Same as above, R' = 2:
+
+	RTTvar <- (1 - 1/4) * 1.25 + 1/4 * |7.5 - 2| = 3/4*5/4 + 1/4*11/2 =
+		= 15/16 + 11/8 = (15+22)/16 = 2.3125
+	sRTT <- (1 - 1/8) * 7.5 + 1/8 * 2 = 6.8125s
+	RTO <- 6.8125 + 4*2.3125
+
+5. TCP 3
+
+Stations A and B are connected via a 100Mbps link between the Earth and a communication
+satellite at an altitude of 36,000 km. Assume that the signal propagation speed equals
+the speed of light (300000km/s).
+
+	a) Calculate the minimum round-trip time (RTT) for the link.
+
+	The connection must travel to the satellite and back twice, that is 4*36,000 km =
+	= 144,000 km, to get back, this gives a RTT	of 144,000/300,000 = 0.48 seconds.
+
+	b) Calculate the bandwidth-delay product of the link. Explain the meaning of this
+	   product.
+
+	BPD = 100Mbps * 0.48 seconds = 48Mb = 6MB
+
+	This is the highest amount of traffic that reside inside in the network at any time.
+	That is, packets that have been sent but not yet recieved.
+
+	c) What's the minimum time to transfer a 25MB file from A to B? Include the connection
+	   establishment time. Consider the transfer finished when the last ACK has arrived at
+	   the sender. Assume that there are no losses. Use the RTT value computed above.
+
+	First, a three-way connection has to be established. This takes RTT time, as the
+	sender will not start transmitting after the first SYN-ACK has been recieved.
+
+	It would now optimally like to send 6MB per time, but without the TCP Window-Scale
+	option it's limited to 64K (65535 bytes) per RTT.
+
+	ceil(25,000,000 / 65535) * RTT + RTT = 383*RTT = 383*0.48 = 183.84 seconds
 
