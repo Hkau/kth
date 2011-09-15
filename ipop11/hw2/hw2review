@@ -1,0 +1,26 @@
+Review of homework #1 for protok11 by Max Westermark
+Peter Boström <pbos@kth.se>
+2011-09-15
+
+Total score: 100 - 8p = 92p
+
+1 a) OK
+  b) OK
+
+2 a) OK (should be 6408/2248, as fragmented packets should be divisible by 8)
+  b) OK
+
+3 a) OK
+  b) OK, though spoofing a different address.
+  c) OK, occupies resources not used.
+  d) Correct, though not described. -3p.
+
+4 a) OK
+  b) OK
+  c) Karn's algorithm (no update) -5p
+  d) This is your 4c, first update happens like 4c, so this should be in the
+     previous answer, though your 4c demonstrate that you know how update works.
+
+5 a) Yus.
+  b) OK
+  c) Yes.
