@@ -173,8 +173,13 @@ RFC2988:
 
 	c) after the reception of the first acknowledgement (4:30:30)
 
-	Assuming that the ACK came from the last-sent packet, with a new RTT measure
-	R' of 2 seconds. The algorithm updates as specified above, according to (2.3).
+	As the packet was retransmitted, we ignore these values (Karn's algorithm).
+
+	sRTT = 4s
+	RTO = 16s
+	RTTvar = 1s
+
+	d) after the reception of the second acknowledgement (4:30:32)
 
 	RTTvar <- (1 - beta) * RTTvar + beta * |sRTT - R'|
 	sRTT <- (1 - alpha) * sRTT + alpha * R'
@@ -184,13 +189,6 @@ RFC2988:
 	sRTT <- (1 - 1/8) * 4 + 1/8 * 2 = 7/8 * 4 + 2/8 = 30/4 = 3.75s
 	RTO <- 3.75 + 4*1.25 = 8.75s
 
-	d) after the reception of the second acknowledgement (4:30:32)
-
-	Same as above, R' = 2:
-
-	RTTvar <- 3/4 * 1.25 + 1/4 * |3.75 - 2| = 1.375s
-	sRTT <- 7/8 * 3.75 + 1/8 * 2 = 3.53125s
-	RTO <- 3.53125 + 4*1.375 = 9.03125s
 
 5. TCP 3
 
