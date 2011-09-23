@@ -1,0 +1,75 @@
+Homework #3 for protok11
+Peter Boström <pbos@kth.se>
+2011-09-23
+
+1. DNS
+
+- List the (names of the) name servers in the computer-science department (csc.kth.se)! (names, not addresses)
+
+;; QUESTION SECTION:
+;csc.kth.se.			IN	NS
+
+;; ANSWER SECTION:
+csc.kth.se.		61851	IN	NS	ns2.nada.kth.se.
+csc.kth.se.		61851	IN	NS	ns1.nada.kth.se.
+csc.kth.se.		61851	IN	NS	a.ns.kth.se.
+csc.kth.se.		61851	IN	NS	b.ns.kth.se.
+
+Answer: a.ns.kth.se, b.ns.kth.se, ns1.nada.kth.se & ns2.nada.kth.se.
+
+- List all the IP addresses in the list above! (Don't forget IPv6)
+
+;; ADDITIONAL SECTION:
+a.ns.kth.se.		7200	IN	A	130.237.72.246
+a.ns.kth.se.		7200	IN	AAAA	2001:6b0:1::246
+b.ns.kth.se.		7200	IN	A	130.237.72.250
+ns1.nada.kth.se.	71261	IN	A	130.237.225.4
+ns2.nada.kth.se.	77092	IN	A	130.237.222.4
+
+Answer:
+a.ns.kth.se => 130.237.72.246 + 2001:6b0:1::246
+b.ns.kth.se => 130.237.72.250
+ns1.nada.kth.se => 130.237.255.4
+ns2.nada.kth.se => 130.237.255.4
+
+- One of the (secondary) nameservers of kth.se is located in Gothenburg (Chalmers). Does its IP address have any other name?
+
+;; ANSWER SECTION:
+252.253.16.129.in-addr.arpa. 2036 IN	PTR	charybdis.cdg.chalmers.se.
+252.253.16.129.in-addr.arpa. 2036 IN	PTR	ns2.chalmers.se.
+
+Answer: Yes; charybdis.cdg.chalmers.se
+
+- To which mail agents may your email be delivered if you send an email to olofh@csc.kth.se? List the names of all servers.
+
+;; ANSWER SECTION:
+csc.kth.se.		3590	IN	MX	0 mx4.nada.kth.se.
+csc.kth.se.		3590	IN	MX	0 mx3.nada.kth.se.
+
+Answer: mx3.nada.kth.se & mx4.nada.kth.se
+
+- Which name does the IPv4 address 193.11.23.1 correspond to?
+
+;; ANSWER SECTION:
+1.23.11.193.in-addr.arpa. 9572	IN	PTR	lab-fw.netlab.csc.kth.se.
+
+Answer: lab-fw.netlab.csc.kth.se
+
+- Which name does the 2001:700:0:503::aa:5302 correspond to?
+
+2.0.3.5.a.a.0.0.0.0.0.0.0.0.0.0.3.0.5.0.0.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa domain name pointer nn.uninett.no.
+
+Answer: nn.uninett.no
+
+- Assume you are an administrator at NADA and you wish to change the address of one of its nameservers. You want to shut-down the old server and replace it with a new, and for that you want to use a new IP address. Describe a method to accomplish this where the overlap between the old and new address is not more than a minute (When both addresses are simultaneously accesible). Which entries would you change, and at what period in time would you change them? When can you shut down the old server? You may want to express the method using a time-line. The TTL of the entry is 86400.
+
+Answer:
+
+First, change the TTL of the nameserver's address (A, AAAA) fields to 30 seconds (less than a minute).
+
+Then wait for 86400 (old TTL) seconds, so that you know that no servers are caching the old address for more than 30 seconds.
+
+Now change the nameserver's address field to the new IP, and set the TTL back to 86400 (in that order).
+
+After 30 seconds, the old server can be unplugged. No servers will have this old address cached by now.
+
