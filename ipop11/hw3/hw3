@@ -48,6 +48,17 @@ csc.kth.se.		3590	IN	MX	0 mx3.nada.kth.se.
 
 Answer: mx3.nada.kth.se & mx4.nada.kth.se
 
+- What if you use the alternative addresses olofh@kth.se and olofh@nada.kth.se?
+
+;; ANSWER SECTION:
+kth.se.			60	IN	MX	10 mx.kth.se.
+
+;; ANSWER SECTION:
+nada.kth.se.		3600	IN	MX	0 mx4.nada.kth.se.
+nada.kth.se.		3600	IN	MX	0 mx3.nada.kth.se.
+
+Answer: kth.se uses mx.kth.se, nada.kth.se uses the same MX names as csc.kth.se.
+
 - Which name does the IPv4 address 193.11.23.1 correspond to?
 
 ;; ANSWER SECTION:
@@ -114,9 +125,9 @@ F, 1, -
 
 Merging into A's table gives (adding 1 for metric to B):
 B, 1, -
-C, 3, -
-D, 4, C
-E, 4, C
+C, 2, B
+D, 3, B
+E, 3, B
 F, 2, B
 
 2.4 Final step
@@ -124,15 +135,14 @@ F, 2, B
 After convergence (stable state has been reached), what is the state of A's routing table?
 
 B, 1, -
-C, 3, -
+C, 2, B
 D, 3, B
-E, 4, C
+E, 3, B
 F, 2, B
 
 2.5 Split-horizon
 
 Assume A uses split-horizon. Define A's distance vector sent on the 10.0.3.0/24 sub-network. That is, which <destination, metric> tuples are sent from A in a RIP response message to B? The state is after convergence.
 
-B, 1, -
-C, 3, -
-E, 4, C
+Nothing, all traffic from A goes either directly to or through B.
+
