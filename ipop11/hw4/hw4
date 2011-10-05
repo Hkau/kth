@@ -1,0 +1,96 @@
+Homework #4 for protok11
+Peter Boström <pbos@kth.se>
+2011-10-05
+
+
+1. Autoconfiguration
+
+The following two(?) IPv6 addresses were obtained by a host using stateless autoconfiguration:
+2002:82ed:deda:b:226:2dff:fef0:aa5a/64
+2001:6b0:1:1de0:226:2dff:fef0:aa5a/64
+fe80::226:2dff:fef0:aa5a/64
+
+1) Which are link-local addresses, and how did the host construct them?
+
+fe80::226:2dff:fef0:aa5a/64
+
+Alla addresses use the same suffix, and it's split up using ff:fe, so they're all mac-based. Constructed using link-local prefix (fe80::/64) ending with MAC-address in modified EUI-64 format (with ff:fe inserted in the middle)
+
+2) How does the host check that a link-local address is unique?
+
+Probes with ICMPv6 solicitation to the address with ::/128 as source. Reply (neighbor advertisement) means that the address is used (not unique).
+
+3) Which are global-scope addresses, and how did the host construct them?
+
+2002:82ed:deda:b:226:2dff:fef0:aa5a/64
+2001:6b0:1:1de0:226:2dff:fef0:aa5a/64
+
+After constructing a LLA it queries for a router advertisement, and recieves global prefixes. Then it can either generate a random suffix or use a mac-derived one. In this case they're mac-derived just like the link-local address.
+
+4) Which are the global prefixes that the host received via router advertisement?
+
+2002:82ed:deda:b/64
+2001:6b0:1:1de0/64
+
+5) When the host communicates with an external destination, which source address does it use?
+
+Either of the global should work. Pick first.
+
+2002:82ed:deda:b:226:2dff:fef0:aa5a/64
+
+6) Suppose the host only speaks IPv6. How does it obtain the (IPv6) address of a DNS server using autoconfiguration?
+
+After obtaining the LLA, the host sends a solicit to ff02::1:2, to find a server.
+
+Then it recieves a reply with an advertise request from a DHCP server.
+
+Host replies with a request, and finishes when the DHCP server sends back a reply.
+
+7) Suppose the host knows the IPv6 address of a DNS resolving server, can it now query for an IPv4 address of an external host? How?
+
+Just request the A record of that host.
+
+
+2. Routing
+
+Assume you are the administrator of an autonomous network with border routers R1 and R2. R3 represents an internal router. You peer the outside world via RA and RB. You have two global IPv4 prefixes: 1.1.1.0/24 and 2.2.2.0/24. You announce those prefixes globally. 3.3.3.0/24 represents an external network reachable via RA. 4.4.4.0/24 represents an external network reachable via RB. You run OSPF internally. Disregard local and direct routes.
+
+1) Which prefixes are exchanged via OSPF in routers R1-R3? That is, they appear as OSPF routes in the routing tables of R1-R3.
+
+2) Assume your site is a multi-homed non-transit AS. Which prefixes would you announce to RA? Which would you announce to RB?
+
+3) Assume your network is a transit AS. Which prefixes would you announce to RA and RB respectively?
+
+4) How does R3 know where to send traffic to? That is, which prefixes does R3 have in its routing table regarding external routes? Indicate routing table entries (and protocol) that R3 needs. Several solutions are possible.
+
+
+3. NAT
+
+In the network above there are two hosts (H1, H2), three IPv4 address domains (L1-L3). There are two NATP boxes (N1-N2) interconnecting the networks. The NAT boxes dynamically establish bindings for flows (eg via TCP SYNs) going from 'left to right'. That is, the two NATs can be seen as coupled in a 'series', one after the other.
+
+This is actually the way 'carrier-grade NAT' is currently being designed, that operators use a second level of NAT. Note that rightmost network is typlically a public network, not another private network.
+
+a) Assume that H1 accesses a web server (port 80) in H2 via TCP using the addresses in the figure. What are the source and destination IPv4 addresses of the original SYN datagram on L1? Use ephemeral source port 50000 (srcaddr:port, dstaddr:port)
+
+(10.0.0.1:50000, 1.0.0.2:80)
+
+b) N1 establishes a dynamic address/port binding as a result of the TCP SYN from H1. Propose the dynamic binding established by N1 (do not re-use the original port)? (address:port <-> address:port)
+
+(10.0.0.1:50000 <-> 192.168.0.1:52345) (random eph port)
+
+c) Which source/destination addresses and source/destination ports does the datagram have on L2? (srcaddr:port, dstaddr:port)
+
+(192.168.0.1:52345, 1.0.0.2:80)
+
+d) N2 also establishes a dynamic address/port binding as a result of the TCP SYN from H1. What is the binding established by N2? Again do not reuse original port. (address:port <-> address:port)
+
+(192.168.0.2:52345 <-> 1.0.0.1:51234) (random eph port)
+
+e) Which source and destination addresses and ports does the datagram have on L3? (srcaddr:port, dstaddr:port)
+
+(1.0.0.1:51234, 1.0.0.2:80)
+
+f) For return traffic, which source and destination addresses and ports does the datagram have on L2? That is, the TCP SYN-ACK going from H2 to H1? (srcaddr:port, dstaddr:port)
+
+(1.0.0.2:80, 192.168.0.1:52345)
+
