@@ -1,0 +1,26 @@
+Review of homework #4 for protok11 by Awel Nerhissen Adem
+Peter Boström <pbos@kth.se>
+2011-10-06
+
+Total score: 100 - 6p = 94p
+
+1 a) OK
+  b) OK
+  c) OK (But not MAC directly, the suffix is 64 bits, MAC is only 48 bits (ff:fe is inserted in the middle))
+  d) OK (+ /64)
+  e) OK
+  f) OK (Stateless DHCPv6)
+  g) OK (By querying for A, not "setting type")
+
+2 a) No (-6p)
+  b) OK
+  c) OK
+  d) OK
+
+3 a) OK
+  b) OK
+  c) OK
+  d) OK
+  e) OK (:50002, not :5002)
+  f) OK
+
