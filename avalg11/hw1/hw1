@@ -108,8 +108,28 @@ for (key, count) in tree: # in-order traversal of tree map
 		x[idx] = key # And each iteration is constant, O(1)
 		idx += 1
 
-return x # optional, this sorting has been done in-place.
+return x # optional, sorting has been done in-place.
 
 # Problem 5: Show that resolution yields a polynomial time algorithm that determines the (un)satisfiability of 2-CNF formulas by deriving new clauses until either an empty clause is obtained or no more clauses can be derived.
+
+2CNF clauses can only derive other 2CNF clauses. From m symbols at most m²-m, or O(m²) 2CNF clauses can be derived in total. From n clauses at most 2n symbols can exist, which gives 4n²-2n or O(n²) clauses.
+
+Deriving empty clauses means the formula is unsatisifiable. If no more clauses can be derived, it's satisfiable.
+
+for each clause c1: # O(n²)
+	for each clause c2 != c1: # O(n²)
+		if c1 and c2 can be used to derive a new clause: # O(1)
+			derive new clause c3 # O(1)
+			if c3 is empty: # O(1)
+				return UNSATISFIABLE # O(1)
+			if c3 doesn't exist already: # O(n²)
+				add c3 to formula # O(1)
+
+# no more clauses can be derived
+return SATISFIABLE
+
+Time taken in total: O(n²)*O(n²)*O(n²) = O(n⁶) ∈ P
+
+(This can definitely be improved upon.)
 
 
