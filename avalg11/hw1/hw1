@@ -48,10 +48,18 @@ gcd(a,0) = a, base case (return a)
 gcd(a/2, b) reduces the total number of bits by one
 gcd(a, b/2) reduces the total number of bits by one
 
-# AARGH VARFÖR HALVERAS SKITEN!? GÖR DEN ENS DET?
-gcd(a,b) = gcd(b, a-b):
-	om b > a/2:
-		a-b < b
+gcd(a,b) = gcd(b, a-b) will only occur when a,b are odd.
+	=> a-b even
+	=> might turn gcd(b, a-b) to gcd(a-b, b) i the following step
+	=> in the following step a-b will get divided by 2, reduces the number of bits by one.
+
+In the worst case 4 iterations are required before one bit is removed, 4 iterationer innan en bit försvinner. (gcd(b, a) => gcd(a, b) => gcd(b, a-b) => gcd(a-b, b) => gcd((a-b)/2, b))
+
+The time complexity (with unit cost) is therefore 4*O(n) = O(n), where n is the number of bits in a and b together.
+
+- Time complexity without unit cost
+
+O(n) is without unit cost. Division with 2 is a bitshift by one, which can be implemented in O(n), as can a-b. All iterations occur in O(n) which yields O(n)*O(n) => O(n²) in total.
 
 # Problem 2: Chinese remainder theorem
 
@@ -89,7 +97,7 @@ tree = balanced_tree_map() # (number used as key, count as value)
 
 for i in x: # Run n times, O(n*2*log m) = O(n log m) in total
 	if i not in tree: # O(log m)
-		tree.insert(i, 1) # insert number with count (O(log m)
+		tree[i] = 1 # insert number with count (O(log m)
 	else: # increase count of how many times i has been seen
 		tree[i] += 1 # O(log m)
 

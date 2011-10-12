@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from collections import deque
-def radix(num):
+
+def radix(num): # Sorts n non-negative integers of magnitude n^m in O(n*m)
 	n = len(num)
 
 	buckets = []
