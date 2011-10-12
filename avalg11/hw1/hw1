@@ -74,7 +74,39 @@ O(n) is without unit cost. Division with 2 is a bitshift by one, which can be im
 	where a and b are obtained from the extended euclidian algorithm with
 	an + b(n+1) = gcd(n, n+1) = 1
 
-	<Attaching code>
+== problem2.py ==
+#!/usr/bin/env python3
+def egcd(a, b):
+    u, u1 = 1, 0
+    v, v1 = 0, 1
+    g, g1 = a, b
+    while g1:
+        q = g // g1
+        u, u1 = u1, u - q * u1
+        v, v1 = v1, v - q * v1
+        g, g1 = g1, g - q * g1
+    return u, v, g
+
+n = 8902240814
+print('n =', n)
+(a, b, gcd) = egcd(n, n+1)
+
+assert gcd == 1
+
+# ua + vb = gcd(a, b) = 1
+# ua = 1 - vb mod(b) = ua = 1 mod(b)
+# vb = 1 - ua mod(a) = vb = 1 mod(a)
+
+# ua*r2 + vb*r1 mod(b) <=> r2 mod(b)
+# ua*r2 + vb*r1 mod(a) <=> r1 mod(a)
+
+r1 = 123456789
+r2 = 987654321
+x = a*n*r1 + b*(n+1)*r2
+
+print(x)
+print(x % n)
+print(x % (n+1))
 
 # Problem 3: Design an algorithm that sorts n non-negative integers in linear time on a unit cost RAM if all elements are of magnintude at most n¹⁰.
 
@@ -82,9 +114,57 @@ LSD radix sort with base n, of non-negative integers magnitude less than n^m at 
 
 If m is fixed to 10, that gives a time complexity of O(n*10), or O(n). In either case where m is fixed, the algorithm is O(n). If n¹⁰ should be included, we can set m = 11, which still gives O(n).
 
-<See radix sort code attached>
+== radix.py ==
 
-# Problem 4: Design an algorithm that sorts n comparable elements in time O(n log m ) provided we know that there are only m distinct values.
+#!/usr/bin/env python3
+from collections import deque
+
+def radix(num): # Sorts n non-negative integers of magnitude n^m in O(n*m)
+	n = len(num)
+
+	buckets = []
+	for i in range(n):
+		buckets.append(deque())
+
+	nums = deque()
+
+	for x in num:
+		nums.append((x,x))
+
+	# This will run for m times if all numbers are < n^m
+	while True:
+
+		# O(n) (n numbers, append/popleft constant with linked list)
+		# mod and integer divisions are unit cost (O(1)).
+		while nums:
+			(i, rem) = nums.popleft()
+			idx = rem % n;
+			rem //= n;
+			buckets[idx].append((i, rem))
+
+		non_nulls = 0
+		# For each bucket (O(n)) + Put each number back in combined list (O(n))
+		for i in range(n):
+			if len(buckets[i]) > 0:
+				non_nulls += 1
+				nums.extend(buckets[i])
+				buckets[i].clear()
+	
+		# If all numbers were in the same bucket, sorting is done..
+		if non_nulls == 1:
+			break
+
+	# put all numbers back in the original list (O(n))
+	idx = 0
+	for i in range(n):
+		(foo, bar) = nums.popleft()
+		print(foo)
+		num[i] = foo
+
+	return num
+
+
+# Problem 4: Design an algorithm that sorts n comparable elements in time O(n log m) provided we know that there are only m distinct values.
 
 This algorithm operates likes counting sort, except counting isn't done with a table. It needs to count m distinct values in O(n log m) time.
 
@@ -112,9 +192,9 @@ return x # optional, sorting has been done in-place.
 
 # Problem 5: Show that resolution yields a polynomial time algorithm that determines the (un)satisfiability of 2-CNF formulas by deriving new clauses until either an empty clause is obtained or no more clauses can be derived.
 
-2CNF clauses can only derive other 2CNF clauses. From m symbols at most m²-m, or O(m²) 2CNF clauses can be derived in total. From n clauses at most 2n symbols can exist, which gives 4n²-2n or O(n²) clauses.
+2CNF clauses can only derive other 2CNF clauses. m symbols can at most be paired up with m other symbols, at most 4*m²-4m+2m, or in either case O(m²) possible 2CNF or 1CNF clauses in total. From n clauses at most 2n symbols can exist, which gives a max of O(n²) possible clauses as well.
 
-Deriving empty clauses means the formula is unsatisifiable. If no more clauses can be derived, it's satisfiable.
+Deriving an empty clause means the formula is unsatisifiable. If no more clauses can be derived, it's satisfiable.
 
 for each clause c1: # O(n²)
 	for each clause c2 != c1: # O(n²)
@@ -131,5 +211,3 @@ return SATISFIABLE
 Time taken in total: O(n²)*O(n²)*O(n²) = O(n⁶) ∈ P
 
 (This can definitely be improved upon.)
-
-
