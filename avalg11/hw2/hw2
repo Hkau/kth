@@ -6,6 +6,23 @@ Peter Boström <pbos@kth.se>
 
 # Problem 2: Crack RSA! Given the public RSA key (n, e) = (5192042249411, 3419183406883), find the decryption exponent d and find a number x that encrypts to your ten-digit personal number. Your answer should include x as well as explain calculations used to obtain x.
 
+n can easily be factored into p and q (as n is small)
+
+from this we can generate the totient, and from egcd we can get e's inverse mod totient, that is, d.
+
+then we can calculate c^d mod n where c is 8902240814 (my social security number) using exponentiation by squaring (to be able to calculate c^d mod n in reasonable time).
+
+lemming@phobos:~/Code/kth/avalg11/hw2$ ./rsacrack.py 
+n = 5192042249411
+e = 3419183406883
+p = 1532371 q = 3388241
+tot(n) = 5192037328800
+d = 1456182194347
+c^d mod n ( c = 8902240814 d = 1456182194347 n = 5192042249411 ) = 1643423774100
+m^e mod n ( m = 1643423774100 e = 3419183406883 n = 5192042249411 ) = 8902240814
+
+Answer: 1643423774100
+
 # Problem 3: Multiply the following polynomials using Karatsuba's algorithm.
 
 	x³ + 3x² + x - 1 and
