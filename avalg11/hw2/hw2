@@ -4,13 +4,23 @@ Peter Boström <pbos@kth.se>
 
 # Problem 1: Using the 0/1-principle for sorting network, either show that the following sorting network correctly sorts 5 inputs, or find an input where it fails. In a compare element, the larger of the two values goes in the direction of the arrow.
 
+The sorting network will always move larger numbers down, and smaller numbers up. In no case will numbers be moved downwards if they're smaller than what they're being swapped with.
+
+From all starting positions (x1..x4) there are enough comparators to move the largest number to the downmost position, regardless of where it starts. This will be completed before the last comparator in the middle of the sorting network. By symmetry, the smallest number will also have been placed in the upmost position.
+
+In the final step where the lines for x1 and x4 will contain the smallest and largest number respectively, there's a comparator for the lines for x2 and x3. These two will be the numbers in the middle. After this cmoparator the largest of them will be on the line for x3, and the smaller of them on the line for x2. As x1 contains the smallest number and x4 the largest, we'll then have:
+
+y1 ≤ y2 ≤ y3 ≤ y4
+
+Where y are the output lines for the sorting network. Thus, the sorting network will sort all inputs (x1, x2, x3, x4).
+
 # Problem 2: Crack RSA! Given the public RSA key (n, e) = (5192042249411, 3419183406883), find the decryption exponent d and find a number x that encrypts to your ten-digit personal number. Your answer should include x as well as explain calculations used to obtain x.
 
 n can easily be factored into p and q (as n is small)
 
 from this we can generate the totient, and from egcd we can get e's inverse mod totient, that is, d.
 
-then we can calculate c^d mod n where c is 8902240814 (my social security number) using exponentiation by squaring (to be able to calculate c^d mod n in reasonable time).
+then we can calculate c^d mod n where c is 8902240814 (my social security number) using a mod-n variant of exponentiation by squaring (to be able to calculate c^d mod n in reasonable time).
 
 lemming@phobos:~/Code/kth/avalg11/hw2$ ./rsacrack.py 
 n = 5192042249411
@@ -28,4 +38,6 @@ Answer: 1643423774100
 	x³ + 3x² + x - 1 and
 	2x³ - x² + 3
 
-# Problem 4: Show that it is easy to find a non-trivial factor of a Carmichael number. More precisely, there is a polynomial-time algorithm for finding a non-trivial factor with probability > 1/2. 
+# Problem 4: Show that it is easy to find a non-trivial factor of a Carmichael number. More precisely, there is a polynomial-time algorithm for finding a non-trivial factor with probability > 1/2.
+
+
