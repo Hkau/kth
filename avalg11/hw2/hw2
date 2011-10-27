@@ -1,0 +1,14 @@
+Homework B for avalg11
+Peter Boström <pbos@kth.se>
+2011-10-27
+
+# Problem 1: Using the 0/1-principle for sorting network, either show that the following sorting network correctly sorts 5 inputs, or find an input where it fails. In a compare element, the larger of the two values goes in the direction of the arrow.
+
+# Problem 2: Crack RSA! Given the public RSA key (n, e) = (5192042249411, 3419183406883), find the decryption exponent d and find a number x that encrypts to your ten-digit personal number. Your answer should include x as well as explain calculations used to obtain x.
+
+# Problem 3: Multiply the following polynomials using Karatsuba's algorithm.
+
+	x³ + 3x² + x - 1 and
+	2x³ - x² + 3
+
+# Problem 4: Show that it is easy to find a non-trivial factor of a Carmichael number. More precisely, there is a polynomial-time algorithm for finding a non-trivial factor with probability > 1/2. 
