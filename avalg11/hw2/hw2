@@ -53,4 +53,27 @@ That is: p(x)*q(x) = (2x²+5x-3)x⁴ + (2x²+10)x² + 3x-3 = 2x⁶+5x⁵-x⁴+10
 
 # Problem 4: Show that it is easy to find a non-trivial factor of a Carmichael number. More precisely, there is a polynomial-time algorithm for finding a non-trivial factor with probability > 1/2.
 
+A positive odd integer n is a Carmichael number if
+
+   1. it is composite (that is, not a prime)
+   2. and for all numbers 1 ≤ a < n such that gcd(a,n)=1, it holds that a^(n-1) ≡ 1 (mod n)
+
+# Miller-Rabin from Wikipedia
+Input: n > 3, an odd integer to be tested for primality;
+Input: k, a parameter that determines the accuracy of the test
+Output: composite if n is composite, otherwise probably prime
+write n − 1 as 2^s·d with d odd by factoring powers of 2 from n − 1
+LOOP: repeat k times:
+   pick a random integer a in the range [2, n − 2]
+   x ← a^d mod n
+   if x = 1 or x = n − 1 then do next LOOP
+   for r = 1 .. s − 1
+      x ← x^2 mod n
+      if x = 1 then return composite
+      	# If carmichael numbers stop here, which they do with at least 1/2
+      	# probability, we have (x-1)*(x+1) is a multiple of n though neither
+      	# (x-1) or (x+1) are. gcd(x-1, n) and gcd(x+1, n) gives us factors of n.
+      if x = n − 1 then do next LOOP
+   return composite
+return probably prime
 
