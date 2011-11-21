@@ -1,0 +1,71 @@
+Homework C for avalg11
+Peter Boström <pbos@kth.se>
+2011-11-21
+
+# Problem 1: Multiply the following two polynomials using FFT.
+
+    x3 + 3x2 + x - 1 and
+	    2x3 - x2 + 3 
+
+If you use a recursive version of FFT, you only need to show the top-most call to FFT (and FFT inverse), what recursive calls are made from the top-most level, what those calls return and how the final result is computed.
+
+# Problem 2: Let A = (a{i,j}) be a matrix such that a{i,j} = a{i-1,j-1} and a{i,1} = a{i-1,n} for i = 2, 3,...,n and j = 2, 3,...,n. Give an O(n log n)-time algorithm for computing Ax where x is a vector of length n.
+
+# Problem 3: Recall that integer linear programming is linear programming with the additional contraint that the variables are only allowed to take on integer values. In class we have seen how to formulate 3SAT as well as TSP as integer linear programs (with an exponential number of constraints in the case of TSP). Show how to formulate the Vertex Cover problem as an integer linear program (with a polynomial number of constraints). 
+
+Vertex cover of the graph <V, E>
+
+x_i is used to denote whether a vertex is colored (=1) or not (=0).
+
+min(sum(x_i) for all i ∈ V) # (1) minimize number of colored vertices, this is the optimization goal
+{
+	x_i + x_j > 0 ∀ (i, j) ∈ E # (2) This means that all edges are connected to a colored vertex
+	x_i ∈ {0,1} ∀ i ∈ V # (3) This forces x_i to take a boolean value (simply colored or not)
+}
+
+(1) is obviously polynomial in |V|, as it's simply summing over |V| elements.
+(2) gives |E| constraints, one for each edge in the graph.
+(3) gives |V| constraints, one for each vertex in the graph.
+
+In total we have |V|+|E| constraints, which is obviously polynomial.
+
+# Problem 4: Give an example of Euclidian TSP where the nearest neighbor heuristic fails to find the optimal solution.
+
+Counterexample graph.
+
+   o  o
+
+
+o  o
+
+Distances of straight lines: 1
+Distance of slanted lines: sqrt(2)
+Distance between furthest nodes: sqrt(5)
+
+1 < sqrt(2) < sqrt(5)
+
+Nearest neighbour will pick all straight lines first, as they're shortest. After all nodes are connected, all that's left is to connect the final, and furthest nodes.
+
+   o--o
+  _|_/
+ / |
+o--o
+
+This tour will in total give: 3 + sqrt(5) ~= 5.2 units
+
+Here's another tour:
+
+   o--o
+  /  /
+ /  /
+o--o
+
+In total, this gives 2 + 2*sqrt(2) ~= 4.8 < 5.2 units
+
+Thus, Nearest Neighbour fails to find the optimal tour, and we're done.
+
+If I remember, I'll draw the counterexample more clearly directly on the paper.
+
+# Problem 5: Generalize the result for nearest neighbor (NN) as follows. Find a constant K > 1 and an increasing function f(n) such that, for each n there is a Euclidian TSP instance with f(n) cities for which NN, starting in city 1 will yield a solution that is at least K times larger than the optimum solution. You get 2 bonus points if K is such that Christofides' algorithm is guaranteed to do better on these instances.
+
+Note. The purpose of the function f above is to give you a bit of freedom so that you do not need to provide a construction with n cities for every n. Rather, it is suffucient to provide a construction with, for example, 3n + 1 cities for all integers n > 0. By "increasing" we mean that f(n+1) > f(n) for all n. 
