@@ -4,16 +4,100 @@ Peter Boström <pbos@kth.se>
 
 # Problem 1: Multiply the following two polynomials using FFT.
 
-    x3 + 3x2 + x - 1 and
-	    2x3 - x2 + 3 
+#	x³ + 3x² + x - 1 and
+#	2x³ - x² + 3 
 
-If you use a recursive version of FFT, you only need to show the top-most call to FFT (and FFT inverse), what recursive calls are made from the top-most level, what those calls return and how the final result is computed.
+# If you use a recursive version of FFT, you only need to show the top-most call to FFT (and FFT inverse), what recursive calls are made from the top-most level, what those calls return and how the final result is computed.
 
-=== TODO ===
+Idea:
+
+We need at least 2*3+2 = 8 points, and 8=2^k which is good.
+
+To get 8 points, we have to zero-pad the polynomials
+
+Wn = e^(i*2*pi/8) = e^(i*pi/4)
+p0 = fft(0x⁷ + 0x⁶ + 0x⁵ + 0x⁴ + x³+3x²+x-1, Wn) #O(n*log(n))
+p1 = fft(0x⁷ + 0x⁶ + 0x⁵ + 0x⁴ + 2x³-x2+3, Wn)
+
+pnew = p0 .* p1 # pairwise multiplication O(n)
+
+p = 1/n * fft(pnew, Wn⁻¹) # inverse DFT O(n*log(n))
+
+Using the FFT algorithm given during the lecture:
+
+Recursive-DFT(p, Wn)
+	if(|p| == 1)
+		return p
+
+	a[0] <- (a0, a2, ..., aN-2)
+	a[1] <- (a1, a2, ..., aN-1)
+
+	â[0] <- Recursive-DFT(a[0], Wn²)
+	â[1] <- Recursive-DFT(a[1], Wn²)
+
+	w <- 1
+	for k = 0 to N/2-1 do
+		âk <- âk[0] + w*âk[1]
+		âk+N/2 <- âk[0] - w*âk[1]
+		w <- w * Wn
+	return(â0, â1, ..., âN-1)
+
+=> Attempt to do this right (a lot of hand calculation)
+fft([-1, 1, 3, 1, 0, 0, 0, 0], e^(i*pi/4))
+
+	a[0] <- [-1, 3, 0, 0]
+	a[1] <- [1, 1, 0, 0]
+
+	â[0] <- fft(a[0], e^(i*pi/2)) # p(x) = 3x-1 for [1, e^(i*pi/2), e^(i*pi), e^(i*3*pi/2)]
+	#â[0] <- {2, -1+3i, -4, -1-3i}
+	â[1] <- fft(a[1], e^(i*pi/2)) # p(x) = x+1 for [1, e^(i*pi/2), e^(i*pi), e^(i*3*pi/2)]
+	#â[1] <- {2, 1+i, 0, 1-i}
+
+	w <- 1
+
+	# DO I REALLY HAVE TO DO THIS FOR ALL 8 POINTS? REALLY?
+	for k = 0 to 3
+		âk <- âk[0] + w*âk[1]
+		âk+N/2 <- âk[0] - w*âk[1]
+		w <- w * Wn
+
+p0 = {4,
+	(-1+3 i)+(-1)^(1/4)+(-1)^(3/4),
+	-4,
+	(-1-3 i)+(-1)^(1/4)+(-1)^(3/4),
+	0,
+	(-1+3 i)-(-1)^(1/4)-(-1)^(3/4),
+	-4,
+	(-1-3 i)-(-1)^(1/4)-(-1)^(3/4)}
+
+p1 = {4,
+	2(-1)^(3/4)+(3-i),
+	4-2i,
+	2(-1)^(1/4)+(3+i),
+	0,
+	-2(-1)^(3/4)+(3-i),
+	4+2i,
+	-2(-1)^(1/4)+(3+i)}
+
+pnew = p0 .* p1 = {This is rediculous. I hope I've done something wrong!}
+
+DFT from final answer gives:
+
+{16, 3 (-1)^(1/4)+(-2+3 i), -21+3 i, 3 (-1)^(3/4)+(-2-3 i), 10, -3 (-1)^(1/4)+(-2+3 i), -21-3 i, -3 (-1)^(3/4)+(-2-3 i)}
+
+Inverse DFT => p = 1/n * fft(pnew, Wn⁻¹) # inverse DFT O(n*log(n))
+
+This gives us the constants for our new p*q polynomial, which should have been:
+
+2x⁶+5x⁶-x⁴+10x²+3x-3
 
 # Problem 2: Let A = (a{i,j}) be a matrix such that a{i,j} = a{i-1,j-1} and a{i,1} = a{i-1,n} for i = 2, 3,...,n and j = 2, 3,...,n. Give an O(n log n)-time algorithm for computing Ax where x is a vector of length n.
 
-=== TODO ===
+This matrix A is a circulant matrix which can be diagonalized somehow by FFT... This may be related to the eigenvectors being the nth roots of unity, same as being used in FFT, etc, or something.
+
+If we can perform eigendecomposition of this matrix, which might be done with FFT, then multiplication with another vector is trivial (linear).
+
+So provided this is done with FFT, we have an O(n*log(n)) algorithm.
 
 # Problem 3: Recall that integer linear programming is linear programming with the additional contraint that the variables are only allowed to take on integer values. In class we have seen how to formulate 3SAT as well as TSP as integer linear programs (with an exponential number of constraints in the case of TSP). Show how to formulate the Vertex Cover problem as an integer linear program (with a polynomial number of constraints). 
 
@@ -74,7 +158,7 @@ If I remember, I'll draw the counterexample more clearly directly on the paper.
 
 # Problem 5: Generalize the result for nearest neighbor (NN) as follows. Find a constant K > 1 and an increasing function f(n) such that, for each n there is a Euclidian TSP instance with f(n) cities for which NN, starting in city 1 will yield a solution that is at least K times larger than the optimum solution. You get 2 bonus points if K is such that Christofides' algorithm is guaranteed to do better on these instances.
 
-Note. The purpose of the function f above is to give you a bit of freedom so that you do not need to provide a construction with n cities for every n. Rather, it is suffucient to provide a construction with, for example, 3n + 1 cities for all integers n > 0. By "increasing" we mean that f(n+1) > f(n) for all n. 
+# Note. The purpose of the function f above is to give you a bit of freedom so that you do not need to provide a construction with n cities for every n. Rather, it is suffucient to provide a construction with, for example, 3n + 1 cities for all integers n > 0. By "increasing" we mean that f(n+1) > f(n) for all n. 
 
 === TODO ===
 
