@@ -1,0 +1,42 @@
+Parallel and Distributed Computing, Hand-in 2
+Peter Boström <pbos@kth.se>
+2011-11-24
+
+1. A read/increment object has initial value 0 and operations read() and inc().
+
+- We implement a n-thread shared read/increment object I thus: I has n MRSW integer-valued registers, each with initial value 0. Upon an increment by thread i, I increments the ith MRSW register. Upon a read, thread i reads all MRSW registers one at a time and returns the sum. Show that if each MRSW register is atomic then the read/increment register is linearizable.
+
+Atomic MRSW means that when an increment operation happens, it really happens. That's good, this will always be the linearization point for inc().
+
+When read()-ing, if no other thread is calling inc(), any linearization point is obviously valid. If any threads are calling inc(), we have overlapping calls. How do we find a linearization point for this read() call?
+
+During a read() call overlaps k linearization points from other inc() calls. When this happens, read() will see between 0 and k of these increments (depending on which registers are being written to, which ones are read before the write, and also when they're read). If the read() call sees i of these k increments, then we place its linearization point after the i'th but before the i+1th inc() linearization point.
+
+This will work fine, as an read/increment object is defined by how many inc() calls have taken effect. Thus the object is linearizable.
+
+- Is this also the case when the MRSW registers are regular? Explain.
+
+No. A counterexample can be constructed with n=2, two threads, 0 and 1. Initial value of the register is 0. Thread 1 starts an inc() operation and writes to its MRSW register. During this write() operation the register can both be read() as 0 and 1, as it is regular. At this point thread 1 zooms along and reads twice. Its own register, register 0, will show 0 twice, as it's not being written to. Register 1 will show 1 then 0 in order. This is a perfectly valid scenario, as thread 1 is still writing to that regular register.
+
+As this is the case, thread 0 will read the read/increment-object I as 1, then 0, and we have a contradiction. This is not sequentially consistent, and thus not linearizable.
+
+
+2. H&S exercise 61
+
+
+3. Consider carefully the lock-free list algorithm in H&S chapter 9. Explain carefully why the contains method is wait-free, and why the add and remove methods are lock-free and not wait-free.
+
+
+4. H&S exercise 117
+
+
+5. Formulate a version of FloodSet for arbitrary connected graphs. That is, graphs are connected at the outset and no crash failure caises the graph to become disconnected. Prove that it works correctly.
+
+
+6. Below, try to avoid axcessive listings of e.g. p said p1 said q said v assertions. Explain how the scenarios are set up and how they work, and why they are counterexamples to Byzantine Agreement.
+
+- a) Describe a scenario for which the simple Byzantine Agreement algorithm fails to solve consensus, for the case n = 6 and f = 2.
+
+- b) Do the same for the King algorithm.
+
+
