@@ -160,6 +160,14 @@ If I remember, I'll draw the counterexample more clearly directly on the paper.
 
 # Note. The purpose of the function f above is to give you a bit of freedom so that you do not need to provide a construction with n cities for every n. Rather, it is suffucient to provide a construction with, for example, 3n + 1 cities for all integers n > 0. By "increasing" we mean that f(n+1) > f(n) for all n. 
 
-=== TODO ===
+One thought is to find a NN instance, and have them inserted as almost-nodes in a larger network, so that the NN still K*OPT at least, and then insert them as nodes in a sufficiently larger graph with the same NN instance. In this way, if you "zoom" on a node, it'll look the same as the original NN instance.
 
+This thought was skipped, as we can have 0-weighted nodes, by having cities overlap. If we have this graph, which has been shown to fail above:
+
+   o--o
+  /  /
+ /  /
+o--o
+
+Add cities overlapping the existing ones, it'll still be the same tour virtually, and it'll generate the same error (~5.2 units instead of ~4.8). So all f(n)=4+n would work with this construction.
 
