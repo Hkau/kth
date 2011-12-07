@@ -1,0 +1,54 @@
+Parallel and Distributed Computing, Hand-in 3
+Peter Boström <pbos@kth.se>
+2011-12-07
+
+1. Consider the randomized algorithm in the slides for lecture 7. Suppose only
+   crash failures happen.
+
+   a: How many crash failures can the algorithm handle? Explain.
+
+   b: Modify the algorithm to handle as many crash failures as you can. Explain
+      how many crash failures the modified algorithm can handle.
+
+2. Devise an algorithm for leader election in asynchronous connected network
+   graphs. You may assume that nodes have linearly ordered node identifiers and
+   that nodes do not fail. Leader election may at any time be initiated by one
+   or more nodes independently of each other. What is the message complexity of
+   your algorithm?
+
+3. Describe which graph problem algorithm foo solves. Prove that foo is
+   correct. Prove that it is self-stabilizing. How many rounds are needed for
+   the stabilization in the worst case? Explain your reasoning.
+
+4. Consider the 3PC protocol. Explain how the affected parties act in the
+   following situations:
+
+   a: Coordinator and 1 cohort fail in phase 1
+
+   b: Coordinator and 1 cohort fail in phase 2
+
+   c: Coordinator and 1 cohort fail in phase 3
+
+   d: The coordinator times out in phase 1
+
+   f: The coordinator times out in phase 2
+
+   e: The coordinator times out in phase 3
+
+5. Suppose Paxos is changed in the following way: The conditional in lines 6-11
+   of the pseudocode for Proposer in slide set 9 is replaced by the statement
+   Send propose(x, n) to the same set of acceptors.
+
+   Does the agreement property still hold? Explain carefully why or why not.
+
+6. A risk in Byzantine fault recovery procedures is that one or several
+   Byzantine replicas conspire to eliminate a non-faulty primary. Explain how
+   this is prevented in PBFT and in the Zyzzyva system.
+
+7. In this exercise you may start from the binary tree DHT presented in the
+   slides for lecture 10. Describe three attacks a Byzantine adversary might
+   mount against DHT and how you would protect against them, by suitably
+   modifying the algorithms for search, join and leave. A concise textual
+   description is sufficient, you do not need to provide pseudocode, for
+   instance.
+
