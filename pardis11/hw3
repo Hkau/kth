@@ -7,8 +7,13 @@ Peter Boström <pbos@kth.se>
 
    a: How many crash failures can the algorithm handle? Explain.
 
+   f, the algorithm waits for n-f proposals, as such at most f nodes may have
+   crashed.
+
    b: Modify the algorithm to handle as many crash failures as you can. Explain
       how many crash failures the modified algorithm can handle.
+
+   TODO!!! Something about > 50% perhaps.
 
 2. Devise an algorithm for leader election in asynchronous connected network
    graphs. You may assume that nodes have linearly ordered node identifiers and
@@ -16,24 +21,100 @@ Peter Boström <pbos@kth.se>
    or more nodes independently of each other. What is the message complexity of
    your algorithm?
 
+   # Leader election is permanent, so any additional or concurrently initiated
+     elections must return the same leader.
+
+   # Variant on the Echo algorithm, any node initiating the search will "be the
+     root node" and search for the lowest id in the connected network. elect is
+	 permanent and may only be run once per node (store and use the already-given
+	 value).
+
+	message types:
+	 1: (EXP, origin, from)
+	 2: (ECHO, origin, from, min_id)
+	data structures:
+	 1: N := set of neighbors;
+	 2: B := map of neighbor sets
+	 3: min := minimum id found
+	 4: parent := map of parents for each origin
+	elect:
+	 1: forall n ∈ N send (EXP, this.id, this.id) to n;
+	 2: leader = this.id
+	 3: while N != {} do:
+	 4: 	recieve (ECHO, this.id, n, min_id) # recieve msg with self as origin
+	 5: 	leader = min_id if min_id < leader;
+	 6:		N := N - {n};
+	 7: choose(leader) # The minimum node is now the id
+	recieve_exp:
+	 1: recieve(EXP, origin != this.id, n) # catch other exp
+	 2: min = this.id if min is nil;
+	 3: if B[origin] is nil: # new search from origin, otherwise ignore
+	 4: 	parent[origin] = n
+	 5: 	B[origin] = neighbors - {n};
+	 6: 	forall neighbor in B[origin]:
+	 7: 		send(EXP, origin, this.id) to neighbor;
+	 8: 	if B[origin] == {}: # reply directly if no EXPs sent
+	 9:			send(ECHO, origin, this.id, min) to n;
+	recieve_echo:
+	 1: recieve(ECHO, origin != this.id, n, min_id) # only other origins
+	 2: min = min(min, min_id)
+	 3: B[origin] := B[origin] - {n};
+	 4: if B[origin] == {}: # no subsearches active, reply towards
+	 5: 	send(ECHO, origin, this.id, min) to parent[origin];
+
+	Message complexity:
+	 The algorithm will flood the entire network and generate at most two
+	 messages (EXP+ECHO) per link. This will in total generate O(|E|) messages
+	 across the network.
+
 3. Describe which graph problem algorithm foo solves. Prove that foo is
    correct. Prove that it is self-stabilizing. How many rounds are needed for
    the stabilization in the worst case? Explain your reasoning.
+
+   # Hint for question 3: First part of the question may be a little cryptic.
+     View the network graph as an ordinary graph with vertices (nodes) and
+	 edges (links). When running the algorithm the claim is that the labelling
+	 as determined by variable b eventually stabilizes in such a way that the
+	 graph with the labelling has a specific property. This could be, for
+	 instance: The labelling determines a Hamiltonian circuit, or the
+	 labelling determines a connected component (none of these apply, btw).
+	 Hope this helps.
+
+   TODO!! :DD
 
 4. Consider the 3PC protocol. Explain how the affected parties act in the
    following situations:
 
    a: Coordinator and 1 cohort fail in phase 1
 
+   Aborting, no prepare messages can have been sent in this state, so
+   commit not agreed upon.
+
    b: Coordinator and 1 cohort fail in phase 2
+
+   New coordinator can ask if anyone recieved a prepared message, if so
+   it can resume, everyone has already agreed upon the commit.
+
+   Otherwise abort the transaction.
 
    c: Coordinator and 1 cohort fail in phase 3
 
+   If anyone has recieved a commit message, new coordinator can enforce
+   the commit.
+
    d: The coordinator times out in phase 1
 
-   f: The coordinator times out in phase 2
+   All abort, no one knows if everyone replied yes. New coordinator can restart
+   and ask again.
 
-   e: The coordinator times out in phase 3
+   e: The coordinator times out in phase 2
+
+   New coordinator can restart the protocol. If anyone recieved a prepare,
+   resume, since all agree.
+
+   f: The coordinator times out in phase 3
+
+   Resume commiting, all agree, and all know that they agree upon the commit.
 
 5. Suppose Paxos is changed in the following way: The conditional in lines 6-11
    of the pseudocode for Proposer in slide set 9 is replaced by the statement
