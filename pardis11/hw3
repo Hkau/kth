@@ -8,12 +8,13 @@ Peter Boström <pbos@kth.se>
    a: How many crash failures can the algorithm handle? Explain.
 
    f, the algorithm waits for n-f proposals, as such at most f nodes may have
-   crashed.
+   crashed, where n>9f.
 
    b: Modify the algorithm to handle as many crash failures as you can. Explain
       how many crash failures the modified algorithm can handle.
 
-   TODO!!! Something about > 50% perhaps.
+   if we wait for n/2+1 proposals instead (majority), and have them agree, it'll
+   be slower, but still work. The majority set must agree on the same value.
 
 2. Devise an algorithm for leader election in asynchronous connected network
    graphs. You may assume that nodes have linearly ordered node identifiers and
@@ -80,7 +81,17 @@ Peter Boström <pbos@kth.se>
 	 labelling determines a connected component (none of these apply, btw).
 	 Hope this helps.
 
-   TODO!! :DD
+   The largest id node will be set to true, and all neighbour nodes will after
+   that round be set to false permanently. Any node with distance=2 from this
+   original node will now be set to true. Any connected distance=2 nodes
+   neighbouring a larger-id distance=2 node will be set to false. This
+   continues, and happens per-component of the graph.
+
+   After stabilizing the b=true nodes will be a vertex cover of the entire
+   graph. It may not always be minimum however.
+
+   Complexity-wise all nodes will be given a true/false color in O(distance)
+   from the largest node. In worst case this is O(n) rounds.
 
 4. Consider the 3PC protocol. Explain how the affected parties act in the
    following situations:
@@ -122,9 +133,16 @@ Peter Boström <pbos@kth.se>
 
    Does the agreement property still hold? Explain carefully why or why not.
 
+   Yes, it will still only agree when recieving ack(x,n) from a majority, though
+   it would be slower.
+
 6. A risk in Byzantine fault recovery procedures is that one or several
    Byzantine replicas conspire to eliminate a non-faulty primary. Explain how
    this is prevented in PBFT and in the Zyzzyva system.
+
+   Signing messages means no other client can forge commands from the non-faulty
+   primary. In Zyzzyva a commit certificate is broadcasted by the client when
+   recieving >= 2f+1 equal results.
 
 7. In this exercise you may start from the binary tree DHT presented in the
    slides for lecture 10. Describe three attacks a Byzantine adversary might
@@ -133,3 +151,16 @@ Peter Boström <pbos@kth.se>
    description is sufficient, you do not need to provide pseudocode, for
    instance.
 
+   A Byzantine attacker might say that a search always returns false, and that
+   the target machine was not found, we need to always ask more neighbors and
+   do a majority vote.
+
+   Sign central authority messages to avoid counterfeiting of these messages.
+   Get a lot of neighbors, some must be redundant.
+
+   Byzantine attacker could pretend to be target machine, establish certificates
+   through majority votes with your neighbours. If you're not unlucky, most are
+   not byzantine.
+
+   When recieving a leave message, try contacting through multiple routes to
+   see that the peer isn't actually up, and the leave message was fake.
