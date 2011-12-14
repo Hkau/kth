@@ -13,7 +13,24 @@ Peter Boström <pbos@kth.se>
 
 # Use the potential function Φ = |2num - size| and determine the amortized cost of insertions and deletions. 
 
-TODO
+Ta(o) = T(o) + (Φ(S-after) - Φ(S-before))
+
+push_back:
+
+normal: 1 + (|2*(num+1)-size| - |2*num-size|) = 1 + 2 = 3
+resize (happens when size == num, size after = 2*num): 1 + (resize=num) + (|2*(num+1)-2*num| - |2*num-num|) =
+	1 + num + ((2 - num)) = 1 + 2 = 3
+
+So, push_back costs 3 (O(1)).
+
+pop_back:
+
+normal: 1 + (|2*(num-1)-size| - |2*num-size|) = 1 + 2 = 3
+resize (happens when num<size/3): 1 + (resize = num) + (|2*(num-1)-num)| - |2*num-3*num|) + rounding error =
+	{rounding will often give a rounding error, but it's really small, for sure smaller than 3, so let's add that} =
+	1 + num + (2-num) + rounding error = 3 + rounding error < 6
+
+So, pop_back costs at most 5 (O(1)).
 
 # Problem 2: Let makeSet, union, and findSet be the three operations of the union-find data structure implemented using a disjoint-set forest with union by rank and path compression Draw a picture of the data structure that results from running the following code (draw it at the indicated points in time). Include the ranks of the elements in your picture. In case the sets containing i and j have the same rank, the union(i, j) operation, then the root of i's tree becomes the root of the union.
 
@@ -64,7 +81,26 @@ TODO
 
 # It may be helpful to prove that if x is a root and its rank is k, then it is the root of a tree with at least 2^k elements. 
 
-TODO
+A set in a disjoint-set forest structure only increases in rank (and also only by one) when an union of two sets of equal rank is performed.
+
+A MakeSet operation generates a rank-0 set of one element. A rank-1 element is formed by unifying two of these rank-0 sets, so a rank-1 set must contain (at least, more rank-0 elements can be joined into this rank-1 set) 2 elements.
+
+A set of rank n must be formed by taking the union of two rank-(n-1) sets. Adding additional rank-(n-1) sets will yield more elements, but not a higher rank, thus the minimum number of elements a rank-n set can have is twice the minimum number of elements for a single rank-(n-1) set.
+
+|rank-0| = 1 = 2⁰
+|rank-1| = 2¹
+|rank-2| >= 2*|rank-1| >= 2*2¹ = 2²
+|rank-3| >= 2*|rank-2| >= 2*2² = 2³
+..
+|rank-n| >= 2*|rank-(n-1)| >= 2*2^(n-1) = 2^n
+
+As we can see, rank-n set has to contain at least 2^n elements. It follows that a set with rank log2(n) will have at least 2^log2(n) = n elements, and that a set with rank log2(n)+1 will have to have at least 2^(log2(n)+1) = 2*n elements.
+
+To finalize the proof: In a sequence of m operations where n operations are makeSet, there are at most n elements available at all times.
+
+Assume that we have a rank-(log2(n)+1) set S. This set S would then contain at least 2*n elements (see above). As a sequence of n makeSet operations only generates n elements, such a construction is impossible. No set can contain more elements than there are elements in total. Thus constructing S is impossible, the rank of S can not be higher than log2(n), which is what we aimed to prove.
+
+(As for higher ranks than log2(n)+1, all log2(n)+k-rank sets require two log2(n)+k-1-rank sets to exist, and as no log2(n)+1-rank sets can be constructed, it follows that no log2(n)+2 sets can be constructed either, and so on.)
 
 # Problem 4: As there are a number of couch potatoes at KTH CSC, it has been decided that professors should be assigned to classrooms in such a way that they have to walk as far as possible to get to class, but how should one find such an assignment efficiently? This is a simplified version of that problem.
 
