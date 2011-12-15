@@ -110,10 +110,17 @@ Assume that we have a rank-(log2(n)+1) set S. This set S would then contain at l
 
 # Your algorithm should run in time polynomial in n, and you may analyze it using unit cost (as opposed to bit cost). For full credit, its complexity should be noticeably better than O(n^4).
 
-TODO
+The Hungarian algorithm with modifications by Edmonds and Karp can be used to minimize the cost of n workers doing n tasks in O(n³) time. To convert our problem into a min-cost problem we'll simply take the maximum distance cost and assign every (worker,task) pair a new cost: max_cost - cost.
 
-# Problem 5: This problem is the same as Problem 4, except that we have a different target function. This time you should maximize the minimum distance a professor needs to walk to get from her office to the her classroom. In other words, if D is the shortest distance that any professor needs to walk to get to her classroom, then find a classroom assignment tha makes D as large as possible.
+To solve that we have this non-square n-x-2n matrix, we'll simply augment another n-x-2n matrix with costs max_cost+1. This will prevent these new fake workers from interfering. All real professors will have a room chosen first, and all fake workers' rooms will be chosen arbitrarily as they have the same cost. Creating this new matrix is O(n²).
+
+Then we shove this into the hungarian algorithm, our new matrix is size 2n*2n, which gives O((2n)³) = O(n³) time.
+
+Finally we take out all real assignments (all n professors and their classrooms), this will be O(n²) as well.
+
+# Problem 5: This problem is the same as Problem 4, except that we have a different target function. This time you should maximize the minimum distance a professor needs to walk to get from her office to the her classroom. In other words, if D is the shortest distance that any professor needs to walk to get to her classroom, then find a classroom assignment that makes D as large as possible.
 
 # Your algorithm should run in time polynomial in n, and you may analyze it using unit cost (as opposed to bit cost). For full credit, its complexity should be noticeably better than O(n^4).
 
-TODO
+Ford and Fulkerson extended the Hungarian algorithm to solve the general transportation problem. This might/should be applicable here.
+
