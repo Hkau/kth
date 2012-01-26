@@ -1,0 +1,92 @@
+# Problem 4: As there are a number of couch potatoes at KTH CSC, it has been decided that professors should be assigned to classrooms in such a way that they have to walk as far as possible to get to class, but how should one find such an assignment efficiently? This is a simplified version of that problem.
+
+# There are n professors and 2n classrooms. The input is a table t[1..n,1..2*n] where t[p, c] is the distance from the office of professor p to classroom c.
+
+# Design an efficient algorithm that finds a way to assign each professor to a classroom so that each professor gets a classroom and no classroom is used by more than one professor, and maximize the sum of the distances the professors need to walk if they all walk from their offices to their classrooms.
+
+# Your algorithm should run in time polynomial in n, and you may analyze it using unit cost (as opposed to bit cost). For full credit, its complexity should be noticeably better than O(n^4).
+
+Recursive method with memorization
+
+Let pathmap be a global balanced-binary-tree map with O(log(n)) insertion, O(log(n)) recieving.
+
+bitmask(rooms) # O(n)
+{
+	mask = 0
+	for room in rooms:
+		mask |= 1 << index(room)
+	return mask
+}
+
+solve(profs, rooms)
+{
+	# generate a bitmask for this calculation
+	# fetch cached result, if it exists
+	roomsmask = bitmask(rooms) # O(n)
+	if pathmap[roomsmask] is not nil: # O(log(2n)) = O(log(n))
+		return pathmap[roomsmask]
+
+	# base case
+	if profs is {}:
+		return {}
+
+	prof = profs.shift! # take out a prof, always(!) take the last one, it's important.
+
+	assignment = nil
+	for room in rooms: # O(n) * recursive call
+		a = room + solve(profs, rooms-room) # Recursive call!
+		if a is nil or dist(assignment) < dist(a): # O(1), dist can be cached within "assignment struct"
+			assignment = a
+	
+	pathmap[room_mask] = assignment # O(n)
+	return assignment
+}
+
+dist(a) can be cached, so each assignment stores its distance as well, giving us dist => O(1).
+
+solve() is dominated by the recursive call to solve, all other computations can be ignored.
+
+Total number of roomsmasks:
+
+n-bit masks: n of them (one with a single room removed)
+
+# Problem 5: This problem is the same as Problem 4, except that we have a different target function. This time you should maximize the minimum distance a professor needs to walk to get from her office to the her classroom. In other words, if D is the shortest distance that any professor needs to walk to get to her classroom, then find a classroom assignment that makes D as large as possible.
+
+# Your algorithm should run in time polynomial in n, and you may analyze it using unit cost (as opposed to bit cost). For full credit, its complexity should be noticeably better than O(n^4).
+
+Recursive method with memorization
+
+Let pathmap be a global balanced-binary-tree map with O(log(n)) insertion, O(log(n)) recieving.
+
+bitmask(rooms) # O(n)
+{
+	mask = 0
+	for room in rooms:
+		mask |= 1 << index(room)
+	return mask
+}
+
+solve(profs, rooms)
+{
+	roomsmask = bitmask(rooms)
+	if pathmap[roomsmask] is not nil:
+		return pathmap[roomsmask]
+
+	if profs is {}:
+		return {}
+	prof = profs.shift!
+	assignment = nil
+	for room in rooms:
+		a = room + solve(profs, rooms-room)
+		if a is nil or min_dist(assignment) < min_dist(a): # O(1), This is the only changed line
+			assignment = a
+	
+	pathmap[room_mask] = assignment
+	return assignment
+}
+
+min_dist(a) can, like dist(a) before be cached.
+
+solve() is still dominated by the recursive call to solve, all other computations can be ignored.
+
+
