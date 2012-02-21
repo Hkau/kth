@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usetheme{Warsaw}
 \title[The Skein Hash Function Family]{A Brief Introduction to\\the Skein Hash Function Family}
@@ -49,7 +50,7 @@
 
 \begin{frame}{Threefish -- Substitution-Permutation Network}
 
-	IMAGE(Threefish-512)\vspace{8mm}
+	\begin{center}\includegraphics[width=100px]{skein-512}\end{center}
 
 	A subkey is inject every 4 rounds, instead of each round.
 
@@ -63,7 +64,7 @@
 
 \begin{frame}{Threefish -- MIX function}
 
-	IMAGE(MIX)\vspace{8mm}
+	\begin{center}\includegraphics[width=90px]{mix}\end{center}
 
 	Instead of S-boxes, Threefish has a really simple MIX function between two words consisting of a single ADD, rotation and XOR.
 
@@ -76,7 +77,7 @@
 	As a tweakable block cipher, Threefish takes a third input, a \emph{tweak} value, aside from plaintext/ciphertext and key.
 
 	\vspace{2mm}
-	Threefish's key schedule is generated from both the \emph{key} and \emph{tweak}, which inexpensively selects the new permutation computed by the cipher.
+	Threefish's key schedule is generated from both the \emph{key} and \emph{tweak}, which in turn determines the new permutation computed by the cipher.
 
 	\vspace{2mm}
 	\begin{block}{Tweak}
@@ -86,12 +87,12 @@
 
 \begin{frame}{Unique Block Iteration}
 
-	IMAGE(UBI)\vspace{8mm}
+	\begin{center}\includegraphics[width=120px]{ubi}\end{center}
 
-	Unique Block Iteration is a chaining mode which combines an input value (G) with an arbitrary-length input string to produce a fixed-size output.
+	Unique Block Iteration (UBI) is a chaining mode which combines an input value (G) with an arbitrary-length input string to produce a fixed-size output.
 
 	\vspace{2mm}
-	The tweak value, encoding length and first/final among others assures that each block is processed with a unique variant of the underlying cipher.
+	The tweak value, encoding message type, length and first/final among others assures that each block is processed with a unique variant of the underlying cipher.
 
 	\begin{block}{Tweak}
 		``[A] message piece that produces one result in one location will produce a different result in a different location.''
@@ -101,17 +102,45 @@
 
 \begin{frame}{Skein Hashing}
 
-	IMAGE(SIMPLE-SKEIN)\vspace{8mm}
+	\begin{center}\includegraphics[width=120px]{skein-simple}\end{center}
 
-	Derp.
+	Skein is built on multiple invocations of UBI with different tweak values.
 
+	\vspace{2mm}
+	Regular Skein hashing is built from three UBI invocations:
+
+	\vspace{2mm}
+	\begin{itemize}
+		\item Configuration [output length, tree-hashing parameters] (IV)
+		\item Message
+		\item Output transformation (Finalization)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Skein Hashing with Larger Output Size}
 
-	IMAGE(LARGE-SKEIN)\vspace{8mm}
+	\begin{center}\includegraphics[width=140px]{skein-large}\end{center}
 
-	Derp.
+\end{frame}
+
+\begin{frame}{Skein Usage}
+
+	Skein's flexibility comes from its Optional-Argument System which defines support for using Skein as a/for:
+
+	\vspace{2mm}
+	\begin{itemize}
+		\item Tree hashing
+		\item Digital signatures
+		\item Key-Derivation Function
+		\item Pseudo-random number generator (PRNG)
+		\item Stream cipher
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{The End}
+
+	Thanks for listening!
 
 \end{frame}
 
