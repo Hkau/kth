@@ -1,0 +1,118 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Warsaw}
+\title[The Skein Hash Function Family]{A Brief Introduction to\\the Skein Hash Function Family}
+\author{Peter Boström}
+\institute{Royal Institute of Technology (RIOT)}
+\date{February 22, 2012}
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Skein -- Overview}
+	Skein is built from these three new components:
+	\vspace{4mm}
+	\begin{itemize}
+		\item Threefish
+		\item Unique Block Iteration (UBI)
+		\item Optional Argument System
+	\end{itemize}
+	\vspace{12mm}
+	\begin{block}{Modular Design}
+		``Dividing up our design makes Skein easier to understand, analyze, and prove properties about.''
+	\end{block}
+\end{frame}
+
+\begin{frame}{Threefish}
+	Tweakable block cipher, defined with a 256-, 512- and 1024-bit block size.
+	\vspace{2mm}
+	\begin{itemize}
+		\item Design Philosophy
+		\item Substitution-Permutation Network
+		\item MIX function
+		\item Tweakable Block Cipher
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Threefish -- Design Philosophies}
+	Skein and Threefish was designed with a few principles in mind:
+	\vspace{2mm}
+	\begin{itemize}
+		\item Simplicity
+		\item Security per clock cycle
+		\item Maximum diffusion
+		\item Flexibility
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Threefish -- Substitution-Permutation Network}
+
+	IMAGE(Threefish-512)\vspace{8mm}
+
+	A subkey is inject every 4 rounds, instead of each round.
+
+	\vspace{2mm}
+	Threefish was designed to maximize diffusion, each input bit affects every output bit after 10 rounds.
+
+	\vspace{2mm}
+	But unlike a normal SP network Threefish doesn't use S-boxes..
+
+\end{frame}
+
+\begin{frame}{Threefish -- MIX function}
+
+	IMAGE(MIX)\vspace{8mm}
+
+	Instead of S-boxes, Threefish has a really simple MIX function between two words consisting of a single ADD, rotation and XOR.
+
+	\vspace{2mm}
+	Threefish's non-linearity comes from mixing addition modulo $2^{64}$ and XOR.
+
+\end{frame}
+
+\begin{frame}{Threefish -- Tweakable Block Cipher}
+	As a tweakable block cipher, Threefish takes a third input, a \emph{tweak} value, aside from plaintext/ciphertext and key.
+
+	\vspace{2mm}
+	Threefish's key schedule is generated from both the \emph{key} and \emph{tweak}, which inexpensively selects the new permutation computed by the cipher.
+
+	\vspace{2mm}
+	\begin{block}{Tweak}
+		``The purpose of the tweak is to make each block operation in Skein unique.''
+	\end{block}
+\end{frame}
+
+\begin{frame}{Unique Block Iteration}
+
+	IMAGE(UBI)\vspace{8mm}
+
+	Unique Block Iteration is a chaining mode which combines an input value (G) with an arbitrary-length input string to produce a fixed-size output.
+
+	\vspace{2mm}
+	The tweak value, encoding length and first/final among others assures that each block is processed with a unique variant of the underlying cipher.
+
+	\begin{block}{Tweak}
+		``[A] message piece that produces one result in one location will produce a different result in a different location.''
+	\end{block}
+
+\end{frame}
+
+\begin{frame}{Skein Hashing}
+
+	IMAGE(SIMPLE-SKEIN)\vspace{8mm}
+
+	Derp.
+
+\end{frame}
+
+\begin{frame}{Skein Hashing with Larger Output Size}
+
+	IMAGE(LARGE-SKEIN)\vspace{8mm}
+
+	Derp.
+
+\end{frame}
+
+\end{document}
