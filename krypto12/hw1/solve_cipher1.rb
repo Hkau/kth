@@ -2,33 +2,34 @@
 count = {}
 cryptotext = ""
 translation = {
-	'W' => " ",
-	'U' => 't',
-	'P' => 'e',
-	'M' => 'a',
-	'R' => 'o',
-	'T' => 'i',
-	'_' => 'n',
-	'A' => 's',
-	'G'=> 'h',
-	'Z'=> 'r',
-	'#' => 'd',
-	'L' => 'l',
-	'K' => 'c',
-	'Y' => 'u',
-	'O' => 'm',
-	'I' => 'w',
-	'D' => 'f',
-	'B' => 'g',
-	'S' => 'y',
-	'V' => 'p',
-	'E' => 'b',
-	'C' => 'v',
-	'H' => 'k',
-	'F' => 'j',
-	'X' => 'x',
-	'Q' => 'q',
-	'N' => 'z',
+	'W' => ' ', #
+	'D' => "\n", #
+	'U' => 'e', #
+	'P' => 't', #
+	'M' => 'a', #
+	'_' => 'o', #
+	'A' => 'i', #
+	'R' => 'n', #
+	'G' => 's', #
+	'T' => 'h', #
+	'Z' => 'r', #
+	'L' => 'd', #
+	'#' => 'l', #
+	'C' => 'c', #
+	'Y' => 'u', #
+	'I' => 'm', #
+	'O' => 'w', #
+	'B' => 'f', #
+	'K' => 'g', #
+	'E' => 'y', #
+	'H' => 'p', #
+	'V' => 'b', #
+	'F' => 'v', #
+	'S' => 'k', #
+	'J' => 'j', # -- not found --
+	'X' => 'x', #
+	'Q' => 'q', #
+	'N' => 'z', #
 }
 
 "#ABCDEFGHIJKLMNOPQRSTUVWXYZ_".each_char do |c|
@@ -44,16 +45,20 @@ STDIN.each_char do |c|
 end
 
 cryptotext.each_char do |c|
-	STDERR.print translation[c]
+	if translation[c].nil?
+		print c
+		next
+	end
+	print translation[c]
 end
 puts
 
 count.each_key do |key|
-	print (100*count[key].to_f / cryptotext.length).to_s[0,5] + "% (" + count[key].to_s + ") " + key
+	STDERR.printf "%.3f%% (%d) %s", (100*count[key].to_f / cryptotext.length), count[key], key
 	if translation[key].nil?
-		puts " *"
+		STDERR.puts " *"
 	else
-		puts " => " + translation[key]
+		STDERR.puts " => " + translation[key]
 	end
 end
 
