@@ -1,0 +1,13 @@
+1) Ciphers
+
+a) Substitution cipher (single character)
+b) Rotation + subst bigraph?
+c) hex-encoded something?
+
+2) Which functions are neglegible?
+
+ - 1: 10^-50*n^-5.7 # No, inversely polynomial
+ - 2: f1(n)^n # yes, even smaller than 1/n!, so smaller than inversely exponential
+ - 3: 2^-log(n)^(1+d)
+ - 4: n^(-10-1/n³) # no, as 1/n³ goes to 0, left will be n⁻¹⁰, which is inversely polynomial
+ - 5: n^(1/2)*2^(-log(n)^(1/3))
