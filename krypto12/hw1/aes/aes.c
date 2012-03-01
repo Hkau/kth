@@ -16,7 +16,7 @@ void rotate(unsigned char *in)
 	*in = tmp;
 }
 
-// Rotate, apply sbox and 2^i exponentiation in GF(2) using lookup table.
+// Rotate, apply sbox and 2^i exponentiation in GF(2^8) using lookup table.
 void schedule_core(unsigned char *in, unsigned char iter)
 {
 	// rotate input word
@@ -27,7 +27,7 @@ void schedule_core(unsigned char *in, unsigned char iter)
 	for(i = 0; i < 4; ++i)
 		in[i] = sbox[in[i]];
 
-	// xor first byte with 2^iter in GF(2)
+	// xor first byte with 2^iter in GF(2^8)
 	*in ^= rcon[iter];
 }
 
@@ -133,7 +133,7 @@ void gmix_column(unsigned char *r) {
 			b[c] ^= 0x1B; // xor with 0x1B
 	}
 
-	// Apply matrix multiplication to the r[] vector within GF(2)
+	// Apply matrix multiplication to the r[] vector within GF(2^8)
 	r[0] = b[0] ^ a[3] ^ a[2] ^ (b[1] ^ a[1]); /* 2 * a0 + a3 + a2 + 3 * a1 */
 	r[1] = b[1] ^ a[0] ^ a[3] ^ (b[2] ^ a[2]); /* 2 * a1 + a0 + a3 + 3 * a2 */
 	r[2] = b[2] ^ a[1] ^ a[0] ^ (b[3] ^ a[3]); /* 2 * a2 + a1 + a0 + 3 * a3 */
