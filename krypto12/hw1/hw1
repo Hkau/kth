@@ -1,13 +1,223 @@
+Attempted problems:
+
+	1: a, b(partly), c(partly) = 3T + (partial T points)
+	2: 1T
+	4: 15I
+	5: 15I
+	7: a,b,c = 6T
+	8: a,b = 6T
+
+	sum: 16T + 30I (+ any partial-credit T points from task 1)
+
 1) Ciphers
 
 a) Substitution cipher (single character)
-b) Rotation + subst bigraph?
+
+Frequencies + key:
+
+19.790% (2078) W =>
+9.267% (973) U => e
+6.971% (732) P => t
+6.714% (705) M => a
+6.219% (653) R => n
+6.057% (636) T => h
+5.171% (543) _ => o
+5.048% (530) A => i
+4.514% (474) G => s
+4.238% (445) Z => r
+4.162% (437) # => l
+3.905% (410) L => d
+2.838% (298) K => g
+2.495% (262) Y => u
+2.390% (251) O => w
+1.962% (206) I => m
+1.562% (164) D => \n
+1.543% (162) B => f
+1.105% (116) S => k
+1.048% (110) V => b
+1.029% (108) E => y
+0.848% (89) C => c
+0.600% (63) H => p
+0.457% (48) F => v
+0.029% (3) X => x
+0.019% (2) Q => q
+0.019% (2) N => z
+0.000% (0) J * (Not used)
+
+Message prefix:
+
+gunnlaug answers i shall go abroad all the same nor shall i be well pleased but
+if thou further this
+
+so after this illugi rode with eleven men from home down to burg and thorstein
+greeted him well early in the morning illugi said to thorstein i would speak to
+thee
+
+let us go then to the top of the burg and talk together there said thorstein
+and so they did and gunnlaug went with them
+
+then said illugi my kinsman gunnlaug tells me that he has begun a talk with
+thee on his own behalf praying that he might woo thy daughter helga but now i
+would fain know what is like to come of this matter his kin is known to thee
+and our possessions from my hand shall be spared neither land nor rule over men
+if such things might perchance further matters
+
+thorstein said herein alone gunnlaug pleases me not that i find him an
+unsettled man but if he were of a mind like thine little would i hang back
+
+b) Rotation + subst bigrams?
+
+Rotating the text by 20 steps per iteration generates the following frequency
+table (something which at least remotely resembles english)
+
+13.286% (1395) _ =>
+7.829% (822) E *
+5.486% (576) I *
+5.362% (563) T => t
+5.362% (563) A => a
+4.876% (512) O *
+4.819% (506) H => g
+4.743% (498) # => \n
+4.571% (480) N => n
+4.267% (448) S => s
+3.771% (396) G *
+3.686% (387) W *
+3.352% (352) L => l
+3.248% (341) R => r
+2.952% (310) D => d
+2.733% (287) M => m
+2.648% (278) U => u
+2.610% (274) C *
+2.524% (265) F => e
+2.181% (229) P => o
+1.657% (174) V *
+1.581% (166) B *
+1.400% (147) Y *
+1.381% (145) K *
+1.286% (135) J *
+1.067% (112) X *
+0.781% (82) Q *
+0.543% (57) Z *
+
+I haven't been able to work out the entire key, single-letter substitution
+doesn't seem to be enough (gunnlaug decoded in one place, "GunnlaVG" left when
+GV are still not translated). Suspecting bigraphs or other trickery.
+
+Partly-decoded ciphertext:
+
+gunnlaug aVWWasEd tgau WmVEWJll COuOsEtoE
+
+tO lEnE OVIsWnOnEY to uVOnKXn mEn
+agEGWaEE I WIlm oIa Eu tgEE CaCsCOJ
+a namEE dIa
+XugEn sgBllGmtWCE rIsKed  EYO
+GunnlaVG IrdWIE lEnt
+gIuCtde eEE WJtgIo
+XCut sOme tQQEWBetErWasdsGKuJOlauG met
+lEWlInG anE tWodWIIm Oe ugEGQOJeYlEndIOG
+
 c) hex-encoded something?
+
+Parsing 2 hex digits as one character (translate to alphabet) and rotating by
+37 per letter gives a remote frequency table:
+
+8.275% (869) ( =>
+7.875% (827) T *
+4.656% (489) ' *
+4.504% (473) S *
+3.456% (363) 1 *
+3.437% (361) _ *
+3.190% (335) a *
+3.076% (323) 2 *
+3.057% (321) V *
+2.904% (305) , *
+2.752% (289) 9 *
+2.685% (282) 4 *
+2.561% (269) c *
+
+..
+
+I have not managed to solve this further yet.
 
 2) Which functions are neglegible?
 
  - 1: 10^-50*n^-5.7 # No, inversely polynomial
- - 2: f1(n)^n # yes, even smaller than 1/n!, so smaller than inversely exponential
- - 3: 2^-log(n)^(1+d)
- - 4: n^(-10-1/n³) # no, as 1/n³ goes to 0, left will be n⁻¹⁰, which is inversely polynomial
- - 5: n^(1/2)*2^(-log(n)^(1/3))
+ - 2: f1(n)^n # yes, even smaller than 1/n!, so even smaller than inversely
+      exponential, thus neglegible.
+ - 3: 2^-log(n)^(1+d) # yes
+ - 4: n^(-10-1/n³) # no, as 1/n³ goes to 0, left will be n⁻¹⁰, which is
+      inversely polynomial.
+ - 5: n^(1/2)*2^(-log(n)^(1/3)) # no, as 2^log(n) is O(n), and 2^(log(n^1/3))
+      is even smaller than that.
+
+Answer: 2,3 
+
+4) AES
+
+https://kth.kattis.scrool.se/submission?id=278720
+
+See attached code.
+
+5) SHA-256
+
+https://kth.kattis.scrool.se/submission?id=278900
+
+See attached code.
+
+7) Feistel-network task
+
+a: Draw the corresponding decryption scheme
+
+(Cl||Cr) := C
+Pr := Cl ^ F2(k2, Cr)
+Pl := Pr ^ F1(k1, Pr)
+P := (Pl || Pr)
+
+b: Let the round function be defined as F(a,b) = a^b. Then express the
+   ciphertext in terms of the key and the plaintext
+
+(Pl, Pr) => (Cl, Cr)
+Cr = F1(k1, Pr) ^ Pl = (k1^Pr)^Pl = k1^Pr^Pl
+Cl = F2(k2, Cr) ^ Pr = (k2^(k1^Pr^Pl))^Pr = k2^k1^Pl
+
+(Cl, Cr) = (k2^k1^Pl, k1^Pl^Pr)
+
+c: Using the round functions from 7b, explain how the key can be recovered.
+
+Since Cr = k1^Pl^Pr, k1 = Cr^Pl^Pr, we know the right-hand side from from the
+single (C, P) pair, so we simply compute k1.
+
+We can also write the relation Cl = k2^k1^Pl as k2 = Cl^k1^Pl, or equally as
+k2 = Cl^(Cr^Pl^Pr)^Pl = Cl^Cr^Pr.
+
+The key is finally recovered as k = (k1||k2) = (Cr^Pl^Pr||Cl^Cr^Pr).
+
+8) Hash chaining and collisions
+
+a: It is collision resistant
+
+Presume the concatenated version, H = (H0 || H1) is not collision resistant.
+Then there exists a polynomial-time algorithm that computes two different
+messages that gives the same hash value. We can use that polynomial-time
+algorithm to generate different input messages m0, m1, which give the same hash
+(h0 || h1).
+
+As the hash value is generated by concatenating the outputs of our different
+functions, we can also use this pair of messages (m0, m1) as a collision attack
+on our separate hash functions (with respective randomly-chosen keys). Thus we
+can find collisions for both H0(k0, .) and H1(k1, .) within polynomial time.
+But this directly contradicts that one of them are collision resistant.
+
+Thus H must also be collision resistant.
+
+b: Not collision resistant.
+
+Say that H0 is not collision resistant, we can then find two messages (m0, m1)
+such that H0(k0, m0) = H0(k0, m1).
+
+As this is the input to H1(k1, .), we can then see that
+
+	H(k, m0) = H1(k1, H0(k0, m0)) = H1(k1,H0(k0, m1)) = H(k, m1)
+
+and thus (m0, m1) is a collision for H as well.
+
