@@ -1,3 +1,8 @@
+Homework I, Foundations of Cryptography 2012
+
+	Peter Boström, pbos@kth.se, 890224-0814
+
+
 Attempted problems:
 
 	1: a, b(partly), c(partly) = 3T + (partial T points)
@@ -6,12 +11,13 @@ Attempted problems:
 	5: 15I
 	7: a,b,c = 6T
 	8: a,b = 6T
+	9: a = 2T
 
-	sum: 16T + 30I (+ any partial-credit T points from task 1)
+	sum: 18T + 30I (+ any partial-credit T points from task 1)
 
 1) Ciphers
 
-a) Substitution cipher (single character)
+1a) Substitution cipher (single character)
 
 Frequencies + key:
 
@@ -65,7 +71,8 @@ if such things might perchance further matters
 thorstein said herein alone gunnlaug pleases me not that i find him an
 unsettled man but if he were of a mind like thine little would i hang back
 
-b) Rotation + subst bigrams?
+
+1b) Rotation + subst bigrams?
 
 Rotating the text by 20 steps per iteration generates the following frequency
 table (something which at least remotely resembles english)
@@ -116,10 +123,11 @@ gIuCtde eEE WJtgIo
 XCut sOme tQQEWBetErWasdsGKuJOlauG met
 lEWlInG anE tWodWIIm Oe ugEGQOJeYlEndIOG
 
-c) hex-encoded something?
+
+1c) hex-encoded something?
 
 Parsing 2 hex digits as one character (translate to alphabet) and rotating by
-37 per letter gives a remote frequency table:
+37 per letter gives a possibly-usable frequency table:
 
 8.275% (869) ( =>
 7.875% (827) T *
@@ -139,6 +147,7 @@ Parsing 2 hex digits as one character (translate to alphabet) and rotating by
 
 I have not managed to solve this further yet.
 
+
 2) Which functions are neglegible?
 
  - 1: 10^-50*n^-5.7 # No, inversely polynomial
@@ -152,28 +161,28 @@ I have not managed to solve this further yet.
 
 Answer: 2,3 
 
+
 4) AES
 
 https://kth.kattis.scrool.se/submission?id=278720
 
-See attached code.
 
 5) SHA-256
 
 https://kth.kattis.scrool.se/submission?id=278900
 
-See attached code.
 
 7) Feistel-network task
 
-a: Draw the corresponding decryption scheme
+7a: Draw the corresponding decryption scheme
 
 (Cl||Cr) := C
 Pr := Cl ^ F2(k2, Cr)
 Pl := Pr ^ F1(k1, Pr)
 P := (Pl || Pr)
 
-b: Let the round function be defined as F(a,b) = a^b. Then express the
+
+7b: Let the round function be defined as F(a,b) = a^b. Then express the
    ciphertext in terms of the key and the plaintext
 
 (Pl, Pr) => (Cl, Cr)
@@ -182,7 +191,8 @@ Cl = F2(k2, Cr) ^ Pr = (k2^(k1^Pr^Pl))^Pr = k2^k1^Pl
 
 (Cl, Cr) = (k2^k1^Pl, k1^Pl^Pr)
 
-c: Using the round functions from 7b, explain how the key can be recovered.
+
+7c: Using the round functions from 7b, explain how the key can be recovered.
 
 Since Cr = k1^Pl^Pr, k1 = Cr^Pl^Pr, we know the right-hand side from from the
 single (C, P) pair, so we simply compute k1.
@@ -192,9 +202,10 @@ k2 = Cl^(Cr^Pl^Pr)^Pl = Cl^Cr^Pr.
 
 The key is finally recovered as k = (k1||k2) = (Cr^Pl^Pr||Cl^Cr^Pr).
 
+
 8) Hash chaining and collisions
 
-a: It is collision resistant
+8a: It is collision resistant
 
 Presume the concatenated version, H = (H0 || H1) is not collision resistant.
 Then there exists a polynomial-time algorithm that computes two different
@@ -210,7 +221,8 @@ But this directly contradicts that one of them are collision resistant.
 
 Thus H must also be collision resistant.
 
-b: Not collision resistant.
+
+8b: Not collision resistant.
 
 Say that H0 is not collision resistant, we can then find two messages (m0, m1)
 such that H0(k0, m0) = H0(k0, m1).
@@ -220,4 +232,23 @@ As this is the input to H1(k1, .), we can then see that
 	H(k, m0) = H1(k1, H0(k0, m0)) = H1(k1,H0(k0, m1)) = H(k, m1)
 
 and thus (m0, m1) is a collision for H as well.
+
+
+9) AES theoretically.
+
+9a: Reversing AES
+
+1. C = AddRoundKey(C, Wn)
+
+2. C = InvShiftRows(C)
+
+3. C = InvSubBytes(C)
+
+4. for r = n-1,...,1 do
+   a) C = AddRoundKey(C, Wr)
+   b) C = InvMixColumns(C)
+   c) C = InvShiftRows(C)
+   d) C = InvSubBytes(C)
+
+5. Return AddRoundKey(C, W0)
 
