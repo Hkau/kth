@@ -1,0 +1,44 @@
+Homework II, Foundations of Cryptography 2012
+
+	Peter Boström, pbos@kth.se, 890224-0814
+
+
+Attempted problems:
+
+	TODO: These!
+	1: a+b = 10T
+	7: 2I
+	9: 5I
+	10: 8I
+
+	sum: 10T + 15I
+
+1) CS, public key cryptosystem
+
+Essentially all versions of it uses the same key, but produces k separate
+submessages, all of size n. The security parameter for CS^k is still n.
+
+From a security perspective, CS^k essentially performs the the CS operation
+with security parameter n k times. It's important to note that it doesn't split
+up the n-bit message into k parts, which would significantly decrease its
+security. CS^k simply uses longer messages, but with the same security
+parameter.
+
+Sending a message n * k with CS^k will essentially give you k n-security sub-
+messages, given that CS is semantically secure. It would be the same as using
+CS k times for each n-length submessage you're encrypting or decrypting.
+
+1a: CS^2 is essentially doing n-bit security CS two times using the smaller
+n-bit submessages. If this is semantically unsecure, then CS would be as well,
+as using CS twice is definitely possibly by any polynomial-time adversary.
+
+1b: Security-wise, we remember that CS^k(n) is still only performing CS k(n)
+times essentially, with different invocations. Any polynomial-time adversary
+will only be able to perform a polynomial amount of k(n) invocations of CS,
+which is still a polynomial amount of invocations of CS. If CS^k(n) would have
+been broken, then CS must be as well. As a polynomial amount of invocations to
+it is the same as another polynomial amount of invocations to CS, therefore
+if it breaks CS^k(n), it must break CS as well. (Which it can't, if CS is
+semantically secure).
+
+
