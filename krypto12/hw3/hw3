@@ -1,0 +1,42 @@
+Homework III, Foundations of Cryptography 2012
+
+	Peter Boström, pbos@kth.se, 890224-0814
+
+
+Attempted problems:
+
+	1: a+b = 2T
+
+	sum: --I + --T 
+
+1a: DH hard -> DL hard
+
+To prove that the Diffie-Hellman assumption implies the Discrete Logarithm
+assumption we're going to prove that DL being false implies that DH is false as
+well. (DH->DL is equal to !DL->!DH).
+
+DL being false means that the probability that an polynomial-time adversary A
+which yields A(g,y) = log_g(y) with non-negligible probability.
+
+Recall that a function e(n) being negligible means that e(n) < 1/n^c for every
+constant c > 0 and n>n0 for some n0. Thus if Pr[A(g,y) = log_g(y)] >= 1/n^c for
+some c.
+
+To prove that !DL->!DH we're going to construct a new algorithm A' which can
+solve DH with non-negligible probability using our polynomial-time adversary
+A for solving DL. (A'(g^a, g^b) should yield g^ab with non-negligible
+probability.)
+
+A' (g^a, g^b):
+	a = A(g, g^a)
+	b = A(g, g^b)
+	return g^ab
+
+This new adversary A' makes use of A twice. Each attempt of using A succeeding
+with probability p means that A' succeeds with probability p^2. Thus if
+Pr[A(g,y) = log_g(y)] >= 1/n^c for some c, then Pr[A'(g^a, g^b) = g^ab] >=
+(1/n^c)^2 = 1/n^2c. 2c is still only a constant, and it follows that A' is not
+negligible if A is.
+
+Thus !DL implies !DH and equivalently DH implies DL.
+
