@@ -5,9 +5,11 @@ Homework III, Foundations of Cryptography 2012
 
 Attempted problems:
 
-	1: a+b = 2T
+	1: 1+1 = 2T
+	2: 1+3+2+1 = 7T
 
 	sum: --I + --T 
+
 
 1a: DH hard -> DL hard
 
@@ -28,8 +30,8 @@ A for solving DL. (A'(g^a, g^b) should yield g^ab with non-negligible
 probability.)
 
 A' (g^a, g^b):
-	a = A(g, g^a)
-	b = A(g, g^b)
+	a = A(g, g^a) # succeeds with probability p
+	b = A(g, g^b) # again, succeeds with probability p
 	return g^ab
 
 This new adversary A' makes use of A twice. Each attempt of using A succeeding
@@ -40,3 +42,114 @@ negligible if A is.
 
 Thus !DL implies !DH and equivalently DH implies DL.
 
+
+1b: DDH hard -> DH hard
+
+Similar to a: DDH->DH is equivalent to !DH->!DDH. Thus we aim to prove that if
+DH doesn't hold then DDH can't hold either.
+
+If DH doesn't hold, then there's some polynomial-time adversary A for which
+A(g^a, g^b) = g^ab with non-negligible probability p.
+
+To break DDH we construct a new adversary A' which makes use of A so that
+A' aims to answer A'(g^a, g^b, g^ab) with 1 and A'(g^a, g^b, g^c) with 0.
+
+A'(g^a, g^b, X):
+	g^ab = A(g^a, g^b) # succeeds with probability p
+	if g^ab == X:
+		return 1
+	else:
+		return 0
+
+Finally, we need to show that
+	Pr = |Pr[A'(g^a, g^b, g^ab) = 1] - Pr[A'(g^a, g^b, g^c)]| is not negligible.
+
+for X=g^ab: When A succeeds (probability p), A' clearly answers 1
+
+for X=g^c:
+	No matter what A computes, X is chosen randomly, so the probability	that A'
+	answers 1 is 1/2^n, as g^c will be one of the 2^n elements in the group.
+
+Pr = |p-1/2^n| ≈ p (as 1/2^n is clearly negligible). Thus as p is not
+negligible (initial assumption, A solves DH with non-negligible probability).
+
+Thus !DH->!DDH, and equivalently DDH->DH, thus DDH->DH is proven.
+
+
+
+2: Diffie-Hellman with special groups Gq and Hq
+
+
+2a: DDH easy in Gq
+
+Decision Diffie Hellman means distinguishing g^ab from g^c when g^a and g^b are
+given and a,b,c are chosen randomly.
+
+We can efficiently compute ψ(g, g)^ab as follows: ψ(g^a, g^b) = ψ(g, g)^ab
+To compute ψ(g, g)^c, we simply do ψ(g, g^c) = ψ(g, g)^c
+
+As ψ(g, g) is not the identity element in Hq, ψ(g, g) generates Hq. Thus
+ψ(g, g)^c = ψ(g, g)^ab only holds if c = ab mod q, as they are of the same
+order.
+
+If ψ(g, g)^c = ψ(g, g)^ab, then g^c = g^ab. As both ψ(g, g)^c and ψ(g, g)^ab
+are easily computable from g^a, g^b, g^c the Decision Diffie-Hellman problem in
+Gq is easy.
+
+
+2b: Diffie-Hellman key-exchange protocol with three parties
+
+ψ(g, g)^abc will be the secret shared between the three parties, A, B and C.
+
+A, B and C have secrets a, b and c respectively. Each of them compute g^a,
+g^b and g^c respectively and send to the others.
+
+Now every party raise one of the values recieved to the power of their own
+secret. A could either calculate (g^b)^a = g^ab or (g^c)^a = g^ac in Gq, and
+then calculate ψ(g^ab, g^c) = ψ(g, g)^abc or ψ(g^b, g^ac) = ψ(g, g)^abc.
+
+B and C does so similarly, and all three parties get:
+
+	ψ(g, g)^abc (in Hq)
+
+which is their shared secret.
+
+(A could also calculate ψ(g, g)^bc and raise it to the power a to get
+ψ(g, g)^abc.)
+
+
+2c: Corresponding generalization of the DDH assumption
+
+If a, b, c, r in Zq are chosen randomly, then for every polynomial-time
+algorithm A, |Pr[A(g^x, g^y, g^z, ψ(g, g)^xyz) = 1] -
+Pr[A(g^x, g^y, g^z, ψ(g, g)^r) = 1]| is negligible.
+
+(A polynomial-time adversary observing g^a, g^b, g^c, can compute ψ(g, g)^ab,
+ψ(g, g)^ac and ψ(g, g)^bc but not ψ(g, g)^abc, and thus cannot separate it from
+ψ(g, g)^r with a randomly-chosen r.)
+
+
+2d: Man-in-the-middle attack on this scheme.
+
+The eavesdropper E chooses three random secrets Ea, Eb and Ec. For each
+participant A, B, C the eavesdropper E pose as the two others, sending to A for
+instance g^Eb and g^Ec instead, claiming that they are from B and C
+respectively. By posing like this, E and A establishes the shared secret
+ψ(g, g)^aEbEc, E and B establishes the shared secret ψ(g, g)^bEaEc and E and C
+establishes ψ(g, g)^cEaEb.
+
+Any traffic sent from A to B for instance, is decrypted by E with ψ(g, g)^aEbEc
+and again encrypted (after optionally changing the message) with ψ(g, g)^bEaEc
+before relaying it to B.
+
+This is done similarly between the other parties, decrypted by E and the
+sender's shared and encrypted again with E and the reciever's shared secret.
+E can of course also initiate communications with any of the participants on
+her own.
+
+
+
+3 N = pq, RSA modulus
+
+
+3a
