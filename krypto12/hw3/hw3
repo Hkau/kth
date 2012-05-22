@@ -20,7 +20,7 @@ well. (DH->DL is equal to !DL->!DH).
 DL being false means that the probability that an polynomial-time adversary A
 which yields A(g,y) = log_g(y) with non-negligible probability.
 
-Recall that a function e(n) being negligible means that e(n) < 1/n^c for every
+Recall that a function e(N) being negligible means that e(n) < 1/n^c for every
 constant c > 0 and n>n0 for some n0. Thus if Pr[A(g,y) = log_g(y)] >= 1/n^c for
 some c.
 
@@ -152,4 +152,110 @@ her own.
 3 N = pq, RSA modulus
 
 
-3a
+3a ordn(a) = lcm(ordp(a), ordq(a))
+
+Z*n is naturally (CRT) isomorphic to Z*p x Z*q, and every element in Z*n is
+isomorphic to some element (x, y) in (Z*p x Z*q).
+
+The identity element must be isomorphic to (1, 1). The order of any element
+(x, y) is the smallest n for which
+
+	(x^n mod p, y^n mod q) = (1, 1)
+
+For x^n = 1 mod p, n must be a multiple of ordp(x), for y^n = 1 mod q, n must
+be a multiple of ordq(y), the smallest n which satisfies both constraints is
+per definition lcm(ordp(x), ordq(y)), so ordn((x,y)) = lcm(ordp(x), ordq(y)).
+
+For any a in both Z*p and Z*q, a in Z*n is isomorphic to (a,a), in (Z*p x Z*q).
+If we replace (x,y) and x,y in the above equation, we get:
+
+	ordn(a) = lcm(ordp(a), ordq(a))
+
+which is what we wanted.
+
+3b gcd(p-1, q-1) = d
+
+Remember that ϕ(N) = (p-1)(q-1). This gives:
+
+	ordn(a) = ϕ(N)/d = (p-1)(q-1)/gcd(p-1,q-1) = lcm(p-1,q-1)
+
+Which is equal to
+
+	lcm(ordp(a), ordq(a))
+
+if a is isomorphic to generators of Z*p and Z*q. Let's take the an a which is
+isomorphic to (gp, gq) where <gp> = Z*p and <gq> = Z*q. For this specific a
+the equation holds (as ordn(a) = lcm(ordp(a), ordq(a)) by 3a).
+
+
+3c prove that N-a = ϕ(N)
+
+#	ϕ(N) = (p-1)*(q-1) = lcm(p-1, q-1) * gcd(p-1, q-1) = lcm(p-1,q-1) * 2
+#	( DUNNO IF USED: ordn(α) = ϕ(N)/2 = lcm(p-1,q-1) )
+
+	N - a = ϕ(N) => a = N - ϕ(N) = p*q - (p-1)(q-1) = p*q - (p*q - p - q + 1) =
+		= p + q - 1
+
+So we aim to prove that β = α^N = α^(p + q - 1) mod N
+
+First, we need to confirm that a <= ϕ(N)/2 - 1 for p > 3 and q > 3 (or the
+discrete-logarithm oracle won't even solve a):
+
+	p + q - 1 < ϕ(N)/2 - 1
+	p + q < ϕ(N)/2 = (p-1)(q-1) / 2
+	2p + 2q < (p-1)(q-1) = p*q - p - q + 1
+	0 < p*q - 3p - 3q + 1
+	p*q - 3p - 3q + 1 > 0
+	p*q + 1 > 3(p+q)
+
+	p > 3 and q > 3 gives p,q = 5 as smallest values, 25 - 15 - 15 + 1 > 0 does
+	not hold! p*q grows faster than p+q, so if we find one that holds, the rest
+	will as well. 5*7 + 1 > 3(5+7) => 36 > 36, doesn't hold either, but here we
+	find a breakpoint, so either (7,7) or larger, or (5,9) or larger will both
+	hold.
+
+So, β = α^N mod N. Is a the discrete logarithm of β? Does β = α^a mod N? Want
+to show that α^N*α^-a = 1 mod N:
+
+Remember that a = N - ϕ(N), so N - a = ϕ(n), and:
+
+	α^N*α^-a = α^(N-a) = α^ϕ(N) mod N
+
+From Lagrange's theorem, the order of an element α of a finite group always
+divides that group, so:
+
+	ϕ(α) | ϕ(N), or ϕ(n) = k*ϕ(α) for some integer k.
+
+So:
+
+	α^ϕ(N) = α^(k*ϕ(a)) = (α^ϕ(a))^k = 1^k = 1 mod N
+
+Thus N - a = ϕ(N).
+
+
+3d Factor N
+
+Factoring N will be done by calculating ϕ(N) using the discrete logarithm
+oracle in 3c.
+
+As the oracle will give us a = N - ϕ(N), we can get ϕ(n) by calculating
+ϕ(N) = N - a. (N is public and known).
+
+So given that we have 
+1: N = p*q
+2: ϕ(N) = (p-1)(q-1)
+
+If we replace q in the second equation with q = N/p:
+
+	ϕ(N) = (p-1)(q-1) = p*q - p - q + 1 = N - p - N/p + 1
+	p*ϕ(N) = p*N - p^2 - N + p
+	p^2 + (ϕ(N) - N - 1)p + N = 0
+
+Since N is public, and by using the discrete logarithm oracle in 3c we can
+calculate ϕ(N), all that's left for solving p is to solve a quadratic equation
+which is simple. Finally we get q by q = N/p, and we have found N's factors p
+and q.
+
+
+
+4 
