@@ -190,9 +190,6 @@ the equation holds (as ordn(a) = lcm(ordp(a), ordq(a)) by 3a).
 
 3c prove that N-a = ϕ(N)
 
-#	ϕ(N) = (p-1)*(q-1) = lcm(p-1, q-1) * gcd(p-1, q-1) = lcm(p-1,q-1) * 2
-#	( DUNNO IF USED: ordn(α) = ϕ(N)/2 = lcm(p-1,q-1) )
-
 	N - a = ϕ(N) => a = N - ϕ(N) = p*q - (p-1)(q-1) = p*q - (p*q - p - q + 1) =
 		= p + q - 1
 
@@ -212,7 +209,8 @@ discrete-logarithm oracle won't even solve a):
 	not hold! p*q grows faster than p+q, so if we find one that holds, the rest
 	will as well. 5*7 + 1 > 3(5+7) => 36 > 36, doesn't hold either, but here we
 	find a breakpoint, so either (7,7) or larger, or (5,9) or larger will both
-	hold.
+	hold. For any practical applications of RSA we can assume that p and q are
+	larger than that.
 
 So, β = α^N mod N. Is a the discrete logarithm of β? Does β = α^a mod N? Want
 to show that α^N*α^-a = 1 mod N:
@@ -258,4 +256,69 @@ and q.
 
 
 
-4 
+5 RSA signature scheme
+
+
+5a p,q not required to be safe
+
+== TODO ==
+
+
+5b Prove strong RSA assumption -> standard RSA assumption
+
+The RSA assumption states that if (taken from lecture slides):
+
+	1: N=p*q factors into two randomly chosen primes p and q of the same
+		bit-size,
+	2: e is in Z*ϕ(N)
+	3: m is randomly chosen in Z*N
+
+	then for every polynomial-time algorithm A
+
+		Pr[A(N, e, m^e mod N) = m]
+
+	is negligible.
+
+The strong RSA assumption states that for every polynomial-time algorithm A':
+
+	Pr[A'(N, C) = (m, e) ^ C = m^e mod N]
+
+	is negligible.
+
+To prove that strong RSA implies standard RSA we're going to prove that
+if standard RSA doesn't hold, then strong RSA can't hold either. We're going
+to do this by constructing the new algorithm A' from an polynomial-time
+algorithm A which solves the standard RSA problem with non-negligible
+probability.
+
+Algorithm A'(N, C):
+	if C == 1:
+		return (1, 3)
+
+	e = choose e randomly from e >= 3
+	m = A(N, e, C)
+	return (m, e)
+
+Choosing e randomly means that C corresponds to the m^e mod N of some
+corresponding random (unknown) m instead, (unless C is the identity, for which
+any tuple (1, e) is ok, so A' simply outputs (1, 3)). When A is able to solve
+m = A(N, e, C), A' gives a new tuple (m, e) which satisfies m^e mod N. 
+
+
+5c Correctness of signature scheme
+
+	(g^(H(m)⁻¹ mod ϕ(N)/2) mod N)^H(m) mod N =
+	g^((H(m)⁻¹ mod ϕ(N)/2)*H(m)) mod N
+
+As H maps to n/3 bit numbers, and ϕ(N)/2 is at least n-2 bits, H's output will
+be less than ϕ(N)/2, (for p and q to be safe primes, p,q must be at least 5 and
+will be at least 3 bits each, so n will be 6 bits at least, for which n/3 < n-2
+holds, and in practice N is way larger). As such H(m) = H(m) mod ϕ(N)/2 and:
+
+	g^((H(m)⁻¹ mod ϕ(N)/2)*H(m)) mod N =
+	g^((H(m)⁻¹*H(m) mod ϕ(N)/2)) mod N =
+	g^(1 mod ϕ(N)/2) mod N =
+	g mod N = g
+
+
+5d 
