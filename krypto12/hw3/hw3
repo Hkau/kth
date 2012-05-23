@@ -266,13 +266,13 @@ that (according to the prime-number theorem) π approaches n/ln(n).
 
 π(n) ~ n / ln(n)
 
-The probability that random number x is prime approaches 1/ln(x). When we
-know that x is odd, the probability is twice as high.
+The probability that an random number x is prime approaches 1/ln(x) for
+increasing x. When we know that x is odd, the probability is twice as high.
 
 So the probability that an odd prime p is safe approaches 2/ln((p-1)/2) (which is
 the probability that (p-1)/2 is prime).
 
-For the probability that p and q:
+For the probability that p and q are both safe:
 
 	2/ln((p-1)/2) * 2/ln((q-1)/2) = 4/(ln((p-1)/2) * ln((q-1)/2))
 
