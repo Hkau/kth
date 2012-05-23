@@ -7,8 +7,11 @@ Attempted problems:
 
 	1: 1+1 = 2T
 	2: 1+3+2+1 = 7T
+	3: 1+1+2+1 = 5T
+	5: 1+1+1+1 (a-d) = 4T
+	6: 3T
 
-	sum: --I + --T 
+	sum: 0I + 21T
 
 
 1a: DH hard -> DL hard
@@ -344,11 +347,6 @@ q^k is still a quadratic residue mod n, as x^2k = q^k mod N, and (x^k)^2 =
 q^k mod N, so its primitive root is x^k mod N.
 
 
-5e 
-
-== TODO ==
-
-
 
 6 Lamport's signature scheme
 
@@ -382,10 +380,9 @@ message must however differ in another bit, and as such we can generate a
 fourth message from these three (if they differ in two bits, we have 2^2 = 4
 combinations of these).
 
-So, we can either forge a new message after three distinct unhashed messages,
-or we can expect to recover the key in O(log(k)) if messages are either hashed
-or chosen randomly. A chosen-plaintext attack takes 2 messages to recover the
-entire key.
-
+So, we can either forge some  new message signature after three distinct
+unhashed messages, or we can expect to recover the key in O(log(k)) if messages
+are either hashed or chosen randomly. A chosen-plaintext attack takes 2
+messages to recover the entire key.
 
 
