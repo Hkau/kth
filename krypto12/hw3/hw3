@@ -353,39 +353,42 @@ q^k mod N, so its primitive root is x^k mod N.
 
 6 Lamport's signature scheme
 
-An adversary can sign any combination of 0/1 values of which it has seen the
-secret key of both. For all other bits it has to choose the secret-key part
-corresponding to the only bit of which it has seen the secret key to.
+An adversary can sign bits with values for which values it has seen the
+secret-key part of. When the signer only signs one message, any adversary can
+only sign the exact same bits, the same message that the signer has already
+signed, effectively copying the signature. To sign other messages the adversary
+needs the secret-key parts corresponding to the message's bits.
 
-That is, if the signer signs {1}^k, an adversary can sign only 1-bits, as it
-has not seen the secret-key value of any 0-bits. If the signer reuses her
-secret key to sign {0}^k then we can recieve the secret key and sign all
-values. So a chosen-plaintext attack would be simple. But the signer is however
-not likely to do that at all.
+That is, if the signer signs {1}^k, an adversary recieves all secret-key parts
+corresponding to 1-bits and can only sign 1-bits, it has not seen the
+secret-key value of any 0-bits. If the signer reuses her secret key to sign
+{0}^k then an adversary recieves the parts corresponding to the 0-bits and can
+sign all combinations = all possible messages. So a chosen-plaintext
+attack would be simple. But the signer is however not likely to do that at all.
 
-So long as she signs random or hashed messages, we can expect to recieve half
-of the unknown secret key pairs for each new message signed after the first
-message. (For each bit for which only one part of the key pair is known,
-there's a 50% probability that the next message has that bit flipped.)
+So long as the signer signs random or hashes of possibly longer messages (which
+appear random), we can expect to recieve half of the unknown secret key pairs
+for each new message signed after the first message. (For each bit for which
+only one part of the key pair is known, there's a 50% probability that the next
+message has that bit flipped.)
 
 In this case, we can expect to recieve the whole secret key after O(log(k)) 
 messages with good probability. When we have the whole secret key we can sign
 any message of length k that we want.
 
-If we want to fake ANY message however where the message isn't hashed before
-being signed, we need to recieve at most three distinct messages. The first one
-will give us a set of bits which we know corresponding secret-key parts for. If
-the second one only differs from the first with a single bit, then we know one
-secret-key part more, but all combinations of the bits we know only form these
-two first messages. If not, we can generate a third message which we can forge
-a signature to (just flip one of the changed bits back). The third distinct
+If we want to fake a single message but don't care about which one we fake, we
+need to recieve at most three distinct messages. The first one will give us a
+set of bits which we know corresponding secret-key parts for. If the second one
+only differs from the first with a single bit, then we know one secret-key part
+more, but all combinations of the bits we know only form these two first
+messages. If not, we can generate a third message which we can forge a
+signature to (just flip one of the changed bits back). The third distinct
 message must however differ in another bit, and as such we can generate a
 fourth message from these three (if they differ in two bits, we have 2^2 = 4
-combinations of these).
+possible combinations of these).
 
-So, we can either forge some  new message signature after three distinct
+So, we can either forge some new message signature after three distinct
 unhashed messages, or we can expect to recover the key in O(log(k)) if messages
-are either hashed or chosen randomly. A chosen-plaintext attack takes 2
+are either hashed or chosen randomly. For a chosen-plaintext attack it takes 2
 messages to recover the entire key.
-
 
