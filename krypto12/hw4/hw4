@@ -1,0 +1,53 @@
+Homework IV, Foundations of Cryptography 2012
+
+	Peter Boström, pbos@kth.se, 890224-0814
+
+Attempted problems:
+
+	?: ?+? = ?T
+
+	sum: 0I + 0T
+
+
+1: Collision resistance of Strong-RSA-based hash function
+
+Finding a collision for the hash function means finding two separate x, x2 for
+which g^x = g^x2 mod N. This means we can calculate dx = (x-x2) as a multiple
+of ord(g), dx = k*ord(g).
+
+For a strong RSA modulus, p and q are both safe primes, which means that
+
+	p = 2k + 1
+	q = 2l + 1
+
+so ord(N) is
+
+	(p-1)(q-1) = (2k+1-1)(2l+1-1) = 4kl.
+
+ord(g) is a multiple of N, so 2, k or l must divide ord(g).
+
+ == CONTINUE HERE, is k or l likely to be the order of g? Are they uncommon?
+
+
+5: f1 and f2
+
+	f2's seed is understood to be a 80-bit value, as SHA-1 takes 160-bit
+	input, and concatenating a 160-bit string with an 80-bit one gives a
+	larger input string. The problem is not understood as related to
+	SHA-1 specifics, but rather as an application of hash functions in
+	general.
+
+For a hash function, flipping one bit should be sufficient to generate a new
+random-looking string, so the output of SHA-1 in f2 shouldn't be less random-
+looking than SHA-1 in f1. Compare to using counter mode for block ciphers.
+
+For both functions half the seed state is leaked. f1 leaks r1, r2 continuously
+and for f2 the seed counter is known (first = 0, second = 1.. etc). (An
+improved version of f2 would have the counter start at H(seed) instead of 1) A
+birthday attack to try to recover a state seed would have to be done on the
+other 80 bits in the seed, for both current cases.
+
+As f2 runs fewer iterations of SHA-1 to produce the same number of bits, I'd
+prefer that one.
+
+ == GO
