@@ -28,6 +28,114 @@ ord(g) is a multiple of N, so 2, k or l must divide ord(g).
 
  == CONTINUE HERE, is k or l likely to be the order of g? Are they uncommon?
 
+3: Fields with polynomial basis
+
+3a: Z_2[x]
+
+x is irreducible
+
+If any of the other polynomials are reducible, all factors must contain + 1.
+
+Polynomials ending with + 1:
+
+order 1:
+x+1 irreducible
+
+order 2:
+(x+1)^2 = x^2 + 2x + 1 -> x^2+1 reducible
+x^2+x+1 irreducible
+
+order 3:
+(x+1)*(x^2+1) = x^3+x^2+x+1 reducible
+(x+1)*(x^2+x+1) = x^3+2x^2+2x+1 = x^3+1 reducible
+x^3+x^2+1 irreducible
+x^3+x+1 irreducible
+
+As we can see x^3+1 is reducible: x^3 + 1 = (x+1)(x^2+x+1)
+
+For x^5+x^2+x+1 to be reducible, it must have an irreducible factor of order 1
+or 2, trial division gives:
+
+x^5+x^2+x+1 = (x+1)(x^4-x^3+x^2+1) = (x+1)(x^4+x^3+x^2+1)
+Testing factors: (x+1)(x^4+x^3+x^2+1) = x^5+2x^4+2x^3+x^2+x+1 = x^5+x^2+x+1 OK
+
+For x^7+x^6+1 to be reducible, it must have irreducible factors of order 1, 2
+or 3:
+
+Not divisible by x+1, x^2+x+1, x^3+x^2+1 or x^3+x+1, which are all irreducible
+polynomials ending with +1.
+
+Therefore x^7+x^6+1 is irreducible.
+
+Answer (3a):
+	x and x^7+x^6+1 are irreducible.
+
+
+3b: Z_2[x]/f(x)
+
+(x^5 + x + 1)(x^3 + x^2 + 1) = x^8 + x^7 + x^5 + x^4 + 2x^3 + x^2 + x + 1 =
+	= x^8 + x^7 + x^5 + x^4 + x^2 + 1 in Z_2[x]
+
+x^8 + x^7 + x^5 + x^4 + x^2 + 1 mod x^6 + x + 1:
+
+x^8 + x^7 + x^5 + x^4 + x^2 + 1 =
+	(x^2+x)*(x^6+x+1) + x^5 + x^4 - x^3 - x^2 - x + 1
+
+So the remainder: x^5 + x^4 - x^3 - x^2 - x + 1 = 
+	x^5 + x^4 + x^3 + x^2 + x + 1 in Z_2[x]
+
+
+(x+1)^-1*(x+1) = 1 mod (x^6+x+1)
+trying to find (x+1)^-1*(x+1) = (x^6+x+1) + 1 = (x^6+x)
+candidate for (x+1)^-1 = x^5+x
+testing: (x^5+x)*(x+1) = x^6+x
+x^6+x mod (x^6+x+1) = -1 = 1 in Z_2[x] (OK)
+
+Answer (3b):
+	(x^5 + x + 1)(x^3 + x^2 + 1) = x^5+x^4+x^3+x^2+x+1
+	(x+1)^-1 = x^5+x
+
+
+4: Pseudo-randomness in practice
+
+Stream cipher/block ciphers as PRNGs:
+
+Most stream ciphers work by generating a stream of pseudorandom bits that are
+combined (XORed) with the plaintext, and then never reused. An IV is fed as the
+seed to the stream cipher and kept secret. To use the pseudorandom generator as
+a PRNG, just use the bytes that the cipher outputs. The pseudorandom generator
+is only secure if the stream cipher was originally secured. A block cipher can
+be turned into a stream cipher by feeding a nonce combined (xor or add etc.)
+with the counter (0, 1, 2..) for each block of pseudorandom bits generated with
+a key. The nonce and key must of course be kept secret.
+
+[http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Counter_.28CTR.29]
+[http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator
+	#Designs_based_on_cryptographic_primitives]
+
+/dev/random in Linux:
+
+Kernel-space randomness was introduced to Linux in the mid 1990's. The design
+gathers a pool of entropy from disk usage, keyboard timings, mouse interrupts
+etc. Timing between these interrupts add to the estimate of entropy in the
+pool. Data from such activity is fed into a cryptographic hash function to
+generate data for /dev/random. Programs reading random data from /dev/random
+decreases the amount of entropy, or random bits, available to be read from the
+pool. If /dev/random runs out of bits the device will block until more
+environmental noise is gathered, so applications requiring random bits will
+block until sufficient noise is gathered, making its use appropriate for
+cryptographic purposes. A non-blocking variant of /dev/random, /dev/urandom
+takes a smaller amount of data from /dev/random and generates a larger entropy
+pool from this seed, diluting the random bits output.
+
+[http://www.linuxfromscratch.org/hints/downloads/files/entropy.txt]
+[http://en.wikipedia.org/wiki//dev/random#Linux]
+
+
+Fortuna:
+
+
+
 
 5: f1 and f2
 
