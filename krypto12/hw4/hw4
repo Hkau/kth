@@ -4,29 +4,48 @@ Homework IV, Foundations of Cryptography 2012
 
 Attempted problems:
 
-	?: ?+? = ?T
+	1: 4T
+	2: ?
+	3: 2+2 = 4T
+	4: 4T
+	5: 3T
 
 	sum: 0I + 0T
 
 
 1: Collision resistance of Strong-RSA-based hash function
 
+Finding a multiple of the order of g when chosen randomly in Z*n is assumed to
+be hard. More formally, the assumption means that for any polynomial-time
+adversary A with g chosen randomly in Z*n and n=p*q where p and q are two safe
+primes of approximately the same size
+
+	Pr[A(g, n) = k*ord(g)] is negligible.
+
 Finding a collision for the hash function means finding two separate x, x2 for
 which g^x = g^x2 mod N. This means we can calculate dx = (x-x2) as a multiple
 of ord(g), dx = k*ord(g).
 
-For a strong RSA modulus, p and q are both safe primes, which means that
+To construct an adversary A' for finding multiples of ord(g):
 
-	p = 2k + 1
-	q = 2l + 1
+A'(g, n):
+	(x, x2) = A(g, n)
+	return |x-x2|
 
-so ord(N) is
+Whenever A succeeds to generate a collision, A' will generate a multiple of
+ord(g). Therefore finding collisions in our keyed hash function must be at
+least as hard as finding a multiple of g's order in Z*n.
 
-	(p-1)(q-1) = (2k+1-1)(2l+1-1) = 4kl.
+Our initial assumption states that the probability of A' succeeding is
+negligible, therefore, the probability of any A succeeding must be negligible
+as well. Therefore the keyed hash function is collision resistant under this
+assumption.
 
-ord(g) is a multiple of N, so 2, k or l must divide ord(g).
 
- == CONTINUE HERE, is k or l likely to be the order of g? Are they uncommon?
+2:
+
+Prove that a collision gives a discrete-logarithm thingy.
+
 
 3: Fields with polynomial basis
 
@@ -98,7 +117,7 @@ Answer (3b):
 
 4: Pseudo-randomness in practice
 
-Stream cipher/block ciphers as PRNGs:
+PRNGs based on cryptographic primitives (stream/block ciphers)
 
 Most stream ciphers work by generating a stream of pseudorandom bits that are
 combined (XORed) with the plaintext, and then never reused. An IV is fed as the
@@ -132,30 +151,57 @@ pool from this seed, diluting the random bits output.
 [http://en.wikipedia.org/wiki//dev/random#Linux]
 
 
-Fortuna:
+Yarrow:
+
+Yarrow is a pseudorandom number generator by John Kelsey, Bruce Schneier and
+Niels Ferguson. It's in use in both FreeBSD and Mac OS X as their /dev/random
+mechanism. It gathers and estimates entropy from unpredictable inputs which it
+puts in pools. Periodically the key used is reseeded with new entropy from the
+pools. Accumulation is done in two pools, a 'fast' pool and a 'slow' pool, the
+fast pool assures that any key compromise will not affect the PRNG for very
+long and the slow pool assures that the key gets reseeded eventually, even if
+entropy estimates are way off. The reseeding mechanism connects entropy
+accumulation to the generating mechanism. If either the pools are unknown or
+the current key is known to the attacker, the key will be unknown to the
+attacker after the reseed is done. For actual pseudorandom generation, Yarrow
+uses a block cipher in counter mode. Yarrow-160 uses 3DES as the block cipher.
+The mechanism keeps track of how many blocks are output. When the system's
+limit is reached, it generates k bits (keylength k) and use it as a new key.
+This prevents backtracking attacks on the cipher. The reseeding mechanism
+hashes all inputs to a pool to generate new key bits. In Yarrow-160, this is
+done with SHA1.
+
+[http://www.schneier.com/paper-yarrow.html]
 
 
+Hardware random number generators:
+
+There are also hardware-based random number generators. Some are based on
+quantum phenomena with fundamentally random properties, such as nuclear decay
+detected by a geiger counter. It can also be based on detecting thermal noise
+from a resistor and other atmospheric noise. These hardware-based random number
+generators can also offload CPU usage for high-performance cryptographic
+applications. As such, there exists hardware SSL accelerators most commonly
+used in SSL webservers.
+
+[http://en.wikipedia.org/wiki/HRNG]
+[http://en.wikipedia.org/wiki/SSL_acceleration]
 
 
 5: f1 and f2
-
-	f2's seed is understood to be a 80-bit value, as SHA-1 takes 160-bit
-	input, and concatenating a 160-bit string with an 80-bit one gives a
-	larger input string. The problem is not understood as related to
-	SHA-1 specifics, but rather as an application of hash functions in
-	general.
 
 For a hash function, flipping one bit should be sufficient to generate a new
 random-looking string, so the output of SHA-1 in f2 shouldn't be less random-
 looking than SHA-1 in f1. Compare to using counter mode for block ciphers.
 
-For both functions half the seed state is leaked. f1 leaks r1, r2 continuously
-and for f2 the seed counter is known (first = 0, second = 1.. etc). (An
-improved version of f2 would have the counter start at H(seed) instead of 1) A
-birthday attack to try to recover a state seed would have to be done on the
-other 80 bits in the seed, for both current cases.
+For both functions 80 bits from the seed state is leaked. f1 leaks r1, r2
+continuously and for f2 the seed counter is implied (first = 1, second = 2..
+etc). (An improved version of f2 would have the counter start at H(seed)
+instead of 1) 
+A birthday attack to try to recover a state seed would have to be
+done on the other 80 bits in the seed, for both current cases.
 
 As f2 runs fewer iterations of SHA-1 to produce the same number of bits, I'd
 prefer that one.
 
- == GO
+
