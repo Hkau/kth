@@ -5,12 +5,11 @@ Homework IV, Foundations of Cryptography 2012
 Attempted problems:
 
 	1: 4T
-	2: ?
 	3: 2+2 = 4T
 	4: 4T
 	5: 3T
 
-	sum: 0I + 0T
+	sum: 15T
 
 
 1: Collision resistance of Strong-RSA-based hash function
@@ -40,11 +39,6 @@ Our initial assumption states that the probability of A' succeeding is
 negligible, therefore, the probability of any A succeeding must be negligible
 as well. Therefore the keyed hash function is collision resistant under this
 assumption.
-
-
-2:
-
-Prove that a collision gives a discrete-logarithm thingy.
 
 
 3: Fields with polynomial basis
